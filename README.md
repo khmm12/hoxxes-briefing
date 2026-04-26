@@ -58,6 +58,15 @@ Regenerate the committed WASM package after Rust generator changes:
 - [Deployment](docs/deployment.md) - Vercel deployment runbook
 - [Web App](apps/web/README.md) - web app ownership and local notes
 
+## Credits
+
+This project would not be here without the mission generation work started in
+[trumank/drg-mission-gen](https://github.com/trumank/drg-mission-gen) and carried
+forward through the [vioxynteris fork](https://github.com/vioxynteris/deepdives)
+that Hoxxes Briefing currently depends on.
+
+Rock and Stone to every miner who left a flare in the dark.
+
 ## License
 
 MIT. See `LICENSE`.
