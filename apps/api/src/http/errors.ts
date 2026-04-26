@@ -1,0 +1,49 @@
+import { type ApiV1ErrorResponse, parseApiV1ErrorResponse } from '@hoxxes-briefing/contracts/api/v1'
+import { DeepDivesProviderError } from '../ports/deepDivesProvider.ts'
+
+type PublicErrorCode = ApiV1ErrorResponse['code']
+type PublicErrorStatus = 429 | 500 | 502 | 503
+
+const ERROR_STATUS_BY_CODE: Record<PublicErrorCode, PublicErrorStatus> = {
+  UPSTREAM_UNAVAILABLE: 502,
+  WEEKLY_DATA_UNAVAILABLE: 503,
+  INVALID_RESPONSE_PAYLOAD: 500,
+  RATE_LIMITED: 429,
+  INTERNAL_ERROR: 500,
+}
+
+const ERROR_MESSAGE_BY_CODE: Record<PublicErrorCode, string> = {
+  UPSTREAM_UNAVAILABLE: 'Upstream deep dive data is currently unavailable.',
+  WEEKLY_DATA_UNAVAILABLE: 'Weekly mission data is currently unavailable.',
+  INVALID_RESPONSE_PAYLOAD: 'The weekly response payload is invalid.',
+  RATE_LIMITED: 'Rate limit exceeded.',
+  INTERNAL_ERROR: 'Internal server error.',
+}
+
+export class InvalidResponsePayloadError extends Error {
+  override readonly name = 'InvalidResponsePayloadError'
+}
+
+export type PublicErrorResponse = {
+  status: PublicErrorStatus
+  body: ApiV1ErrorResponse
+}
+
+export const toPublicErrorResponse = (error: unknown, requestId?: string): PublicErrorResponse => {
+  let code: PublicErrorCode = 'INTERNAL_ERROR'
+
+  if (error instanceof DeepDivesProviderError) {
+    code = error.kind
+  } else if (error instanceof InvalidResponsePayloadError) {
+    code = 'INVALID_RESPONSE_PAYLOAD'
+  }
+
+  return {
+    status: ERROR_STATUS_BY_CODE[code],
+    body: parseApiV1ErrorResponse({
+      code,
+      message: ERROR_MESSAGE_BY_CODE[code],
+      ...(requestId === undefined ? {} : { requestId }),
+    }),
+  }
+}

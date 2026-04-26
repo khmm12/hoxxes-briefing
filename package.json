@@ -1,0 +1,21 @@
+{
+	"name": "hoxxes-briefing-workspace",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev:web": "pnpm --filter @hoxxes-briefing/web dev",
+		"dev:api": "pnpm --filter @hoxxes-briefing/api dev",
+		"build": "pnpm -r --if-present run build",
+		"test": "pnpm -r --if-present run test && cargo test --workspace",
+		"check": "biome check && pnpm -r --if-present run typecheck && pnpm test && pnpm build"
+	},
+	"engines": {
+		"node": ">=24"
+	},
+	"packageManager": "pnpm@10.33.2+sha512.a90faf6feeab71ad6c6e57f94e0fe1a12f5dcc22cd754db40ae9593eb6a3e0b6b12e3540218bb37ae083404b1f2ce6db2a4121e979829b4aff94b99f49da1cf8",
+	"devDependencies": {
+		"@biomejs/biome": "2.4.13",
+		"@tsconfig/node24": "24.0.4",
+		"@tsconfig/recommended": "1.0.13"
+	}
+}

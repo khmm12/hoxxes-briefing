@@ -1,0 +1,6 @@
+{
+	"extends": ["./base.json", "@tsconfig/node24/tsconfig.json"],
+	"compilerOptions": {
+		"types": ["node"]
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"name": "@hoxxes-briefing/contracts",
+	"private": true,
+	"type": "module",
+	"sideEffects": false,
+	"scripts": {
+		"build": "tsc -p tsconfig.build.json",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"test": "node --conditions=development --test --experimental-strip-types test/api-v1.test.mjs"
+	},
+	"dependencies": {
+		"valibot": "^1.3.1"
+	},
+	"devDependencies": {
+		"typescript": "6.0.3"
+	},
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"development": "./src/index.ts",
+			"default": "./dist/index.js"
+		},
+		"./api/v1": {
+			"types": "./src/api/v1.ts",
+			"development": "./src/api/v1.ts",
+			"default": "./dist/api/v1.js"
+		}
+	},
+	"types": "./src/index.ts"
+}

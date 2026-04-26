@@ -1,0 +1,37 @@
+dist
+.wrangler
+.output
+app.config.timestamp_*.js
+coverage
+pnpm-debug.log*
+
+# Environment
+.env
+.env*.local
+
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+*.launch
+.settings/
+.vscode
+
+# Temp
+.tmp-*/
+gitignore
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Rust
+/target
+
+## Panda
+styled-system
+styled-system-studio
+.vercel

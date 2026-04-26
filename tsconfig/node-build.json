@@ -1,0 +1,9 @@
+{
+	"extends": "./node-base.json",
+	"compilerOptions": {
+		"noEmit": false,
+		"rewriteRelativeImportExtensions": true,
+		"declaration": true,
+		"declarationMap": true
+	}
+}

@@ -1,0 +1,12 @@
+packages:
+  - "api"
+  - "apps/*"
+  - "packages/*"
+  - "crates/drg_mission_gen_wasm/pkg"
+
+ignoredBuiltDependencies:
+  - esbuild
+
+onlyBuiltDependencies:
+  - "@parcel/watcher"
+  - sharp

@@ -1,0 +1,17 @@
+{
+  "name": "@hoxxes-briefing/wasm",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "drg_mission_gen_wasm_bg.wasm",
+    "drg_mission_gen_wasm.js",
+    "drg_mission_gen_wasm_bg.js",
+    "drg_mission_gen_wasm.d.ts"
+  ],
+  "main": "drg_mission_gen_wasm.js",
+  "types": "drg_mission_gen_wasm.d.ts",
+  "sideEffects": [
+    "./drg_mission_gen_wasm.js",
+    "./snippets/*"
+  ]
+}

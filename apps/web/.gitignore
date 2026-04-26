@@ -1,0 +1,9 @@
+.output
+.nitro
+.solid-start
+.vinxi
+coverage
+node_modules
+styled-system
+src/shared/i18n/locales/*/messages.mjs
+pnpm-debug.log*

@@ -1,0 +1,36 @@
+import type { I18n } from '@lingui/core'
+import { MetaProvider } from '@solidjs/meta'
+import { Route, Router } from '@solidjs/router'
+import { type JSX, Loading, lazy, Show } from 'solid-js'
+import { I18nProvider } from '~/app/providers'
+import { createPwaNoticeState, PwaNotice } from '~/app/pwa'
+import { WeeklyPage } from '~/pages/weekly'
+import { createOnlineStatus } from '~/shared/lib/create-online-status'
+import './styles.css'
+
+const NotFoundPage = lazy(() => import('~/pages/not-found').then((module) => ({ default: module.NotFoundPage })))
+
+type AppProps = {
+  i18n: I18n
+}
+
+export function App(props: AppProps): JSX.Element {
+  const online = createOnlineStatus()
+  const pwaNotice = createPwaNoticeState()
+  const pwaDockVisible = (): boolean => online() && pwaNotice.notice() != null
+
+  return (
+    <I18nProvider i18n={props.i18n}>
+      <MetaProvider>
+        <Router root={(props) => <Loading>{props.children}</Loading>}>
+          <Route path="/" component={() => <WeeklyPage dockVisible={pwaDockVisible()} />} />
+          <Route path="*404" component={() => <NotFoundPage dockVisible={pwaDockVisible()} />} />
+        </Router>
+
+        <Show when={pwaDockVisible()}>
+          <PwaNotice onReload={pwaNotice.reloadForUpdate} />
+        </Show>
+      </MetaProvider>
+    </I18nProvider>
+  )
+}

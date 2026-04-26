@@ -1,0 +1,9 @@
+{
+	"extends": "../../tsconfig/node-base.json",
+	"compilerOptions": {
+		"noEmit": true,
+		"composite": true,
+		"tsBuildInfoFile": "../../node_modules/.tmp/apps-web.tsconfig.node.tsbuildinfo"
+	},
+	"include": ["vite.config.ts"]
+}

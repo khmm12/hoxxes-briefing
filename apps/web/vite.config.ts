@@ -1,0 +1,53 @@
+import { fileURLToPath } from 'node:url'
+import { lingui as linguiPlugin } from '@lingui/vite-plugin'
+import { VitePWA } from 'vite-plugin-pwa'
+import solidPlugin from 'vite-plugin-solid'
+import { defineConfig, type ViteUserConfig } from 'vitest/config'
+
+export const localApiDevOrigin = 'http://localhost:3001'
+
+export function createWebViteConfig(): ViteUserConfig {
+  return {
+    plugins: [
+      solidPlugin({
+        babel: {
+          plugins: ['@lingui/babel-plugin-lingui-macro'],
+        },
+      }),
+      linguiPlugin(),
+      VitePWA({
+        registerType: 'prompt',
+        manifest: false,
+        injectManifest: {
+          globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        },
+        strategies: 'injectManifest',
+        srcDir: 'src/app',
+        filename: 'sw.ts',
+        devOptions: {
+          enabled: true,
+          type: 'module',
+        },
+      }),
+    ],
+    resolve: {
+      alias: {
+        '~': fileURLToPath(new URL('./src', import.meta.url)),
+        'styled-system': fileURLToPath(new URL('./styled-system', import.meta.url)),
+      },
+    },
+    server: {
+      proxy: {
+        '/api': {
+          target: localApiDevOrigin,
+        },
+      },
+    },
+    test: {
+      environment: 'node',
+      include: ['*.test.ts', 'src/**/*.test.ts'],
+    },
+  }
+}
+
+export default defineConfig(createWebViteConfig())

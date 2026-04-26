@@ -1,0 +1,8 @@
+{
+	"name": "@hoxxes-briefing/vercel-function",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@hoxxes-briefing/api": "workspace:*"
+	}
+}

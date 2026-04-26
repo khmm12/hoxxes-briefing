@@ -1,0 +1,11 @@
+[workspace]
+members = [
+  "crates/drg_mission_gen_facade",
+  "crates/drg_mission_gen_wasm",
+]
+resolver = "3"
+
+[profile.release]
+codegen-units = 1
+lto = true
+panic = "abort"

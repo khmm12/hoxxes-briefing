@@ -1,0 +1,48 @@
+{
+	"name": "@hoxxes-briefing/web",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "panda codegen --clean && vite dev --host 127.0.0.1 --port 5173",
+		"build": "panda codegen --clean && vite build",
+		"test": "vitest run",
+		"typecheck": "panda codegen --clean && tsc -b tsconfig.json",
+		"prepare": "panda codegen --clean"
+	},
+	"sideEffects": [
+		"*.css"
+	],
+	"engines": {
+		"node": ">=24"
+	},
+	"dependencies": {
+		"@hoxxes-briefing/contracts": "workspace:*",
+		"@lingui/core": "^6.0.0",
+		"@solidjs/meta": "0.30.0-next.0",
+		"@solidjs/router": "0.17.0-next.2",
+		"@solidjs/web": "2.0.0-beta.7",
+		"date-fns": "^3.6.0",
+		"solid-js": "2.0.0-beta.7",
+		"valibot": "^1.3.1"
+	},
+	"devDependencies": {
+		"@lingui/babel-plugin-lingui-macro": "^6.0.0",
+		"@lingui/cli": "^6.0.0",
+		"@lingui/vite-plugin": "^6.0.0",
+		"@pandacss/dev": "^1.10.0",
+		"@total-typescript/ts-reset": "^0.6.1",
+		"@types/node": "25.6.0",
+		"@vite-pwa/assets-generator": "^1.0.2",
+		"typescript": "6.0.3",
+		"vite": "^8.0.10",
+		"vite-plugin-pwa": "^1.2.0",
+		"vite-plugin-solid": "3.0.0-next.5",
+		"vitest": "^4.1.5",
+		"workbox-cacheable-response": "^7.4.0",
+		"workbox-expiration": "^7.4.0",
+		"workbox-precaching": "^7.4.0",
+		"workbox-routing": "^7.4.0",
+		"workbox-strategies": "^7.4.0",
+		"workbox-window": "^7.4.0"
+	}
+}

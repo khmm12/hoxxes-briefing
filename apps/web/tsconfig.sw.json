@@ -1,0 +1,9 @@
+{
+	"extends": "./tsconfig.app.json",
+	"compilerOptions": {
+		"lib": ["ESNext", "WebWorker"],
+		"tsBuildInfoFile": "../../node_modules/.tmp/apps-web.tsconfig.sw.tsbuildinfo"
+	},
+	"include": ["src/app/sw.ts", "src/shared/api/weekly/weekly-client-cache.ts"],
+	"exclude": []
+}

@@ -1,0 +1,8 @@
+[package]
+name = "drg_mission_gen_facade"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+drg_mission_gen_core = { git = "https://github.com/vioxynteris/drg-mission-gen.git" }
+thiserror = "2.0.12"
