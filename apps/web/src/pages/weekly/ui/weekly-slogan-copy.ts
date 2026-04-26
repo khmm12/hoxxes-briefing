@@ -6,12 +6,20 @@ const weeklySloganPool: WeeklySloganPool<MessageDescriptor> = {
   defaultSafe: [
     msg`Rock and Stone!`,
     msg`For Karl!`,
+    msg`Karl Would Be Proud!`,
+    msg`Rock and Stone, Brother!`,
+    msg`Locked and loaded!`,
+    msg`Brotherhood. Danger. Profit.`,
     msg`Danger. Darkness. Dwarves.`,
     msg`Leave no dwarf behind.`,
-    msg`If you Rock and Stone, you're never alone.`,
   ],
-  secondary: [msg`Brotherhood. Danger. Profit.`, msg`Locked and loaded!`, msg`Stand together. Hold the line.`],
-  rare: [],
+  secondary: [msg`If you Rock and Stone, you're never alone.`],
+  rare: [
+    msg`Darkness, here I come!`,
+    msg`I eat rock for breakfast!`,
+    msg`Let's play this smart for once, huh?`,
+    msg`Just show me where to shoot!`,
+  ],
 }
 
 export function getWeeklySlogan(i18n: I18n, weekId: string): string {

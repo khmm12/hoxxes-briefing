@@ -78,7 +78,7 @@ msgstr "Board unavailable"
 msgid "Bring armor-cracking focus. Machines do not care about swagger."
 msgstr "Bring armor-cracking focus. Machines do not care about swagger."
 
-#: src/pages/weekly/ui/weekly-slogan-copy.ts:13
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:12
 msgid "Brotherhood. Danger. Profit."
 msgstr "Brotherhood. Danger. Profit."
 
@@ -152,9 +152,13 @@ msgstr "Current board loaded."
 msgid "Current board still shown. Refresh failed."
 msgstr "Current board still shown. Refresh failed."
 
-#: src/pages/weekly/ui/weekly-slogan-copy.ts:9
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:13
 msgid "Danger. Darkness. Dwarves."
 msgstr "Danger. Darkness. Dwarves."
+
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:18
+msgid "Darkness, here I come!"
+msgstr "Darkness, here I come!"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:11
 msgid "Deep Dive"
@@ -261,13 +265,25 @@ msgstr "Hoxxes Briefing | Orbital Briefing"
 msgid "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing in one phone-friendly board."
 msgstr "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing in one phone-friendly board."
 
-#: src/pages/weekly/ui/weekly-slogan-copy.ts:11
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:19
+msgid "I eat rock for breakfast!"
+msgstr "I eat rock for breakfast!"
+
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:16
 msgid "If you Rock and Stone, you're never alone."
 msgstr "If you Rock and Stone, you're never alone."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:50
 msgid "Industrial Sabotage"
 msgstr "Industrial Sabotage"
+
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:21
+msgid "Just show me where to shoot!"
+msgstr "Just show me where to shoot!"
+
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:9
+msgid "Karl Would Be Proud!"
+msgstr "Karl Would Be Proud!"
 
 #: src/pages/weekly/ui/weekly-route-intel-copy.ts:24
 msgid "Keep holds loose and exits clear. Tight teams make loud mistakes."
@@ -297,9 +313,13 @@ msgstr "Last known board still shown. Refresh failed."
 msgid "Leave brawling room. Cramped teams run out of options fast."
 msgstr "Leave brawling room. Cramped teams run out of options fast."
 
-#: src/pages/weekly/ui/weekly-slogan-copy.ts:10
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:14
 msgid "Leave no dwarf behind."
 msgstr "Leave no dwarf behind."
+
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:20
+msgid "Let's play this smart for once, huh?"
+msgstr "Let's play this smart for once, huh?"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:135
 msgid "Lethal Enemies"
@@ -313,7 +333,7 @@ msgstr "Loading weekly board"
 msgid "Local time"
 msgstr "Local time"
 
-#: src/pages/weekly/ui/weekly-slogan-copy.ts:13
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:11
 msgid "Locked and loaded!"
 msgstr "Locked and loaded!"
 
@@ -494,6 +514,10 @@ msgstr "Rich Atmosphere"
 msgid "Rival Presence"
 msgstr "Rival Presence"
 
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:10
+msgid "Rock and Stone, Brother!"
+msgstr "Rock and Stone, Brother!"
+
 #: src/pages/weekly/ui/WeeklyBoardFooter.tsx:38
 msgid "Rock and Stone, Miner! Made with love by"
 msgstr "Rock and Stone, Miner! Made with love by"
@@ -554,10 +578,6 @@ msgstr "Show less"
 #: src/pages/weekly/ui/StageBlock.tsx:217
 msgid "Stage"
 msgstr "Stage"
-
-#: src/pages/weekly/ui/weekly-slogan-copy.ts:13
-msgid "Stand together. Hold the line."
-msgstr "Stand together. Hold the line."
 
 #: src/pages/weekly/ui/WeeklyTimingStrip.tsx:106
 msgid "Started"
