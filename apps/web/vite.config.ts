@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url'
-import { lingui as linguiPlugin } from '@lingui/vite-plugin'
+import { lingui as linguiPlugin, linguiTransformerBabelPreset } from '@lingui/vite-plugin'
+import babelPlugin from '@rolldown/plugin-babel'
 import { VitePWA } from 'vite-plugin-pwa'
 import solidPlugin from 'vite-plugin-solid'
 import { defineConfig, type ViteUserConfig } from 'vitest/config'
@@ -9,12 +10,11 @@ export const localApiDevOrigin = 'http://localhost:3001'
 export function createWebViteConfig(): ViteUserConfig {
   return {
     plugins: [
-      solidPlugin({
-        babel: {
-          plugins: ['@lingui/babel-plugin-lingui-macro'],
-        },
-      }),
+      solidPlugin(),
       linguiPlugin(),
+      babelPlugin({
+        presets: [linguiTransformerBabelPreset()],
+      }),
       VitePWA({
         registerType: 'prompt',
         manifest: false,

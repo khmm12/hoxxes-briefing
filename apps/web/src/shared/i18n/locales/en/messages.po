@@ -367,7 +367,7 @@ msgstr "Move like rent is due. Mine fast, regroup faster."
 msgid "Mule x{0}"
 msgstr "Mule x{0}"
 
-#: src/pages/weekly/ui/StageBlock.tsx:254
+#: src/pages/weekly/ui/StageBlock.tsx:249
 msgid "Mutator"
 msgstr "Mutator"
 
@@ -379,7 +379,7 @@ msgstr "New version ready"
 msgid "No saved board"
 msgstr "No saved board"
 
-#: src/pages/weekly/ui/StageBlock.tsx:261
+#: src/pages/weekly/ui/StageBlock.tsx:256
 msgid "No warning or mutator on this stage."
 msgstr "No warning or mutator on this stage."
 
@@ -436,7 +436,7 @@ msgstr "Play close and clean. No shields means no lazy mistakes."
 msgid "Prep the hold first. Clear lanes before you lock in."
 msgstr "Prep the hold first. Clear lanes before you lock in."
 
-#: src/pages/weekly/ui/StageBlock.tsx:229
+#: src/pages/weekly/ui/StageBlock.tsx:224
 msgid "Primary objective"
 msgstr "Primary objective"
 
@@ -539,7 +539,7 @@ msgstr "Saved board still shown. Refresh failed."
 msgid "Scrab Nesting Grounds"
 msgstr "Scrab Nesting Grounds"
 
-#: src/pages/weekly/ui/StageBlock.tsx:236
+#: src/pages/weekly/ui/StageBlock.tsx:231
 msgid "Secondary objective"
 msgstr "Secondary objective"
 
@@ -551,7 +551,7 @@ msgstr "Shield Disruption"
 msgid "Show less"
 msgstr "Show less"
 
-#: src/pages/weekly/ui/StageBlock.tsx:222
+#: src/pages/weekly/ui/StageBlock.tsx:217
 msgid "Stage"
 msgstr "Stage"
 
@@ -615,7 +615,7 @@ msgstr "Use the speed. Finish spread jobs before swarms stack."
 msgid "Volatile Guts"
 msgstr "Volatile Guts"
 
-#: src/pages/weekly/ui/StageBlock.tsx:245
+#: src/pages/weekly/ui/StageBlock.tsx:240
 msgid "Warning"
 msgstr "Warning"
 

@@ -81,10 +81,13 @@ importers:
         version: 6.0.0
       '@lingui/vite-plugin':
         specifier: ^6.0.0
-        version: 6.0.0(@babel/core@7.29.0)(@lingui/babel-plugin-lingui-macro@6.0.0)(rolldown@1.0.0-rc.17)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))
+        version: 6.0.0(@babel/core@7.29.0)(@lingui/babel-plugin-lingui-macro@6.0.0)(@rolldown/plugin-babel@0.2.3(@babel/core@7.29.0)(@babel/runtime@7.29.2)(rolldown@1.0.0-rc.17)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0)))(rolldown@1.0.0-rc.17)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))
       '@pandacss/dev':
         specifier: ^1.10.0
         version: 1.10.0(typescript@6.0.3)
+      '@rolldown/plugin-babel':
+        specifier: ^0.2.3
+        version: 0.2.3(@babel/core@7.29.0)(@babel/runtime@7.29.2)(rolldown@1.0.0-rc.17)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))
       '@total-typescript/ts-reset':
         specifier: ^0.6.1
         version: 0.6.1
@@ -1464,6 +1467,23 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     cpu: [x64]
     os: [win32]
+
+  '@rolldown/plugin-babel@0.2.3':
+    resolution: {integrity: sha512-+zEk16yGlz1F9STiRr6uG9hmIXb6nprjLczV/htGptYuLoCuxb+itZ03RKCEeOhBpDDd1NU7qF6x1VLMUp62bw==}
+    engines: {node: '>=22.12.0 || ^24.0.0'}
+    peerDependencies:
+      '@babel/core': ^7.29.0 || ^8.0.0-rc.1
+      '@babel/plugin-transform-runtime': ^7.29.0 || ^8.0.0-rc.1
+      '@babel/runtime': ^7.27.0 || ^8.0.0-rc.1
+      rolldown: ^1.0.0-rc.5
+      vite: ^8.0.0
+    peerDependenciesMeta:
+      '@babel/plugin-transform-runtime':
+        optional: true
+      '@babel/runtime':
+        optional: true
+      vite:
+        optional: true
 
   '@rolldown/pluginutils@1.0.0-rc.17':
     resolution: {integrity: sha512-n8iosDOt6Ig1UhJ2AYqoIhHWh/isz0xpicHTzpKBeotdVsTEcxsSA/i3EVM7gQAj0rU27OLAxCjzlj15IWY7bg==}
@@ -4778,7 +4798,7 @@ snapshots:
       '@messageformat/parser': 5.1.1
       js-sha256: 0.10.1
 
-  '@lingui/vite-plugin@6.0.0(@babel/core@7.29.0)(@lingui/babel-plugin-lingui-macro@6.0.0)(rolldown@1.0.0-rc.17)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))':
+  '@lingui/vite-plugin@6.0.0(@babel/core@7.29.0)(@lingui/babel-plugin-lingui-macro@6.0.0)(@rolldown/plugin-babel@0.2.3(@babel/core@7.29.0)(@babel/runtime@7.29.2)(rolldown@1.0.0-rc.17)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0)))(rolldown@1.0.0-rc.17)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))':
     dependencies:
       '@lingui/cli': 6.0.0
       '@lingui/conf': 6.0.0
@@ -4786,6 +4806,7 @@ snapshots:
     optionalDependencies:
       '@babel/core': 7.29.0
       '@lingui/babel-plugin-lingui-macro': 6.0.0
+      '@rolldown/plugin-babel': 0.2.3(@babel/core@7.29.0)(@babel/runtime@7.29.2)(rolldown@1.0.0-rc.17)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))
       rolldown: 1.0.0-rc.17
     transitivePeerDependencies:
       - babel-plugin-macros
@@ -5097,6 +5118,15 @@ snapshots:
 
   '@rolldown/binding-win32-x64-msvc@1.0.0-rc.17':
     optional: true
+
+  '@rolldown/plugin-babel@0.2.3(@babel/core@7.29.0)(@babel/runtime@7.29.2)(rolldown@1.0.0-rc.17)(vite@8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0))':
+    dependencies:
+      '@babel/core': 7.29.0
+      picomatch: 4.0.4
+      rolldown: 1.0.0-rc.17
+    optionalDependencies:
+      '@babel/runtime': 7.29.2
+      vite: 8.0.10(@types/node@25.6.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.46.2)(tsx@4.21.0)
 
   '@rolldown/pluginutils@1.0.0-rc.17': {}
 
