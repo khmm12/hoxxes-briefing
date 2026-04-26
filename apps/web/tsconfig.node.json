@@ -5,5 +5,5 @@
 		"composite": true,
 		"tsBuildInfoFile": "../../node_modules/.tmp/apps-web.tsconfig.node.tsbuildinfo"
 	},
-	"include": ["vite.config.ts"]
+	"include": ["vite.config.ts", "scripts/**/*.ts"]
 }

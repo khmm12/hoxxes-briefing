@@ -67,6 +67,12 @@ pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-favico
 pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-assets.config.ts
 ```
 
+Regenerate the OpenGraph preview image from the scripted source:
+
+```bash
+pnpm --filter @hoxxes-briefing/web exec node scripts/generate-og-image.ts
+```
+
 ## Lingui
 
 All user-facing copy should go through Lingui. Keep copy short, operational, and

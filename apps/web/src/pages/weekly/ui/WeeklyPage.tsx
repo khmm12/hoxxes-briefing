@@ -36,11 +36,11 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
 
   return (
     <>
-      <Title>{i18n._(msg`Hoxxes Briefing | Orbital Briefing`)}</Title>
+      <Title>{i18n._(msg`Hoxxes Briefing | DRG Deep Dive Board`)}</Title>
       <Meta
         name="description"
         content={i18n._(
-          msg`Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing in one phone-friendly board.`,
+          msg`Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board with weekly stages, objectives, hazards, mutators, and reset timing.`,
         )}
       />
 

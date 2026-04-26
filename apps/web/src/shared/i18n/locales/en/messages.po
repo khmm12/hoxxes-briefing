@@ -94,6 +94,10 @@ msgstr "Call weakpoints and burn big targets early."
 msgid "Cave Leech Cluster"
 msgstr "Cave Leech Cluster"
 
+#: src/pages/weekly/ui/WeeklyPage.tsx:43
+msgid "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board with weekly stages, objectives, hazards, mutators, and reset timing."
+msgstr "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board with weekly stages, objectives, hazards, mutators, and reset timing."
+
 #: src/pages/weekly/ui/WeeklyPageStates.tsx:43
 msgid "Checking board"
 msgstr "Checking board"
@@ -253,17 +257,13 @@ msgstr "Hiveguard"
 msgid "Hollow Bough"
 msgstr "Hollow Bough"
 
+#: src/pages/weekly/ui/WeeklyPage.tsx:39
+msgid "Hoxxes Briefing | DRG Deep Dive Board"
+msgstr "Hoxxes Briefing | DRG Deep Dive Board"
+
 #: src/pages/not-found/ui/NotFoundPage.tsx:17
 msgid "Hoxxes Briefing | Not Found"
 msgstr "Hoxxes Briefing | Not Found"
-
-#: src/pages/weekly/ui/WeeklyPage.tsx:39
-msgid "Hoxxes Briefing | Orbital Briefing"
-msgstr "Hoxxes Briefing | Orbital Briefing"
-
-#: src/pages/weekly/ui/WeeklyPage.tsx:43
-msgid "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing in one phone-friendly board."
-msgstr "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing in one phone-friendly board."
 
 #: src/pages/weekly/ui/weekly-slogan-copy.ts:19
 msgid "I eat rock for breakfast!"
