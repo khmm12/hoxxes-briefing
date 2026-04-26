@@ -23,11 +23,11 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(removeOldWeeklyDataCaches())
 })
 
-// in dev mode, we disable precaching to avoid caching issues
-const denylist = import.meta.env.DEV ? [/.*/] : [/^\/api\//]
-
-// to allow work offline
-registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), { denylist }))
+if (import.meta.env.PROD || import.meta.env.MODE === 'test') {
+  // to allow work offline
+  const denylist = [/^\/api\//]
+  registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), { denylist }))
+}
 
 registerRoute(
   ({ url }) => url.origin === 'https://fonts.googleapis.com',
