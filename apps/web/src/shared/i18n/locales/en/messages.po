@@ -144,10 +144,6 @@ msgstr "Current board loaded."
 msgid "Current board still shown. Refresh failed."
 msgstr "Current board still shown. Refresh failed."
 
-#: src/pages/weekly/ui/WeeklyPage.tsx:40
-msgid "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing with objectives, warnings, mutators, and rollover timing in one phone-friendly board."
-msgstr "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing with objectives, warnings, mutators, and rollover timing in one phone-friendly board."
-
 #: src/pages/weekly/ui/WeeklyBrandBlock.tsx:18
 msgid "Danger. Darkness. Dwarves."
 msgstr "Danger. Darkness. Dwarves."
@@ -170,14 +166,6 @@ msgstr "Dense Biozone"
 #: src/pages/weekly/lib/weekly-dive-labels.tsx:78
 msgid "Dreadnought x{0} ({1})"
 msgstr "Dreadnought x{0} ({1})"
-
-#: src/pages/not-found/ui/NotFoundPage.tsx:17
-msgid "Hoxxes Briefing | Not Found"
-msgstr "Hoxxes Briefing | Not Found"
-
-#: src/pages/weekly/ui/WeeklyPage.tsx:36
-msgid "Hoxxes Briefing | Orbital Briefing"
-msgstr "Hoxxes Briefing | Orbital Briefing"
 
 #: src/pages/weekly/lib/weekly-dive-labels.tsx:125
 msgid "Duck and Cover"
@@ -258,13 +246,21 @@ msgstr "Hiveguard"
 msgid "Hollow Bough"
 msgstr "Hollow Bough"
 
+#: src/pages/not-found/ui/NotFoundPage.tsx:17
+msgid "Hoxxes Briefing | Not Found"
+msgstr "Hoxxes Briefing | Not Found"
+
+#: src/pages/weekly/ui/WeeklyPage.tsx:36
+msgid "Hoxxes Briefing | Orbital Briefing"
+msgstr "Hoxxes Briefing | Orbital Briefing"
+
+#: src/pages/weekly/ui/WeeklyPage.tsx:40
+msgid "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing in one phone-friendly board."
+msgstr "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing in one phone-friendly board."
+
 #: src/pages/weekly/ui/WeeklyBrandBlock.tsx:20
 msgid "If you Rock and Stone, you're never alone."
 msgstr "If you Rock and Stone, you're never alone."
-
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:22
-msgid "If you'd like to support my work, buy me a beer. 🍻"
-msgstr "If you'd like to support my work, buy me a beer. 🍻"
 
 #: src/pages/weekly/lib/weekly-dive-labels.tsx:50
 msgid "Industrial Sabotage"
@@ -491,9 +487,9 @@ msgstr "Rich Atmosphere"
 msgid "Rival Presence"
 msgstr "Rival Presence"
 
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:20
-msgid "Rock and Stone, Miner! Made with love by khmm12 ❤️"
-msgstr "Rock and Stone, Miner! Made with love by khmm12 ❤️"
+#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:38
+msgid "Rock and Stone, Miner! Made with love by"
+msgstr "Rock and Stone, Miner! Made with love by"
 
 #: src/pages/weekly/ui/WeeklyBrandBlock.tsx:16
 msgid "Rock and Stone!"

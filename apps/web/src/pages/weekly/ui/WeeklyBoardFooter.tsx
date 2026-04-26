@@ -8,8 +8,26 @@ const footerStyles = css.raw({
   color: 'text.disabled',
   fontSize: '0.875rem',
   lineHeight: '1.55',
-  whiteSpace: 'pre-line',
   textAlign: 'center',
+})
+
+const authorLinkStyles = css.raw({
+  color: 'inherit',
+  textDecorationLine: 'underline',
+  textDecorationColor: 'transparent',
+  textDecorationThickness: '1px',
+  textUnderlineOffset: '0.18em',
+  transitionDuration: 'fast',
+  transitionProperty: 'color, text-decoration-color',
+  transitionTimingFunction: 'standard',
+  _hover: {
+    color: 'text.secondary',
+    textDecorationColor: 'currentColor',
+  },
+  _focusVisible: {
+    borderRadius: 'ui2',
+    layerStyle: 'focusRing',
+  },
 })
 
 export function WeeklyBoardFooter(): JSX.Element {
@@ -17,9 +35,11 @@ export function WeeklyBoardFooter(): JSX.Element {
 
   return (
     <footer class={css(footerStyles)}>
-      {i18n._(msg`Rock and Stone, Miner! Made with love by khmm12 ❤️`)}
-      {'\n'}
-      {i18n._(msg`If you'd like to support my work, buy me a beer. 🍻`)}
+      {i18n._(msg`Rock and Stone, Miner! Made with love by`)}{' '}
+      <a class={css(authorLinkStyles)} href="https://github.com/khmm12">
+        khmm12
+      </a>{' '}
+      ❤️
     </footer>
   )
 }
