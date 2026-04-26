@@ -1,19 +1,18 @@
-import type { ApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import { differenceInMilliseconds, intervalToDuration, parseISO } from 'date-fns'
-import type { Accessor, JSX } from 'solid-js'
+import { intervalToDuration, parseISO } from 'date-fns'
+import type { JSX } from 'solid-js'
 import { css, cva } from 'styled-system/css'
 import type { SystemStyleObject } from 'styled-system/types'
+import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 import { formatDate, useI18n } from '~/shared/i18n'
-import type { WeeklyBoardViewState } from '../model/weekly-page-state'
 
-type WeeklyWeek = ApiV1WeeklyResponse['week']
+type Week = WeeklySnapshotResult['week']
 
 type WeeklyTimingStripProps = {
-  now: Accessor<Date>
-  state: WeeklyBoardViewState
-  week: WeeklyWeek
+  now: Date
+  expired: boolean
+  week: Week
 }
 
 const timingStripStyles = css.raw({
@@ -110,22 +109,18 @@ export function WeeklyTimingStrip(props: WeeklyTimingStripProps): JSX.Element {
           value={formatWeekTimestamp(i18n, props.week.release)}
         />
         <TimingItem
-          label={props.state.freshness === 'stale-cache' ? i18n._(msg`Ended`) : i18n._(msg`Ends`)}
+          label={props.expired ? i18n._(msg`Ended`) : i18n._(msg`Ends`)}
           valueCss={timingEndedValueStyles}
           value={formatWeekTimestamp(i18n, props.week.expiration)}
         />
         <TimingItem
-          label={props.state.freshness === 'stale-cache' ? i18n._(msg`Reset status`) : i18n._(msg`Time remaining`)}
+          label={props.expired ? i18n._(msg`Reset status`) : i18n._(msg`Time remaining`)}
           primary
-          value={
-            props.state.freshness === 'stale-cache'
-              ? i18n._(msg`Expired`)
-              : formatRemaining(i18n, props.week.expiration, props.now())
-          }
+          value={props.expired ? i18n._(msg`already ended`) : formatRemaining(i18n, props.week.expiration, props.now)}
         />
       </dl>
       <p class={css(timingMetaStyles)}>
-        {i18n._(msg`Local time`)} · {formatTimezoneOffset(props.now())}
+        {i18n._(msg`Local time`)} · {formatTimezoneOffset(props.now)}
       </p>
     </>
   )
@@ -170,28 +165,18 @@ function formatWeekTimestamp(i18n: I18n, timestamp: string): string {
   return `${day} · ${time}`
 }
 
-function formatRemaining(i18n: I18n, timestamp: string, now: Date): string {
+export function formatRemaining(i18n: I18n, timestamp: string, now: Date): string {
   const expiration = parseISO(timestamp)
-  const remainingMs = differenceInMilliseconds(expiration, now)
-
-  if (remainingMs <= 0) {
-    return i18n._(msg`Expired`)
-  }
 
   const duration = intervalToDuration({ start: now, end: expiration })
-  const days = duration.days ?? 0
-  const hours = duration.hours ?? 0
-  const minutes = Math.max(1, duration.minutes ?? 0)
+  const { days = 0, hours = 0, minutes = 0, seconds = 0 } = duration
 
-  if (days > 0) {
-    return i18n._(msg`${days}d ${hours}h`)
-  }
+  if (days > 0) return i18n._(msg`${days}d ${hours}h`)
+  if (hours > 0) return i18n._(msg`${hours}h ${minutes}m`)
+  if (minutes > 0) return i18n._(msg`${minutes}m ${seconds}s`)
+  if (seconds > 0) return i18n._(msg`${seconds}s`)
 
-  if (hours > 0) {
-    return i18n._(msg`${hours}h ${minutes}m`)
-  }
-
-  return i18n._(msg`${minutes}m`)
+  return i18n._(msg`coming soon`)
 }
 
 function formatTimezoneOffset(now: Date): string {

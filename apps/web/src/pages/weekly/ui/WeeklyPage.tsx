@@ -1,11 +1,11 @@
 import { msg } from '@lingui/core/macro'
 import { Meta, Title } from '@solidjs/meta'
-import { createMemo, Errored, type JSX, Loading, Show } from 'solid-js'
+import { type Accessor, createMemo, createSignal, Errored, type JSX, Loading, onCleanup, Show } from 'solid-js'
 import { useI18n } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { AppLayout } from '~/shared/ui/layout'
 import { createWeeklyBoardQuery } from '../model/create-weekly-board-query'
-import { deriveWeeklyBoardState } from '../model/weekly-page-state'
+import { isWeeklyExpired, type WeeklyBoardViewState } from '../model/weekly-page-state'
 import { WeeklyBoard } from './WeeklyBoard'
 import { WeeklyErrorState, WeeklyLoadingState } from './WeeklyPageStates'
 
@@ -26,6 +26,9 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
   const i18n = useI18n()
   const online = createOnlineStatus()
   const boardQuery = createWeeklyBoardQuery()
+
+  // TODO: remove simulation
+  // const [now] = createSignal(() => addSeconds(new Date(boardQuery.data.week.expiration), -5))
 
   const refreshBoard = (): void => {
     boardQuery.refresh()
@@ -71,19 +74,41 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
 }
 
 function ReadyWeeklyBoard(props: ReadyWeeklyBoardProps): JSX.Element {
-  const boardState = createMemo(() => {
-    return deriveWeeklyBoardState({
-      expiration: props.query.data.week.expiration,
-      online: props.online,
-      pending: props.query.pending,
-      source: props.query.source,
-      isRefreshFailed: props.query.lastRefreshError != null,
-    })
-  })
+  const now = createWallClock()
+
+  const expiration = createMemo(() => new Date(props.query.data.week.expiration))
+  const expired = createMemo(() => isWeeklyExpired(expiration(), now()))
+
+  const boardState = {
+    get expired() {
+      return expired()
+    },
+    get source() {
+      return props.query.source
+    },
+    get online() {
+      return props.online
+    },
+    get refreshing() {
+      return props.query.pending
+    },
+    get refreshFailed() {
+      return props.query.lastRefreshError != null
+    },
+  } satisfies WeeklyBoardViewState
 
   return (
     <AppLayout dockVisible={props.dockVisible} variant="board">
-      <WeeklyBoard state={boardState()} weekly={props.query.data} onRefresh={props.onRefresh} />
+      <WeeklyBoard now={now()} state={boardState} data={props.query.data} onRefresh={props.onRefresh} />
     </AppLayout>
   )
+}
+
+function createWallClock(): Accessor<Date> {
+  const [now, setNow] = createSignal(new Date())
+  const intervalID = globalThis.setInterval(() => setNow(new Date()), 1_000)
+
+  onCleanup(() => globalThis.clearInterval(intervalID))
+
+  return now
 }

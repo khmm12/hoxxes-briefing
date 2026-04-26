@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { WeeklyDive, WeeklyMission } from './weekly-domain-catalog'
-import { buildQuickReadChips, getVisibleQuickReadChips } from './weekly-route-quick-read'
+import type { WeeklyDive, WeeklyMission } from './weekly-route-catalog'
+import { buildQuickReadChips } from './weekly-route-quick-read'
 
 describe('buildQuickReadChips', () => {
   it('sorts warnings before mutators and removes duplicates', () => {
@@ -28,22 +28,6 @@ describe('buildQuickReadChips', () => {
 
   it('returns empty list when the route has no hazards', () => {
     expect(buildQuickReadChips(createDiveWithCleanStages())).toHaveLength(0)
-  })
-})
-
-describe('getVisibleQuickReadChips', () => {
-  it('keeps hidden chips behind an overflow count until expanded', () => {
-    const chips = buildQuickReadChips(createDive())
-
-    expect(getVisibleQuickReadChips(chips, 2, false)).toEqual({
-      overflowCount: 2,
-      visible: chips.slice(0, 2),
-    })
-
-    expect(getVisibleQuickReadChips(chips, 2, true)).toEqual({
-      overflowCount: 2,
-      visible: chips,
-    })
   })
 })
 

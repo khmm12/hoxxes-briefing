@@ -4,7 +4,7 @@ import {
   type PresentWeeklyMutator,
   type PresentWeeklyWarning,
   type WeeklyDive,
-} from './weekly-domain-catalog'
+} from './weekly-route-catalog'
 
 export type QuickReadChip =
   | {
@@ -15,11 +15,6 @@ export type QuickReadChip =
       kind: 'warning'
       value: PresentWeeklyWarning
     }
-
-export type VisibleQuickReadChips = {
-  overflowCount: number
-  visible: QuickReadChip[]
-}
 
 export function buildQuickReadChips(dive: WeeklyDive): QuickReadChip[] {
   const warnings = uniquePresent(dive.missions.map((mission) => mission.warning)).sort(
@@ -34,20 +29,6 @@ export function buildQuickReadChips(dive: WeeklyDive): QuickReadChip[] {
   ]
 
   return chips
-}
-
-export function getVisibleQuickReadChips(
-  chips: readonly QuickReadChip[],
-  visibleLimit: number,
-  expanded: boolean,
-): VisibleQuickReadChips {
-  const normalizedLimit = Math.max(0, visibleLimit)
-  const overflowCount = Math.max(0, chips.length - normalizedLimit)
-
-  return {
-    overflowCount,
-    visible: expanded ? [...chips] : chips.slice(0, normalizedLimit),
-  }
 }
 
 function uniquePresent<T>(values: ReadonlyArray<T | null>): T[] {

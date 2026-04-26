@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { WeeklyDive, WeeklyMission } from './weekly-domain-catalog'
+import type { WeeklyDive, WeeklyMission } from './weekly-route-catalog'
 import { buildWeeklyRouteIntel } from './weekly-route-intel'
 
 describe('buildWeeklyRouteIntel', () => {

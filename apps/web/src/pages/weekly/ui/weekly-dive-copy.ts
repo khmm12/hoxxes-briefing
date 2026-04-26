@@ -1,8 +1,8 @@
-import type { ApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
+import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 
-type WeeklyDive = ApiV1WeeklyResponse['dives']['normal']
+type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 type WeeklyMission = WeeklyDive['missions'][number]
 type PrimaryObjective = WeeklyMission['primaryObjective']
 type SecondaryObjective = WeeklyMission['secondaryObjective']

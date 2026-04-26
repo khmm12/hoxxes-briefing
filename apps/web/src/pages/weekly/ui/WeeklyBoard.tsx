@@ -1,7 +1,7 @@
-import type { ApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from 'solid-js'
 import { css } from 'styled-system/css'
+import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
 import type { WeeklyBoardViewState } from '../model/weekly-page-state'
 import { WeeklyBoardFooter } from './WeeklyBoardFooter'
@@ -9,8 +9,9 @@ import { WeeklyCommandRail } from './WeeklyCommandRail'
 import { WeeklyRouteSlab } from './WeeklyRouteSlab'
 
 type WeeklyBoardProps = {
+  now: Date
   state: WeeklyBoardViewState
-  weekly: ApiV1WeeklyResponse
+  data: WeeklySnapshotResult
   onRefresh: () => void
 }
 
@@ -32,18 +33,10 @@ export function WeeklyBoard(props: WeeklyBoardProps): JSX.Element {
 
   return (
     <div class={css(boardShellStyles)}>
-      <WeeklyCommandRail state={props.state} weekly={props.weekly} onRefresh={props.onRefresh} />
+      <WeeklyCommandRail now={props.now} state={props.state} week={props.data.week} onRefresh={props.onRefresh} />
       <section class={css(boardGridStyles)} aria-label={i18n._(msg`Deep dive mission board`)}>
-        <WeeklyRouteSlab
-          dive={props.weekly.dives.normal}
-          isExpired={props.state.freshness === 'stale-cache'}
-          kind="normal"
-        />
-        <WeeklyRouteSlab
-          dive={props.weekly.dives.elite}
-          isExpired={props.state.freshness === 'stale-cache'}
-          kind="elite"
-        />
+        <WeeklyRouteSlab dive={props.data.dives.normal} expired={props.state.expired} kind="normal" />
+        <WeeklyRouteSlab dive={props.data.dives.elite} expired={props.state.expired} kind="elite" />
       </section>
       <WeeklyBoardFooter />
     </div>

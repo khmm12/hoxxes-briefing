@@ -1,15 +1,17 @@
-import type { ApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
-import type { Accessor, JSX } from 'solid-js'
-import { createSignal, onCleanup } from 'solid-js'
+import { createMemo, type JSX } from 'solid-js'
 import { css } from 'styled-system/css'
+import type { WeeklySnapshotResult } from '~/shared/api/weekly'
+import useI18n from '~/shared/i18n'
 import type { WeeklyBoardViewState } from '../model/weekly-page-state'
 import { WeeklyBrandBlock } from './WeeklyBrandBlock'
 import { WeeklyRefreshPanel } from './WeeklyRefreshPanel'
 import { WeeklyTimingStrip } from './WeeklyTimingStrip'
+import { getWeeklySlogan } from './weekly-slogan-copy'
 
 type WeeklyCommandRailProps = {
+  now: Date
   state: WeeklyBoardViewState
-  weekly: ApiV1WeeklyResponse
+  week: WeeklySnapshotResult['week']
   onRefresh: () => void
 }
 
@@ -35,24 +37,17 @@ const readoutStyles = css.raw({
 })
 
 export function WeeklyCommandRail(props: WeeklyCommandRailProps): JSX.Element {
-  const now = createMinuteClock()
+  const i18n = useI18n()
+
+  const slogan = createMemo(() => getWeeklySlogan(i18n, props.week.id))
 
   return (
     <header class={css(railStyles)}>
-      <WeeklyBrandBlock now={now} />
+      <WeeklyBrandBlock slogan={slogan()} />
       <div class={css(readoutStyles)}>
         <WeeklyRefreshPanel state={props.state} onRefresh={props.onRefresh} />
-        <WeeklyTimingStrip now={now} state={props.state} week={props.weekly.week} />
+        <WeeklyTimingStrip now={props.now} expired={props.state.expired} week={props.week} />
       </div>
     </header>
   )
-}
-
-function createMinuteClock(): Accessor<Date> {
-  const [now, setNow] = createSignal(new Date())
-  const intervalID = globalThis.setInterval(() => setNow(new Date()), 60_000)
-
-  onCleanup(() => globalThis.clearInterval(intervalID))
-
-  return now
 }

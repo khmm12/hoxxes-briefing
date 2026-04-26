@@ -1,21 +1,23 @@
-import type { ApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import type { Accessor, JSX } from 'solid-js'
 import { createMemo, createSignal, createUniqueId, For, Show } from 'solid-js'
 import { css, cva } from 'styled-system/css'
+import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
 import { createMediaQuery } from '~/shared/lib/create-media-query'
-import { buildDiveIntel } from '../lib/weekly-dive-intel'
-import { formatBiome, formatDiveKind, formatMutator, formatWarning } from '../lib/weekly-dive-labels'
-import { buildQuickReadChips, getVisibleQuickReadChips, type QuickReadChip } from '../model/weekly-route-quick-read'
+import { buildWeeklyRouteIntel } from '../model/weekly-route-intel'
+import { buildQuickReadChips, type QuickReadChip } from '../model/weekly-route-quick-read'
 import { StageBlock } from './StageBlock'
+import { formatBiome, formatDiveKind, formatMutator, formatWarning } from './weekly-dive-copy'
+import { formatWeeklyRouteIntelNote } from './weekly-route-intel-copy'
+import { getVisibleQuickReadChips } from './weekly-route-quick-read-view'
 
-type WeeklyDive = ApiV1WeeklyResponse['dives']['normal']
+type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 
 type WeeklyRouteSlabProps = {
   dive: WeeklyDive
-  isExpired: boolean
+  expired: boolean
   kind: 'elite' | 'normal'
 }
 
@@ -212,7 +214,7 @@ export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
   const [expanded, setExpanded] = createSignal(false)
   const visibleLimit = createQuickReadVisibleLimit()
 
-  const intel = createMemo(() => buildDiveIntel(props.dive, props.kind, i18n))
+  const intel = createMemo(() => buildWeeklyRouteIntel(props.dive, props.kind))
   const chips = createMemo(() => buildQuickReadChips(props.dive))
   const visibleChips = createMemo(() => getVisibleQuickReadChips(chips(), visibleLimit(), expanded()))
 
@@ -225,9 +227,9 @@ export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
           <p class={css(routeKindRecipe.raw({ kind: props.kind }))}>{formatDiveKind(i18n, props.kind)}</p>
           <h2 class={css(titleStyles)}>{props.dive.name}</h2>
           <p class={css(biomeStyles)}>{formatBiome(i18n, props.dive.biome)}</p>
-          {props.isExpired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known board`)}</p> : null}
+          {props.expired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known board`)}</p> : null}
         </div>
-        <p class={css(noteStyles)}>{intel().note}</p>
+        <p class={css(noteStyles)}>{formatWeeklyRouteIntelNote(i18n, intel().note)}</p>
       </header>
 
       <Show when={chips().length > 0}>

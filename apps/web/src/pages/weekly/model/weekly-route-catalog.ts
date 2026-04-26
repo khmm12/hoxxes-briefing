@@ -1,6 +1,6 @@
-import type { ApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
+import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 
-export type WeeklyDive = ApiV1WeeklyResponse['dives']['normal']
+export type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 export type WeeklyMission = WeeklyDive['missions'][number]
 export type WeeklyPrimaryObjective = WeeklyMission['primaryObjective']
 export type WeeklySecondaryObjective = WeeklyMission['secondaryObjective']

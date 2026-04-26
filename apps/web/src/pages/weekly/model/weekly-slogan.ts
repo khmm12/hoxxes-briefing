@@ -1,5 +1,3 @@
-import { getDay, getISOWeek, getISOWeekYear, isBefore, set, subDays, subWeeks } from 'date-fns'
-
 export type WeeklySloganPool<T> = {
   defaultSafe: readonly T[]
   rare: readonly T[]
@@ -22,40 +20,18 @@ export function selectWeeklySlogan<T>(
   pool: WeeklySloganPool<T>,
   weekKey: string,
   weights: WeeklySloganWeights = defaultWeeklySloganWeights,
-): T | undefined {
+): T {
   const availableCategories = getAvailableCategories(pool)
-
-  if (availableCategories.length === 0) {
-    return undefined
-  }
+  if (availableCategories.length === 0) throw new Error('slogan pool should not be empty')
 
   const weightedCategories = buildWeightedCategoryRing(weights).filter((category) =>
     availableCategories.includes(category),
   )
   const categoryRing = weightedCategories.length > 0 ? weightedCategories : availableCategories
-  const category = categoryRing[hashString(`${weekKey}:category`) % categoryRing.length]
+  const category = categoryRing[fastHash(`${weekKey}:category`) % categoryRing.length]
+
   const phrases = pool[category]
-
-  if (phrases.length === 0) {
-    return undefined
-  }
-
-  return phrases[hashString(`${weekKey}:${category}:phrase`) % phrases.length]
-}
-
-export function getCurrentWeeklyCycleId(referenceDate: Date = new Date()): string {
-  const now = toUtcWallDate(referenceDate)
-  const cycleCandidate = set(now, {
-    hours: 11,
-    milliseconds: 0,
-    minutes: 0,
-    seconds: 0,
-  })
-  const daysSinceThursday = (getDay(now) + 7 - 4) % 7
-  const cycleStart = subDays(cycleCandidate, daysSinceThursday)
-  const resolvedStart = isBefore(now, cycleStart) ? subWeeks(cycleStart, 1) : cycleStart
-
-  return formatWeekId(resolvedStart)
+  return phrases[fastHash(`${weekKey}:${category}:phrase`) % phrases.length]
 }
 
 function getAvailableCategories<T>(pool: WeeklySloganPool<T>): Array<keyof WeeklySloganPool<T>> {
@@ -68,7 +44,7 @@ function buildWeightedCategoryRing(weights: WeeklySloganWeights): Array<keyof We
   )
 }
 
-function hashString(value: string): number {
+function fastHash(value: string): number {
   let hash = 2166136261
 
   for (const character of value) {
@@ -77,20 +53,4 @@ function hashString(value: string): number {
   }
 
   return hash >>> 0
-}
-
-function formatWeekId(cycleStart: Date): string {
-  return `${getISOWeekYear(cycleStart)}.${String(getISOWeek(cycleStart)).padStart(2, '0')}`
-}
-
-function toUtcWallDate(date: Date): Date {
-  return new Date(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-    date.getUTCHours(),
-    date.getUTCMinutes(),
-    date.getUTCSeconds(),
-    date.getUTCMilliseconds(),
-  )
 }

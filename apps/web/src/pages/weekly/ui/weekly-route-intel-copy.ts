@@ -1,23 +1,8 @@
-import type { ApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import { buildWeeklyRouteIntel, type WeeklyRouteIntelNote } from '../model/weekly-route-intel'
+import type { WeeklyRouteIntelNote } from '../model/weekly-route-intel'
 
-type WeeklyDive = ApiV1WeeklyResponse['dives']['normal']
-
-export type WeeklyDiveIntel = {
-  note: string
-}
-
-export function buildDiveIntel(dive: WeeklyDive, kind: 'elite' | 'normal', i18n: I18n): WeeklyDiveIntel {
-  const intel = buildWeeklyRouteIntel(dive, kind)
-
-  return {
-    note: formatIntelNote(i18n, intel.note),
-  }
-}
-
-function formatIntelNote(i18n: I18n, note: WeeklyRouteIntelNote): string {
+export function formatWeeklyRouteIntelNote(i18n: I18n, note: WeeklyRouteIntelNote): string {
   switch (note) {
     case 'blood-sugar':
       return i18n._(msg`Mind the sugar route. A dry stretch kills momentum.`)

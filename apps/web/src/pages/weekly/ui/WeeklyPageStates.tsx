@@ -7,8 +7,6 @@ import { AlertIcon, EmptyBoardIcon, OfflineIcon, RefreshIcon } from '~/shared/ui
 import { AppLayout } from '~/shared/ui/layout'
 import { Spinner } from '~/shared/ui/spinner'
 import { StateScreen } from '~/shared/ui/state-screen'
-import type { EmptyBoardState } from '../model/weekly-page-state'
-import { resolveEmptyBoardState } from '../model/weekly-page-state'
 
 type WeeklyLoadingStateProps = {
   dockVisible: boolean
@@ -25,7 +23,7 @@ type WeeklyErrorStateProps = {
 
 type EmptyWeeklyStateProps = {
   dockVisible: boolean
-  state: EmptyBoardState
+  online: boolean
   onRetry: () => void
 }
 
@@ -57,11 +55,7 @@ export function WeeklyErrorState(props: WeeklyErrorStateProps): JSX.Element {
       when={props.error instanceof WeeklyRequestError}
       fallback={<RuntimeErrorState dockVisible={props.dockVisible} reset={props.reset} />}
     >
-      <EmptyWeeklyState
-        dockVisible={props.dockVisible}
-        state={resolveEmptyBoardState(props.online)}
-        onRetry={props.onRetry}
-      />
+      <EmptyWeeklyState dockVisible={props.dockVisible} online={props.online} onRetry={props.onRetry} />
     </Show>
   )
 }
@@ -71,18 +65,19 @@ function EmptyWeeklyState(props: EmptyWeeklyStateProps): JSX.Element {
 
   return (
     <AppLayout dockVisible={props.dockVisible} variant="state">
-      <Show when={props.state === 'offline-empty'}>
-        <StateScreen
-          body={i18n._(msg`This device is offline and has no saved weekly board.`)}
-          eyebrow={i18n._(msg`Offline cache miss`)}
-          indicator={<OfflineIcon />}
-          passiveStatus={i18n._(msg`Open Hoxxes Briefing while online once to keep a board available offline.`)}
-          title={i18n._(msg`No saved board`)}
-          tone="info"
-        />
-      </Show>
-
-      <Show when={props.state === 'fetch-empty'}>
+      <Show
+        when={props.online}
+        fallback={
+          <StateScreen
+            body={i18n._(msg`This device is offline and has no saved weekly board.`)}
+            eyebrow={i18n._(msg`Offline cache miss`)}
+            indicator={<OfflineIcon />}
+            passiveStatus={i18n._(msg`Open Hoxxes Briefing while online once to keep a board available offline.`)}
+            title={i18n._(msg`No saved board`)}
+            tone="info"
+          />
+        }
+      >
         <StateScreen
           action={
             <ActionControl component="button" leadingIcon={<RefreshIcon />} onClick={props.onRetry} type="button">

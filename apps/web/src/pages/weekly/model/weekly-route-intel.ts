@@ -9,7 +9,7 @@ import {
   type WeeklyEffectCatalogEntry,
   type WeeklyMission,
   type WeeklyObjectiveContextTag,
-} from './weekly-domain-catalog'
+} from './weekly-route-catalog'
 
 export type WeeklyRouteKind = 'elite' | 'normal'
 

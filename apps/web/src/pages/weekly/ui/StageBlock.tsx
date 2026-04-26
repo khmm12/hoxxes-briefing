@@ -1,17 +1,12 @@
-import type { ApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
 import { msg } from '@lingui/core/macro'
 import { createMemo, type JSX, Show } from 'solid-js'
 import { css, cva } from 'styled-system/css'
+import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
 import { MutatorGlyphIcon, PrimaryObjectiveIcon, SecondaryObjectiveIcon, WarningGlyphIcon } from '~/shared/ui/icon'
-import {
-  formatMutator,
-  formatPrimaryObjective,
-  formatSecondaryObjective,
-  formatWarning,
-} from '../lib/weekly-dive-labels'
+import { formatMutator, formatPrimaryObjective, formatSecondaryObjective, formatWarning } from './weekly-dive-copy'
 
-type WeeklyDive = ApiV1WeeklyResponse['dives']['normal']
+type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 type WeeklyMission = WeeklyDive['missions'][number]
 
 type StageBlockProps = {

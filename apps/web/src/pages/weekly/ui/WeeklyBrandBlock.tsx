@@ -1,26 +1,11 @@
-import type { I18n, MessageDescriptor } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import type { Accessor, JSX } from 'solid-js'
-import { createMemo } from 'solid-js'
+import type { JSX } from 'solid-js'
 import { css } from 'styled-system/css'
 import { useI18n } from '~/shared/i18n'
-import { getCurrentWeeklyCycleId, selectWeeklySlogan, type WeeklySloganPool } from '../model/weekly-slogan'
 import { BrandLogo } from './BrandLogo'
 
 type WeeklyBrandBlockProps = {
-  now: Accessor<Date>
-}
-
-const sloganPool: WeeklySloganPool<MessageDescriptor> = {
-  defaultSafe: [
-    msg`Rock and Stone!`,
-    msg`For Karl!`,
-    msg`Danger. Darkness. Dwarves.`,
-    msg`Leave no dwarf behind.`,
-    msg`If you Rock and Stone, you're never alone.`,
-  ],
-  secondary: [msg`Brotherhood. Danger. Profit.`, msg`Locked and loaded!`, msg`Stand together. Hold the line.`],
-  rare: [],
+  slogan: JSX.Element
 }
 
 const brandClusterStyles = css.raw({
@@ -87,7 +72,6 @@ const sloganStyles = css.raw({
 
 export function WeeklyBrandBlock(props: WeeklyBrandBlockProps): JSX.Element {
   const i18n = useI18n()
-  const slogan = createMemo(() => resolveSlogan(i18n, props.now()))
 
   return (
     <div class={css(brandClusterStyles)}>
@@ -97,14 +81,8 @@ export function WeeklyBrandBlock(props: WeeklyBrandBlockProps): JSX.Element {
       <div class={css(brandCopyStyles)}>
         <p class={css(eyebrowStyles)}>{i18n._(msg`This week's Deep Dives`)}</p>
         <h1 class={css(brandTitleStyles)}>Hoxxes Briefing</h1>
-        <p class={css(sloganStyles)}>{slogan()}</p>
+        <p class={css(sloganStyles)}>{props.slogan}</p>
       </div>
     </div>
   )
-}
-
-function resolveSlogan(i18n: I18n, now: Date): string {
-  const phrase = selectWeeklySlogan(sloganPool, getCurrentWeeklyCycleId(now))
-
-  return phrase == null ? '' : i18n._(phrase)
 }

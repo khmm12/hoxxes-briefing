@@ -13,31 +13,39 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:187
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:174
 msgid "{days}d {hours}h"
 msgstr "{days}d {hours}h"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:191
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:175
 msgid "{hours}h {minutes}m"
 msgstr "{hours}h {minutes}m"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:194
-msgid "{minutes}m"
-msgstr "{minutes}m"
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:176
+msgid "{minutes}m {seconds}s"
+msgstr "{minutes}m {seconds}s"
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:283
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:177
+msgid "{seconds}s"
+msgstr "{seconds}s"
+
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:285
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:33
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:18
 msgid "Advance by cover, not courage. Call angles before holds."
 msgstr "Advance by cover, not courage. Call angles before holds."
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:279
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:281
 msgid "All clear"
 msgstr "All clear"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:117
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:119
+msgid "already ended"
+msgstr "already ended"
+
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:112
 msgid "App crashed"
 msgstr "App crashed"
 
@@ -46,187 +54,182 @@ msgid "App update"
 msgstr "App update"
 
 #. placeholder {0}: objective.aquarqs
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:54
+#: src/pages/weekly/ui/weekly-dive-copy.ts:54
 msgid "Aquarq x{0}"
 msgstr "Aquarq x{0}"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:33
+#: src/pages/weekly/ui/weekly-dive-copy.ts:33
 msgid "Azure Weald"
 msgstr "Azure Weald"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:75
+#: src/pages/weekly/ui/weekly-dive-copy.ts:75
 msgid "Black Box"
 msgstr "Black Box"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:104
+#: src/pages/weekly/ui/weekly-dive-copy.ts:104
 msgid "Blood Sugar"
 msgstr "Blood Sugar"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:93
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:88
 msgid "Board unavailable"
 msgstr "Board unavailable"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:63
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:48
 msgid "Bring armor-cracking focus. Machines do not care about swagger."
 msgstr "Bring armor-cracking focus. Machines do not care about swagger."
 
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:22
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:13
 msgid "Brotherhood. Danger. Profit."
 msgstr "Brotherhood. Danger. Profit."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:37
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:22
 msgid "Call big targets early. Hero trades make bad stories."
 msgstr "Call big targets early. Hero trades make bad stories."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:41
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:26
 msgid "Call weakpoints and burn big targets early."
 msgstr "Call weakpoints and burn big targets early."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:127
+#: src/pages/weekly/ui/weekly-dive-copy.ts:127
 msgid "Cave Leech Cluster"
 msgstr "Cave Leech Cluster"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:45
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:43
 msgid "Checking board"
 msgstr "Checking board"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:40
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:38
 msgid "Checking the current weekly board."
 msgstr "Checking the current weekly board."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:48
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:46
 msgid "Checking this week's board"
 msgstr "Checking this week's board"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:71
-msgid "Checking..."
-msgstr "Checking..."
-
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:158
+#: src/pages/weekly/ui/weekly-dive-copy.ts:158
 msgid "Classic"
 msgstr "Classic"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:29
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:14
 msgid "Clean drop. Round at the Abyss Bar, then keep it tight."
 msgstr "Clean drop. Round at the Abyss Bar, then keep it tight."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:27
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:12
 msgid "Clean Elite drop. Buy the round, then bring everyone home."
 msgstr "Clean Elite drop. Buy the round, then bring everyone home."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:57
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:42
 msgid "Clear the cleanup. Small leftovers ruin brave revives."
 msgstr "Clear the cleanup. Small leftovers ruin brave revives."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:95
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:179
+msgid "coming soon"
+msgstr "coming soon"
+
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:90
 msgid "Could not load the weekly board"
 msgstr "Could not load the weekly board"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:102
+#: src/pages/weekly/ui/weekly-dive-copy.ts:102
 msgid "Critical Weakness"
 msgstr "Critical Weakness"
 
 #. placeholder {0}: objective.resonanceCrystals
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:44
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:73
+#: src/pages/weekly/ui/weekly-dive-copy.ts:44
+#: src/pages/weekly/ui/weekly-dive-copy.ts:73
 msgid "Crystal Scan x{0}"
 msgstr "Crystal Scan x{0}"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:17
+#: src/pages/weekly/ui/weekly-dive-copy.ts:17
 msgid "Crystalline Caverns"
 msgstr "Crystalline Caverns"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:101
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:88
 msgid "Current board loaded."
 msgstr "Current board loaded."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:99
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:86
 msgid "Current board still shown. Refresh failed."
 msgstr "Current board still shown. Refresh failed."
 
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:18
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:9
 msgid "Danger. Darkness. Dwarves."
 msgstr "Danger. Darkness. Dwarves."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:11
+#: src/pages/weekly/ui/weekly-dive-copy.ts:11
 msgid "Deep Dive"
 msgstr "Deep Dive"
 
-#: src/pages/weekly/ui/WeeklyBoard.tsx:36
+#: src/pages/weekly/ui/WeeklyBoard.tsx:37
 msgid "Deep dive mission board"
 msgstr "Deep dive mission board"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:25
+#: src/pages/weekly/ui/weekly-dive-copy.ts:25
 msgid "Dense Biozone"
 msgstr "Dense Biozone"
 
 #. placeholder {0}: objective.dreadnoughts.length
 #. placeholder {1}: formatDreadnoughtList(i18n, objective.dreadnoughts)
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:61
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:78
+#: src/pages/weekly/ui/weekly-dive-copy.ts:61
+#: src/pages/weekly/ui/weekly-dive-copy.ts:78
 msgid "Dreadnought x{0} ({1})"
 msgstr "Dreadnought x{0} ({1})"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:125
+#: src/pages/weekly/ui/weekly-dive-copy.ts:125
 msgid "Duck and Cover"
 msgstr "Duck and Cover"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:123
+#: src/pages/weekly/ui/weekly-dive-copy.ts:123
 msgid "Ebonite Outbreak"
 msgstr "Ebonite Outbreak"
 
 #. placeholder {0}: objective.eggs
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:52
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:71
+#: src/pages/weekly/ui/weekly-dive-copy.ts:52
+#: src/pages/weekly/ui/weekly-dive-copy.ts:71
 msgid "Egg x{0}"
 msgstr "Egg x{0}"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:11
+#: src/pages/weekly/ui/weekly-dive-copy.ts:11
 msgid "Elite Deep Dive"
 msgstr "Elite Deep Dive"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:119
+#: src/pages/weekly/ui/weekly-dive-copy.ts:119
 msgid "Elite Threat"
 msgstr "Elite Threat"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:113
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:112
 msgid "Ended"
 msgstr "Ended"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:113
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:112
 msgid "Ends"
 msgstr "Ends"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:46
+#: src/pages/weekly/ui/weekly-dive-copy.ts:46
 msgid "Escort Duty"
 msgstr "Escort Duty"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:122
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:178
-msgid "Expired"
-msgstr "Expired"
-
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:131
+#: src/pages/weekly/ui/weekly-dive-copy.ts:131
 msgid "Exploder Infestation"
 msgstr "Exploder Infestation"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:25
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:10
 msgid "Eyes up, miners. Greed before scanning gets expensive."
 msgstr "Eyes up, miners. Greed before scanning gets expensive."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:61
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:46
 msgid "Finish what you start. Half-cleared fights drain the whole dive."
 msgstr "Finish what you start. Half-cleared fights drain the whole dive."
 
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:17
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:8
 msgid "For Karl!"
 msgstr "For Karl!"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:19
+#: src/pages/weekly/ui/weekly-dive-copy.ts:19
 msgid "Fungus Bogs"
 msgstr "Fungus Bogs"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:31
+#: src/pages/weekly/ui/weekly-dive-copy.ts:31
 msgid "Glacial Strata"
 msgstr "Glacial Strata"
 
@@ -234,15 +237,15 @@ msgstr "Glacial Strata"
 msgid "Go to weekly board"
 msgstr "Go to weekly board"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:133
+#: src/pages/weekly/ui/weekly-dive-copy.ts:133
 msgid "Haunted Cave"
 msgstr "Haunted Cave"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:160
+#: src/pages/weekly/ui/weekly-dive-copy.ts:160
 msgid "Hiveguard"
 msgstr "Hiveguard"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:35
+#: src/pages/weekly/ui/weekly-dive-copy.ts:35
 msgid "Hollow Bough"
 msgstr "Hollow Bough"
 
@@ -250,117 +253,117 @@ msgstr "Hollow Bough"
 msgid "Hoxxes Briefing | Not Found"
 msgstr "Hoxxes Briefing | Not Found"
 
-#: src/pages/weekly/ui/WeeklyPage.tsx:36
+#: src/pages/weekly/ui/WeeklyPage.tsx:39
 msgid "Hoxxes Briefing | Orbital Briefing"
 msgstr "Hoxxes Briefing | Orbital Briefing"
 
-#: src/pages/weekly/ui/WeeklyPage.tsx:40
+#: src/pages/weekly/ui/WeeklyPage.tsx:43
 msgid "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing in one phone-friendly board."
 msgstr "Hoxxes Briefing is the current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing in one phone-friendly board."
 
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:20
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:11
 msgid "If you Rock and Stone, you're never alone."
 msgstr "If you Rock and Stone, you're never alone."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:50
+#: src/pages/weekly/ui/weekly-dive-copy.ts:50
 msgid "Industrial Sabotage"
 msgstr "Industrial Sabotage"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:39
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:24
 msgid "Keep holds loose and exits clear. Tight teams make loud mistakes."
 msgstr "Keep holds loose and exits clear. Tight teams make loud mistakes."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:31
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:16
 msgid "Keep moving between cover. Open ground has teeth today."
 msgstr "Keep moving between cover. Open ground has teeth today."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:65
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:50
 msgid "Keep the floor tidy. Little trouble grows fast under pressure."
 msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:228
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:230
 msgid "Last known board"
 msgstr "Last known board"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:113
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:74
 msgid "Last known board only. This cycle already ended."
 msgstr "Last known board only. This cycle already ended."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:111
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:73
 msgid "Last known board still shown. Refresh failed."
 msgstr "Last known board still shown. Refresh failed."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:35
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:20
 msgid "Leave brawling room. Cramped teams run out of options fast."
 msgstr "Leave brawling room. Cramped teams run out of options fast."
 
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:19
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:10
 msgid "Leave no dwarf behind."
 msgstr "Leave no dwarf behind."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:135
+#: src/pages/weekly/ui/weekly-dive-copy.ts:135
 msgid "Lethal Enemies"
 msgstr "Lethal Enemies"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:47
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:45
 msgid "Loading weekly board"
 msgstr "Loading weekly board"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:128
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:123
 msgid "Local time"
 msgstr "Local time"
 
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:22
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:13
 msgid "Locked and loaded!"
 msgstr "Locked and loaded!"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:41
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:39
 msgid "Looking for a saved board on this device."
 msgstr "Looking for a saved board on this device."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:106
+#: src/pages/weekly/ui/weekly-dive-copy.ts:106
 msgid "Low Gravity"
 msgstr "Low Gravity"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:129
+#: src/pages/weekly/ui/weekly-dive-copy.ts:129
 msgid "Low Oxygen"
 msgstr "Low Oxygen"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:121
+#: src/pages/weekly/ui/weekly-dive-copy.ts:121
 msgid "Mactera Plague"
 msgstr "Mactera Plague"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:21
+#: src/pages/weekly/ui/weekly-dive-copy.ts:21
 msgid "Magma Core"
 msgstr "Magma Core"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:23
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:8
 msgid "Mind the sugar route. A dry stretch kills momentum."
 msgstr "Mind the sugar route. A dry stretch kills momentum."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:71
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:56
 msgid "Mind your spacing. Dead bugs can still ruin the formation."
 msgstr "Mind your spacing. Dead bugs can still ruin the formation."
 
 #. placeholder {0}: objective.morkiteWells
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:56
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:83
+#: src/pages/weekly/ui/weekly-dive-copy.ts:56
+#: src/pages/weekly/ui/weekly-dive-copy.ts:83
 msgid "Morkite Well x{0}"
 msgstr "Morkite Well x{0}"
 
 #. placeholder {0}: objective.morkite
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:48
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:81
+#: src/pages/weekly/ui/weekly-dive-copy.ts:48
+#: src/pages/weekly/ui/weekly-dive-copy.ts:81
 msgid "Morkite x{0}"
 msgstr "Morkite x{0}"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:47
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:32
 msgid "Move like rent is due. Mine fast, regroup faster."
 msgstr "Move like rent is due. Mine fast, regroup faster."
 
 #. placeholder {0}: objective.miniMules
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:58
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:85
+#: src/pages/weekly/ui/weekly-dive-copy.ts:58
+#: src/pages/weekly/ui/weekly-dive-copy.ts:85
 msgid "Mule x{0}"
 msgstr "Mule x{0}"
 
@@ -372,7 +375,7 @@ msgstr "Mutator"
 msgid "New version ready"
 msgstr "New version ready"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:80
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:76
 msgid "No saved board"
 msgstr "No saved board"
 
@@ -380,32 +383,32 @@ msgstr "No saved board"
 msgid "No warning or mutator on this stage."
 msgstr "No warning or mutator on this stage."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:93
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:112
+#: src/pages/weekly/ui/weekly-dive-copy.ts:93
+#: src/pages/weekly/ui/weekly-dive-copy.ts:112
 msgid "None"
 msgstr "None"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:65
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:51
 msgid "Offline"
 msgstr "Offline"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:77
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:73
 msgid "Offline cache miss"
 msgstr "Offline cache miss"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:45
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:43
 msgid "Offline check"
 msgstr "Offline check"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:79
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:75
 msgid "Open Hoxxes Briefing while online once to keep a board available offline."
 msgstr "Open Hoxxes Briefing while online once to keep a board available offline."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:37
+#: src/pages/weekly/ui/weekly-dive-copy.ts:37
 msgid "Ossuary Depths"
 msgstr "Ossuary Depths"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:55
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:40
 msgid "Own the ceiling lines. Open space only helps prepared teams."
 msgstr "Own the ceiling lines. Open space only helps prepared teams."
 
@@ -413,23 +416,23 @@ msgstr "Own the ceiling lines. Open space only helps prepared teams."
 msgid "Page not found"
 msgstr "Page not found"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:139
+#: src/pages/weekly/ui/weekly-dive-copy.ts:139
 msgid "Parasites"
 msgstr "Parasites"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:145
+#: src/pages/weekly/ui/weekly-dive-copy.ts:145
 msgid "Pit-Jaw Colony"
 msgstr "Pit-Jaw Colony"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:53
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:38
 msgid "Plan resupply hops early. Long caves punish greedy legs."
 msgstr "Plan resupply hops early. Long caves punish greedy legs."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:67
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:52
 msgid "Play close and clean. No shields means no lazy mistakes."
 msgstr "Play close and clean. No shields means no lazy mistakes."
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:45
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:30
 msgid "Prep the hold first. Clear lanes before you lock in."
 msgstr "Prep the hold first. Clear lanes before you lock in."
 
@@ -437,23 +440,27 @@ msgstr "Prep the hold first. Clear lanes before you lock in."
 msgid "Primary objective"
 msgstr "Primary objective"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:23
+#: src/pages/weekly/ui/weekly-dive-copy.ts:23
 msgid "Radioactive Exclusion Zone"
 msgstr "Radioactive Exclusion Zone"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:85
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:50
 msgid "Refresh"
 msgstr "Refresh"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:97
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:85
 msgid "Refreshing current board now."
 msgstr "Refreshing current board now."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:117
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:52
+msgid "Refreshing..."
+msgstr "Refreshing..."
+
+#: src/pages/weekly/ui/weekly-dive-copy.ts:117
 msgid "Regenerative Bugs"
 msgstr "Regenerative Bugs"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:111
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:106
 msgid "Reload app"
 msgstr "Reload app"
 
@@ -461,29 +468,29 @@ msgstr "Reload app"
 msgid "Reload for the latest app version."
 msgstr "Reload for the latest app version."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:114
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:109
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:118
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:117
 msgid "Reset status"
 msgstr "Reset status"
 
 #. placeholder {0}: objective.resiniteMasses
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:64
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:87
+#: src/pages/weekly/ui/weekly-dive-copy.ts:64
+#: src/pages/weekly/ui/weekly-dive-copy.ts:87
 msgid "Resinite Mass x{0}"
 msgstr "Resinite Mass x{0}"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:49
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:34
 msgid "Respect every bite. Clean revives beat brave trades."
 msgstr "Respect every bite. Clean revives beat brave trades."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:100
+#: src/pages/weekly/ui/weekly-dive-copy.ts:100
 msgid "Rich Atmosphere"
 msgstr "Rich Atmosphere"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:143
+#: src/pages/weekly/ui/weekly-dive-copy.ts:143
 msgid "Rival Presence"
 msgstr "Rival Presence"
 
@@ -491,44 +498,44 @@ msgstr "Rival Presence"
 msgid "Rock and Stone, Miner! Made with love by"
 msgstr "Rock and Stone, Miner! Made with love by"
 
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:16
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:7
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:234
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:235
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:236
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:237
 msgid "Route scan"
 msgstr "Route scan"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:115
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:110
 msgid "Runtime fault"
 msgstr "Runtime fault"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:29
+#: src/pages/weekly/ui/weekly-dive-copy.ts:29
 msgid "Salt Pits"
 msgstr "Salt Pits"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:27
+#: src/pages/weekly/ui/weekly-dive-copy.ts:27
 msgid "Sandblasted Corridors"
 msgstr "Sandblasted Corridors"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:107
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:82
 msgid "Saved board loaded."
 msgstr "Saved board loaded."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:103
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:80
 msgid "Saved board loaded. Refreshing now."
 msgstr "Saved board loaded. Refreshing now."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:109
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:77
 msgid "Saved board loaded. You're offline for now."
 msgstr "Saved board loaded. You're offline for now."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:105
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:81
 msgid "Saved board still shown. Refresh failed."
 msgstr "Saved board still shown. Refresh failed."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:147
+#: src/pages/weekly/ui/weekly-dive-copy.ts:147
 msgid "Scrab Nesting Grounds"
 msgstr "Scrab Nesting Grounds"
 
@@ -536,11 +543,11 @@ msgstr "Scrab Nesting Grounds"
 msgid "Secondary objective"
 msgstr "Secondary objective"
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:137
+#: src/pages/weekly/ui/weekly-dive-copy.ts:137
 msgid "Shield Disruption"
 msgstr "Shield Disruption"
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:248
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:250
 msgid "Show less"
 msgstr "Show less"
 
@@ -548,27 +555,27 @@ msgstr "Show less"
 msgid "Stage"
 msgstr "Stage"
 
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:22
+#: src/pages/weekly/ui/weekly-slogan-copy.ts:13
 msgid "Stand together. Hold the line."
 msgstr "Stand together. Hold the line."
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:107
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:106
 msgid "Started"
 msgstr "Started"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:51
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:36
 msgid "Stay near the cans. Long flanks cost more than time."
 msgstr "Stay near the cans. Long flanks cost more than time."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:141
+#: src/pages/weekly/ui/weekly-dive-copy.ts:141
 msgid "Swarmageddon"
 msgstr "Swarmageddon"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:69
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:54
 msgid "Sweep the ankles before the work. Tiny teeth stop big plans."
 msgstr "Sweep the ankles before the work. Tiny teeth stop big plans."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:76
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:72
 msgid "This device is offline and has no saved weekly board."
 msgstr "This device is offline and has no saved weekly board."
 
@@ -576,23 +583,23 @@ msgstr "This device is offline and has no saved weekly board."
 msgid "This page is not available here. Head back to the weekly board."
 msgstr "This page is not available here. Head back to the weekly board."
 
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:98
+#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:82
 msgid "This week's Deep Dives"
 msgstr "This week's Deep Dives"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:118
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:117
 msgid "Time remaining"
 msgstr "Time remaining"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:89
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:84
 msgid "Try again"
 msgstr "Try again"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:92
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:87
 msgid "Try again once the connection settles."
 msgstr "Try again once the connection settles."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:162
+#: src/pages/weekly/ui/weekly-dive-copy.ts:162
 msgid "Twins"
 msgstr "Twins"
 
@@ -600,11 +607,11 @@ msgstr "Twins"
 msgid "Update app"
 msgstr "Update app"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:43
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:28
 msgid "Use the speed. Finish spread jobs before swarms stack."
 msgstr "Use the speed. Finish spread jobs before swarms stack."
 
-#: src/pages/weekly/lib/weekly-dive-labels.tsx:98
+#: src/pages/weekly/ui/weekly-dive-copy.ts:98
 msgid "Volatile Guts"
 msgstr "Volatile Guts"
 
@@ -612,7 +619,7 @@ msgstr "Volatile Guts"
 msgid "Warning"
 msgstr "Warning"
 
-#: src/pages/weekly/lib/weekly-dive-intel.tsx:59
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:44
 msgid "Watch the floor before you plant. Bad footing breaks good holds."
 msgstr "Watch the floor before you plant. Bad footing breaks good holds."
 
