@@ -13,6 +13,9 @@ const textSecondary = '#d8c9a8'
 const textMuted = '#8f846d'
 const textFaint = '#5f5848'
 const gold = '#dfb847'
+const parchment = '#f5ecd4'
+const rajdhani = 'Rajdhani'
+const ibmPlexSans = 'IBM Plex Sans'
 
 type SatoriStyle = Record<string, string | number>
 
@@ -45,25 +48,25 @@ const emblemPath = resolve(scriptDir, '../src/pages/weekly/ui/brand-logo.svg')
 const outputPath = resolve(publicDir, 'og-image.png')
 
 const [rajdhaniBold, plexMedium, emblemSvg] = await Promise.all([
-  loadGoogleFont('Rajdhani', 700, textForFonts),
-  loadGoogleFont('IBM Plex Sans', 500, textForFonts),
+  loadGoogleFont(rajdhani, 700, textForFonts),
+  loadGoogleFont(ibmPlexSans, 500, textForFonts),
   readFile(emblemPath, 'utf8'),
 ])
 
-const emblemSrc = `data:image/svg+xml;base64,${Buffer.from(emblemSvg).toString('base64')}`
+const emblemSrc = svgDataUri(emblemSvg)
 const backgroundSrc = svgDataUri(renderBackgroundTexture())
 const svg = await satori(renderOpenGraphImage(emblemSrc) as Parameters<typeof satori>[0], {
   width,
   height,
   fonts: [
     {
-      name: 'Rajdhani',
+      name: rajdhani,
       data: rajdhaniBold,
       weight: 700,
       style: 'normal',
     },
     {
-      name: 'IBM Plex Sans',
+      name: ibmPlexSans,
       data: plexMedium,
       weight: 500,
       style: 'normal',
@@ -117,8 +120,8 @@ function renderOpenGraphImage(emblemSrc: string): SatoriElement {
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: background,
-        color: '#f7ecd1',
-        fontFamily: 'IBM Plex Sans',
+        color: parchment,
+        fontFamily: ibmPlexSans,
         overflow: 'hidden',
         position: 'relative',
       },
@@ -164,7 +167,7 @@ function renderOpenGraphImage(emblemSrc: string): SatoriElement {
           style: {
             display: 'flex',
             color: textPrimary,
-            fontFamily: 'Rajdhani',
+            fontFamily: rajdhani,
             fontSize: 104,
             lineHeight: 0.92,
           },
@@ -178,7 +181,7 @@ function renderOpenGraphImage(emblemSrc: string): SatoriElement {
             marginTop: 18,
             display: 'flex',
             color: gold,
-            fontFamily: 'Rajdhani',
+            fontFamily: rajdhani,
             fontSize: 45,
             lineHeight: 1,
           },
@@ -194,7 +197,7 @@ function renderOpenGraphImage(emblemSrc: string): SatoriElement {
             flexDirection: 'column',
             alignItems: 'center',
             color: textSecondary,
-            fontFamily: 'IBM Plex Sans',
+            fontFamily: ibmPlexSans,
             fontSize: 26,
             lineHeight: 1.32,
           },
@@ -226,7 +229,7 @@ function renderOpenGraphImage(emblemSrc: string): SatoriElement {
           justifyContent: 'center',
           alignItems: 'center',
           color: textMuted,
-          fontFamily: 'IBM Plex Sans',
+          fontFamily: ibmPlexSans,
           fontSize: 22,
           lineHeight: 1,
         },
@@ -238,12 +241,13 @@ function renderOpenGraphImage(emblemSrc: string): SatoriElement {
 }
 
 function renderBackgroundTexture(): string {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <defs>
     <radialGradient id="gold-glow" cx="50%" cy="34%" r="42%">
-      <stop offset="0%" stop-color="#dfb847" stop-opacity="0.18"/>
-      <stop offset="42%" stop-color="#dfb847" stop-opacity="0.06"/>
-      <stop offset="100%" stop-color="#dfb847" stop-opacity="0"/>
+      <stop offset="0%" stop-color="${gold}" stop-opacity="0.18"/>
+      <stop offset="42%" stop-color="${gold}" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="${gold}" stop-opacity="0"/>
     </radialGradient>
     <filter id="grain" x="0" y="0" width="100%" height="100%">
       <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="3" seed="27" stitchTiles="stitch"/>
@@ -255,16 +259,16 @@ function renderBackgroundTexture(): string {
   </defs>
 
   <rect width="${width}" height="${height}" fill="url(#gold-glow)"/>
-  <rect width="${width}" height="${height}" fill="#f7ecd1" opacity="0.18" filter="url(#grain)"/>
+  <rect width="${width}" height="${height}" fill="${parchment}" opacity="0.18" filter="url(#grain)"/>
 
-  <g fill="none" stroke="#dfb847" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="${gold}" stroke-linecap="round" stroke-linejoin="round">
     <path d="M90 174 184 108 296 150 336 232 254 298 142 260Z" opacity="0.055"/>
     <path d="M888 116 1010 78 1112 152 1082 274 958 306 858 230Z" opacity="0.06"/>
     <path d="M906 498 1002 428 1124 456 1146 542 1038 596 926 574Z" opacity="0.05"/>
     <path d="M72 472 178 420 280 468 242 560 124 568Z" opacity="0.045"/>
   </g>
 
-  <g fill="#dfb847" opacity="0.16">
+  <g fill="${gold}" opacity="0.16">
     <circle cx="192" cy="114" r="2"/>
     <circle cx="1000" cy="128" r="2"/>
     <circle cx="1092" cy="520" r="2"/>
