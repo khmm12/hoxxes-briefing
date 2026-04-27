@@ -18,9 +18,9 @@ const layoutRecipe = cva({
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'stretch',
-    paddingBlockStart: { base: 'ui12', md: 'ui16', lg: 'ui24' },
+    paddingBlockStart: { base: 'ui8', md: 'ui16', lg: 'ui24' },
     paddingBlockEnd: { base: `calc(env(safe-area-inset-bottom) + ${token('spacing.ui36')})`, md: 'ui32' },
-    paddingInline: { base: 'ui12', md: 'ui16', lg: 'ui24' },
+    paddingInline: { base: 'ui8', md: 'ui16', lg: 'ui24' },
     '& > *': {
       minWidth: 0,
       maxWidth: '100%',
