@@ -33,7 +33,7 @@ export function createWebViteConfig(): ViteUserConfig {
         srcDir: 'src/app',
         filename: 'sw.ts',
         devOptions: {
-          enabled: true,
+          enabled: false,
           type: 'module',
         },
       }),
