@@ -58,6 +58,12 @@ Regenerate the committed WASM package after Rust generator changes:
 - [Deployment](docs/deployment.md) - Vercel deployment runbook
 - [Web App](apps/web/README.md) - web app ownership and local notes
 
+## Commit Rules
+
+- Use Conventional Commits for commit messages.
+- Prefer small, focused commits with one logical change per commit.
+- Do not include AI/tool attribution in commit messages unless explicitly requested.
+
 ## Credits
 
 This project would not be here without the mission generation work started in

@@ -17,17 +17,22 @@ clarity, and launch readiness over speculative features.
 - Check nested `AGENTS.md` files before changing `apps/`, `packages/`, or
   `crates/`.
 - Keep agent guidance short. Put human documentation in `README.md` or `docs/`.
-- Do not recreate LLM-specific planning docs under `docs/`.
+- Do not create new LLM-specific planning docs under `docs/` unless explicitly requested.
 
 ## Safe Commands
 
-- `pnpm dev:web`
-- `pnpm dev:api`
-- `pnpm build`
+The following commands are safe to run when relevant:
+
 - `pnpm check`
 - `pnpm test`
+- `pnpm build`
 - `cargo test --workspace`
 - `cargo bench -p drg_mission_gen_wasm` when bench work is explicitly requested
+
+Long-running commands may be used only when needed for manual verification:
+
+- `pnpm dev:web`
+- `pnpm dev:api`
 
 ## Verification
 
@@ -42,3 +47,37 @@ clarity, and launch readiness over speculative features.
 - When docs and code disagree, prefer verified code and update docs in the same
   change when feasible.
 - Prefer small, behavior-focused tests over broad snapshots.
+
+## Engineering Standards
+
+### YAGNI (You Aren't Gonna Need It)
+
+Detection patterns:
+
+- Unused parameters "for future use"
+- Abstract classes with single implementation
+- Configuration options never used
+- Speculative generalization
+
+Guidance:
+
+- Build for current requirements
+- Refactor when needs emerge
+- Delete dead code when it is proven unused and within the task scope.
+- Prefer simple over flexible
+
+### KISS (Keep It Simple, Stupid)
+
+Detection patterns:
+
+- Cyclomatic complexity > 10 as a review smell, not an automatic rewrite trigger
+- Nested callbacks/promises 4+ deep
+- Generic solutions for specific problems
+- Framework overkill for simple tasks
+
+Refactoring:
+
+- Flatten control flow
+- Extract named functions
+- Use early returns
+- Choose boring technology
