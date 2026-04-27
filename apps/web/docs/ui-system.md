@@ -67,6 +67,9 @@ pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-favico
 pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-assets.config.ts
 ```
 
+PWA install icons should be full-bleed square truecolor assets. Do not bake in
+rounded corners; platform masks own the visible icon shape.
+
 Regenerate the OpenGraph preview image from the scripted source:
 
 ```bash

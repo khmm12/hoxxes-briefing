@@ -16,8 +16,8 @@
     </linearGradient>
   </defs>
 
-  <rect x="8" y="8" width="1008" height="1008" rx="160" fill="#171713"/>
-  <rect x="8" y="8" width="1008" height="1008" rx="160" fill="url(#bgGlow)"/>
+  <rect width="1024" height="1024" fill="#171713"/>
+  <rect width="1024" height="1024" fill="url(#bgGlow)"/>
 
   <g transform="translate(512 512) scale(0.86) translate(-512 -512)">
     <g id="emblem-shadow" transform="translate(7 8)">
