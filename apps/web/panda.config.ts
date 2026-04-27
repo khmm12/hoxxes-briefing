@@ -120,6 +120,7 @@ export default defineConfig({
           ui16: { value: '1rem' },
           ui24: { value: '1.5rem' },
           ui32: { value: '2rem' },
+          ui36: { value: '2.25rem' },
           ui40: { value: '2.5rem' },
           ui48: { value: '3rem' },
           ui64: { value: '4rem' },

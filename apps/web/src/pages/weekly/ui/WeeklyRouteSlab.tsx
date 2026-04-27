@@ -3,6 +3,7 @@ import { msg } from '@lingui/core/macro'
 import type { Accessor, JSX } from 'solid-js'
 import { createMemo, createSignal, createUniqueId, For, Show } from 'solid-js'
 import { css, cva } from 'styled-system/css'
+import { token } from 'styled-system/tokens'
 import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
 import { createMediaQuery } from '~/shared/lib/create-media-query'
@@ -23,7 +24,7 @@ type WeeklyRouteSlabProps = {
 
 const slabRecipe = cva({
   base: {
-    '--route-accent-surface': 'var(--colors-brand-surface)',
+    '--route-accent-surface': token('colors.brand.surface'),
     position: 'relative',
     isolation: 'isolate',
     display: 'grid',
@@ -56,7 +57,7 @@ const slabRecipe = cva({
     kind: {
       normal: {},
       elite: {
-        '--route-accent-surface': 'var(--colors-danger-surface)',
+        '--route-accent-surface': token('colors.danger.surface'),
         borderColor: 'danger.border',
         background: 'surface.sunken',
       },
@@ -159,7 +160,7 @@ const chipRecipe = cva({
   base: {
     display: 'inline-flex',
     alignItems: 'center',
-    minHeight: 'var(--spacing-ui24)',
+    minHeight: token('spacing.ui24'),
     paddingBlock: 'ui4',
     paddingInline: 'ui8',
     borderWidth: '1px',

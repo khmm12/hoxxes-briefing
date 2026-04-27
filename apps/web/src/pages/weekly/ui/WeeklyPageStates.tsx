@@ -31,19 +31,18 @@ export function WeeklyLoadingState(props: WeeklyLoadingStateProps): JSX.Element 
   const i18n = useI18n()
 
   return (
-    <AppLayout dockVisible={props.dockVisible} variant="state">
+    <AppLayout dockVisible={props.dockVisible}>
       <StateScreen
         body={
           props.online
-            ? i18n._(msg`Checking the current weekly board.`)
-            : i18n._(msg`Looking for a saved board on this device.`)
+            ? i18n._(msg`Pulling the latest deep dives now.`)
+            : i18n._(msg`Looking for deep dives on your device.`)
         }
         bodyTone="disabled"
         busy
-        eyebrow={props.online ? i18n._(msg`Checking board`) : i18n._(msg`Offline check`)}
+        eyebrow={i18n._(msg`Checking this week`)}
         indicator={<Spinner />}
-        srStatus={i18n._(msg`Loading weekly board`)}
-        title={i18n._(msg`Checking this week's board`)}
+        title={i18n._(msg`Mining Morkite`)}
       />
     </AppLayout>
   )
@@ -64,7 +63,7 @@ function EmptyWeeklyState(props: EmptyWeeklyStateProps): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <AppLayout dockVisible={props.dockVisible} variant="state">
+    <AppLayout dockVisible={props.dockVisible}>
       <Show
         when={props.online}
         fallback={
@@ -99,7 +98,7 @@ function RuntimeErrorState(props: { dockVisible: boolean; reset: () => void }): 
   const i18n = useI18n()
 
   return (
-    <AppLayout dockVisible={props.dockVisible} variant="state">
+    <AppLayout dockVisible={props.dockVisible}>
       <StateScreen
         action={
           <ActionControl component="button" tone="primary" type="button" onClick={() => reloadPageOrReset(props.reset)}>

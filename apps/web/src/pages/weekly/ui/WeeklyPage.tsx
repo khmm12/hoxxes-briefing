@@ -27,9 +27,6 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
   const online = createOnlineStatus()
   const boardQuery = createWeeklyBoardQuery()
 
-  // TODO: remove simulation
-  // const [now] = createSignal(() => addSeconds(new Date(boardQuery.data.week.expiration), -5))
-
   const refreshBoard = (): void => {
     boardQuery.refresh()
   }
@@ -98,7 +95,7 @@ function ReadyWeeklyBoard(props: ReadyWeeklyBoardProps): JSX.Element {
   } satisfies WeeklyBoardViewState
 
   return (
-    <AppLayout dockVisible={props.dockVisible} variant="board">
+    <AppLayout dockVisible={props.dockVisible}>
       <WeeklyBoard now={now()} state={boardState} data={props.query.data} onRefresh={props.onRefresh} />
     </AppLayout>
   )

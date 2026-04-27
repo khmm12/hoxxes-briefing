@@ -1,6 +1,7 @@
 import { msg } from '@lingui/core/macro'
 import { createMemo, type JSX, Show } from 'solid-js'
 import { css, cva } from 'styled-system/css'
+import { token } from 'styled-system/tokens'
 import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
 import { MutatorGlyphIcon, PrimaryObjectiveIcon, SecondaryObjectiveIcon, WarningGlyphIcon } from '~/shared/ui/icon'
@@ -57,7 +58,7 @@ const objectiveStackStyles = css.raw({
 
 const detailLineStyles = css.raw({
   display: 'grid',
-  gridTemplateColumns: 'var(--sizes-icon-md) minmax(0, 1fr)',
+  gridTemplateColumns: `${token('sizes.icon.md')} minmax(0, 1fr)`,
   gap: 'ui12',
   alignItems: 'start',
 })
@@ -70,7 +71,7 @@ const detailIconRecipe = cva({
     height: '1em',
     marginBlockStart: 'ui2',
     color: 'brand',
-    fontSize: 'token(sizes.icon.md)',
+    fontSize: token('sizes.icon.md'),
   },
   variants: {
     tone: {
@@ -147,7 +148,7 @@ const hazardStackStyles = css.raw({
 const hazardRecipe = cva({
   base: {
     display: 'grid',
-    gridTemplateColumns: 'var(--sizes-icon-md) minmax(0, 1fr)',
+    gridTemplateColumns: `${token('sizes.icon.md')} minmax(0, 1fr)`,
     gap: 'ui8',
     alignItems: 'start',
     paddingBlock: 'ui8',
@@ -178,7 +179,7 @@ const hazardIconRecipe = cva({
     width: '1em',
     height: '1em',
     color: 'danger',
-    fontSize: 'token(sizes.icon.md)',
+    fontSize: token('sizes.icon.md'),
   },
   variants: {
     tone: {

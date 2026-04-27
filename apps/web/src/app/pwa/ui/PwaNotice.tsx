@@ -1,6 +1,7 @@
 import { msg } from '@lingui/core/macro'
 import type { JSX } from 'solid-js'
 import { css } from 'styled-system/css'
+import { token } from 'styled-system/tokens'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
 
@@ -10,13 +11,16 @@ type PwaNoticeProps = {
 
 const dockStyles = css.raw({
   position: 'fixed',
-  insetBlockEnd: 'calc(env(safe-area-inset-bottom) + var(--spacing-ui12))',
+  insetBlockEnd: `calc(env(safe-area-inset-bottom) + ${token('spacing.ui12')})`,
   zIndex: 18,
   display: 'grid',
   gridTemplateColumns: { base: 'minmax(0, 1fr)', md: 'minmax(0, 1fr) auto' },
   gap: { base: 'ui12', md: 'ui8' },
   alignItems: 'center',
-  width: { base: 'min(calc(100% - var(--spacing-ui16)), 30rem)', lg: 'min(24rem, calc(100% - var(--spacing-ui48)))' },
+  width: {
+    base: `min(calc(100% - ${token('spacing.ui16')}), 30rem)`,
+    lg: `min(24rem, calc(100% - ${token('spacing.ui48')}))`,
+  },
   paddingBlock: { base: 'ui12', md: 'ui8' },
   paddingInline: { base: 'ui12', md: 'ui12' },
   borderWidth: '1px',

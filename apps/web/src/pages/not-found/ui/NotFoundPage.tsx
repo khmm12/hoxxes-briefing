@@ -17,7 +17,7 @@ export function NotFoundPage(props: NotFoundPageProps): JSX.Element {
   const pageTitle = untrack(() => i18n._(msg`Hoxxes Briefing | Not Found`))
 
   return (
-    <AppLayout dockVisible={props.dockVisible} variant="state">
+    <AppLayout dockVisible={props.dockVisible}>
       <Title>{pageTitle}</Title>
       <StateScreen
         action={

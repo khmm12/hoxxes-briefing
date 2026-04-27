@@ -16,13 +16,15 @@ type WeeklyBoardProps = {
 }
 
 const boardShellStyles = css.raw({
+  width: 'content.board',
+  maxWidth: '100%',
   display: 'grid',
+  marginInline: 'auto',
 })
 
 const boardGridStyles = css.raw({
   display: 'grid',
   gap: 'ui12',
-  minHeight: 'min(52rem, calc(100svh - 10rem))',
   marginTop: 'ui12',
   gridTemplateColumns: { base: '1fr', lg: 'repeat(2, minmax(0, 1fr))' },
   alignItems: 'stretch',
