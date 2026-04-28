@@ -15,9 +15,9 @@ export default defineConfig({
   manifestIconsEntry: false,
   preset: {
     transparent: {
-      sizes: [16, 32, 48],
+      sizes: [],
       padding: 0,
-      favicons: [[48, 'favicon.ico']],
+      favicons: [[32, 'favicon.ico']],
     },
     maskable: {
       sizes: [],

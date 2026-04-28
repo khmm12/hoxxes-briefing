@@ -19,7 +19,7 @@ export default defineConfig({
       },
     },
     maskable: {
-      sizes: [192, 512],
+      sizes: [512],
       padding: 0,
       resizeOptions: {
         background: 'transparent',
@@ -39,12 +39,10 @@ export default defineConfig({
 function assetName(type: AssetType, size: ResolvedAssetSize): string {
   switch (type) {
     case 'transparent':
-      return `icon-${size.width}x${size.height}.png`
+      return `icon-${size.width}.png`
     case 'maskable':
-      return `icon-maskable-${size.width}x${size.height}.png`
+      return `icon-maskable-${size.width}.png`
     case 'apple':
-      return size.width === 180 && size.height === 180
-        ? 'apple-touch-icon.png'
-        : `apple-touch-icon-${size.width}x${size.height}.png`
+      return size.width === 180 ? 'apple-touch-icon.png' : `apple-touch-icon-${size.width}.png`
   }
 }
