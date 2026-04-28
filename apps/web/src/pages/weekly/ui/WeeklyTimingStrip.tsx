@@ -86,7 +86,7 @@ const timingStartedValueStyles = css.raw({
 })
 
 const timingEndedValueStyles = css.raw({
-  fontWeight: 'semibold',
+  fontWeight: '500',
   fontSize: '1.25rem',
 })
 

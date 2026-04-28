@@ -56,6 +56,7 @@ const animationStyles = defineAnimationStyles({
 
 export default defineConfig({
   preflight: true,
+  presets: [],
   include: ['./src/**/*.{ts,tsx}'],
   exclude: [],
   jsxFramework: 'solid',
@@ -67,14 +68,16 @@ export default defineConfig({
   theme: {
     extend: {
       breakpoints: {
-        sm: '40rem',
-        md: '45rem',
-        lg: '61.25rem',
-        xl: '80rem',
-        '2xl': '96rem',
+        sm: '640px',
+        md: '720px',
+        lg: '980px',
+        xl: '1280px',
       },
       keyframes,
       tokens: {
+        aspectRatios: {
+          square: { value: '1 / 1' },
+        },
         fonts: {
           display: {
             value: "'Rajdhani', 'Avenir Next Condensed', 'Arial Narrow', sans-serif",
@@ -84,6 +87,10 @@ export default defineConfig({
           },
         },
         colors: {
+          current: { value: 'currentColor' },
+          black: { value: '#000' },
+          white: { value: '#fff' },
+          transparent: { value: 'rgb(0 0 0 / 0)' },
           neutral: {
             950: { value: '#090909' },
             900: { value: '#0e0e0c' },

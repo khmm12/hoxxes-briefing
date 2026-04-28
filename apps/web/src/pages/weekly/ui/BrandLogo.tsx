@@ -3,7 +3,7 @@ import { css } from 'styled-system/css'
 
 const logoStyles = css.raw({
   display: 'block',
-  aspectRatio: '1 / 1',
+  aspectRatio: 'square',
   width: '100%',
   height: 'auto',
   maxWidth: '100%',
