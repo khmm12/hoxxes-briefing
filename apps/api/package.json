@@ -5,13 +5,15 @@
 	"scripts": {
 		"dev": "node --conditions=development --watch --experimental-strip-types src/index.ts",
 		"build": "tsc -p tsconfig.build.json",
-		"test": "node --conditions=development --test --experimental-strip-types test/*.test.ts",
+		"test": "node --conditions=development --test --experimental-strip-types src/**/*.test.ts test/*.test.ts",
 		"typecheck": "tsc -p tsconfig.json --noEmit"
 	},
 	"dependencies": {
+		"@date-fns/utc": "^2.1.1",
+		"@hono/node-server": "^2.0.0",
 		"@hoxxes-briefing/contracts": "workspace:*",
 		"@hoxxes-briefing/wasm": "workspace:*",
-		"@hono/node-server": "^2.0.0",
+		"date-fns": "^4.1.0",
 		"hono": "^4.12.15"
 	},
 	"exports": {
