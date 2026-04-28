@@ -1,6 +1,6 @@
+import { createMemo, type JSX, Match, Switch } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import { createMemo, type JSX, Match, Switch } from 'solid-js'
 import { css } from 'styled-system/css'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'

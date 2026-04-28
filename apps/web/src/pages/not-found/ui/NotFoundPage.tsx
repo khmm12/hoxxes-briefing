@@ -1,7 +1,7 @@
+import { type JSX, untrack } from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import { Title } from '@solidjs/meta'
 import { A } from '@solidjs/router'
-import { type JSX, untrack } from 'solid-js'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
 import { NotFoundIcon } from '~/shared/ui/icon'

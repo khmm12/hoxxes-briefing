@@ -38,7 +38,22 @@
 		"enabled": true,
 		"actions": {
 			"source": {
-				"organizeImports": "on"
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": [
+							[":BUN:", ":NODE:"],
+							[
+								"vitest",
+								"vitest/**",
+								"@testing-library",
+								"@testing-library/**"
+							],
+							["solid-js", "@solid-js/**"],
+							[":PACKAGE:", "@hoxxes-briefing/**", ":ALIAS:", ":PATH:"]
+						]
+					}
+				}
 			}
 		}
 	}

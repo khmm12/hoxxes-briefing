@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-
 import { parseApiV1ErrorResponse, parseApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
 import { createApp } from '../src/app.ts'
 import type { CurrentDeepDives } from '../src/application/models/current-deep-dives.ts'

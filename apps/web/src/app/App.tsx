@@ -1,7 +1,7 @@
+import { type JSX, Loading, lazy, Show } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { MetaProvider } from '@solidjs/meta'
 import { Route, Router } from '@solidjs/router'
-import { type JSX, Loading, lazy, Show } from 'solid-js'
 import { I18nProvider } from '~/app/providers'
 import { createPwaNoticeState, PwaNotice } from '~/app/pwa'
 import { WeeklyPage } from '~/pages/weekly'

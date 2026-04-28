@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-
 import { createWebViteConfig, localApiDevOrigin } from './vite.config'
 
 describe('createWebViteConfig', () => {

@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-
 import {
   parseApiV1WeeklyResponse as parseApiV1WeeklyResponseFromRoot,
   safeParseApiV1ErrorResponse as safeParseApiV1ErrorResponseFromRoot,

@@ -1,5 +1,5 @@
-import type { I18n } from '@lingui/core'
 import { useContext } from 'solid-js'
+import type { I18n } from '@lingui/core'
 import { I18nContext } from './i18n-context'
 
 export function useI18n(): I18n {

@@ -1,5 +1,5 @@
-import type { I18n } from '@lingui/core'
 import { type Accessor, createContext, createEffect, createSignal, type JSX } from 'solid-js'
+import type { I18n } from '@lingui/core'
 
 type LinguiProviderProps = {
   children?: JSX.Element

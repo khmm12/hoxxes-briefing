@@ -1,7 +1,7 @@
+import type { JSX } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import { intervalToDuration, parseISO } from 'date-fns'
-import type { JSX } from 'solid-js'
 import { css, cva } from 'styled-system/css'
 import type { SystemStyleObject } from 'styled-system/types'
 import type { WeeklySnapshotResult } from '~/shared/api/weekly'

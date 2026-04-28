@@ -1,5 +1,5 @@
-import { Dynamic } from '@solidjs/web'
 import type { JSX } from 'solid-js'
+import { Dynamic } from '@solidjs/web'
 import { cva } from 'styled-system/css'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 

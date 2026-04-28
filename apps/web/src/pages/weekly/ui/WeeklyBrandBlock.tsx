@@ -1,5 +1,5 @@
-import { msg } from '@lingui/core/macro'
 import type { JSX } from 'solid-js'
+import { msg } from '@lingui/core/macro'
 import { css } from 'styled-system/css'
 import { token } from 'styled-system/tokens'
 import { useI18n } from '~/shared/i18n'

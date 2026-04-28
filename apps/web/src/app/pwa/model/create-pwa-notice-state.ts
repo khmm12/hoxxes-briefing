@@ -1,5 +1,5 @@
-import { useRegisterSW } from 'virtual:pwa-register/solid'
 import { createMemo } from 'solid-js'
+import { useRegisterSW } from 'virtual:pwa-register/solid'
 
 type PwaNoticeState = {
   dismissible: boolean

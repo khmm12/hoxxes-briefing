@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-
 import { createWeeklySuccessCacheHeaders, weeklyBrowserCacheControl } from './weekly-cache-headers.ts'
 
 test('createWeeklySuccessCacheHeaders sets Vercel CDN max-age until expiration minus safety margin', () => {
