@@ -16,8 +16,6 @@ Verify the preview before promotion:
 
 - root URL loads the weekly board
 - `GET /api/v1/weekly` returns `200` and matches `packages/contracts`
-- `GET /api/v1/weekly` returns `Cache-Control`, `Vercel-CDN-Cache-Control`,
-  and `Vercel-Cache-Tag` headers for fresh weekly data
 - `/sw.js` and `/manifest.webmanifest` are reachable
 - a hard refresh on a non-root SPA path returns the app shell
 
@@ -44,8 +42,7 @@ Check deployed cache behavior with:
 curl -I https://hoxxes-briefing.vercel.app/api/v1/weekly
 ```
 
-Use `x-vercel-cache` to confirm the expected `MISS`, then `HIT` or `STALE`
-behavior for repeated requests.
+Use `x-vercel-cache` to confirm the expected `MISS`, then `HIT` or `STALE` behavior for repeated requests.
 
 Do not purge weekly API cache automatically after every deployment. If a release
 changes the meaning of the existing `/api/v1/weekly` response and stale data is
