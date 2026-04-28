@@ -1,5 +1,5 @@
 import type { I18n } from '@lingui/core'
-import { type Accessor, createContext, createSignal, createTrackedEffect, type JSX } from 'solid-js'
+import { type Accessor, createContext, createEffect, createSignal, type JSX } from 'solid-js'
 
 type LinguiProviderProps = {
   children?: JSX.Element
@@ -21,10 +21,10 @@ export function I18nProvider(props: LinguiProviderProps): JSX.Element {
 function createI18n(i18n: Accessor<I18n>): I18n {
   const [signal, setSignal] = createSignal(0)
 
-  createTrackedEffect(() => {
+  createEffect(i18n, (i18n) => {
     const handleChange = () => setSignal((value) => value + 1)
 
-    const unsubscribe = i18n().on('change', handleChange)
+    const unsubscribe = i18n.on('change', handleChange)
     return unsubscribe
   })
 
