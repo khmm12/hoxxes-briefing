@@ -8,7 +8,7 @@ import type {
   DeepDivePrimaryObjective,
   DeepDiveSecondaryObjective,
   DeepDiveWarning,
-} from '../../application/models/currentDeepDives.ts'
+} from '../../application/models/current-deep-dives.ts'
 
 export type GeneratedDeepDives = Pick<CurrentDeepDives, 'seed' | 'dives'>
 

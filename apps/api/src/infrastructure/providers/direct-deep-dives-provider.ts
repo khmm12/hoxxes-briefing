@@ -1,7 +1,7 @@
-import type { DeepDivesProvider } from '../../ports/deepDivesProvider.ts'
-import { DeepDivesProviderError } from '../../ports/deepDivesProvider.ts'
-import { type GeneratedDeepDives, generateWeeklyDives } from '../generator/generatorBridge.ts'
-import { type DeepDiveEvent, getDeepDiveEvent } from '../upstream/getDeepDiveEvent.ts'
+import type { DeepDivesProvider } from '../../ports/deep-dives-provider.ts'
+import { DeepDivesProviderError } from '../../ports/deep-dives-provider.ts'
+import { type GeneratedDeepDives, generateWeeklyDives } from '../generator/generator-bridge.ts'
+import { type DeepDiveEvent, getDeepDiveEvent } from '../upstream/get-deep-dive-event.ts'
 
 export type DirectDeepDivesProviderDependencies = {
   loadEvent?: typeof getDeepDiveEvent

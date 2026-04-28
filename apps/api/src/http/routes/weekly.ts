@@ -1,9 +1,9 @@
 import type { Context, Hono } from 'hono'
-import { getCurrentDeepDives } from '../../application/getCurrentDeepDives.ts'
-import type { DeepDivesProvider } from '../../ports/deepDivesProvider.ts'
+import { getCurrentDeepDives } from '../../application/get-current-deep-dives.ts'
+import type { DeepDivesProvider } from '../../ports/deep-dives-provider.ts'
 import { InvalidResponsePayloadError, toPublicErrorResponse } from '../errors.ts'
-import { mapCurrentDeepDivesToWeeklyResponse } from '../mapWeeklyResponse.ts'
-import { createWeeklyErrorCacheHeaders, createWeeklySuccessCacheHeaders } from '../weeklyCacheHeaders.ts'
+import { mapCurrentDeepDivesToWeeklyResponse } from '../map-weekly-response.ts'
+import { createWeeklyErrorCacheHeaders, createWeeklySuccessCacheHeaders } from '../weekly-cache-headers.ts'
 
 export type WeeklyRouteDependencies = {
   deepDivesProvider: DeepDivesProvider

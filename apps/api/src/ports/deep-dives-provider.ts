@@ -1,4 +1,4 @@
-import type { CurrentDeepDives } from '../application/models/currentDeepDives.ts'
+import type { CurrentDeepDives } from '../application/models/current-deep-dives.ts'
 
 export type DeepDivesProviderFailureKind = 'UPSTREAM_UNAVAILABLE' | 'WEEKLY_DATA_UNAVAILABLE'
 

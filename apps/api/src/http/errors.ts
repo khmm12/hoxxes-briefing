@@ -1,5 +1,5 @@
 import { type ApiV1ErrorResponse, parseApiV1ErrorResponse } from '@hoxxes-briefing/contracts/api/v1'
-import { DeepDivesProviderError } from '../ports/deepDivesProvider.ts'
+import { DeepDivesProviderError } from '../ports/deep-dives-provider.ts'
 
 type PublicErrorCode = ApiV1ErrorResponse['code']
 type PublicErrorStatus = 429 | 500 | 502 | 503
