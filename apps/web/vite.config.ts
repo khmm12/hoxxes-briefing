@@ -10,7 +10,11 @@ export const localApiDevOrigin = 'http://localhost:3001'
 export function createWebViteConfig(): ViteUserConfig {
   return {
     plugins: [
-      solidPlugin(),
+      solidPlugin({
+        babel: {
+          plugins: ['@lingui/babel-plugin-lingui-macro'],
+        },
+      }),
       linguiPlugin(),
       babelPlugin({
         presets: [linguiTransformerBabelPreset()],
