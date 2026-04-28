@@ -56,6 +56,7 @@ const animationStyles = defineAnimationStyles({
 
 export default defineConfig({
   preflight: true,
+  hash: true,
   presets: [],
   include: ['./src/**/*.{ts,tsx}'],
   exclude: [],
