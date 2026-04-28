@@ -2,7 +2,9 @@ import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import { getIsoWeekId } from './get-iso-week-id.ts'
 
-const testCases: { name: string; ts: string; expected: string }[] = [
+type TestCase = { name: string; ts: string; expected: string }
+
+const testCases: ReadonlyArray<TestCase> = [
   {
     name: 'maps a regular Deep Dive Thursday to its ISO week',
     ts: '2026-04-23T11:00:00.000Z',
@@ -38,7 +40,7 @@ const testCases: { name: string; ts: string; expected: string }[] = [
     ts: '2014-12-28T23:30:00.000Z',
     expected: '2014-W52',
   },
-] as const
+]
 
 describe('getIsoWeekId', () => {
   for (const tc of testCases) {
