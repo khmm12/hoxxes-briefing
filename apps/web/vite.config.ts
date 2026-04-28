@@ -31,6 +31,7 @@ export function createWebViteConfig(): ViteUserConfig {
             'icon-maskable-512x512.png',
             'icon-pwa-maskable.svg',
             'og-image.png',
+            'google*.html',
           ],
         },
         strategies: 'injectManifest',
