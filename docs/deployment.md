@@ -16,6 +16,8 @@ Verify the preview before promotion:
 
 - root URL loads the weekly board
 - `GET /api/v1/weekly` returns `200` and matches `packages/contracts`
+- `GET /api/v1/weekly` returns `Cache-Control`, `Vercel-CDN-Cache-Control`,
+  and `Vercel-Cache-Tag` headers for fresh weekly data
 - `/sw.js` and `/manifest.webmanifest` are reachable
 - a hard refresh on a non-root SPA path returns the app shell
 
@@ -29,3 +31,33 @@ vercel promote <preview-url>
 
 Do not deploy directly to production unless the preview path is broken and the
 production change has been verified locally.
+
+## API CDN Cache
+
+`GET /api/v1/weekly` is cached at the Vercel CDN edge until shortly before the
+weekly Deep Dives expiration. Browser HTTP cache is kept on revalidation mode so
+the web app can use its own CacheStorage fallback for stale data.
+
+Check deployed cache behavior with:
+
+```bash
+curl -I https://hoxxes-briefing.vercel.app/api/v1/weekly
+```
+
+Use `x-vercel-cache` to confirm the expected `MISS`, then `HIT` or `STALE`
+behavior for repeated requests.
+
+Do not purge weekly API cache automatically after every deployment. If a release
+changes the meaning of the existing `/api/v1/weekly` response and stale data is
+still acceptable during background revalidation, invalidate the v1 tag manually:
+
+```bash
+vercel cache invalidate --tag weekly-v1
+```
+
+If a bad response was cached and must stop being served immediately, use a hard
+purge instead:
+
+```bash
+vercel cache dangerously-delete --tag weekly-v1
+```

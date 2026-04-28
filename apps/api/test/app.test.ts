@@ -83,6 +83,26 @@ test('GET /api/v1/weekly returns the weekly contract payload', async () => {
   assert.equal(payload.dives.elite.missions.length, 3)
 })
 
+test('GET /api/v1/weekly returns CDN cache headers for a fresh weekly payload', async () => {
+  const app = createApp({
+    deepDivesProvider: createProvider(async () => ({
+      ...createCurrentDeepDives(),
+      release: '2999-04-16T11:00:00.000Z',
+      expiration: '2999-04-23T11:00:00.000Z',
+    })),
+  })
+
+  const response = await app.request('/api/v1/weekly')
+
+  assert.equal(response.status, 200)
+  assert.equal(response.headers.get('cache-control'), 'public, max-age=0, must-revalidate')
+  assert.equal(response.headers.get('vercel-cache-tag'), 'weekly,weekly-v1')
+  assert.match(
+    response.headers.get('vercel-cdn-cache-control') ?? '',
+    /^public, max-age=\d+, stale-while-revalidate=60$/,
+  )
+})
+
 test('GET /api/v1/weekly returns a structured upstream failure', async () => {
   const app = createApp({
     deepDivesProvider: createProvider(async () => {
@@ -97,6 +117,9 @@ test('GET /api/v1/weekly returns a structured upstream failure', async () => {
   })
 
   assert.equal(response.status, 502)
+  assert.equal(response.headers.get('cache-control'), 'no-store')
+  assert.equal(response.headers.get('vercel-cdn-cache-control'), null)
+  assert.equal(response.headers.get('vercel-cache-tag'), null)
 
   const payload = parseApiV1ErrorResponse(await response.json())
   assert.equal(payload.code, 'UPSTREAM_UNAVAILABLE')
@@ -123,6 +146,9 @@ test('GET /api/v1/weekly returns a structured invalid payload error', async () =
   const response = await app.request('/api/v1/weekly')
 
   assert.equal(response.status, 500)
+  assert.equal(response.headers.get('cache-control'), 'no-store')
+  assert.equal(response.headers.get('vercel-cdn-cache-control'), null)
+  assert.equal(response.headers.get('vercel-cache-tag'), null)
 
   const payload = parseApiV1ErrorResponse(await response.json())
   assert.equal(payload.code, 'INVALID_RESPONSE_PAYLOAD')
