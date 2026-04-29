@@ -12,8 +12,8 @@ type WeeklyBrandBlockProps = {
 const brandClusterStyles = css.raw({
   display: 'grid',
   gridTemplateColumns: {
-    base: `${token('spacing.ui40')} minmax(0, 1fr)`,
-    md: `${token('spacing.ui48')} minmax(0, 1fr)`,
+    base: `${token('sizes.ui40')} minmax(0, 1fr)`,
+    md: `${token('sizes.ui48')} minmax(0, 1fr)`,
   },
   gap: { base: 'ui12', md: 'ui16' },
   alignItems: 'start',
@@ -23,8 +23,8 @@ const logoFrameStyles = css.raw({
   position: 'relative',
   display: 'grid',
   placeItems: 'center',
-  width: { base: token('spacing.ui40'), md: token('spacing.ui48') },
-  height: { base: token('spacing.ui40'), md: token('spacing.ui48') },
+  width: { base: 'ui40', md: 'ui48' },
+  height: { base: 'ui40', md: 'ui48' },
   paddingBlock: { base: 'ui0', md: 'ui2' },
   paddingInline: { base: 'ui0', md: 'ui2' },
   borderWidth: '1px',
@@ -38,7 +38,7 @@ const logoFrameStyles = css.raw({
 const brandCopyStyles = css.raw({
   display: 'grid',
   gap: 'ui4',
-  minWidth: 0,
+  minWidth: '0',
 })
 
 const eyebrowStyles = css.raw({

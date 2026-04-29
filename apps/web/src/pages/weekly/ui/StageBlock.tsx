@@ -67,8 +67,8 @@ const detailIconRecipe = cva({
   base: {
     display: 'grid',
     placeItems: 'center',
-    width: '1em',
-    height: '1em',
+    width: '[1em]',
+    height: '[1em]',
     marginBlockStart: 'ui2',
     color: 'brand',
     fontSize: token('sizes.icon.md'),
@@ -89,7 +89,7 @@ const detailIconRecipe = cva({
 const detailCopyStyles = css.raw({
   display: 'grid',
   gap: 'ui4',
-  minWidth: 0,
+  minWidth: '0',
 })
 
 const labelRecipe = cva({
@@ -176,8 +176,8 @@ const hazardIconRecipe = cva({
   base: {
     display: 'grid',
     placeItems: 'center',
-    width: '1em',
-    height: '1em',
+    width: '[1em]',
+    height: '[1em]',
     color: 'danger',
     fontSize: token('sizes.icon.md'),
   },

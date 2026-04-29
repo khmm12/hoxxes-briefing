@@ -29,7 +29,7 @@ msgstr "{minutes}m {seconds}s"
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:286
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:285
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
@@ -37,7 +37,7 @@ msgstr "+{overflowCount} more"
 msgid "Advance by cover, not courage. Call angles before holds."
 msgstr "Advance by cover, not courage. Call angles before holds."
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:282
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:281
 msgid "All clear"
 msgstr "All clear"
 
@@ -289,7 +289,7 @@ msgstr "Keep moving between cover. Open ground has teeth today."
 msgid "Keep the floor tidy. Little trouble grows fast under pressure."
 msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:231
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:230
 msgid "Last known board"
 msgstr "Last known board"
 
@@ -518,8 +518,8 @@ msgstr "Rock and Stone, Miner! Made with love by"
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
 
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:236
 #: src/pages/weekly/ui/WeeklyRouteSlab.tsx:237
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:238
 msgid "Route scan"
 msgstr "Route scan"
 
@@ -563,7 +563,7 @@ msgstr "Secondary objective"
 msgid "Shield Disruption"
 msgstr "Shield Disruption"
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:251
+#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:250
 msgid "Show less"
 msgstr "Show less"
 

@@ -11,9 +11,9 @@ export type IconProps = WithStylingProps<SvgProps>
 const iconStyles = css.raw({
   display: 'inline-block',
   flexShrink: 0,
-  width: '1em',
-  height: '1em',
-  color: 'currentColor',
+  width: '[1em]',
+  height: '[1em]',
+  color: 'current',
 })
 
 export function iconProps(props: IconProps): JSX.SvgSVGAttributes<SVGSVGElement> {

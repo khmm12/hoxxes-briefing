@@ -30,8 +30,7 @@ const slabRecipe = cva({
     display: 'grid',
     gridTemplateRows: 'auto auto minmax(0, 1fr)',
     gap: { base: 'ui12', md: 'ui16' },
-    height: '100%',
-    minHeight: { lg: 'min(52rem, calc(100svh - 14rem))' },
+    height: 'full',
     paddingBlock: { base: 'ui16', md: 'ui24' },
     paddingInline: { base: 'ui16', md: 'ui24' },
     borderWidth: '1px',
@@ -44,8 +43,8 @@ const slabRecipe = cva({
     _before: {
       content: '""',
       position: 'absolute',
-      inset: 0,
-      background: 'radial-gradient(circle at top right, var(--route-accent-surface) 0, transparent 65%)',
+      inset: '0',
+      background: '[radial-gradient(circle at top right, var(--route-accent-surface) 0, transparent 65%)]',
       pointerEvents: 'none',
     },
     '& > *': {
@@ -160,7 +159,7 @@ const chipRecipe = cva({
   base: {
     display: 'inline-flex',
     alignItems: 'center',
-    minHeight: token('spacing.ui24'),
+    minHeight: 'ui24',
     paddingBlock: 'ui4',
     paddingInline: 'ui8',
     borderWidth: '1px',
@@ -207,7 +206,7 @@ const stageListStyles = css.raw({
   alignContent: 'start',
   gap: 'ui12',
   listStyle: 'none',
-  padding: 0,
+  padding: '0',
 })
 
 export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {

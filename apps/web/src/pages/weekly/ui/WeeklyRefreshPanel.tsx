@@ -22,7 +22,7 @@ const commandRowStyles = css.raw({
 })
 
 const commandButtonStyles = css.raw({
-  minInlineSize: '10rem',
+  minInlineSize: 'ui100',
 })
 
 const statusStyles = css.raw({

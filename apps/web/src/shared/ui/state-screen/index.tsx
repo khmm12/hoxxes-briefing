@@ -49,7 +49,7 @@ const stateScreenFrameStyles = css.raw({
   position: 'relative',
   display: 'grid',
   width: 'content.state',
-  maxWidth: '100%',
+  maxWidth: 'full',
   marginInline: 'auto',
   placeItems: 'center',
 })
@@ -72,7 +72,7 @@ const titleStyles = css.raw({
   fontWeight: '700',
   letterSpacing: '0.02em',
   lineHeight: '1.2',
-  marginTop: 4,
+  marginTop: 'ui4',
 })
 
 const bodyRecipe = cva({
@@ -103,16 +103,16 @@ const passiveStatusStyles = css.raw({
 
 const actionRowStyles = css.raw({
   display: 'grid',
-  width: '100%',
+  width: 'full',
   placeItems: 'center',
   '& > *': {
-    width: '100%',
+    width: 'full',
   },
 })
 
 const statusRowStyles = css.raw({
   display: 'grid',
-  width: '100%',
+  width: 'full',
   placeItems: 'center',
 })
 

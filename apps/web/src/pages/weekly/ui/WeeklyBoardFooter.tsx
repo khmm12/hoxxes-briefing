@@ -18,11 +18,11 @@ const authorLinkStyles = css.raw({
   textDecorationThickness: '1px',
   textUnderlineOffset: '0.18em',
   transitionDuration: 'fast',
-  transitionProperty: 'color, text-decoration-color',
+  transitionProperty: '[color, text-decoration-color]',
   transitionTimingFunction: 'standard',
   _hover: {
     color: 'text.secondary',
-    textDecorationColor: 'currentColor',
+    textDecorationColor: 'current',
   },
   _focusVisible: {
     borderRadius: 'ui2',

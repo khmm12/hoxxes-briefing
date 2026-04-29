@@ -38,7 +38,7 @@ const actionControlRecipe = cva({
     textAlign: 'center',
     cursor: 'pointer',
     transitionDuration: 'fast',
-    transitionProperty: 'background-color, border-color, color, transform',
+    transitionProperty: '[background-color, border-color, color, transform]',
     transitionTimingFunction: 'standard',
     _hover: {
       transform: 'translateY(-1px)',

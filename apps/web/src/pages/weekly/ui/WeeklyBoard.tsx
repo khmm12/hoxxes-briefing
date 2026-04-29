@@ -17,7 +17,7 @@ type WeeklyBoardProps = {
 
 const boardShellStyles = css.raw({
   width: 'content.board',
-  maxWidth: '100%',
+  maxWidth: 'full',
   display: 'grid',
   marginInline: 'auto',
 })

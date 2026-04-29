@@ -12,25 +12,25 @@ const layoutRecipe = cva({
   base: {
     position: 'relative',
     zIndex: 1,
-    width: '100%',
-    minHeight: '100svh',
+    width: 'full',
+    minHeight: '[100svh]',
     color: 'text',
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'stretch',
     paddingBlockStart: { base: 'ui8', md: 'ui16', lg: 'ui24' },
-    paddingBlockEnd: { base: `calc(env(safe-area-inset-bottom) + ${token('spacing.ui36')})`, md: 'ui32' },
+    paddingBlockEnd: { base: `[calc(env(safe-area-inset-bottom) + ${token('spacing.ui36')})]`, md: 'ui32' },
     paddingInline: { base: 'ui8', md: 'ui16', lg: 'ui24' },
     '& > *': {
-      minWidth: 0,
-      maxWidth: '100%',
+      minWidth: '0',
+      maxWidth: 'full',
     },
   },
   variants: {
     dock: {
       hidden: {},
       visible: {
-        paddingBlockEnd: { base: `calc(env(safe-area-inset-bottom) + ${token('spacing.ui80')})`, md: 'ui48' },
+        paddingBlockEnd: { base: `[calc(env(safe-area-inset-bottom) + ${token('spacing.ui80')})]`, md: 'ui48' },
       },
     },
   },

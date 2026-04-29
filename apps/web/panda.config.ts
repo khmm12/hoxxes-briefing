@@ -54,9 +54,28 @@ const animationStyles = defineAnimationStyles({
   },
 })
 
+const spacing = {
+  0: { value: '0' },
+  ui0: { value: '0' },
+  ui2: { value: '0.125rem' },
+  ui4: { value: '0.25rem' },
+  ui8: { value: '0.5rem' },
+  ui12: { value: '0.75rem' },
+  ui16: { value: '1rem' },
+  ui24: { value: '1.5rem' },
+  ui32: { value: '2rem' },
+  ui36: { value: '2.25rem' },
+  ui40: { value: '2.5rem' },
+  ui48: { value: '3rem' },
+  ui64: { value: '4rem' },
+  ui80: { value: '5rem' },
+  ui100: { value: '6.25' },
+}
+
 export default defineConfig({
   preflight: true,
   hash: true,
+  strictTokens: true,
   presets: [],
   include: ['./src/**/*.{ts,tsx}'],
   exclude: [],
@@ -89,6 +108,7 @@ export default defineConfig({
         },
         colors: {
           current: { value: 'currentColor' },
+          inherit: { value: 'inherit' },
           black: { value: '#000' },
           white: { value: '#fff' },
           transparent: { value: 'rgb(0 0 0 / 0)' },
@@ -119,22 +139,10 @@ export default defineConfig({
             300: { value: '#b0c0c8' },
           },
         },
-        spacing: {
-          ui0: { value: '0' },
-          ui2: { value: '0.125rem' },
-          ui4: { value: '0.25rem' },
-          ui8: { value: '0.5rem' },
-          ui12: { value: '0.75rem' },
-          ui16: { value: '1rem' },
-          ui24: { value: '1.5rem' },
-          ui32: { value: '2rem' },
-          ui36: { value: '2.25rem' },
-          ui40: { value: '2.5rem' },
-          ui48: { value: '3rem' },
-          ui64: { value: '4rem' },
-          ui80: { value: '5rem' },
-        },
+        spacing,
         sizes: {
+          ...spacing,
+          full: { value: '100%' },
           control: {
             compact: { value: '2.75rem' },
             default: { value: '3rem' },

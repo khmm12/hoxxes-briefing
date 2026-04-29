@@ -11,15 +11,15 @@ type PwaNoticeProps = {
 
 const dockStyles = css.raw({
   position: 'fixed',
-  insetBlockEnd: `calc(env(safe-area-inset-bottom) + ${token('spacing.ui12')})`,
+  insetBlockEnd: `[calc(env(safe-area-inset-bottom) + ${token('spacing.ui12')})]`,
   zIndex: 18,
   display: 'grid',
   gridTemplateColumns: { base: 'minmax(0, 1fr)', md: 'minmax(0, 1fr) auto' },
   gap: { base: 'ui12', md: 'ui8' },
   alignItems: 'center',
   width: {
-    base: `min(calc(100% - ${token('spacing.ui16')}), 30rem)`,
-    lg: `min(24rem, calc(100% - ${token('spacing.ui48')}))`,
+    base: `[min(calc(100% - ${token('spacing.ui16')}), 30rem)]`,
+    lg: `[min(24rem, calc(100% - ${token('spacing.ui48')}))]`,
   },
   paddingBlock: { base: 'ui12', md: 'ui8' },
   paddingInline: { base: 'ui12', md: 'ui12' },
@@ -30,14 +30,14 @@ const dockStyles = css.raw({
   background: { base: 'surface', lg: 'surface.sunken' },
   boxShadow: 'elevation.none',
   transform: { base: 'translateX(-50%)', lg: 'none' },
-  insetInlineStart: { base: '50%', lg: 'auto' },
+  insetInlineStart: { base: '[50%]', lg: '[auto]' },
   insetInlineEnd: { lg: 'ui24' },
 })
 
 const copyStyles = css.raw({
   display: 'grid',
   gap: 'ui4',
-  minWidth: 0,
+  minWidth: '0',
 })
 
 const eyebrowStyles = css.raw({
@@ -70,7 +70,7 @@ const actionSlotStyles = css.raw({
 })
 
 const actionStyles = css.raw({
-  width: { base: '100%', md: 'auto' },
+  width: { base: 'full', md: 'auto' },
 })
 
 export function PwaNotice(props: PwaNoticeProps): JSX.Element {

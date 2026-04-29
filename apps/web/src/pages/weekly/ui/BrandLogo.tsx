@@ -4,10 +4,10 @@ import { css } from 'styled-system/css'
 const logoStyles = css.raw({
   display: 'block',
   aspectRatio: 'square',
-  width: '100%',
+  width: 'full',
   height: 'auto',
-  maxWidth: '100%',
-  maxHeight: '100%',
+  maxWidth: 'full',
+  maxHeight: 'full',
   objectFit: 'contain',
 })
 
