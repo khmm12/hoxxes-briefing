@@ -12,5 +12,8 @@
 		"Svelte": { "formatter": { "language_server": { "name": "biome" } } },
 		"TSX": { "formatter": { "language_server": { "name": "biome" } } },
 		"TypeScript": { "formatter": { "language_server": { "name": "biome" } } }
+	},
+	"file_types": {
+		"JSON": ["**/*.webmanifest"]
 	}
 }
