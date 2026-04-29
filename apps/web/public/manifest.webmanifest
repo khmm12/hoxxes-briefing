@@ -1,4 +1,5 @@
 {
+	"$schema": "https://www.schemastore.org/web-manifest-combined.json",
 	"name": "Hoxxes Briefing",
 	"short_name": "Hoxxes Briefing",
 	"description": "Current Deep Rock Galactic Deep Dive and Elite Deep Dive briefing.",
