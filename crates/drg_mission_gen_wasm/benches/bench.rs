@@ -1,13 +1,11 @@
 use criterion::{Criterion, criterion_group, criterion_main};
 use std::hint::black_box;
 
-use drg_mission_gen_wasm::{wasm, wasm_generate};
+use drg_mission_gen_wasm::wasm_generate;
 
 fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("generate", |b| {
-        let seed = black_box(wasm::Seed::new(1));
-
-        b.iter(|| black_box(wasm_generate(seed)))
+        b.iter(|| black_box(wasm_generate(black_box(1))))
     });
 }
 

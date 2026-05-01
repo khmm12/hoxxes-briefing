@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "node --conditions=development --watch --experimental-strip-types src/index.ts",
 		"build": "tsc -p tsconfig.build.json",
-		"test": "node --conditions=development --test --experimental-strip-types src/**/*.test.ts test/*.test.ts",
+		"test": "node --conditions=development --test --experimental-strip-types \"src/**/*.test.ts\" \"test/*.test.ts\"",
 		"typecheck": "tsc -p tsconfig.json --noEmit"
 	},
 	"dependencies": {

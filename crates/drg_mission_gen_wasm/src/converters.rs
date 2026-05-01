@@ -36,25 +36,15 @@ impl From<facade::ConverterError> for wasm::ConverterError {
     }
 }
 
-impl From<facade::DeepDiveResult> for wasm::DeepDiveResult {
+impl From<facade::DeepDiveResult> for wasm::WeeklyDeepDives {
     fn from(result: facade::DeepDiveResult) -> Self {
-        wasm::DeepDiveResult {
-            normal: result.normal.into(),
-            elite: result.elite.into(),
-            seed: result.seed.into(),
+        wasm::WeeklyDeepDives {
+            seed: result.seed.as_u32(),
+            dives: wasm::DeepDives {
+                normal: result.normal.into(),
+                elite: result.elite.into(),
+            },
         }
-    }
-}
-
-impl From<facade::Seed> for wasm::Seed {
-    fn from(seed: facade::Seed) -> Self {
-        Self::new(seed.as_u32())
-    }
-}
-
-impl From<wasm::Seed> for facade::Seed {
-    fn from(seed: wasm::Seed) -> Self {
-        Self::new(seed.as_u32())
     }
 }
 
@@ -63,14 +53,8 @@ impl From<facade::DeepDive> for wasm::DeepDive {
         wasm::DeepDive {
             name: dd.name,
             biome: dd.biome.into(),
-            missions: dd.missions.into(),
+            missions: dd.missions.0.into_iter().map(Into::into).collect(),
         }
-    }
-}
-
-impl From<facade::DeepDiveMissions> for wasm::DeepDiveMissions {
-    fn from(missions: facade::DeepDiveMissions) -> Self {
-        wasm::DeepDiveMissions(missions.0.map(|m| m.into()))
     }
 }
 
@@ -81,8 +65,6 @@ impl From<facade::DeepDiveMission> for wasm::DeepDiveMission {
             secondary_objective: mission.secondary_objective.into(),
             mutator: mission.mutator.map(Into::into),
             warning: mission.warning.map(Into::into),
-            complexity: mission.complexity.into(),
-            duration: mission.duration.into(),
         }
     }
 }
@@ -96,6 +78,15 @@ impl From<facade::DeepDivePrimaryObjective> for wasm::DeepDivePrimaryObjective {
             facade::DeepDivePrimaryObjective::EscortDuty { refuels } => {
                 wasm::DeepDivePrimaryObjective::EscortDuty { refuels }
             }
+            facade::DeepDivePrimaryObjective::MiningExpedition { morkite } => {
+                wasm::DeepDivePrimaryObjective::MiningExpedition { morkite }
+            }
+            facade::DeepDivePrimaryObjective::IndustrialSabotage { power_stations } => {
+                wasm::DeepDivePrimaryObjective::IndustrialSabotage { power_stations }
+            }
+            facade::DeepDivePrimaryObjective::EggHunt { eggs } => {
+                wasm::DeepDivePrimaryObjective::EggHunt { eggs }
+            }
             facade::DeepDivePrimaryObjective::PointExtraction { aquarqs } => {
                 wasm::DeepDivePrimaryObjective::PointExtraction { aquarqs }
             }
@@ -106,70 +97,46 @@ impl From<facade::DeepDivePrimaryObjective> for wasm::DeepDivePrimaryObjective {
                 wasm::DeepDivePrimaryObjective::SalvageOperation { mini_mules }
             }
             facade::DeepDivePrimaryObjective::Elimination {
-                dreadnoughts,
-                dreadnought_kinds: dreadnoughts_,
+                dreadnought_kinds, ..
             } => wasm::DeepDivePrimaryObjective::Elimination {
-                dreadnoughts,
-                dreadnought_kinds: dreadnoughts_.into_iter().map(Into::into).collect(),
+                dreadnoughts: dreadnought_kinds.into_iter().map(Into::into).collect(),
             },
             facade::DeepDivePrimaryObjective::HeavyExtraction { resinite_masses } => {
                 wasm::DeepDivePrimaryObjective::HeavyExtraction { resinite_masses }
-            }
-
-            facade::DeepDivePrimaryObjective::MiningExpedition { morkite } => {
-                wasm::DeepDivePrimaryObjective::MiningExpedition { morkite }
-            }
-            facade::DeepDivePrimaryObjective::IndustrialSabotage { power_stations } => {
-                wasm::DeepDivePrimaryObjective::IndustrialSabotage { power_stations }
-            }
-            facade::DeepDivePrimaryObjective::EggHunt { eggs } => {
-                wasm::DeepDivePrimaryObjective::EggHunt { eggs }
             }
         }
     }
 }
 
 impl From<facade::DeepDiveSecondaryObjective> for wasm::DeepDiveSecondaryObjective {
-    fn from(obj: facade::DeepDiveSecondaryObjective) -> Self {
-        use facade::DeepDiveSecondaryObjective as Obj;
-        match obj {
-            Obj::EggHunt { eggs } => wasm::DeepDiveSecondaryObjective::EggHunt { eggs },
-            Obj::DeepScan { resonance_crystals } => {
+    fn from(objective: facade::DeepDiveSecondaryObjective) -> Self {
+        match objective {
+            facade::DeepDiveSecondaryObjective::EggHunt { eggs } => {
+                wasm::DeepDiveSecondaryObjective::EggHunt { eggs }
+            }
+            facade::DeepDiveSecondaryObjective::DeepScan { resonance_crystals } => {
                 wasm::DeepDiveSecondaryObjective::DeepScan { resonance_crystals }
             }
-            Obj::Blackbox { black_boxes } => {
+            facade::DeepDiveSecondaryObjective::Blackbox { black_boxes } => {
                 wasm::DeepDiveSecondaryObjective::Blackbox { black_boxes }
             }
-            Obj::Elimination {
-                dreadnoughts,
-                dreadnought_kinds,
+            facade::DeepDiveSecondaryObjective::Elimination {
+                dreadnought_kinds, ..
             } => wasm::DeepDiveSecondaryObjective::Elimination {
-                dreadnoughts,
                 dreadnought_kinds: dreadnought_kinds.into_iter().map(Into::into).collect(),
             },
-            Obj::MiningExpedition { morkite } => {
+            facade::DeepDiveSecondaryObjective::MiningExpedition { morkite } => {
                 wasm::DeepDiveSecondaryObjective::MiningExpedition { morkite }
             }
-            Obj::OnSiteRefining { morkite_wells } => {
+            facade::DeepDiveSecondaryObjective::OnSiteRefining { morkite_wells } => {
                 wasm::DeepDiveSecondaryObjective::OnSiteRefining { morkite_wells }
             }
-            Obj::SalvageOperation { mini_mules } => {
+            facade::DeepDiveSecondaryObjective::SalvageOperation { mini_mules } => {
                 wasm::DeepDiveSecondaryObjective::SalvageOperation { mini_mules }
             }
-            Obj::HeavyExcavation { resinite_masses: excavation_points } => {
-                wasm::DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses: excavation_points }
+            facade::DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses } => {
+                wasm::DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses }
             }
-        }
-    }
-}
-
-
-impl From<facade::Dreadnought> for wasm::Dreadnought {
-    fn from(mission: facade::Dreadnought) -> Self {
-        match mission {
-            facade::Dreadnought::Dreadnought => wasm::Dreadnought::Dreadnought,
-            facade::Dreadnought::Hiveguard => wasm::Dreadnought::Hiveguard,
-            facade::Dreadnought::Twins => wasm::Dreadnought::Twins,
         }
     }
 }

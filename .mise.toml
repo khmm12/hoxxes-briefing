@@ -2,5 +2,5 @@
 node = "24"
 rust = { version = "stable", profile = "minimal", targets = "wasm32-unknown-unknown" }
 "cargo:wasm-pack" = { version = "0.14.0", locked = true }
-"cargo:wasm-bindgen-cli" = { version = "0.2.108", locked = true }
+"cargo:wasm-bindgen-cli" = { version = "0.2.120", locked = true }
 "npm:vercel" = "52.0.0"
