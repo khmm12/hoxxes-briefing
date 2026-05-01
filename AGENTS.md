@@ -19,6 +19,14 @@ clarity, and launch readiness over speculative features.
 - Keep agent guidance short. Put human documentation in `README.md` or `docs/`.
 - Do not create new LLM-specific planning docs under `docs/` unless explicitly requested.
 
+## Tooling
+
+- Use `mise` as the source of truth for local tool versions.
+- Before running project commands, activate mise in the current shell session:
+  `eval "$(mise activate zsh)"`.
+- Do not assume globally installed Rust, Node, pnpm, Vercel, or wasm tooling
+  matches the project versions.
+
 ## Safe Commands
 
 The following commands are safe to run when relevant:
