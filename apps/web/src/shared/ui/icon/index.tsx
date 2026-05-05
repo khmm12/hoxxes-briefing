@@ -1,7 +1,7 @@
+import { merge, omit } from 'solid-js'
 import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
-import type { WithCss } from 'styled-system/types'
-import { resolveClass, type StylingProps, type WithStylingProps } from '~/shared/ui/styling'
+import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 
 type ForbiddenIconProps = 'class' | 'css' | 'preserveAspectRatio' | 'viewBox' | 'xmlns'
 type SvgProps = Omit<JSX.SvgSVGAttributes<SVGSVGElement>, ForbiddenIconProps>
@@ -15,16 +15,6 @@ const iconStyles = css.raw({
   height: '[1em]',
   color: 'current',
 })
-
-export function iconProps(props: IconProps): JSX.SvgSVGAttributes<SVGSVGElement> {
-  const { class: className, css: cssProp, ...rest } = props
-
-  return {
-    ...rest,
-    class: resolveClass(className, cssProp, iconStyles),
-    xmlns: 'http://www.w3.org/2000/svg',
-  }
-}
 
 export function RefreshIcon(props: IconProps): JSX.Element {
   return (
@@ -142,4 +132,11 @@ export function SecondaryObjectiveIcon(props: IconProps): JSX.Element {
   )
 }
 
-export type { StylingProps, WithCss }
+function iconProps(props: IconProps): JSX.SvgSVGAttributes<SVGSVGElement> {
+  return merge(omit(props, 'class', 'css'), {
+    xmlns: 'http://www.w3.org/2000/svg',
+    get class() {
+      return resolveClass(props.class, props.css, iconStyles)
+    },
+  })
+}

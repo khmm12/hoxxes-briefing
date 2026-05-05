@@ -1,4 +1,4 @@
-import { type Accessor, createMemo, createSignal, Errored, Loading, onCleanup, Show } from 'solid-js'
+import { type Accessor, createMemo, createSignal, Errored, Loading, merge, onCleanup, Show } from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import { Meta, Title } from '@solidjs/meta'
 import type { JSX } from '@solidjs/web'
@@ -43,20 +43,24 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
       />
 
       <Errored
-        fallback={(error, reset) => (
-          <Show
-            when={!boardQuery.pending}
-            fallback={<WeeklyLoadingState dockVisible={props.dockVisible} online={online()} />}
-          >
-            <WeeklyErrorState
-              dockVisible={props.dockVisible}
-              error={error}
-              online={online()}
-              onRetry={() => reset()}
-              reset={reset}
-            />
-          </Show>
-        )}
+        fallback={(error, reset) => {
+          if (import.meta.env.DEV) console.error(error)
+
+          return (
+            <Show
+              when={!boardQuery.pending}
+              fallback={<WeeklyLoadingState dockVisible={props.dockVisible} online={online()} />}
+            >
+              <WeeklyErrorState
+                dockVisible={props.dockVisible}
+                error={error}
+                online={online()}
+                onRetry={() => reset()}
+                reset={reset}
+              />
+            </Show>
+          )
+        }}
       >
         <Loading fallback={<WeeklyLoadingState dockVisible={props.dockVisible} online={online()} />}>
           <ReadyWeeklyBoard
@@ -74,10 +78,29 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
 function ReadyWeeklyBoard(props: ReadyWeeklyBoardProps): JSX.Element {
   const now = createWallClock()
 
-  const expiration = createMemo(() => new Date(props.query.data.week.expiration))
-  const expired = createMemo(() => isWeeklyExpired(expiration(), now()))
+  const state = createState(
+    merge(props, {
+      get now() {
+        return now()
+      },
+    }),
+  )
 
-  const boardState = {
+  return (
+    <AppLayout dockVisible={props.dockVisible}>
+      <WeeklyBoard now={now()} state={state} data={props.query.data} onRefresh={props.onRefresh} />
+    </AppLayout>
+  )
+}
+
+function createState(props: ReadyWeeklyBoardProps & { now: Date }): WeeklyBoardViewState {
+  const expiration = createMemo(() => new Date(props.query.data.week.expiration), {
+    equals: (a, b) => a.getTime() === b.getTime(),
+  })
+
+  const expired = createMemo(() => isWeeklyExpired(expiration(), props.now))
+
+  return {
     get expired() {
       return expired()
     },
@@ -93,13 +116,7 @@ function ReadyWeeklyBoard(props: ReadyWeeklyBoardProps): JSX.Element {
     get refreshFailed() {
       return props.query.lastRefreshError != null
     },
-  } satisfies WeeklyBoardViewState
-
-  return (
-    <AppLayout dockVisible={props.dockVisible}>
-      <WeeklyBoard now={now()} state={boardState} data={props.query.data} onRefresh={props.onRefresh} />
-    </AppLayout>
-  )
+  }
 }
 
 function createWallClock(): Accessor<Date> {
