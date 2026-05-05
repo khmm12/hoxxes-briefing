@@ -1,6 +1,6 @@
-import type { JSX } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
+import type { JSX } from '@solidjs/web'
 import { intervalToDuration, parseISO } from 'date-fns'
 import { css, cva } from 'styled-system/css'
 import type { SystemStyleObject } from 'styled-system/types'

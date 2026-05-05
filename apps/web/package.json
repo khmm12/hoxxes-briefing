@@ -17,7 +17,7 @@
 	},
 	"dependencies": {
 		"@hoxxes-briefing/contracts": "workspace:*",
-		"@lingui/core": "^6.0.0",
+		"@lingui/core": "^6.0.1",
 		"@solidjs/meta": "next",
 		"@solidjs/router": "next",
 		"@solidjs/web": "next",
@@ -25,10 +25,10 @@
 		"solid-js": "next"
 	},
 	"devDependencies": {
-		"@lingui/babel-plugin-lingui-macro": "^6.0.0",
-		"@lingui/cli": "^6.0.0",
-		"@lingui/vite-plugin": "^6.0.0",
-		"@pandacss/dev": "^1.10.0",
+		"@lingui/babel-plugin-lingui-macro": "^6.0.1",
+		"@lingui/cli": "^6.0.1",
+		"@lingui/vite-plugin": "^6.0.1",
+		"@pandacss/dev": "^1.11.0",
 		"@resvg/resvg-js": "^2.6.2",
 		"@rolldown/plugin-babel": "^0.2.3",
 		"@total-typescript/ts-reset": "^0.6.1",
@@ -40,12 +40,12 @@
 		"vite-plugin-pwa": "^1.2.0",
 		"vite-plugin-solid": "next",
 		"vitest": "^4.1.5",
-		"workbox-cacheable-response": "^7.4.0",
-		"workbox-expiration": "^7.4.0",
-		"workbox-precaching": "^7.4.0",
-		"workbox-routing": "^7.4.0",
-		"workbox-strategies": "^7.4.0",
-		"workbox-window": "^7.4.0"
+		"workbox-cacheable-response": "^7.4.1",
+		"workbox-expiration": "^7.4.1",
+		"workbox-precaching": "^7.4.1",
+		"workbox-routing": "^7.4.1",
+		"workbox-strategies": "^7.4.1",
+		"workbox-window": "^7.4.1"
 	},
 	"overrides": {
 		"vite-plugin-pwa": {

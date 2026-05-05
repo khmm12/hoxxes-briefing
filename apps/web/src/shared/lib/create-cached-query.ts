@@ -138,22 +138,14 @@ export async function* streamCachedQuery<K, T>(options: StreamCachedQueryOptions
 
     try {
       const freshValue = await networkPromise
-
-      if (!options.equal(first.value, freshValue)) {
-        yield ok('network', freshValue)
-        return
-      }
-
-      yield ok('network', first.value)
+      const value = !options.equal(first.value, freshValue) ? freshValue : first.value
+      yield ok('network', value)
     } catch {
       return
     }
   } catch (error) {
     const cachedValue = await cachedPromise
-
-    if (cachedValue === undefined) {
-      throw error
-    }
+    if (cachedValue === undefined) throw error
 
     yield ok('cache', cachedValue)
   }

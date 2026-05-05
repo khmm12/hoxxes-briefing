@@ -1,6 +1,7 @@
-import { type Accessor, createMemo, createSignal, Errored, type JSX, Loading, onCleanup, Show } from 'solid-js'
+import { type Accessor, createMemo, createSignal, Errored, Loading, onCleanup, Show } from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import { Meta, Title } from '@solidjs/meta'
+import type { JSX } from '@solidjs/web'
 import { useI18n } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { AppLayout } from '~/shared/ui/layout'

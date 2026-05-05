@@ -1,4 +1,5 @@
-import { createMemo, type JSX } from 'solid-js'
+import { createMemo } from 'solid-js'
+import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 import useI18n from '~/shared/i18n'

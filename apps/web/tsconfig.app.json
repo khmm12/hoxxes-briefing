@@ -4,7 +4,7 @@
 		"allowArbitraryExtensions": true,
 		"allowJs": true,
 		"jsx": "preserve",
-		"jsxImportSource": "solid-js",
+		"jsxImportSource": "@solidjs/web",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"types": ["vite/client", "vite-plugin-pwa/solid"],
 		"paths": {

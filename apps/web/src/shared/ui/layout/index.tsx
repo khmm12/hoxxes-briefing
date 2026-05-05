@@ -1,4 +1,4 @@
-import type { JSX } from 'solid-js'
+import type { JSX } from '@solidjs/web'
 import { cva } from 'styled-system/css'
 import { token } from 'styled-system/tokens'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'

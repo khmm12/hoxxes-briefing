@@ -1,6 +1,6 @@
-import { createMemo, type JSX, omit } from 'solid-js'
+import { createMemo, omit } from 'solid-js'
 import type { A, AnchorProps } from '@solidjs/router'
-import { Dynamic } from '@solidjs/web'
+import { Dynamic, type JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import { Spinner } from '~/shared/ui/spinner'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'

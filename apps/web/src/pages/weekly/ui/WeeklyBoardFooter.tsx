@@ -1,5 +1,5 @@
-import type { JSX } from 'solid-js'
 import { msg } from '@lingui/core/macro'
+import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import { useI18n } from '~/shared/i18n'
 

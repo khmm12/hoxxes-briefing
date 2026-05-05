@@ -1,4 +1,5 @@
-import { type JSX, omit } from 'solid-js'
+import { omit } from 'solid-js'
+import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 

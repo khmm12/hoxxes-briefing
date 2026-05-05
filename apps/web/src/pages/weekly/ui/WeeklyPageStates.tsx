@@ -1,5 +1,6 @@
-import { type JSX, Show } from 'solid-js'
+import { Show } from 'solid-js'
 import { msg } from '@lingui/core/macro'
+import type { JSX } from '@solidjs/web'
 import { WeeklyRequestError } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'

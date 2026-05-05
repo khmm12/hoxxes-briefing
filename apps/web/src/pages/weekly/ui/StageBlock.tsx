@@ -1,5 +1,6 @@
-import { createMemo, type JSX, Show } from 'solid-js'
+import { createMemo, Show } from 'solid-js'
 import { msg } from '@lingui/core/macro'
+import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import { token } from 'styled-system/tokens'
 import type { WeeklySnapshotResult } from '~/shared/api/weekly'

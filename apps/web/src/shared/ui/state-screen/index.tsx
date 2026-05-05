@@ -1,4 +1,5 @@
-import { type JSX, Show } from 'solid-js'
+import { Show } from 'solid-js'
+import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import { Eyebrow } from '~/shared/ui/eyebrow'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
