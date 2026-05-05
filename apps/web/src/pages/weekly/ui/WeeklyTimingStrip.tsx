@@ -168,15 +168,30 @@ function formatWeekTimestamp(i18n: I18n, timestamp: string): string {
 export function formatRemaining(i18n: I18n, timestamp: string, now: Date): string {
   const expiration = parseISO(timestamp)
 
+  if (expiration <= now) return i18n._(msg`coming soon`)
+
   const duration = intervalToDuration({ start: now, end: expiration })
   const { days = 0, hours = 0, minutes = 0, seconds = 0 } = duration
 
-  if (days > 0) return i18n._(msg`${days}d ${hours}h`)
-  if (hours > 0) return i18n._(msg`${hours}h ${minutes}m`)
-  if (minutes > 0) return i18n._(msg`${minutes}m ${seconds}s`)
-  if (seconds > 0) return i18n._(msg`${seconds}s`)
+  const formatDays = () => i18n._(msg`${days}d`)
+  const formatHours = () => i18n._(msg`${hours}h`)
+  const formatMinutes = () => i18n._(msg`${minutes}m`)
+  const formatSeconds = () => i18n._(msg`${seconds}s`)
 
-  return i18n._(msg`coming soon`)
+  if (days > 0) {
+    if (hours > 0) return `${formatDays()} ${formatHours()}`
+    if (minutes > 0) return `${formatDays()} ${formatMinutes()}`
+    if (seconds > 0) return `${formatDays()} ${formatSeconds()}`
+    return `${formatDays()} ${formatHours()}`
+  }
+
+  if (hours > 0) {
+    if (minutes > 0) return `${formatHours()} ${formatMinutes()}`
+    if (seconds > 0) return `${formatHours()} ${formatSeconds()}`
+    return `${formatHours()} ${formatMinutes()}`
+  }
+
+  return `${formatMinutes()} ${formatSeconds()}`
 }
 
 function formatTimezoneOffset(now: Date): string {

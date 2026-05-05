@@ -13,19 +13,19 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:174
-msgid "{days}d {hours}h"
-msgstr "{days}d {hours}h"
-
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:175
-msgid "{hours}h {minutes}m"
-msgstr "{hours}h {minutes}m"
-
 #: src/pages/weekly/ui/WeeklyTimingStrip.tsx:176
-msgid "{minutes}m {seconds}s"
-msgstr "{minutes}m {seconds}s"
+msgid "{days}d"
+msgstr "{days}d"
 
 #: src/pages/weekly/ui/WeeklyTimingStrip.tsx:177
+msgid "{hours}h"
+msgstr "{hours}h"
+
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:178
+msgid "{minutes}m"
+msgstr "{minutes}m"
+
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:179
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
@@ -118,7 +118,7 @@ msgstr "Clean Elite drop. Buy the round, then bring everyone home."
 msgid "Clear the cleanup. Small leftovers ruin brave revives."
 msgstr "Clear the cleanup. Small leftovers ruin brave revives."
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:179
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:171
 msgid "coming soon"
 msgstr "coming soon"
 
