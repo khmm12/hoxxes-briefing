@@ -3,10 +3,7 @@ packages:
   - "apps/*"
   - "packages/*"
   - "crates/drg_mission_gen_wasm/pkg"
-
-ignoredBuiltDependencies:
-  - esbuild
-
-onlyBuiltDependencies:
-  - "@parcel/watcher"
-  - sharp
+allowBuilds:
+  '@parcel/watcher': true
+  sharp: true
+  esbuild: false
