@@ -257,7 +257,7 @@ export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
 
       <ol class={css(stageListStyles)}>
         <For each={props.dive.missions} keyed={false}>
-          {(mission, index) => <StageBlock index={index()} kind={props.kind} mission={mission()} />}
+          {(mission, index) => <StageBlock index={index} kind={props.kind} mission={mission()} />}
         </For>
       </ol>
     </article>

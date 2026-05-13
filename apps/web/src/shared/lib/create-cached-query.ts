@@ -1,4 +1,4 @@
-import { type Accessor, createMemo, isPending, isRefreshing, onCleanup, refresh as refreshComputation } from 'solid-js'
+import { createMemo, isPending, isRefreshing, onCleanup, refresh as refreshComputation } from 'solid-js'
 
 export type CachedQueryCache<K, T> = {
   get: (key: K) => Promise<T | undefined> | T | undefined
@@ -59,7 +59,7 @@ export function createCachedQuery<const K extends readonly unknown[], T>(
   const timeoutMs = options.timeoutMs ?? 150
   const equal = options.equal ?? Object.is
 
-  const s: Accessor<InnerState<T>> = createMemo<InnerState<T>>(async function* (prev) {
+  const s = createMemo<InnerState<T>>(async function* (prev) {
     const isInitialRequest = !isRefreshing()
     const key = options.source()
 
