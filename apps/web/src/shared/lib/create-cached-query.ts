@@ -41,18 +41,6 @@ type InnerState<T> = {
 
 type QuerySource = 'network' | 'cache'
 
-const ok = <T>(source: 'cache' | 'network', value: T): InnerState<T> => ({
-  source,
-  value,
-  refresh: { status: 'ok' },
-})
-
-const refreshInFlight = <T>(state: Pick<InnerState<T>, 'source' | 'value'>): InnerState<T> => ({
-  source: state.source,
-  value: state.value,
-  refresh: { status: 'refreshing' },
-})
-
 export function createCachedQuery<const K extends readonly unknown[], T>(
   options: CreateCachedQueryOptions<K, T>,
 ): CachedQuery<T> {
@@ -80,19 +68,9 @@ export function createCachedQuery<const K extends readonly unknown[], T>(
     })
   })
 
-  return {
-    get data() {
-      return s().value
-    },
-    get source() {
-      return s().source
-    },
-    get lastRefreshError() {
-      const { refresh } = s()
-
-      return refresh.status === 'failed' ? refresh.error : null
-    },
-    get pending() {
+  const data = createMemo(() => s().value, { equals: options.equal, lazy: true })
+  const pending = createMemo(
+    () => {
       if (isPending(() => s())) return true
 
       try {
@@ -101,11 +79,44 @@ export function createCachedQuery<const K extends readonly unknown[], T>(
         return false
       }
     },
+    { lazy: true },
+  )
+
+  return {
+    get data() {
+      return data()
+    },
+    get source() {
+      return s().source
+    },
+    get lastRefreshError() {
+      try {
+        const { refresh } = s()
+        return refresh.status === 'failed' ? refresh.error : null
+      } catch {
+        return null
+      }
+    },
+    get pending() {
+      return pending()
+    },
     refresh() {
       refreshComputation(s)
     },
   }
 }
+
+const ok = <T>(source: 'cache' | 'network', value: T): InnerState<T> => ({
+  source,
+  value,
+  refresh: { status: 'ok' },
+})
+
+const refreshInFlight = <T>(state: Pick<InnerState<T>, 'source' | 'value'>): InnerState<T> => ({
+  source: state.source,
+  value: state.value,
+  refresh: { status: 'refreshing' },
+})
 
 const refreshFailed = <T>(state: Pick<InnerState<T>, 'source' | 'value'>, error: unknown): InnerState<T> => ({
   source: state.source,
@@ -149,9 +160,7 @@ export async function* streamCachedQuery<K, T>(options: StreamCachedQueryOptions
     yield first
 
     try {
-      const freshValue = await networkPromise
-      const value = !options.equal(first.value, freshValue) ? freshValue : first.value
-      yield ok('network', value)
+      yield ok('network', await networkPromise)
     } catch {
       yield ok(first.source, first.value)
     }
