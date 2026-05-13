@@ -38,12 +38,17 @@ export function WeeklyBoardFooter(): JSX.Element {
       {i18n._(msg`Rock and Stone, Miner!`)}
       <br />
       {i18n._(msg`Made with love by`)}{' '}
-      <a class={css(footerLinkStyles)} href="https://github.com/khmm12">
+      <a class={css(footerLinkStyles)} href="https://github.com/khmm12" target="_blank" rel="noopener noreferrer">
         khmm12
       </a>{' '}
       ❤️
       <br />
-      <a class={css(footerLinkStyles)} href="https://github.com/khmm12/hoxxes-briefing">
+      <a
+        class={css(footerLinkStyles)}
+        href="https://github.com/khmm12/hoxxes-briefing"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {i18n._(msg`Source on GitHub`)}
       </a>
     </footer>
