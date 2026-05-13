@@ -54,6 +54,12 @@ importers:
 
   apps/web:
     dependencies:
+      '@fontsource/ibm-plex-sans':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/rajdhani':
+        specifier: ^5.2.7
+        version: 5.2.7
       '@hoxxes-briefing/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
@@ -920,6 +926,12 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/ibm-plex-sans@5.2.8':
+    resolution: {integrity: sha512-eztSXjDhPhcpxNIiGTgMebdLP9qS4rWkysuE1V7c+DjOR0qiezaiDaTwQE7bTnG5HxAY/8M43XKDvs3cYq6ZYQ==}
+
+  '@fontsource/rajdhani@5.2.7':
+    resolution: {integrity: sha512-7Gy10U688fCdeFfYKebUF2TZotdgH/ghKyMsseXPmB60lpaUHC8aoCSJl5/OpZ+KHKSU2TqBfKfteVkcIXxTAQ==}
 
   '@hono/node-server@1.19.14':
     resolution: {integrity: sha512-GwtvgtXxnWsucXvbQXkRgqksiH2Qed37H9xHZocE5sA3N8O8O8/8FA3uclQXxXVzc9XBZuEOMK7+r02FmSpHtw==}
@@ -4665,6 +4677,10 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.12':
     optional: true
+
+  '@fontsource/ibm-plex-sans@5.2.8': {}
+
+  '@fontsource/rajdhani@5.2.7': {}
 
   '@hono/node-server@1.19.14(hono@4.12.16)':
     dependencies:

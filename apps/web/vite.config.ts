@@ -23,7 +23,7 @@ export function createWebViteConfig(): ViteUserConfig {
         registerType: 'prompt',
         manifest: false,
         injectManifest: {
-          globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
           globIgnores: [
             'icon-192.png',
             'icon-512.png',

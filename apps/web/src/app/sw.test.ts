@@ -15,43 +15,6 @@ const mockNavigationRoute = vi.fn(
     }
   },
 )
-const mockCacheFirst = vi.fn(
-  class MockCacheFirst {
-    options: unknown
-
-    constructor(options: unknown) {
-      this.options = options
-    }
-  },
-)
-const mockStaleWhileRevalidate = vi.fn(
-  class MockStaleWhileRevalidate {
-    options: unknown
-
-    constructor(options: unknown) {
-      this.options = options
-    }
-  },
-)
-const mockCacheableResponsePlugin = vi.fn(
-  class MockCacheableResponsePlugin {
-    options: unknown
-
-    constructor(options: unknown) {
-      this.options = options
-    }
-  },
-)
-const mockExpirationPlugin = vi.fn(
-  class MockExpirationPlugin {
-    options: unknown
-
-    constructor(options: unknown) {
-      this.options = options
-    }
-  },
-)
-
 vi.mock('workbox-precaching', () => ({
   cleanupOutdatedCaches: mockCleanupOutdatedCaches,
   createHandlerBoundToURL: mockCreateHandlerBoundToURL,
@@ -61,19 +24,6 @@ vi.mock('workbox-precaching', () => ({
 vi.mock('workbox-routing', () => ({
   NavigationRoute: mockNavigationRoute,
   registerRoute: mockRegisterRoute,
-}))
-
-vi.mock('workbox-strategies', () => ({
-  CacheFirst: mockCacheFirst,
-  StaleWhileRevalidate: mockStaleWhileRevalidate,
-}))
-
-vi.mock('workbox-cacheable-response', () => ({
-  CacheableResponsePlugin: mockCacheableResponsePlugin,
-}))
-
-vi.mock('workbox-expiration', () => ({
-  ExpirationPlugin: mockExpirationPlugin,
 }))
 
 type MockServiceWorkerEvent = {
@@ -104,32 +54,12 @@ describe('service worker', () => {
     expect(mockPrecacheAndRoute).toHaveBeenCalledWith([])
     expect(mockCleanupOutdatedCaches).toHaveBeenCalledTimes(1)
 
-    expect(mockRegisterRoute).toHaveBeenCalledTimes(3)
-    expect(mockCacheFirst).toHaveBeenCalledTimes(1)
-    expect(mockStaleWhileRevalidate).toHaveBeenCalledTimes(1)
-    expect(mockCacheableResponsePlugin).toHaveBeenCalledTimes(2)
-    expect(mockExpirationPlugin).toHaveBeenCalledTimes(2)
+    expect(mockRegisterRoute).toHaveBeenCalledTimes(1)
 
     const navigationRouteCall = mockNavigationRoute.mock.calls[0]
     expect(mockCreateHandlerBoundToURL).toHaveBeenCalledWith('index.html')
     expect(navigationRouteCall?.[1]).toMatchObject({
       denylist: expect.arrayContaining([expect.any(RegExp)]),
-    })
-
-    const fontStylesheetRouteCall = mockRegisterRoute.mock.calls[1]?.[0]
-    expect(typeof fontStylesheetRouteCall).toBe('function')
-    expect(mockRegisterRoute.mock.calls[1]?.[1]).toMatchObject({
-      options: {
-        cacheName: 'google-fonts-stylesheets',
-      },
-    })
-
-    const fontFileRouteCall = mockRegisterRoute.mock.calls[2]?.[0]
-    expect(typeof fontFileRouteCall).toBe('function')
-    expect(mockRegisterRoute.mock.calls[2]?.[1]).toMatchObject({
-      options: {
-        cacheName: 'google-fonts-webfonts',
-      },
     })
   })
 

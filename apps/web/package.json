@@ -16,6 +16,8 @@
 		"node": ">=24"
 	},
 	"dependencies": {
+		"@fontsource/ibm-plex-sans": "^5.2.8",
+		"@fontsource/rajdhani": "^5.2.7",
 		"@hoxxes-briefing/contracts": "workspace:*",
 		"@lingui/core": "^6.0.1",
 		"@solidjs/meta": "next",

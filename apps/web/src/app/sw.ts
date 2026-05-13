@@ -3,11 +3,8 @@
 
 declare const self: ServiceWorkerGlobalScope
 
-import { CacheableResponsePlugin } from 'workbox-cacheable-response'
-import { ExpirationPlugin } from 'workbox-expiration'
 import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { NavigationRoute, registerRoute } from 'workbox-routing'
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies'
 import { weeklySnapshotCacheName, weeklySnapshotCachePrefix } from '~/shared/api/weekly/weekly-client-cache'
 
 // clean old assets
@@ -32,38 +29,6 @@ if (import.meta.env.PROD || import.meta.env.MODE === 'test') {
   const denylist = [/^\/api\//]
   registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), { denylist }))
 }
-
-// precache google fonts
-registerRoute(
-  ({ url }) => url.origin === 'https://fonts.googleapis.com',
-  new StaleWhileRevalidate({
-    cacheName: 'google-fonts-stylesheets',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new ExpirationPlugin({
-        maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
-      }),
-    ],
-  }),
-)
-
-registerRoute(
-  ({ url }) => url.origin === 'https://fonts.gstatic.com',
-  new CacheFirst({
-    cacheName: 'google-fonts-webfonts',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new ExpirationPlugin({
-        maxAgeSeconds: 60 * 60 * 24 * 365, // 30 days
-        maxEntries: 30,
-      }),
-    ],
-  }),
-)
 
 async function removeOldWeeklyDataCaches(): Promise<void> {
   const cacheKeys = await caches.keys()

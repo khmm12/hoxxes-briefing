@@ -41,15 +41,14 @@ const description = 'Know the dive before you drop.'
 const domainName = 'hoxxes-briefing'
 const domainSuffix = '.vercel.app'
 
-const textForFonts = [title, subtitle, description, slogan, domainName, domainSuffix].join(' ')
 const scriptDir = dirname(fileURLToPath(import.meta.url))
 const publicDir = resolve(scriptDir, '../public')
 const emblemPath = resolve(scriptDir, '../src/pages/weekly/ui/brand-logo.svg')
 const outputPath = resolve(publicDir, 'og-image.png')
 
 const [rajdhaniBold, plexMedium, emblemSvg] = await Promise.all([
-  loadGoogleFont(rajdhani, 700, textForFonts),
-  loadGoogleFont(ibmPlexSans, 500, textForFonts),
+  loadFontsourceFont('@fontsource/rajdhani/files/rajdhani-latin-700-normal.woff'),
+  loadFontsourceFont('@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff'),
   readFile(emblemPath, 'utf8'),
 ])
 
@@ -85,29 +84,11 @@ await writeFile(outputPath, png.asPng())
 
 console.log(`Generated ${outputPath}`)
 
-async function loadGoogleFont(family: string, weight: 500 | 700, text: string): Promise<ArrayBuffer> {
-  const familyParam = family.replaceAll(' ', '+')
-  const url = `https://fonts.googleapis.com/css2?family=${familyParam}:wght@${weight}&text=${encodeURIComponent(text)}`
-  const cssResponse = await fetch(url)
+async function loadFontsourceFont(specifier: string): Promise<ArrayBuffer> {
+  const fontPath = fileURLToPath(import.meta.resolve(specifier))
+  const fontData = await readFile(fontPath)
 
-  if (!cssResponse.ok) {
-    throw new Error(`Failed to load Google Font CSS for ${family}: ${cssResponse.status} ${cssResponse.statusText}`)
-  }
-
-  const css = await cssResponse.text()
-  const resource = css.match(/src:\s*url\(([^)]+)\)\s*format\('(opentype|truetype|woff)'\)/)
-
-  if (resource == null) {
-    throw new Error(`Could not find a Satori-compatible font resource for ${family} in:\n${css}`)
-  }
-
-  const fontResponse = await fetch(resource[1])
-
-  if (!fontResponse.ok) {
-    throw new Error(`Failed to load Google Font data for ${family}: ${fontResponse.status} ${fontResponse.statusText}`)
-  }
-
-  return fontResponse.arrayBuffer()
+  return fontData.buffer.slice(fontData.byteOffset, fontData.byteOffset + fontData.byteLength)
 }
 
 function renderOpenGraphImage(emblemSrc: string): SatoriElement {
