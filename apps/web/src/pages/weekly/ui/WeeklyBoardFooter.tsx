@@ -11,7 +11,7 @@ const footerStyles = css.raw({
   textAlign: 'center',
 })
 
-const authorLinkStyles = css.raw({
+const footerLinkStyles = css.raw({
   color: 'inherit',
   textDecorationLine: 'underline',
   textDecorationColor: 'transparent',
@@ -35,11 +35,17 @@ export function WeeklyBoardFooter(): JSX.Element {
 
   return (
     <footer class={css(footerStyles)}>
-      {i18n._(msg`Rock and Stone, Miner! Made with love by`)}{' '}
-      <a class={css(authorLinkStyles)} href="https://github.com/khmm12">
+      {i18n._(msg`Rock and Stone, Miner!`)}
+      <br />
+      {i18n._(msg`Made with love by`)}{' '}
+      <a class={css(footerLinkStyles)} href="https://github.com/khmm12">
         khmm12
       </a>{' '}
       ❤️
+      <br />
+      <a class={css(footerLinkStyles)} href="https://github.com/khmm12/hoxxes-briefing">
+        {i18n._(msg`Source on GitHub`)}
+      </a>
     </footer>
   )
 }

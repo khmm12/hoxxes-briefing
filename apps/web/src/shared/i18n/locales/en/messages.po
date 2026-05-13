@@ -345,6 +345,10 @@ msgstr "Low Oxygen"
 msgid "Mactera Plague"
 msgstr "Mactera Plague"
 
+#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:40
+msgid "Made with love by"
+msgstr "Made with love by"
+
 #: src/pages/weekly/ui/weekly-dive-copy.ts:21
 msgid "Magma Core"
 msgstr "Magma Core"
@@ -515,8 +519,8 @@ msgid "Rock and Stone, Brother!"
 msgstr "Rock and Stone, Brother!"
 
 #: src/pages/weekly/ui/WeeklyBoardFooter.tsx:38
-msgid "Rock and Stone, Miner! Made with love by"
-msgstr "Rock and Stone, Miner! Made with love by"
+msgid "Rock and Stone, Miner!"
+msgstr "Rock and Stone, Miner!"
 
 #: src/pages/weekly/ui/weekly-slogan-copy.ts:7
 msgid "Rock and Stone!"
@@ -570,6 +574,10 @@ msgstr "Shield Disruption"
 #: src/pages/weekly/ui/WeeklyRouteSlab.tsx:251
 msgid "Show less"
 msgstr "Show less"
+
+#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:47
+msgid "Source on GitHub"
+msgstr "Source on GitHub"
 
 #: src/pages/weekly/ui/StageBlock.tsx:219
 msgid "Stage"
