@@ -1,7 +1,21 @@
+import { subWeeks } from 'date-fns'
+import * as v from 'valibot'
+
 const UPSTREAM_DEEP_DIVE_EVENT_URL = 'https://drg.ghostship.dk/events/deepdive'
-const WEEK_IN_MILLISECONDS = 7 * 24 * 60 * 60 * 1000
-const MAX_UINT32 = 0xffffffff
-const ISO_TIMESTAMP_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
+
+const uint32 = /* @__PURE__ */ v.pipe(v.number(), v.integer(), v.minValue(0), v.maxValue(0xffffffff))
+
+const deepDiveResponseSchema = /* @__PURE__ */ v.pipe(
+  v.object({
+    SeedV2: v.pipe(uint32, v.description('Upstream deep dive event contains an invalid SeedV2 value')),
+    ExpirationTime: v.pipe(
+      v.string(),
+      v.isoTimestamp(),
+      v.description('Upstream deep dive event contains an invalid ExpirationTime timestamp'),
+    ),
+  }),
+  v.readonly(),
+)
 
 export type DeepDiveEvent = {
   seed: number
@@ -9,66 +23,23 @@ export type DeepDiveEvent = {
   expiration: string
 }
 
-type UpstreamDeepDiveEventPayload = {
-  SeedV2: unknown
-  ExpirationTime: unknown
+export async function getDeepDiveEvent(fetchImpl: typeof fetch = fetch): Promise<DeepDiveEvent> {
+  const response = await fetchImpl(UPSTREAM_DEEP_DIVE_EVENT_URL)
+
+  if (!response.ok) throw new Error(`Failed to fetch deep dive mission event: HTTP ${response.status}`)
+
+  return parseDeepDiveEvent(await response.json())
 }
 
-const isObjectRecord = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === 'object' && value !== null
-}
+function parseDeepDiveEvent(payload: unknown): DeepDiveEvent {
+  const { SeedV2: seed, ExpirationTime } = v.parse(deepDiveResponseSchema, payload)
 
-const parseSeed = (value: unknown): number => {
-  if (typeof value !== 'number' || !Number.isInteger(value) || value < 0 || value > MAX_UINT32) {
-    throw new Error('Upstream deep dive event contains an invalid SeedV2 value')
-  }
-
-  return value
-}
-
-const parseIsoTimestamp = (value: unknown): string => {
-  if (typeof value !== 'string' || !ISO_TIMESTAMP_PATTERN.test(value)) {
-    throw new Error('Upstream deep dive event contains an invalid ExpirationTime timestamp')
-  }
-
-  const parsedDate = new Date(value)
-  if (Number.isNaN(parsedDate.getTime())) {
-    throw new Error('Upstream deep dive event contains an invalid ExpirationTime timestamp')
-  }
-
-  return parsedDate.toISOString()
-}
-
-const parseUpstreamPayload = (payload: unknown): UpstreamDeepDiveEventPayload => {
-  if (!isObjectRecord(payload)) {
-    throw new Error('Upstream deep dive event payload must be an object')
-  }
-
-  return {
-    SeedV2: payload.SeedV2,
-    ExpirationTime: payload.ExpirationTime,
-  }
-}
-
-export const parseDeepDiveEvent = (payload: unknown): DeepDiveEvent => {
-  const upstream = parseUpstreamPayload(payload)
-  const seed = parseSeed(upstream.SeedV2)
-  const expiration = parseIsoTimestamp(upstream.ExpirationTime)
-  const release = new Date(new Date(expiration).getTime() - WEEK_IN_MILLISECONDS).toISOString()
+  const expiration = new Date(ExpirationTime).toISOString()
+  const release = subWeeks(new Date(expiration), 1).toISOString()
 
   return {
     seed,
     release,
     expiration,
   }
-}
-
-export const getDeepDiveEvent = async (fetchImpl: typeof fetch = fetch): Promise<DeepDiveEvent> => {
-  const response = await fetchImpl(UPSTREAM_DEEP_DIVE_EVENT_URL)
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch deep dive mission event: HTTP ${response.status}`)
-  }
-
-  return parseDeepDiveEvent(await response.json())
 }

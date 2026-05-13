@@ -4,16 +4,21 @@ import { createDirectDeepDivesProvider } from './infrastructure/providers/direct
 import type { DeepDivesProvider } from './ports/deep-dives-provider.ts'
 
 export type AppDependencies = {
-  deepDivesProvider?: DeepDivesProvider
+  deepDivesProvider: DeepDivesProvider
 }
 
-export const createApp = (dependencies: AppDependencies = {}) => {
+export function createApp(dependencies: AppDependencies) {
   const app = new Hono()
-  const deepDivesProvider = dependencies.deepDivesProvider ?? createDirectDeepDivesProvider()
+
+  const { deepDivesProvider } = dependencies
 
   registerWeeklyRoute(app, { deepDivesProvider })
 
   return app
 }
 
-export const app = createApp()
+export function appDeps(): AppDependencies {
+  return {
+    deepDivesProvider: createDirectDeepDivesProvider(),
+  }
+}

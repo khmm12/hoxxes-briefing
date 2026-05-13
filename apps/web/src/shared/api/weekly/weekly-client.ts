@@ -1,9 +1,4 @@
-import {
-  type ApiV1ErrorResponse,
-  type ApiV1WeeklyResponse,
-  parseApiV1ErrorResponse,
-  parseApiV1WeeklyResponse,
-} from '@hoxxes-briefing/contracts/api/v1'
+import * as v1 from '@hoxxes-briefing/contracts/api/v1'
 
 export const weeklySnapshotUrl = '/api/v1/weekly'
 
@@ -13,20 +8,20 @@ export type FetchWeeklySnapshotOptions = {
   signal?: AbortSignal
 }
 
-export type WeeklySnapshotResult = ApiV1WeeklyResponse
+export type WeeklySnapshotResult = v1.WeeklyResponse
 
 type WeeklyRequestErrorKind = 'network' | 'api' | 'invalid-payload'
 
 type WeeklyRequestErrorOptions = {
   cause?: unknown
-  publicError?: ApiV1ErrorResponse
+  publicError?: v1.ErrorResponse
   status?: number
 }
 
 export class WeeklyRequestError extends Error {
   kind: WeeklyRequestErrorKind
   status?: number
-  publicError?: ApiV1ErrorResponse
+  publicError?: v1.ErrorResponse
 
   constructor(kind: WeeklyRequestErrorKind, message: string, options: WeeklyRequestErrorOptions = {}) {
     super(message, options.cause == null ? undefined : { cause: options.cause })
@@ -65,10 +60,10 @@ export async function fetchWeeklySnapshot(options: FetchWeeklySnapshotOptions): 
   }
 
   if (!response.ok) {
-    let publicError: ApiV1ErrorResponse | undefined
+    let publicError: v1.ErrorResponse | undefined
 
     try {
-      publicError = parseApiV1ErrorResponse(rawPayload)
+      publicError = v1.parseErrorResponse(rawPayload)
     } catch {
       publicError = undefined
     }
@@ -83,10 +78,10 @@ export async function fetchWeeklySnapshot(options: FetchWeeklySnapshotOptions): 
     )
   }
 
-  let parsedPayload: ApiV1WeeklyResponse
+  let parsedPayload: v1.WeeklyResponse
 
   try {
-    parsedPayload = parseApiV1WeeklyResponse(rawPayload)
+    parsedPayload = v1.parseWeeklyResponse(rawPayload)
   } catch (cause) {
     throw new WeeklyRequestError('invalid-payload', 'Weekly API payload does not match the public contract.', {
       cause,

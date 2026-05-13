@@ -1,17 +1,20 @@
 import * as v from 'valibot'
 
-const isoTimestampSchema = v.pipe(v.string(), v.isoTimestamp())
+const isoTimestampSchema = /* @__PURE__ */ v.pipe(v.string(), v.isoTimestamp())
 
-const weekSeedSchema = v.pipe(v.number(), v.integer(), v.minValue(0), v.maxValue(4294967295))
+const weekSeedSchema = /* @__PURE__ */ v.pipe(v.number(), v.integer(), v.minValue(0), v.maxValue(0xffffffff))
 
-const weekIdentitySchema = v.strictObject({
-  id: v.pipe(v.string(), v.minLength(1)),
-  seed: weekSeedSchema,
-  release: isoTimestampSchema,
-  expiration: isoTimestampSchema,
-})
+const weekIdentitySchema = /* @__PURE__ */ v.pipe(
+  v.object({
+    id: v.pipe(v.string(), v.minLength(1)),
+    seed: weekSeedSchema,
+    release: isoTimestampSchema,
+    expiration: isoTimestampSchema,
+  }),
+  v.readonly(),
+)
 
-const deepDiveBiomeSchema = v.picklist([
+const deepDiveBiomeSchema = /* @__PURE__ */ v.picklist([
   'CrystallineCaverns',
   'FungusBogs',
   'MagmaCore',
@@ -25,7 +28,7 @@ const deepDiveBiomeSchema = v.picklist([
   'OssuaryDepths',
 ] as const)
 
-const deepDiveMutatorSchema = v.picklist([
+const deepDiveMutatorSchema = /* @__PURE__ */ v.picklist([
   'VolatileGuts',
   'RichAtmosphere',
   'CriticalWeakness',
@@ -33,7 +36,7 @@ const deepDiveMutatorSchema = v.picklist([
   'LowGravity',
 ] as const)
 
-const deepDiveWarningSchema = v.picklist([
+const deepDiveWarningSchema = /* @__PURE__ */ v.picklist([
   'RegenerativeBugs',
   'EliteThreat',
   'MacteraPlague',
@@ -52,108 +55,123 @@ const deepDiveWarningSchema = v.picklist([
   'ScrabNestingGrounds',
 ] as const)
 
-const deepDiveDreadnoughtSchema = v.picklist(['Dreadnought', 'Hiveguard', 'Twins'] as const)
+const deepDiveDreadnoughtSchema = /* @__PURE__ */ v.picklist(['Dreadnought', 'Hiveguard', 'Twins'] as const)
 
-const objectiveCountSchema = v.pipe(v.number(), v.integer(), v.minValue(0))
+const objectiveCountSchema = /* @__PURE__ */ v.pipe(v.number(), v.integer(), v.minValue(0))
 
-const deepDivePrimaryObjectiveSchema = v.variant('kind', [
-  v.strictObject({
-    kind: v.literal('DeepScan'),
-    resonanceCrystals: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('EscortDuty'),
-    refuels: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('MiningExpedition'),
-    morkite: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('IndustrialSabotage'),
-    powerStations: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('EggHunt'),
-    eggs: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('PointExtraction'),
-    aquarqs: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('OnSiteRefining'),
-    morkiteWells: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('SalvageOperation'),
-    miniMules: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('Elimination'),
-    dreadnoughts: v.array(deepDiveDreadnoughtSchema),
-  }),
-  v.strictObject({
-    kind: v.literal('HeavyExtraction'),
-    resiniteMasses: objectiveCountSchema,
-  }),
-])
+const deepDivePrimaryObjectiveSchema = /* @__PURE__ */ v.pipe(
+  v.variant('kind', [
+    v.object({
+      kind: v.literal('DeepScan'),
+      resonanceCrystals: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('EscortDuty'),
+      refuels: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('MiningExpedition'),
+      morkite: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('IndustrialSabotage'),
+      powerStations: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('EggHunt'),
+      eggs: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('PointExtraction'),
+      aquarqs: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('OnSiteRefining'),
+      morkiteWells: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('SalvageOperation'),
+      miniMules: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('Elimination'),
+      dreadnoughts: v.array(deepDiveDreadnoughtSchema),
+    }),
+    v.object({
+      kind: v.literal('HeavyExtraction'),
+      resiniteMasses: objectiveCountSchema,
+    }),
+  ]),
+  v.readonly(),
+)
 
-const deepDiveSecondaryObjectiveSchema = v.variant('kind', [
-  v.strictObject({
-    kind: v.literal('EggHunt'),
-    eggs: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('DeepScan'),
-    resonanceCrystals: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('Blackbox'),
-    blackBoxes: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('Elimination'),
-    dreadnoughts: v.array(deepDiveDreadnoughtSchema),
-  }),
-  v.strictObject({
-    kind: v.literal('MiningExpedition'),
-    morkite: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('OnSiteRefining'),
-    morkiteWells: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('SalvageOperation'),
-    miniMules: objectiveCountSchema,
-  }),
-  v.strictObject({
-    kind: v.literal('HeavyExcavation'),
-    resiniteMasses: objectiveCountSchema,
-  }),
-])
+const deepDiveSecondaryObjectiveSchema = /* @__PURE__ */ v.pipe(
+  v.variant('kind', [
+    v.object({
+      kind: v.literal('EggHunt'),
+      eggs: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('DeepScan'),
+      resonanceCrystals: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('Blackbox'),
+      blackBoxes: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('Elimination'),
+      dreadnoughts: v.array(deepDiveDreadnoughtSchema),
+    }),
+    v.object({
+      kind: v.literal('MiningExpedition'),
+      morkite: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('OnSiteRefining'),
+      morkiteWells: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('SalvageOperation'),
+      miniMules: objectiveCountSchema,
+    }),
+    v.object({
+      kind: v.literal('HeavyExcavation'),
+      resiniteMasses: objectiveCountSchema,
+    }),
+  ]),
+  v.readonly(),
+)
 
-const deepDiveMissionSchema = v.strictObject({
-  primaryObjective: deepDivePrimaryObjectiveSchema,
-  secondaryObjective: deepDiveSecondaryObjectiveSchema,
-  mutator: v.nullable(deepDiveMutatorSchema),
-  warning: v.nullable(deepDiveWarningSchema),
-})
-
-const deepDiveSchema = v.strictObject({
-  name: v.pipe(v.string(), v.minLength(1)),
-  biome: deepDiveBiomeSchema,
-  missions: v.pipe(v.array(deepDiveMissionSchema), v.minLength(3), v.maxLength(3)),
-})
-
-export const weeklyResponseSchema = v.strictObject({
-  week: weekIdentitySchema,
-  dives: v.strictObject({
-    normal: deepDiveSchema,
-    elite: deepDiveSchema,
+const deepDiveMissionSchema = /* @__PURE__ */ v.pipe(
+  v.object({
+    primaryObjective: deepDivePrimaryObjectiveSchema,
+    secondaryObjective: deepDiveSecondaryObjectiveSchema,
+    mutator: v.nullable(deepDiveMutatorSchema),
+    warning: v.nullable(deepDiveWarningSchema),
   }),
-})
+  v.readonly(),
+)
+
+const deepDiveSchema = /* @__PURE__ */ v.pipe(
+  v.object({
+    name: v.pipe(v.string(), v.minLength(1)),
+    biome: deepDiveBiomeSchema,
+    missions: v.pipe(v.array(deepDiveMissionSchema), v.minLength(3), v.maxLength(3)),
+  }),
+  v.readonly(),
+)
+
+export const weeklyResponseSchema = /* @__PURE__ */ v.pipe(
+  v.object({
+    week: weekIdentitySchema,
+    dives: v.object({
+      normal: deepDiveSchema,
+      elite: deepDiveSchema,
+    }),
+  }),
+  v.readonly(),
+)
 
 export type WeekIdentity = v.InferOutput<typeof weekIdentitySchema>
 export type DeepDiveBiome = v.InferOutput<typeof deepDiveBiomeSchema>

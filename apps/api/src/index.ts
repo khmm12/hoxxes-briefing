@@ -1,7 +1,9 @@
 import { serve } from '@hono/node-server'
-import { app } from './app.ts'
+import { appDeps, createApp } from './app.ts'
 
 const DEFAULT_PORT = 3001
+
+const app = createApp(appDeps())
 
 serve(
   {

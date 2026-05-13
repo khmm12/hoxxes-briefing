@@ -50,7 +50,9 @@
 								"@testing-library/**"
 							],
 							["solid-js", "@solid-js/**"],
-							[":PACKAGE:", "@hoxxes-briefing/**", ":ALIAS:", ":PATH:"]
+							[":PACKAGE:", "!@hoxxes-briefing/**"],
+							["@hoxxes-briefing/**"],
+							[":ALIAS:", ":PATH:"]
 						]
 					}
 				}

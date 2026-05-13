@@ -32,7 +32,5 @@ export function registerWeeklyRoute(app: Hono, dependencies: WeeklyRouteDependen
 }
 
 function applyHeaders(context: Context, headers: Record<string, string>): void {
-  for (const [name, value] of Object.entries(headers)) {
-    context.header(name, value)
-  }
+  for (const [name, value] of Object.entries(headers)) context.header(name, value)
 }

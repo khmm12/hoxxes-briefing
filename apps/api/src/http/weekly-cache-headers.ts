@@ -1,3 +1,5 @@
+import { differenceInSeconds } from 'date-fns'
+
 const WEEKLY_CDN_CACHE_SAFETY_MARGIN_SECONDS = 60
 const WEEKLY_CDN_STALE_WHILE_REVALIDATE_SECONDS = 60
 const WEEKLY_CACHE_TAG = 'weekly,weekly-v1'
@@ -30,6 +32,6 @@ export function createWeeklyErrorCacheHeaders(): WeeklyCacheHeaders {
   }
 }
 
-function getTTLSeconds(expiration: string, now: Date) {
-  return Math.floor((new Date(expiration).getTime() - now.getTime()) / 1000) - WEEKLY_CDN_CACHE_SAFETY_MARGIN_SECONDS
+function getTTLSeconds(expiration: string, now: Date): number {
+  return differenceInSeconds(expiration, now, { roundingMethod: 'floor' }) - WEEKLY_CDN_CACHE_SAFETY_MARGIN_SECONDS
 }

@@ -8,22 +8,9 @@ export type DirectDeepDivesProviderDependencies = {
   generateFromSeed?: typeof generateWeeklyDives
 }
 
-const ensureGeneratedSeed = (event: DeepDiveEvent, generated: GeneratedDeepDives): void => {
-  if (event.seed !== generated.seed) {
-    throw new DeepDivesProviderError(
-      'WEEKLY_DATA_UNAVAILABLE',
-      `Generator seed mismatch: event=${event.seed}, generated=${generated.seed}`,
-    )
-  }
-}
-
-const toErrorOptions = (cause: unknown): ErrorOptions | undefined => {
-  return cause === undefined ? undefined : { cause }
-}
-
-export const createDirectDeepDivesProvider = (
+export function createDirectDeepDivesProvider(
   dependencies: DirectDeepDivesProviderDependencies = {},
-): DeepDivesProvider => {
+): DeepDivesProvider {
   const loadEvent = dependencies.loadEvent ?? getDeepDiveEvent
   const generateFromSeed = dependencies.generateFromSeed ?? generateWeeklyDives
 
@@ -34,6 +21,7 @@ export const createDirectDeepDivesProvider = (
       try {
         event = await loadEvent()
       } catch (cause) {
+        console.error(cause)
         throw new DeepDivesProviderError(
           'UPSTREAM_UNAVAILABLE',
           'Failed to fetch current deep dive event',
@@ -61,5 +49,18 @@ export const createDirectDeepDivesProvider = (
         dives: generated.dives,
       }
     },
+  }
+}
+
+function toErrorOptions(cause: unknown): ErrorOptions | undefined {
+  return cause === undefined ? undefined : { cause }
+}
+
+function ensureGeneratedSeed(event: DeepDiveEvent, generated: GeneratedDeepDives): void {
+  if (event.seed !== generated.seed) {
+    throw new DeepDivesProviderError(
+      'WEEKLY_DATA_UNAVAILABLE',
+      `Generator seed mismatch: event=${event.seed}, generated=${generated.seed}`,
+    )
   }
 }

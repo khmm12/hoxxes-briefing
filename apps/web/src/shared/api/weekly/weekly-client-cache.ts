@@ -1,38 +1,27 @@
-import type { ApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
-import { parseApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
+import * as v from 'valibot'
+import * as v1 from '@hoxxes-briefing/contracts/api/v1'
+import { type WeeklySnapshotResult, weeklySnapshotUrl } from './weekly-client'
 
-export const weeklySnapshotCacheSchemaVersion = 1
-export const weeklySnapshotCachePrefix = 'hoxxes-briefing-weekly-cache-v'
-export const weeklySnapshotCacheName = `${weeklySnapshotCachePrefix}${weeklySnapshotCacheSchemaVersion}`
-export const weeklySnapshotRequestUrl = '/api/v1/weekly'
+const weeklySnapshotCacheSchemaVersion = 1
+const weeklySnapshotCachePrefix = 'hoxxes-briefing-weekly-cache-v'
+const weeklySnapshotCacheName = `${weeklySnapshotCachePrefix}${weeklySnapshotCacheSchemaVersion}`
 
-type WeeklySnapshotCacheEnvelope = {
-  schemaVersion: number
-  payload: ApiV1WeeklyResponse
-}
-
-export type CachedWeeklySnapshot = ApiV1WeeklyResponse
+const snapshotCacheEnvelopeSchema = /* @__PURE__ */ v.object({
+  schemaVersion: v.pipe(v.number(), v.literal(weeklySnapshotCacheSchemaVersion)),
+  payload: v1.weeklyResponseSchema,
+})
 
 export async function readCachedWeeklySnapshot(
-  request: RequestInfo | URL = weeklySnapshotRequestUrl,
-): Promise<CachedWeeklySnapshot | null> {
+  request: RequestInfo | URL = weeklySnapshotUrl,
+): Promise<WeeklySnapshotResult | null> {
   const cache = await getWeeklySnapshotCache()
 
-  if (cache == null) {
-    return null
-  }
-
   const cacheKey = getWeeklySnapshotCacheKey(request)
-  const response = await cache.match(cacheKey)
-
-  if (response == null) {
-    return null
-  }
+  const response = await cache?.match(cacheKey)
+  if (response == null) return null
 
   try {
-    const payload = parseWeeklyCachePayload(await response.json())
-
-    return payload
+    return parseWeeklyCachePayload(await response.json())
   } catch {
     await clearCachedWeeklySnapshot(request)
     return null
@@ -40,35 +29,31 @@ export async function readCachedWeeklySnapshot(
 }
 
 export async function writeCachedWeeklySnapshot(
-  snapshot: ApiV1WeeklyResponse,
-  request: RequestInfo | URL = weeklySnapshotRequestUrl,
+  snapshot: v1.WeeklyResponse,
+  request: RequestInfo | URL = weeklySnapshotUrl,
 ) {
   const cache = await getWeeklySnapshotCache()
 
-  if (cache == null) {
-    return
-  }
-
-  const cacheKey = getWeeklySnapshotCacheKey(request)
-  const response = new Response(
-    JSON.stringify({
-      schemaVersion: weeklySnapshotCacheSchemaVersion,
-      payload: snapshot,
-    } satisfies WeeklySnapshotCacheEnvelope),
-    { headers: { 'content-type': 'application/json' } },
+  await cache?.put(
+    getWeeklySnapshotCacheKey(request),
+    new Response(serializeWeeklyCachePayload(snapshot), { headers: { 'content-type': 'application/json' } }),
   )
-
-  await cache.put(cacheKey, response)
 }
 
-export async function clearCachedWeeklySnapshot(request: RequestInfo | URL = weeklySnapshotRequestUrl) {
+export async function clearCachedWeeklySnapshot(request: RequestInfo | URL = weeklySnapshotUrl) {
   const cache = await getWeeklySnapshotCache()
+  await cache?.delete(getWeeklySnapshotCacheKey(request))
+}
 
-  if (cache == null) {
-    return
-  }
+export async function clearStaleWeeklySnapshotCache(): Promise<void> {
+  if (!isCacheStorageAvailable) return
 
-  await cache.delete(getWeeklySnapshotCacheKey(request))
+  const cacheKeys = await caches.keys()
+  const staleWeeklyDataCaches = cacheKeys.filter((cacheName) => {
+    return cacheName.startsWith(weeklySnapshotCachePrefix) && cacheName !== weeklySnapshotCacheName
+  })
+
+  await Promise.all(staleWeeklyDataCaches.map((cacheName) => caches.delete(cacheName)))
 }
 
 function getWeeklySnapshotCacheKey(request: RequestInfo | URL) {
@@ -76,35 +61,25 @@ function getWeeklySnapshotCacheKey(request: RequestInfo | URL) {
     const url = new URL(String(request), 'https://local.dev')
     return `${url.pathname}${url.search}`
   } catch {
-    return weeklySnapshotRequestUrl
+    return weeklySnapshotUrl
   }
 }
 
-function parseWeeklyCachePayload(payload: unknown): ApiV1WeeklyResponse {
-  if (typeof payload !== 'object' || payload == null) {
-    throw new Error('Invalid weekly snapshot cache payload.')
-  }
-
-  const { schemaVersion, payload: responsePayload } = payload as {
-    schemaVersion?: unknown
-    payload?: unknown
-  }
-
-  if (schemaVersion !== weeklySnapshotCacheSchemaVersion || responsePayload == null) {
-    throw new Error('Unsupported weekly snapshot cache schema.')
-  }
-
-  return parseApiV1WeeklyResponse(responsePayload)
+function parseWeeklyCachePayload(payload: unknown): v1.WeeklyResponse {
+  return v.parse(snapshotCacheEnvelopeSchema, payload).payload
 }
 
-async function getWeeklySnapshotCache() {
-  if (!isCacheStorageAvailable()) {
-    return null
-  }
-
-  return caches.open(weeklySnapshotCacheName)
+function serializeWeeklyCachePayload(payload: v1.WeeklyResponse): string {
+  return JSON.stringify({
+    schemaVersion: weeklySnapshotCacheSchemaVersion,
+    payload,
+  } satisfies v.InferOutput<typeof snapshotCacheEnvelopeSchema>)
 }
 
-function isCacheStorageAvailable() {
+async function getWeeklySnapshotCache(): Promise<Cache | null> {
+  return isCacheStorageAvailable() ? caches.open(weeklySnapshotCacheName) : null
+}
+
+function isCacheStorageAvailable(): boolean {
   return typeof caches !== 'undefined'
 }

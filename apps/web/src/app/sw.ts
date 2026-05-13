@@ -5,7 +5,7 @@ declare const self: ServiceWorkerGlobalScope
 
 import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { NavigationRoute, registerRoute } from 'workbox-routing'
-import { weeklySnapshotCacheName, weeklySnapshotCachePrefix } from '~/shared/api/weekly/weekly-client-cache'
+import { clearStaleWeeklySnapshotCache } from '~/shared/api/weekly/weekly-client-cache'
 
 // clean old assets
 cleanupOutdatedCaches()
@@ -20,7 +20,7 @@ self.addEventListener('message', (event) => {
 
 // cleanup api cache
 self.addEventListener('activate', (event) => {
-  event.waitUntil(removeOldWeeklyDataCaches())
+  event.waitUntil(clearStaleWeeklySnapshotCache())
 })
 
 // redirect to index.html
@@ -28,13 +28,4 @@ if (import.meta.env.PROD || import.meta.env.MODE === 'test') {
   // to allow work offline
   const denylist = [/^\/api\//]
   registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html'), { denylist }))
-}
-
-async function removeOldWeeklyDataCaches(): Promise<void> {
-  const cacheKeys = await caches.keys()
-  const staleWeeklyDataCaches = cacheKeys.filter((cacheName) => {
-    return cacheName.startsWith(weeklySnapshotCachePrefix) && cacheName !== weeklySnapshotCacheName
-  })
-
-  await Promise.all(staleWeeklyDataCaches.map((cacheName) => caches.delete(cacheName)))
 }

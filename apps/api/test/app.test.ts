@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { parseApiV1ErrorResponse, parseApiV1WeeklyResponse } from '@hoxxes-briefing/contracts/api/v1'
+import * as v1 from '@hoxxes-briefing/contracts/api/v1'
 import { createApp } from '../src/app.ts'
 import type { CurrentDeepDives } from '../src/application/models/current-deep-dives.ts'
 import { type DeepDivesProvider, DeepDivesProviderError } from '../src/ports/deep-dives-provider.ts'
@@ -75,7 +75,7 @@ test('GET /api/v1/weekly returns the weekly contract payload', async () => {
   assert.notEqual(rawPayload, null)
   assert.equal(Object.hasOwn(rawPayload as Record<string, unknown>, 'freshness'), false)
 
-  const payload = parseApiV1WeeklyResponse(rawPayload)
+  const payload = v1.parseWeeklyResponse(rawPayload)
   assert.equal(payload.week.id, '2026-W17')
   assert.equal(payload.week.seed, 1234567890)
   assert.equal(payload.dives.normal.name, 'Crystal Routes')
@@ -120,7 +120,7 @@ test('GET /api/v1/weekly returns a structured upstream failure', async () => {
   assert.equal(response.headers.get('vercel-cdn-cache-control'), null)
   assert.equal(response.headers.get('vercel-cache-tag'), null)
 
-  const payload = parseApiV1ErrorResponse(await response.json())
+  const payload = v1.parseErrorResponse(await response.json())
   assert.equal(payload.code, 'UPSTREAM_UNAVAILABLE')
   assert.equal(payload.requestId, 'req-123')
 })
@@ -149,6 +149,6 @@ test('GET /api/v1/weekly returns a structured invalid payload error', async () =
   assert.equal(response.headers.get('vercel-cdn-cache-control'), null)
   assert.equal(response.headers.get('vercel-cache-tag'), null)
 
-  const payload = parseApiV1ErrorResponse(await response.json())
+  const payload = v1.parseErrorResponse(await response.json())
   assert.equal(payload.code, 'INVALID_RESPONSE_PAYLOAD')
 })
