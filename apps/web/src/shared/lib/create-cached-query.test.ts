@@ -77,7 +77,7 @@ describe('streamCachedQuery', () => {
     await expect(firstValue).resolves.toMatchObject({
       done: false,
       value: {
-        refresh: { status: 'ok' },
+        refresh: { status: 'refreshing' },
         source: 'cache',
         value: cachedValue,
       },
@@ -168,7 +168,7 @@ describe('streamCachedQuery', () => {
     await expect(firstValue).resolves.toMatchObject({
       done: false,
       value: {
-        refresh: { status: 'ok' },
+        refresh: { status: 'refreshing' },
         source: 'cache',
         value: cachedValue,
       },
@@ -176,6 +176,14 @@ describe('streamCachedQuery', () => {
 
     networkRequest.reject(networkError)
 
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: false,
+      value: {
+        refresh: { status: 'ok' },
+        source: 'cache',
+        value: cachedValue,
+      },
+    })
     await expect(iterator.next()).resolves.toMatchObject({
       done: true,
       value: undefined,

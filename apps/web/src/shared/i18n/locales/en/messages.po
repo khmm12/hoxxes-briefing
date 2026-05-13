@@ -301,6 +301,10 @@ msgstr "Last known board only. This cycle already ended."
 msgid "Last known board still shown. Refresh failed."
 msgstr "Last known board still shown. Refresh failed."
 
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:73
+msgid "Last known board still shown. Refreshing now."
+msgstr "Last known board still shown. Refreshing now."
+
 #: src/pages/weekly/ui/weekly-route-intel-copy.ts:20
 msgid "Leave brawling room. Cramped teams run out of options fast."
 msgstr "Leave brawling room. Cramped teams run out of options fast."

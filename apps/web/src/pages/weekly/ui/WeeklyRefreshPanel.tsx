@@ -45,7 +45,7 @@ export function WeeklyRefreshPanel(props: WeeklyRefreshPanelProps): JSX.Element 
         disabled={!props.state.online || props.state.refreshing}
         onClick={props.onRefresh}
         size="compact"
-        tone={props.state.expired && props.state.online ? 'primary' : 'ghost'}
+        tone={props.state.expired && props.state.online && !props.state.refreshing ? 'primary' : 'ghost'}
         type="button"
       >
         <Switch fallback={i18n._(msg`Refresh`)}>
@@ -70,9 +70,9 @@ function formatBoardStatus(i18n: I18n, state: WeeklyBoardViewState): string {
   const { expired, refreshing, refreshFailed, online, source } = state
 
   if (expired) {
-    return refreshFailed
-      ? i18n._(msg`Last known board still shown. Refresh failed.`)
-      : i18n._(msg`Last known board only. This cycle already ended.`)
+    if (refreshing) return i18n._(msg`Last known board still shown. Refreshing now.`)
+    if (refreshFailed) return i18n._(msg`Last known board still shown. Refresh failed.`)
+    return i18n._(msg`Last known board only. This cycle already ended.`)
   }
 
   if (!online) return i18n._(msg`Saved board loaded. You're offline for now.`)

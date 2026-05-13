@@ -31,7 +31,7 @@ export type StreamCachedQueryOptions<K, T> = {
   timeoutMs: number
 }
 
-type RefreshState = { status: 'ok' } | { status: 'failed'; error: unknown; at: number }
+type RefreshState = { status: 'ok' } | { status: 'refreshing' } | { status: 'failed'; error: unknown; at: number }
 
 type InnerState<T> = {
   source: 'cache' | 'network'
@@ -45,6 +45,12 @@ const ok = <T>(source: 'cache' | 'network', value: T): InnerState<T> => ({
   source,
   value,
   refresh: { status: 'ok' },
+})
+
+const refreshInFlight = <T>(state: Pick<InnerState<T>, 'source' | 'value'>): InnerState<T> => ({
+  source: state.source,
+  value: state.value,
+  refresh: { status: 'refreshing' },
 })
 
 export function createCachedQuery<const K extends readonly unknown[], T>(
@@ -87,7 +93,13 @@ export function createCachedQuery<const K extends readonly unknown[], T>(
       return refresh.status === 'failed' ? refresh.error : null
     },
     get pending() {
-      return isPending(() => s())
+      if (isPending(() => s())) return true
+
+      try {
+        return s().refresh.status === 'refreshing'
+      } catch {
+        return false
+      }
     },
     refresh() {
       refreshComputation(s)
@@ -123,7 +135,7 @@ export async function* streamCachedQuery<K, T>(options: StreamCachedQueryOptions
   const cacheAfterTimeoutPromise = (async () => {
     const [cachedValue] = await Promise.all([cachedPromise, sleep(options.timeoutMs)])
 
-    return cachedValue === undefined ? networkResultPromise : ok('cache', cachedValue)
+    return cachedValue === undefined ? networkResultPromise : refreshInFlight({ source: 'cache', value: cachedValue })
   })()
 
   try {
@@ -141,7 +153,7 @@ export async function* streamCachedQuery<K, T>(options: StreamCachedQueryOptions
       const value = !options.equal(first.value, freshValue) ? freshValue : first.value
       yield ok('network', value)
     } catch {
-      return
+      yield ok(first.source, first.value)
     }
   } catch (error) {
     const cachedValue = await cachedPromise
