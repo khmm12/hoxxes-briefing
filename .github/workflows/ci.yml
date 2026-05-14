@@ -2,13 +2,13 @@ name: CI
 
 on:
   push:
+  pull_request:
 
 permissions:
   contents: read
 
 jobs:
   verify:
-    name: verify
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
