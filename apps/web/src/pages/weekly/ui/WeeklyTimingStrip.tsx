@@ -17,10 +17,7 @@ type WeeklyTimingStripProps = {
 
 const timingStripStyles = css.raw({
   display: 'grid',
-  gridTemplateColumns: {
-    base: 'repeat(2, minmax(0, 1fr))',
-    md: 'repeat(3, minmax(0, 1fr))',
-  },
+  gridTemplateColumns: { base: '1fr', sm: 'repeat(2, minmax(min-content, 1fr))', md: 'repeat(3, minmax(0, 1fr))' },
   gap: 'ui8',
 })
 
@@ -28,7 +25,8 @@ const timingItemRecipe = cva({
   base: {
     display: 'grid',
     gap: { base: 'ui2', md: 'ui4' },
-    paddingBlock: 'ui12',
+    minHeight: 'ui64',
+    paddingBlock: { base: 'ui8', md: 'ui12' },
     paddingInline: 'ui12',
     borderWidth: '1px',
     borderStyle: 'solid',
@@ -39,9 +37,13 @@ const timingItemRecipe = cva({
   variants: {
     placement: {
       default: {},
-      started: {
-        gridColumn: { base: '1 / -1', md: 'auto' },
-        order: { base: 3, md: 0 },
+      remaining: {
+        '@media (min-width: 480px)': {
+          gridColumn: '1 / -1',
+        },
+        md: {
+          gridColumn: 'auto',
+        },
       },
     },
   },
@@ -81,54 +83,43 @@ const timingValueRecipe = cva({
 })
 
 const timingStartedValueStyles = css.raw({
-  fontSize: { base: '0.875rem', md: '1rem' },
+  fontSize: { base: '1rem', md: '1.125rem' },
   color: 'parchment.300',
 })
 
 const timingEndedValueStyles = css.raw({
   fontWeight: '500',
-  fontSize: '1.25rem',
-})
-
-const timingMetaStyles = css.raw({
-  color: 'text.disabled',
-  fontSize: '0.875rem',
-  lineHeight: '1.55',
+  fontSize: { base: '1rem', md: '1.125rem' },
 })
 
 export function WeeklyTimingStrip(props: WeeklyTimingStripProps): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <>
-      <dl class={css(timingStripStyles)}>
-        <TimingItem
-          label={i18n._(msg`Started`)}
-          placement="started"
-          valueCss={timingStartedValueStyles}
-          value={formatWeekTimestamp(i18n, props.week.release)}
-        />
-        <TimingItem
-          label={props.expired ? i18n._(msg`Ended`) : i18n._(msg`Ends`)}
-          valueCss={timingEndedValueStyles}
-          value={formatWeekTimestamp(i18n, props.week.expiration)}
-        />
-        <TimingItem
-          label={props.expired ? i18n._(msg`Reset status`) : i18n._(msg`Time remaining`)}
-          primary
-          value={props.expired ? i18n._(msg`already ended`) : formatRemaining(i18n, props.week.expiration, props.now)}
-        />
-      </dl>
-      <p class={css(timingMetaStyles)}>
-        {i18n._(msg`Local time`)} · {formatTimezoneOffset(props.now)}
-      </p>
-    </>
+    <dl class={css(timingStripStyles)}>
+      <TimingItem
+        label={i18n._(msg`Started`)}
+        valueCss={timingStartedValueStyles}
+        value={formatWeekTimestamp(i18n, props.week.release)}
+      />
+      <TimingItem
+        label={props.expired ? i18n._(msg`Ended`) : i18n._(msg`Ends`)}
+        valueCss={timingEndedValueStyles}
+        value={formatWeekTimestamp(i18n, props.week.expiration)}
+      />
+      <TimingItem
+        label={props.expired ? i18n._(msg`Reset status`) : i18n._(msg`Time remaining`)}
+        placement="remaining"
+        primary
+        value={props.expired ? i18n._(msg`already ended`) : formatRemaining(i18n, props.week.expiration, props.now)}
+      />
+    </dl>
   )
 }
 
 function TimingItem(props: {
   label: string
-  placement?: 'started'
+  placement?: 'remaining'
   primary?: boolean
   value: string
   valueCss?: SystemStyleObject
@@ -192,18 +183,4 @@ export function formatRemaining(i18n: I18n, timestamp: string, now: Date): strin
   }
 
   return `${formatMinutes()} ${formatSeconds()}`
-}
-
-function formatTimezoneOffset(now: Date): string {
-  const offsetMinutes = -now.getTimezoneOffset()
-  const sign = offsetMinutes >= 0 ? '+' : '-'
-  const absoluteMinutes = Math.abs(offsetMinutes)
-  const hours = Math.floor(absoluteMinutes / 60)
-  const minutes = absoluteMinutes % 60
-
-  if (minutes === 0) {
-    return `UTC${sign}${hours}`
-  }
-
-  return `UTC${sign}${hours}:${String(minutes).padStart(2, '0')}`
 }

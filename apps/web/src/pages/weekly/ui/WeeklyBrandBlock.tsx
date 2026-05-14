@@ -1,7 +1,6 @@
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
-import { token } from 'styled-system/tokens'
 import { useI18n } from '~/shared/i18n'
 import { BrandLogo } from './BrandLogo'
 
@@ -11,10 +10,7 @@ type WeeklyBrandBlockProps = {
 
 const brandClusterStyles = css.raw({
   display: 'grid',
-  gridTemplateColumns: {
-    base: `${token('sizes.ui40')} minmax(0, 1fr)`,
-    md: `${token('sizes.ui48')} minmax(0, 1fr)`,
-  },
+  gridTemplateColumns: 'auto minmax(0, 1fr)',
   gap: { base: 'ui12', md: 'ui16' },
   alignItems: 'start',
 })
@@ -23,10 +19,10 @@ const logoFrameStyles = css.raw({
   position: 'relative',
   display: 'grid',
   placeItems: 'center',
-  width: { base: 'ui40', md: 'ui48' },
-  height: { base: 'ui40', md: 'ui48' },
-  paddingBlock: { base: 'ui0', md: 'ui2' },
-  paddingInline: { base: 'ui0', md: 'ui2' },
+  width: { base: 'ui40', md: 'ui48', lg: 'ui56' },
+  height: { base: 'ui40', md: 'ui48', lg: 'ui56' },
+  paddingBlock: { base: 'ui2', lg: 'ui4' },
+  paddingInline: { base: 'ui2', lg: 'ui4' },
   borderWidth: '1px',
   borderStyle: 'solid',
   borderColor: 'border.subtle',
@@ -42,20 +38,20 @@ const brandCopyStyles = css.raw({
 })
 
 const eyebrowStyles = css.raw({
+  display: { base: 'none', md: 'block' },
   color: 'brand.hover',
   fontFamily: 'display',
-  fontSize: '0.875rem',
+  fontSize: { base: '0.75rem', md: '0.875rem' },
   fontWeight: '700',
   letterSpacing: '0.04em',
   lineHeight: '1.333',
   textTransform: 'uppercase',
-  hideBelow: 'md',
 })
 
 const brandTitleStyles = css.raw({
   color: 'text.primary',
   fontFamily: 'display',
-  fontSize: { base: '1.5rem', md: '2rem' },
+  fontSize: { base: '1.5rem', md: '2rem', xl: '2.25rem' },
   fontWeight: '700',
   letterSpacing: '0.04em',
   lineHeight: '1.2',

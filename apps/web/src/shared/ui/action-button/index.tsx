@@ -1,4 +1,4 @@
-import { createMemo, omit } from 'solid-js'
+import { createMemo, omit, Show } from 'solid-js'
 import type { A, AnchorProps } from '@solidjs/router'
 import { Dynamic, type JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
@@ -8,7 +8,7 @@ import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 type ActionControlComponent = 'button' | 'a' | typeof A
 type ActionControlOwnProps = {
   busy?: boolean
-  children: JSX.Element
+  children?: JSX.Element
   leadingIcon?: JSX.Element
 }
 
@@ -195,7 +195,9 @@ function ActionControlContent(props: ActionControlOwnProps): JSX.Element {
   return (
     <>
       {props.leadingIcon}
-      <span>{props.children}</span>
+      <Show when={props.children}>
+        <span>{props.children}</span>
+      </Show>
       {props.busy === true ? <Spinner css={busySpinnerStyles} /> : null}
     </>
   )

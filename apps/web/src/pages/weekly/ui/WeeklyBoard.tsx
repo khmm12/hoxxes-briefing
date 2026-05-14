@@ -19,6 +19,7 @@ const boardShellStyles = css.raw({
   width: 'content.board',
   maxWidth: 'full',
   display: 'grid',
+  gridAutoRows: 'max',
   marginInline: 'auto',
 })
 

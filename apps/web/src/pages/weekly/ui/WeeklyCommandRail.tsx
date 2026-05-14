@@ -18,7 +18,7 @@ type WeeklyCommandRailProps = {
 
 const railStyles = css.raw({
   display: 'grid',
-  gap: { base: 'ui8', md: 'ui12' },
+  gap: { base: 'ui12', md: 'ui16' },
   alignItems: 'start',
   paddingBlock: { base: 'ui12', md: 'ui16' },
   paddingInline: { base: 'ui12', md: 'ui16' },
@@ -29,12 +29,17 @@ const railStyles = css.raw({
   background: 'surface.raised',
   boxShadow: 'elevation.medium',
   overflow: 'hidden',
-  gridTemplateColumns: { base: '1fr', md: 'minmax(0, 1.2fr) minmax(0, 1fr)' },
+  gridTemplateColumns: '1fr',
+  '@media (min-width: 1200px)': {
+    alignItems: 'center',
+    gridTemplateColumns: 'minmax(0, 0.95fr) minmax(0, 1.05fr)',
+  },
 })
 
 const readoutStyles = css.raw({
   display: 'grid',
-  gap: 'ui12',
+  gap: 'ui8',
+  minWidth: '0',
 })
 
 export function WeeklyCommandRail(props: WeeklyCommandRailProps): JSX.Element {
@@ -46,8 +51,8 @@ export function WeeklyCommandRail(props: WeeklyCommandRailProps): JSX.Element {
     <header class={css(railStyles)}>
       <WeeklyBrandBlock slogan={slogan()} />
       <div class={css(readoutStyles)}>
-        <WeeklyRefreshPanel state={props.state} onRefresh={props.onRefresh} />
         <WeeklyTimingStrip now={props.now} expired={props.state.expired} week={props.week} />
+        <WeeklyRefreshPanel state={props.state} onRefresh={props.onRefresh} />
       </div>
     </header>
   )

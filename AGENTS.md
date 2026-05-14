@@ -22,8 +22,6 @@ clarity, and launch readiness over speculative features.
 ## Tooling
 
 - Use `mise` as the source of truth for local tool versions.
-- Before running project commands, activate mise in the current shell session:
-  `eval "$(mise activate zsh)"`.
 - Do not assume globally installed Rust, Node, pnpm, Vercel, or wasm tooling
   matches the project versions.
 
