@@ -260,7 +260,12 @@ export default defineConfig({
   outdir: 'styled-system',
   globalCss: defineGlobalStyles({
     html: {
-      colorScheme: 'dark',
+      // Set color scheme to dark by default,
+      colorScheme: {
+        base: 'dark',
+        // a dirty hack for dark mode detection
+        '@media(prefers-color-scheme: dark)': 'dark',
+      },
       backgroundColor: 'bg',
       color: 'text',
       minHeight: '100%',
