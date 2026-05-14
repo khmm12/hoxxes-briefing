@@ -1,4 +1,4 @@
-import { differenceInSeconds } from 'date-fns'
+import { differenceInSeconds } from 'date-fns/differenceInSeconds'
 
 const WEEKLY_CDN_CACHE_SAFETY_MARGIN_SECONDS = 60
 const WEEKLY_CDN_STALE_WHILE_REVALIDATE_SECONDS = 60

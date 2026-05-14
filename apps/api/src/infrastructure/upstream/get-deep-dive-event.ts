@@ -1,4 +1,4 @@
-import { subWeeks } from 'date-fns'
+import { subWeeks } from 'date-fns/subWeeks'
 import * as v from 'valibot'
 
 const UPSTREAM_DEEP_DIVE_EVENT_URL = 'https://drg.ghostship.dk/events/deepdive'

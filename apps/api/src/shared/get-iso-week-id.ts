@@ -1,5 +1,6 @@
 import { utc } from '@date-fns/utc'
-import { getISOWeek, getISOWeekYear } from 'date-fns'
+import { getISOWeek } from 'date-fns/getISOWeek'
+import { getISOWeekYear } from 'date-fns/getISOWeekYear'
 
 export function getIsoWeekId(releaseTimestamp: string): string {
   const releaseDate = new Date(releaseTimestamp)
