@@ -16,6 +16,7 @@ Rules in this file apply under `apps/`.
 - Keep Rust/WASM generation code out of the client bundle.
 - Do not hand-edit generated `apps/web/styled-system/`.
 - Put reusable UI primitives in `shared/ui`.
+- Upgrade solid-js related packages always together.
 
 ## API
 

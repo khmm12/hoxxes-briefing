@@ -55,6 +55,10 @@ Long-running commands may be used only when needed for manual verification:
 - Prefer small, behavior-focused tests over broad snapshots.
 - Use Conventional Commits for commit messages.
 
+## Upgrading packages
+
+- Always use `pnpm dedupe` after upgrading packages.
+
 ## Engineering Standards
 
 ### YAGNI (You Aren't Gonna Need It)
