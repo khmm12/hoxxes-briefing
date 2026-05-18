@@ -71,10 +71,8 @@ export function createCachedQuery<const K extends readonly unknown[], T>(
   const data = createMemo(() => s().value, { equals: options.equal, lazy: true })
   const pending = createMemo(
     () => {
-      if (isPending(() => s())) return true
-
       try {
-        return s().refresh.status === 'refreshing'
+        return isPending(s) || s().refresh.status === 'refreshing'
       } catch {
         return false
       }
