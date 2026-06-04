@@ -1,6 +1,6 @@
 import type { JSX } from '@solidjs/web'
-import type { WeeklySnapshotResult } from '~/shared/api/weekly'
-import { WeeklyRequestError } from '~/shared/api/weekly'
+import type { WeeklySnapshotResult } from '~/shared/api'
+import { WeeklyRequestError } from '~/shared/api'
 import { AppLayout } from '~/shared/ui/layout'
 import type { WeeklyBoardViewState } from '../model/weekly-page-state'
 import { WeeklyBoard } from '../ui/WeeklyBoard'

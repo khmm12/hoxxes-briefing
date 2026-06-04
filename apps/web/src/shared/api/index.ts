@@ -7,6 +7,7 @@ export {
 } from './weekly-client'
 export {
   clearCachedWeeklySnapshot,
+  clearStaleWeeklySnapshotCache,
   readCachedWeeklySnapshot,
   writeCachedWeeklySnapshot,
 } from './weekly-client-cache'

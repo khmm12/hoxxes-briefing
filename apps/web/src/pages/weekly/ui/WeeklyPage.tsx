@@ -2,7 +2,7 @@ import { type Accessor, createEffect, createMemo, createSignal, Errored, Loading
 import { msg } from '@lingui/core/macro'
 import { Meta, Title } from '@solidjs/meta'
 import type { JSX } from '@solidjs/web'
-import { WeeklyRequestError } from '~/shared/api/weekly'
+import { WeeklyRequestError } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { AppLayout } from '~/shared/ui/layout'

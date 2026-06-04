@@ -5,7 +5,7 @@ declare const self: ServiceWorkerGlobalScope
 
 import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { NavigationRoute, registerRoute } from 'workbox-routing'
-import { clearStaleWeeklySnapshotCache } from '~/shared/api/weekly/weekly-client-cache'
+import { clearStaleWeeklySnapshotCache } from '~/shared/api'
 
 // clean old assets
 cleanupOutdatedCaches()

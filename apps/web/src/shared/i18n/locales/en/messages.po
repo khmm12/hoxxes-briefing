@@ -65,11 +65,11 @@ msgstr "All clear"
 msgid "already ended"
 msgstr "already ended"
 
-#: src/app/ui/AppCrashScreen.tsx:28
+#: src/app/AppCrashScreen.tsx:28
 msgid "App crashed"
 msgstr "App crashed"
 
-#: src/app/pwa/ui/PwaNotice.tsx:82
+#: src/app/pwa/PwaNotice.tsx:82
 msgid "App update"
 msgstr "App update"
 
@@ -444,7 +444,7 @@ msgid "Mysterious gravitational irregularities result in lowered overall "
 msgstr "Mysterious gravitational irregularities result in lowered overall "
 "gravity in the mission area."
 
-#: src/app/pwa/ui/PwaNotice.tsx:83
+#: src/app/pwa/PwaNotice.tsx:83
 msgid "New version ready"
 msgstr "New version ready"
 
@@ -539,15 +539,15 @@ msgstr "Refreshing..."
 msgid "Regenerative Bugs"
 msgstr "Regenerative Bugs"
 
-#: src/app/ui/AppCrashScreen.tsx:22
+#: src/app/AppCrashScreen.tsx:22
 msgid "Reload app"
 msgstr "Reload app"
 
-#: src/app/pwa/ui/PwaNotice.tsx:84
+#: src/app/pwa/PwaNotice.tsx:84
 msgid "Reload for the latest app version."
 msgstr "Reload for the latest app version."
 
-#: src/app/ui/AppCrashScreen.tsx:25
+#: src/app/AppCrashScreen.tsx:25
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
 
@@ -590,7 +590,7 @@ msgstr "Rock and Stone!"
 msgid "Route scan"
 msgstr "Route scan"
 
-#: src/app/ui/AppCrashScreen.tsx:26
+#: src/app/AppCrashScreen.tsx:26
 msgid "Runtime fault"
 msgstr "Runtime fault"
 
@@ -737,7 +737,7 @@ msgstr "Try again once the connection settles."
 msgid "Twins"
 msgstr "Twins"
 
-#: src/app/pwa/ui/PwaNotice.tsx:96
+#: src/app/pwa/PwaNotice.tsx:96
 msgid "Update app"
 msgstr "Update app"
 

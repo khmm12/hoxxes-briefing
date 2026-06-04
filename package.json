@@ -7,7 +7,7 @@
 		"dev:api": "pnpm --filter @hoxxes-briefing/api dev",
 		"build": "pnpm -r --if-present run build",
 		"test": "pnpm -r --if-present run test && cargo test --workspace",
-		"check": "biome check && pnpm -r --if-present run typecheck && pnpm test && pnpm build"
+		"check": "biome check && pnpm -r --if-present run lint:fsd && pnpm -r --if-present run typecheck && pnpm test && pnpm build"
 	},
 	"engines": {
 		"node": ">=24"

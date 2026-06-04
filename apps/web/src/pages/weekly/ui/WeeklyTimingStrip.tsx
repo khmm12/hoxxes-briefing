@@ -4,7 +4,7 @@ import type { JSX } from '@solidjs/web'
 import { intervalToDuration, parseISO } from 'date-fns'
 import { css, cva } from 'styled-system/css'
 import type { SystemStyleObject } from 'styled-system/types'
-import type { WeeklySnapshotResult } from '~/shared/api/weekly'
+import type { WeeklySnapshotResult } from '~/shared/api'
 import { formatDate, useI18n } from '~/shared/i18n'
 
 type Week = WeeklySnapshotResult['week']

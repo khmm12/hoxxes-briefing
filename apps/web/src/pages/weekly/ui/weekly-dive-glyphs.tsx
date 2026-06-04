@@ -1,6 +1,6 @@
 import { omit, Show } from 'solid-js'
 import type { JSX } from '@solidjs/web'
-import type { WeeklySnapshotResult } from '~/shared/api/weekly'
+import type { WeeklySnapshotResult } from '~/shared/api'
 import {
   GlyphIcon,
   type IconProps,

@@ -4,7 +4,7 @@ import {
   type WeeklySnapshotResult,
   weeklySnapshotUrl,
   writeCachedWeeklySnapshot,
-} from '~/shared/api/weekly'
+} from '~/shared/api'
 import { type CachedQuery, createCachedQuery } from '~/shared/lib/create-cached-query'
 
 export const defaultWeeklySnapshotGracePeriodMs = 150

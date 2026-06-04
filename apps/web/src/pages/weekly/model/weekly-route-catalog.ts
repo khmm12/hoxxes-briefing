@@ -1,4 +1,4 @@
-import type { WeeklySnapshotResult } from '~/shared/api/weekly'
+import type { WeeklySnapshotResult } from '~/shared/api'
 
 export type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 export type WeeklyMission = WeeklyDive['missions'][number]

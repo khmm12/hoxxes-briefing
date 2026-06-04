@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { fetchWeeklySnapshot } from '~/shared/api/weekly'
+import { fetchWeeklySnapshot } from '~/shared/api'
 
 const createMission = () => ({
   primaryObjective: {

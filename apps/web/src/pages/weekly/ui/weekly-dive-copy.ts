@@ -1,6 +1,6 @@
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import type { WeeklySnapshotResult } from '~/shared/api/weekly'
+import type { WeeklySnapshotResult } from '~/shared/api'
 
 type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 type WeeklyMission = WeeklyDive['missions'][number]
