@@ -70,6 +70,11 @@ const timingValueRecipe = cva({
         color: 'brand.hover',
         fontSize: '1.25rem',
       },
+      // A stale board must not glow like a live countdown.
+      expired: {
+        color: 'danger',
+        fontSize: '1.25rem',
+      },
     },
   },
   defaultVariants: {
@@ -105,7 +110,7 @@ export function WeeklyTimingStrip(props: WeeklyTimingStripProps): JSX.Element {
       <TimingItem
         label={props.expired ? i18n._(msg`Reset status`) : i18n._(msg`Time remaining`)}
         placement="remaining"
-        primary
+        emphasis={props.expired ? 'expired' : 'primary'}
         value={props.expired ? i18n._(msg`already ended`) : formatRemaining(i18n, props.week.expiration, props.now)}
       />
     </dl>
@@ -115,7 +120,7 @@ export function WeeklyTimingStrip(props: WeeklyTimingStripProps): JSX.Element {
 function TimingItem(props: {
   label: string
   placement?: 'remaining'
-  primary?: boolean
+  emphasis?: 'expired' | 'primary'
   value: string
   valueCss?: SystemStyleObject
 }): JSX.Element {
@@ -125,7 +130,7 @@ function TimingItem(props: {
       <dd
         class={css(
           timingValueRecipe.raw({
-            emphasis: props.primary === true ? 'primary' : 'default',
+            emphasis: props.emphasis ?? 'default',
           }),
           props.valueCss,
         )}

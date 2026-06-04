@@ -13,19 +13,19 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:162
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:167
 msgid "{days}d"
 msgstr "{days}d"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:163
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:168
 msgid "{hours}h"
 msgstr "{hours}h"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:164
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:169
 msgid "{minutes}m"
 msgstr "{minutes}m"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:165
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:170
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
@@ -61,11 +61,11 @@ msgstr "After a few seconds of not taking damage, the creatures will start "
 msgid "All clear"
 msgstr "All clear"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:109
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:114
 msgid "already ended"
 msgstr "already ended"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:112
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:127
 msgid "App crashed"
 msgstr "App crashed"
 
@@ -90,7 +90,7 @@ msgstr "Black Box"
 msgid "Blood Sugar"
 msgstr "Blood Sugar"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:88
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:92
 msgid "Board unavailable"
 msgstr "Board unavailable"
 
@@ -114,14 +114,14 @@ msgstr "Call weakpoints and burn big targets early."
 msgid "Cave Leech Cluster"
 msgstr "Cave Leech Cluster"
 
-#: src/pages/weekly/ui/WeeklyPage.tsx:42
+#: src/pages/weekly/ui/WeeklyPage.tsx:63
 msgid "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board "
 "with weekly stages, objectives, hazards, mutators, and reset timing."
 msgstr "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive "
 "board with weekly stages, objectives, hazards, mutators, and reset "
 "timing."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:44
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:45
 msgid "Checking this week"
 msgstr "Checking this week"
 
@@ -141,11 +141,11 @@ msgstr "Clean Elite drop. Buy the round, then bring everyone home."
 msgid "Clear the cleanup. Small leftovers ruin brave revives."
 msgstr "Clear the cleanup. Small leftovers ruin brave revives."
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:157
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:162
 msgid "coming soon"
 msgstr "coming soon"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:90
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:94
 msgid "Could not load the weekly board"
 msgstr "Could not load the weekly board"
 
@@ -163,11 +163,11 @@ msgstr "Crystal Scan x{0}"
 msgid "Crystalline Caverns"
 msgstr "Crystalline Caverns"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:123
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:148
 msgid "Current board loaded."
 msgstr "Current board loaded."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:121
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:146
 msgid "Current board still shown. Refresh failed."
 msgstr "Current board still shown. Refresh failed."
 
@@ -183,7 +183,7 @@ msgstr "Darkness, here I come!"
 msgid "Deep Dive"
 msgstr "Deep Dive"
 
-#: src/pages/weekly/ui/WeeklyBoard.tsx:40
+#: src/pages/weekly/ui/WeeklyBoard.tsx:85
 msgid "Deep dive mission board"
 msgstr "Deep dive mission board"
 
@@ -220,11 +220,11 @@ msgstr "Elite Deep Dive"
 msgid "Elite Threat"
 msgstr "Elite Threat"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:101
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:106
 msgid "Ended"
 msgstr "Ended"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:101
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:106
 msgid "Ends"
 msgstr "Ends"
 
@@ -282,7 +282,7 @@ msgstr "Hiveguard"
 msgid "Hollow Bough"
 msgstr "Hollow Bough"
 
-#: src/pages/weekly/ui/WeeklyPage.tsx:38
+#: src/pages/weekly/ui/WeeklyPage.tsx:59
 msgid "Hoxxes Briefing | DRG Deep Dive Board"
 msgstr "Hoxxes Briefing | DRG Deep Dive Board"
 
@@ -326,15 +326,15 @@ msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 msgid "Last known board"
 msgstr "Last known board"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:109
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:134
 msgid "Last known board only. This cycle already ended."
 msgstr "Last known board only. This cycle already ended."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:108
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:133
 msgid "Last known board still shown. Refresh failed."
 msgstr "Last known board still shown. Refresh failed."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:107
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:132
 msgid "Last known board still shown. Refreshing now."
 msgstr "Last known board still shown. Refreshing now."
 
@@ -358,7 +358,7 @@ msgstr "Lethal Enemies"
 msgid "Locked and loaded!"
 msgstr "Locked and loaded!"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:40
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:41
 msgid "Looking for deep dives on your device."
 msgstr "Looking for deep dives on your device."
 
@@ -398,9 +398,13 @@ msgstr "Mind the sugar route. A dry stretch kills momentum."
 msgid "Mind your spacing. Dead bugs can still ruin the formation."
 msgstr "Mind your spacing. Dead bugs can still ruin the formation."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:46
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:47
 msgid "Mining Morkite"
 msgstr "Mining Morkite"
+
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:107
+msgid "Mission Control is having trouble on its end. Try again in a moment."
+msgstr "Mission Control is having trouble on its end. Try again in a moment."
 
 #. placeholder {0}: objective.morkiteWells
 #: src/pages/weekly/ui/weekly-dive-copy.ts:58
@@ -430,7 +434,7 @@ msgstr "Move like rent is due. Mine fast, regroup faster."
 msgid "Mule x{0}"
 msgstr "Mule x{0}"
 
-#: src/pages/weekly/ui/StageBlock.tsx:259
+#: src/pages/weekly/ui/StageBlock.tsx:248
 msgid "Mutator"
 msgstr "Mutator"
 
@@ -444,11 +448,11 @@ msgstr "Mysterious gravitational irregularities result in lowered overall "
 msgid "New version ready"
 msgstr "New version ready"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:76
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:80
 msgid "No saved board"
 msgstr "No saved board"
 
-#: src/pages/weekly/ui/StageBlock.tsx:268
+#: src/pages/weekly/ui/StageBlock.tsx:257
 msgid "No warning or mutator on this stage."
 msgstr "No warning or mutator on this stage."
 
@@ -457,15 +461,15 @@ msgstr "No warning or mutator on this stage."
 msgid "None"
 msgstr "None"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:97
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:118
 msgid "Offline"
 msgstr "Offline"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:73
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:77
 msgid "Offline cache miss"
 msgstr "Offline cache miss"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:75
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:79
 msgid "Open Hoxxes Briefing while online once to keep a board available "
 "offline."
 msgstr "Open Hoxxes Briefing while online once to keep a board available "
@@ -507,11 +511,11 @@ msgstr "Prep the hold first. Clear lanes before you lock in."
 msgid "Prepare yourself for a tsunami of Glyphid Swarmers!"
 msgstr "Prepare yourself for a tsunami of Glyphid Swarmers!"
 
-#: src/pages/weekly/ui/StageBlock.tsx:228
+#: src/pages/weekly/ui/StageBlock.tsx:217
 msgid "Primary objective"
 msgstr "Primary objective"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:39
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:40
 msgid "Pulling the latest deep dives now."
 msgstr "Pulling the latest deep dives now."
 
@@ -519,15 +523,15 @@ msgstr "Pulling the latest deep dives now."
 msgid "Radioactive Exclusion Zone"
 msgstr "Radioactive Exclusion Zone"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:100
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:121
 msgid "Refresh"
 msgstr "Refresh"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:120
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:145
 msgid "Refreshing current board now."
 msgstr "Refreshing current board now."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:98
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:119
 msgid "Refreshing..."
 msgstr "Refreshing..."
 
@@ -535,7 +539,7 @@ msgstr "Refreshing..."
 msgid "Regenerative Bugs"
 msgstr "Regenerative Bugs"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:106
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:121
 msgid "Reload app"
 msgstr "Reload app"
 
@@ -543,11 +547,11 @@ msgstr "Reload app"
 msgid "Reload for the latest app version."
 msgstr "Reload for the latest app version."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:109
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:124
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:106
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:111
 msgid "Reset status"
 msgstr "Reset status"
 
@@ -586,7 +590,7 @@ msgstr "Rock and Stone!"
 msgid "Route scan"
 msgstr "Route scan"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:110
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:125
 msgid "Runtime fault"
 msgstr "Runtime fault"
 
@@ -598,19 +602,19 @@ msgstr "Salt Pits"
 msgid "Sandblasted Corridors"
 msgstr "Sandblasted Corridors"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:117
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:142
 msgid "Saved board loaded."
 msgstr "Saved board loaded."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:115
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:140
 msgid "Saved board loaded. Refreshing now."
 msgstr "Saved board loaded. Refreshing now."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:112
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:137
 msgid "Saved board loaded. You're offline for now."
 msgstr "Saved board loaded. You're offline for now."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:116
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:141
 msgid "Saved board still shown. Refresh failed."
 msgstr "Saved board still shown. Refresh failed."
 
@@ -623,7 +627,7 @@ msgstr "Scanners have detected several clusters of Ossiran Pit Jaws in the "
 msgid "Scrab Nesting Grounds"
 msgstr "Scrab Nesting Grounds"
 
-#: src/pages/weekly/ui/StageBlock.tsx:235
+#: src/pages/weekly/ui/StageBlock.tsx:224
 msgid "Secondary objective"
 msgstr "Secondary objective"
 
@@ -649,11 +653,11 @@ msgstr "Something is eating the creatures from the inside out, and will go "
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
 
-#: src/pages/weekly/ui/StageBlock.tsx:221
+#: src/pages/weekly/ui/StageBlock.tsx:210
 msgid "Stage"
 msgstr "Stage"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:96
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:101
 msgid "Started"
 msgstr "Started"
 
@@ -693,7 +697,7 @@ msgid "The odd composition of local food sources means all enemies violently "
 msgstr "The odd composition of local food sources means all enemies violently "
 "combust upon death, causing area damage."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:72
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:76
 msgid "This device is offline and has no saved weekly board."
 msgstr "This device is offline and has no saved weekly board."
 
@@ -711,7 +715,7 @@ msgstr "This page is not available here. Head back to the weekly board."
 msgid "This week's Deep Dives"
 msgstr "This week's Deep Dives"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:106
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:111
 msgid "Time remaining"
 msgstr "Time remaining"
 
@@ -721,11 +725,11 @@ msgid "Toxins in the atmosphere drains your health, but crystalize the blood of 
 msgstr "Toxins in the atmosphere drains your health, but crystalize the blood "
 "of Hoxxes Wildlife into Red Sugar. Kill to survive!"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:84
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:88
 msgid "Try again"
 msgstr "Try again"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:87
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:105
 msgid "Try again once the connection settles."
 msgstr "Try again once the connection settles."
 
@@ -745,7 +749,7 @@ msgstr "Use the speed. Finish spread jobs before swarms stack."
 msgid "Volatile Guts"
 msgstr "Volatile Guts"
 
-#: src/pages/weekly/ui/StageBlock.tsx:246
+#: src/pages/weekly/ui/StageBlock.tsx:235
 msgid "Warning"
 msgstr "Warning"
 

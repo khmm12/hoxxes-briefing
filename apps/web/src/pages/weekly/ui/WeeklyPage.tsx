@@ -59,7 +59,6 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
                 error={error()}
                 online={online()}
                 onRetry={handleRetry}
-                reset={reset}
               />
             )
           }}

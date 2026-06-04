@@ -1,4 +1,5 @@
 import { Show } from 'solid-js'
+import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { WeeklyRequestError } from '~/shared/api/weekly'
@@ -19,11 +20,11 @@ type WeeklyErrorStateProps = {
   error: unknown
   online: boolean
   onRetry: () => void
-  reset: () => void
 }
 
 type EmptyWeeklyStateProps = {
   dockVisible: boolean
+  error: WeeklyRequestError
   online: boolean
   onRetry: () => void
 }
@@ -52,10 +53,13 @@ export function WeeklyLoadingState(props: WeeklyLoadingStateProps): JSX.Element 
 export function WeeklyErrorState(props: WeeklyErrorStateProps): JSX.Element {
   return (
     <Show
-      when={props.error instanceof WeeklyRequestError}
-      fallback={<RuntimeErrorState dockVisible={props.dockVisible} reset={props.reset} />}
+      when={props.error instanceof WeeklyRequestError ? props.error : undefined}
+      keyed
+      fallback={<RuntimeErrorState dockVisible={props.dockVisible} />}
     >
-      <EmptyWeeklyState dockVisible={props.dockVisible} online={props.online} onRetry={props.onRetry} />
+      {(error) => (
+        <EmptyWeeklyState dockVisible={props.dockVisible} error={error} online={props.online} onRetry={props.onRetry} />
+      )}
     </Show>
   )
 }
@@ -84,7 +88,7 @@ function EmptyWeeklyState(props: EmptyWeeklyStateProps): JSX.Element {
               {i18n._(msg`Try again`)}
             </ActionControl>
           }
-          body={i18n._(msg`Try again once the connection settles.`)}
+          body={formatBoardUnavailableBody(i18n, props.error)}
           eyebrow={i18n._(msg`Board unavailable`)}
           indicator={<EmptyBoardIcon />}
           title={i18n._(msg`Could not load the weekly board`)}
@@ -95,14 +99,26 @@ function EmptyWeeklyState(props: EmptyWeeklyStateProps): JSX.Element {
   )
 }
 
-function RuntimeErrorState(props: { dockVisible: boolean; reset: () => void }): JSX.Element {
+// A request can fail without the network being at fault (API error, bad
+// payload) — do not blame the user's connection in that case.
+function formatBoardUnavailableBody(i18n: I18n, error: WeeklyRequestError): string {
+  if (error.kind === 'network') return i18n._(msg`Try again once the connection settles.`)
+
+  return i18n._(msg`Mission Control is having trouble on its end. Try again in a moment.`)
+}
+
+function RuntimeErrorState(props: { dockVisible: boolean }): JSX.Element {
   const i18n = useI18n()
 
   return (
     <AppLayout dockVisible={props.dockVisible}>
       <StateScreen
         action={
-          <ActionControl component="button" tone="primary" type="button" onClick={() => reloadPageOrReset(props.reset)}>
+          // A full reload, not an error-boundary reset: a reset keeps module
+          // state intact, so a persistent fault re-crashes instantly and the
+          // button looks dead. Reload matches what the label promises. (Stale
+          // deploys are not this button's job — SW updates go via PwaNotice.)
+          <ActionControl component="button" tone="primary" type="button" onClick={() => window.location.reload()}>
             {i18n._(msg`Reload app`)}
           </ActionControl>
         }
@@ -114,9 +130,4 @@ function RuntimeErrorState(props: { dockVisible: boolean; reset: () => void }): 
       />
     </AppLayout>
   )
-}
-
-function reloadPageOrReset(reset: () => void): void {
-  reset()
-  // TODO: window.location.reload on 5nd attempt without success
 }

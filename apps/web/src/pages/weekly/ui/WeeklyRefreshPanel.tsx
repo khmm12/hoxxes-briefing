@@ -2,7 +2,7 @@ import { action, createOptimistic } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
-import { css } from 'styled-system/css'
+import { css, cva } from 'styled-system/css'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
 import { RefreshIcon } from '~/shared/ui/icon'
@@ -39,12 +39,28 @@ const commandButtonStyles = css.raw({
   flexShrink: 0,
 })
 
-const statusStyles = css.raw({
-  color: 'text.primary',
-  fontSize: '0.875rem',
-  fontWeight: '500',
-  lineHeight: '1.55',
-  minWidth: '0',
+// Failure and staleness must be visible at a glance, not only readable:
+// the slab already paints "Last known board" in danger — the rail follows.
+const statusRecipe = cva({
+  base: {
+    fontSize: '0.875rem',
+    fontWeight: '500',
+    lineHeight: '1.55',
+    minWidth: '0',
+  },
+  variants: {
+    tone: {
+      neutral: {
+        color: 'text.primary',
+      },
+      danger: {
+        color: 'danger',
+      },
+    },
+  },
+  defaultVariants: {
+    tone: 'neutral',
+  },
 })
 
 const dividerStyles = css.raw({
@@ -66,7 +82,12 @@ export function WeeklyRefreshPanel(props: WeeklyRefreshPanelProps): JSX.Element 
 
   return (
     <div class={css(statusShelfStyles)}>
-      <p class={css(statusStyles)} role="status" aria-live="polite" aria-atomic="true">
+      <p
+        class={css(statusRecipe.raw({ tone: formatBoardStatusTone(props.state) }))}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
         {formatBoardStatus(i18n, props.state)}
       </p>
       <span class={css(dividerStyles)} aria-hidden="true" />
@@ -98,6 +119,10 @@ function formatRefreshActionLabel(i18n: I18n, state: WeeklyBoardViewState): stri
   if (state.refreshing) return i18n._(msg`Refreshing...`)
 
   return i18n._(msg`Refresh`)
+}
+
+function formatBoardStatusTone(state: WeeklyBoardViewState): 'danger' | 'neutral' {
+  return state.expired || state.refreshFailed ? 'danger' : 'neutral'
 }
 
 function formatBoardStatus(i18n: I18n, state: WeeklyBoardViewState): string {
