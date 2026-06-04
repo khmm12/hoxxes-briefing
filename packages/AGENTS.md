@@ -4,7 +4,7 @@ Rules in this file apply under `packages/`.
 
 ## Contracts
 
-- `packages/contracts` is the shared client/server wire contract boundary.
+- `packages/contracts` (`@hoxxes-briefing/contracts`) is the shared client/server wire contract boundary.
 - `valibot` is the schema source of truth.
 - Keep public package surfaces explicit and stable.
 - Prefer package-root or explicit versioned exports such as `api/v1`.
@@ -13,5 +13,5 @@ Rules in this file apply under `packages/`.
 
 ## Verification
 
-- Run package-local tests and type checks.
+- `pnpm check` from root.
 - When changing exports, verify API and web consumers use supported surfaces.

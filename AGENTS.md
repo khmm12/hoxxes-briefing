@@ -11,9 +11,15 @@ clarity, and launch readiness over speculative features.
 - Product and UX intent: [docs/product.md](docs/product.md)
 - Deep Rock Galactic vocabulary: [docs/domain.md](docs/domain.md)
 - Web UI implementation rules: [apps/web/docs/ui-system.md](apps/web/docs/ui-system.md)
+- Deployment shape: [docs/deployment.md](docs/deployment.md)
+- Behavioral specs: `openspec/specs/` (OpenSpec). Consult before changing
+  covered behavior. The workflow is under evaluation — do not add new specs
+  unless explicitly asked.
 
 ## Local Context
 
+- Root `api/` is only the thin Vercel Function entrypoint; application code
+  lives in `apps/api`. Do not add logic to root `api/`.
 - Check nested `AGENTS.md` files before changing `apps/`, `packages/`, or
   `crates/`.
 - Keep agent guidance short. Put human documentation in `README.md` or `docs/`.
@@ -29,11 +35,12 @@ clarity, and launch readiness over speculative features.
 
 The following commands are safe to run when relevant:
 
-- `pnpm check`
+- `pnpm check` (biome lint + typecheck + test + build)
 - `pnpm test`
 - `pnpm build`
 - `cargo test --workspace`
 - `cargo bench -p drg_mission_gen_wasm` when bench work is explicitly requested
+- `./scripts/codegen-wasm.sh` when WASM ABI changes (requires `mise install`)
 
 Long-running commands may be used only when needed for manual verification:
 
@@ -61,34 +68,9 @@ Long-running commands may be used only when needed for manual verification:
 
 ## Engineering Standards
 
-### YAGNI (You Aren't Gonna Need It)
-
-Detection patterns:
-
-- Unused parameters "for future use"
-- Abstract classes with single implementation
-- Configuration options never used
-- Speculative generalization
-
-Guidance:
-
-- Build for current requirements
-- Refactor when needs emerge
-- Delete dead code when it is proven unused and within the task scope.
-- Prefer simple over flexible
-
-### KISS (Keep It Simple, Stupid)
-
-Detection patterns:
-
-- Cyclomatic complexity > 10 as a review smell, not an automatic rewrite trigger
-- Nested callbacks/promises 4+ deep
-- Generic solutions for specific problems
-- Framework overkill for simple tasks
-
-Refactoring:
-
-- Flatten control flow
-- Extract named functions
-- Use early returns
-- Choose boring technology
+- YAGNI: build for current requirements; refactor when needs emerge. Delete
+  dead code when it is proven unused and within task scope.
+- KISS: flat control flow, early returns, named functions, boring technology.
+- YAGNI/KISS are not a license for ad-hoc code or poor abstractions. A pattern
+  or abstraction earns its place when it reduces cognitive load or gives a
+  cheap way to reason about future change — judge by that, not by line count.
