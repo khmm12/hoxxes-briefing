@@ -27,25 +27,6 @@ export function App(props: AppProps): JSX.Element {
   const pwaNotice = createPwaNoticeState()
   const pwaDockVisible = (): boolean => online() && pwaNotice.notice() != null
 
-  // Escalating crash recovery. The first attempt is a cheap boundary reset;
-  // once it has been spent this session, the next click does a real reload —
-  // through the waiting service worker when an update is available, so a
-  // crash fixed by a fresh deploy is actually recoverable. The signal lives
-  // in App scope: this setup runs once and survives boundary resets, while
-  // the Errored fallback closure is re-created on every crash.
-  const [softResetUsed, setSoftResetUsed] = createSignal(false)
-
-  const recover = (reset: () => void): void => {
-    if (!softResetUsed()) {
-      setSoftResetUsed(true)
-      reset()
-      return
-    }
-
-    if (pwaNotice.notice() != null) void pwaNotice.reloadForUpdate()
-    else window.location.reload()
-  }
-
   return (
     <I18nProvider i18n={props.i18n}>
       <MetaProvider>
@@ -53,13 +34,29 @@ export function App(props: AppProps): JSX.Element {
           fallback={(error, reset) => {
             createEffect(error, (value) => console.error('AppErrorBoundary', value))
 
-            return (
-              <AppCrashScreen
-                dockVisible={pwaDockVisible()}
-                escalated={softResetUsed()}
-                onRecover={() => recover(reset)}
-              />
-            )
+            // Per-episode crash escalation. This closure lives exactly one
+            // error episode: a failed reset updates this render in place
+            // without re-invoking the closure (verified against beta.14),
+            // and a successful recovery disposes it. So the latch holds
+            // within an episode and resets automatically once the app
+            // actually recovers. The first attempt is a cheap boundary
+            // reset; the second does a real reload — through the waiting
+            // service worker when an update is available, so a crash fixed
+            // by a fresh deploy is actually recoverable.
+            const [softResetUsed, setSoftResetUsed] = createSignal(false)
+
+            const recover = (): void => {
+              if (!softResetUsed()) {
+                setSoftResetUsed(true)
+                reset()
+                return
+              }
+
+              if (pwaNotice.notice() != null) void pwaNotice.reloadForUpdate()
+              else window.location.reload()
+            }
+
+            return <AppCrashScreen dockVisible={pwaDockVisible()} escalated={softResetUsed()} onRecover={recover} />
           }}
         >
           <Router root={(props) => <Loading>{props.children}</Loading>}>
