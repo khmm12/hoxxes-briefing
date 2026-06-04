@@ -74,3 +74,4 @@ Long-running commands may be used only when needed for manual verification:
 - YAGNI/KISS are not a license for ad-hoc code or poor abstractions. A pattern
   or abstraction earns its place when it reduces cognitive load or gives a
   cheap way to reason about future change — judge by that, not by line count.
+- Boy Scout Rule: leave code cleaner than you found it. If a feature requires a workaround because existing structure resists it — refactor first, then add.
