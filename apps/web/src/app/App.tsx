@@ -1,4 +1,4 @@
-import { createEffect, createSignal, Errored, Loading, lazy, Show } from 'solid-js'
+import { createEffect, Errored, Loading, lazy, Show } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { MetaProvider } from '@solidjs/meta'
 import { Route, Router } from '@solidjs/router'
@@ -31,32 +31,19 @@ export function App(props: AppProps): JSX.Element {
     <I18nProvider i18n={props.i18n}>
       <MetaProvider>
         <Errored
-          fallback={(error, reset) => {
+          fallback={(error) => {
             createEffect(error, (value) => console.error('AppErrorBoundary', value))
 
-            // Per-episode crash escalation. This closure lives exactly one
-            // error episode: a failed reset updates this render in place
-            // without re-invoking the closure (verified against beta.14),
-            // and a successful recovery disposes it. So the latch holds
-            // within an episode and resets automatically once the app
-            // actually recovers. The first attempt is a cheap boundary
-            // reset; the second does a real reload — through the waiting
-            // service worker when an update is available, so a crash fixed
-            // by a fresh deploy is actually recoverable.
-            const [softResetUsed, setSoftResetUsed] = createSignal(false)
-
+            // A runtime crash is never a normal state for this app, so no
+            // soft-reset ceremony: recover with a real reload — through the
+            // waiting service worker when an update is available, so a crash
+            // fixed by a fresh deploy is actually recoverable.
             const recover = (): void => {
-              if (!softResetUsed()) {
-                setSoftResetUsed(true)
-                reset()
-                return
-              }
-
               if (pwaNotice.notice() != null) void pwaNotice.reloadForUpdate()
               else window.location.reload()
             }
 
-            return <AppCrashScreen dockVisible={pwaDockVisible()} escalated={softResetUsed()} onRecover={recover} />
+            return <AppCrashScreen dockVisible={pwaDockVisible()} onRecover={recover} />
           }}
         >
           <Router root={(props) => <Loading>{props.children}</Loading>}>

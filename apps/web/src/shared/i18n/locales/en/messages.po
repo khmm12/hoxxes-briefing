@@ -33,10 +33,6 @@ msgstr "{seconds}s"
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
-#: src/app/ui/AppCrashScreen.tsx:29
-msgid "A quick retry usually clears it."
-msgstr "A quick retry usually clears it."
-
 #: src/pages/weekly/ui/weekly-dive-copy.ts:201
 msgid "A slow, but invulnerable and deadly creature has been detected in this "
 "area. It will relentlessly chase you, throughout the mission. Do not let "
@@ -69,7 +65,7 @@ msgstr "All clear"
 msgid "already ended"
 msgstr "already ended"
 
-#: src/app/ui/AppCrashScreen.tsx:32
+#: src/app/ui/AppCrashScreen.tsx:28
 msgid "App crashed"
 msgstr "App crashed"
 
@@ -543,7 +539,7 @@ msgstr "Refreshing..."
 msgid "Regenerative Bugs"
 msgstr "Regenerative Bugs"
 
-#: src/app/ui/AppCrashScreen.tsx:26
+#: src/app/ui/AppCrashScreen.tsx:22
 msgid "Reload app"
 msgstr "Reload app"
 
@@ -551,7 +547,7 @@ msgstr "Reload app"
 msgid "Reload for the latest app version."
 msgstr "Reload for the latest app version."
 
-#: src/app/ui/AppCrashScreen.tsx:29
+#: src/app/ui/AppCrashScreen.tsx:25
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
 
@@ -594,7 +590,7 @@ msgstr "Rock and Stone!"
 msgid "Route scan"
 msgstr "Route scan"
 
-#: src/app/ui/AppCrashScreen.tsx:30
+#: src/app/ui/AppCrashScreen.tsx:26
 msgid "Runtime fault"
 msgstr "Runtime fault"
 
@@ -729,7 +725,6 @@ msgid "Toxins in the atmosphere drains your health, but crystalize the blood of 
 msgstr "Toxins in the atmosphere drains your health, but crystalize the blood "
 "of Hoxxes Wildlife into Red Sugar. Kill to survive!"
 
-#: src/app/ui/AppCrashScreen.tsx:26
 #: src/pages/weekly/ui/WeeklyPageStates.tsx:68
 msgid "Try again"
 msgstr "Try again"
