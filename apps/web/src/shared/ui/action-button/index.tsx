@@ -148,7 +148,7 @@ const busySpinnerStyles = css.raw({
 
 type DynamicActionControlProps = {
   children: JSX.Element
-  class: JSX.ClassList
+  class: JSX.ClassValue
   component: ActionControlComponent
 } & Record<string, unknown>
 
@@ -208,7 +208,7 @@ function resolveActionControlClass(
   cssProp: AnyActionControlProps['css'],
   tone: ActionControlTone | undefined,
   size: ActionControlSize | undefined,
-): JSX.ClassList {
+): JSX.ClassValue {
   return resolveClass(className, cssProp, actionControlRecipe.raw({ size, tone }))
 }
 

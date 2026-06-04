@@ -14,7 +14,7 @@ export function resolveClass(
   className: StylingProps['class'],
   cssProp: StylingProps['css'],
   ...styles: SystemStyleObject[]
-): JSX.ClassList {
+): JSX.ClassValue {
   const resolved = css(...styles, cssProp)
 
   if (className == null || className === false) {
