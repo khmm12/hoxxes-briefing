@@ -2,6 +2,7 @@ import { type Accessor, createEffect, createMemo, createSignal, Errored, Loading
 import { msg } from '@lingui/core/macro'
 import { Meta, Title } from '@solidjs/meta'
 import type { JSX } from '@solidjs/web'
+import { WeeklyRequestError } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { AppLayout } from '~/shared/ui/layout'
@@ -53,13 +54,26 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
               reset()
             }
 
+            // The check lives in a tracked child expression, not in the
+            // fallback closure: `error` is an accessor and may swap in place
+            // without the closure re-running. This boundary owns request
+            // failures only; anything else rethrows to the app-level boundary.
             return (
-              <WeeklyErrorState
-                dockVisible={props.dockVisible}
-                error={error()}
-                online={online()}
-                onRetry={handleRetry}
-              />
+              <>
+                {(() => {
+                  const requestError = error()
+                  if (!(requestError instanceof WeeklyRequestError)) throw requestError
+
+                  return (
+                    <WeeklyErrorState
+                      dockVisible={props.dockVisible}
+                      error={requestError}
+                      online={online()}
+                      onRetry={handleRetry}
+                    />
+                  )
+                })()}
+              </>
             )
           }}
         >

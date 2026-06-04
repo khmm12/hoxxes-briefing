@@ -2,10 +2,10 @@ import { Show } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
-import { WeeklyRequestError } from '~/shared/api/weekly'
+import type { WeeklyRequestError } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
-import { AlertIcon, EmptyBoardIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
+import { EmptyBoardIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
 import { AppLayout } from '~/shared/ui/layout'
 import { Spinner } from '~/shared/ui/spinner'
 import { StateScreen } from '~/shared/ui/state-screen'
@@ -15,14 +15,8 @@ type WeeklyLoadingStateProps = {
   online: boolean
 }
 
+// Request failures only; runtime faults rethrow to the app-level boundary.
 type WeeklyErrorStateProps = {
-  dockVisible: boolean
-  error: unknown
-  online: boolean
-  onRetry: () => void
-}
-
-type EmptyWeeklyStateProps = {
   dockVisible: boolean
   error: WeeklyRequestError
   online: boolean
@@ -51,20 +45,6 @@ export function WeeklyLoadingState(props: WeeklyLoadingStateProps): JSX.Element 
 }
 
 export function WeeklyErrorState(props: WeeklyErrorStateProps): JSX.Element {
-  return (
-    <Show
-      when={props.error instanceof WeeklyRequestError ? props.error : undefined}
-      keyed
-      fallback={<RuntimeErrorState dockVisible={props.dockVisible} />}
-    >
-      {(error) => (
-        <EmptyWeeklyState dockVisible={props.dockVisible} error={error} online={props.online} onRetry={props.onRetry} />
-      )}
-    </Show>
-  )
-}
-
-function EmptyWeeklyState(props: EmptyWeeklyStateProps): JSX.Element {
   const i18n = useI18n()
 
   return (
@@ -105,29 +85,4 @@ function formatBoardUnavailableBody(i18n: I18n, error: WeeklyRequestError): stri
   if (error.kind === 'network') return i18n._(msg`Try again once the connection settles.`)
 
   return i18n._(msg`Mission Control is having trouble on its end. Try again in a moment.`)
-}
-
-function RuntimeErrorState(props: { dockVisible: boolean }): JSX.Element {
-  const i18n = useI18n()
-
-  return (
-    <AppLayout dockVisible={props.dockVisible}>
-      <StateScreen
-        action={
-          // A full reload, not an error-boundary reset: a reset keeps module
-          // state intact, so a persistent fault re-crashes instantly and the
-          // button looks dead. Reload matches what the label promises. (Stale
-          // deploys are not this button's job — SW updates go via PwaNotice.)
-          <ActionControl component="button" tone="primary" type="button" onClick={() => window.location.reload()}>
-            {i18n._(msg`Reload app`)}
-          </ActionControl>
-        }
-        body={i18n._(msg`Reload the app and try again.`)}
-        eyebrow={i18n._(msg`Runtime fault`)}
-        indicator={<AlertIcon />}
-        title={i18n._(msg`App crashed`)}
-        tone="danger"
-      />
-    </AppLayout>
-  )
 }

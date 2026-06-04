@@ -129,7 +129,7 @@ function boardScenario(id: string, title: string, data: WeeklySnapshotResult, st
   }
 }
 
-function errorScenario(id: string, title: string, error: unknown, online = true) {
+function errorScenario(id: string, title: string, error: WeeklyRequestError, online = true) {
   return {
     id,
     title,
@@ -159,5 +159,14 @@ export const weeklyScenarios: WeeklyScenario[] = [
   errorScenario('error-network', 'Error · network', new WeeklyRequestError('network', 'playground')),
   errorScenario('error-api', 'Error · API', new WeeklyRequestError('api', 'playground')),
   errorScenario('error-offline', 'Error · offline, no cache', new WeeklyRequestError('network', 'playground'), false),
-  errorScenario('crash', 'Crash', new Error('playground crash')),
+  {
+    id: 'crash',
+    title: 'Crash (real boundary)',
+    render: (): JSX.Element => {
+      // Throws for real so the app-level boundary catches it — this exercises
+      // the live escalation flow (Try again → Reload app), not a mock screen.
+      // Escape by navigating to another scenario URL by hand.
+      throw new Error('playground crash')
+    },
+  },
 ]

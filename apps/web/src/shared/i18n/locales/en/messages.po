@@ -33,6 +33,10 @@ msgstr "{seconds}s"
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
+#: src/app/ui/AppCrashScreen.tsx:29
+msgid "A quick retry usually clears it."
+msgstr "A quick retry usually clears it."
+
 #: src/pages/weekly/ui/weekly-dive-copy.ts:201
 msgid "A slow, but invulnerable and deadly creature has been detected in this "
 "area. It will relentlessly chase you, throughout the mission. Do not let "
@@ -65,7 +69,7 @@ msgstr "All clear"
 msgid "already ended"
 msgstr "already ended"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:127
+#: src/app/ui/AppCrashScreen.tsx:32
 msgid "App crashed"
 msgstr "App crashed"
 
@@ -90,7 +94,7 @@ msgstr "Black Box"
 msgid "Blood Sugar"
 msgstr "Blood Sugar"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:92
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:72
 msgid "Board unavailable"
 msgstr "Board unavailable"
 
@@ -114,14 +118,14 @@ msgstr "Call weakpoints and burn big targets early."
 msgid "Cave Leech Cluster"
 msgstr "Cave Leech Cluster"
 
-#: src/pages/weekly/ui/WeeklyPage.tsx:63
+#: src/pages/weekly/ui/WeeklyPage.tsx:43
 msgid "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board "
 "with weekly stages, objectives, hazards, mutators, and reset timing."
 msgstr "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive "
 "board with weekly stages, objectives, hazards, mutators, and reset "
 "timing."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:45
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:39
 msgid "Checking this week"
 msgstr "Checking this week"
 
@@ -145,7 +149,7 @@ msgstr "Clear the cleanup. Small leftovers ruin brave revives."
 msgid "coming soon"
 msgstr "coming soon"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:94
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:74
 msgid "Could not load the weekly board"
 msgstr "Could not load the weekly board"
 
@@ -183,7 +187,7 @@ msgstr "Darkness, here I come!"
 msgid "Deep Dive"
 msgstr "Deep Dive"
 
-#: src/pages/weekly/ui/WeeklyBoard.tsx:85
+#: src/pages/weekly/ui/WeeklyBoard.tsx:40
 msgid "Deep dive mission board"
 msgstr "Deep dive mission board"
 
@@ -282,7 +286,7 @@ msgstr "Hiveguard"
 msgid "Hollow Bough"
 msgstr "Hollow Bough"
 
-#: src/pages/weekly/ui/WeeklyPage.tsx:59
+#: src/pages/weekly/ui/WeeklyPage.tsx:39
 msgid "Hoxxes Briefing | DRG Deep Dive Board"
 msgstr "Hoxxes Briefing | DRG Deep Dive Board"
 
@@ -358,7 +362,7 @@ msgstr "Lethal Enemies"
 msgid "Locked and loaded!"
 msgstr "Locked and loaded!"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:41
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:35
 msgid "Looking for deep dives on your device."
 msgstr "Looking for deep dives on your device."
 
@@ -398,11 +402,11 @@ msgstr "Mind the sugar route. A dry stretch kills momentum."
 msgid "Mind your spacing. Dead bugs can still ruin the formation."
 msgstr "Mind your spacing. Dead bugs can still ruin the formation."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:47
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:41
 msgid "Mining Morkite"
 msgstr "Mining Morkite"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:107
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:87
 msgid "Mission Control is having trouble on its end. Try again in a moment."
 msgstr "Mission Control is having trouble on its end. Try again in a moment."
 
@@ -448,7 +452,7 @@ msgstr "Mysterious gravitational irregularities result in lowered overall "
 msgid "New version ready"
 msgstr "New version ready"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:80
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:60
 msgid "No saved board"
 msgstr "No saved board"
 
@@ -465,11 +469,11 @@ msgstr "None"
 msgid "Offline"
 msgstr "Offline"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:77
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:57
 msgid "Offline cache miss"
 msgstr "Offline cache miss"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:79
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:59
 msgid "Open Hoxxes Briefing while online once to keep a board available "
 "offline."
 msgstr "Open Hoxxes Briefing while online once to keep a board available "
@@ -515,7 +519,7 @@ msgstr "Prepare yourself for a tsunami of Glyphid Swarmers!"
 msgid "Primary objective"
 msgstr "Primary objective"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:40
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:34
 msgid "Pulling the latest deep dives now."
 msgstr "Pulling the latest deep dives now."
 
@@ -539,7 +543,7 @@ msgstr "Refreshing..."
 msgid "Regenerative Bugs"
 msgstr "Regenerative Bugs"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:121
+#: src/app/ui/AppCrashScreen.tsx:26
 msgid "Reload app"
 msgstr "Reload app"
 
@@ -547,7 +551,7 @@ msgstr "Reload app"
 msgid "Reload for the latest app version."
 msgstr "Reload for the latest app version."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:124
+#: src/app/ui/AppCrashScreen.tsx:29
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
 
@@ -590,7 +594,7 @@ msgstr "Rock and Stone!"
 msgid "Route scan"
 msgstr "Route scan"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:125
+#: src/app/ui/AppCrashScreen.tsx:30
 msgid "Runtime fault"
 msgstr "Runtime fault"
 
@@ -697,7 +701,7 @@ msgid "The odd composition of local food sources means all enemies violently "
 msgstr "The odd composition of local food sources means all enemies violently "
 "combust upon death, causing area damage."
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:76
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:56
 msgid "This device is offline and has no saved weekly board."
 msgstr "This device is offline and has no saved weekly board."
 
@@ -725,11 +729,12 @@ msgid "Toxins in the atmosphere drains your health, but crystalize the blood of 
 msgstr "Toxins in the atmosphere drains your health, but crystalize the blood "
 "of Hoxxes Wildlife into Red Sugar. Kill to survive!"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:88
+#: src/app/ui/AppCrashScreen.tsx:26
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:68
 msgid "Try again"
 msgstr "Try again"
 
-#: src/pages/weekly/ui/WeeklyPageStates.tsx:105
+#: src/pages/weekly/ui/WeeklyPageStates.tsx:85
 msgid "Try again once the connection settles."
 msgstr "Try again once the connection settles."
 
