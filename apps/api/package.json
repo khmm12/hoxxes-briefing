@@ -10,12 +10,12 @@
 	},
 	"dependencies": {
 		"@date-fns/utc": "^2.1.1",
-		"@hono/node-server": "^2.0.2",
+		"@hono/node-server": "^2.0.4",
 		"@hoxxes-briefing/contracts": "workspace:*",
 		"@hoxxes-briefing/wasm": "workspace:*",
-		"date-fns": "^4.1.0",
-		"hono": "^4.12.19",
-		"valibot": "^1.4.0"
+		"date-fns": "^4.4.0",
+		"hono": "^4.12.23",
+		"valibot": "^1.4.1"
 	},
 	"exports": {
 		".": {

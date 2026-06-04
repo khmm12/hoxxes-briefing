@@ -9,7 +9,7 @@
 		"test": "node --conditions=development --test --experimental-strip-types test/api-v1.test.mjs"
 	},
 	"dependencies": {
-		"valibot": "^1.4.0"
+		"valibot": "^1.4.1"
 	},
 	"devDependencies": {
 		"typescript": "^6.0.3"
