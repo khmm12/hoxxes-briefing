@@ -229,7 +229,7 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
       <div class={css(hazardStackStyles)}>
         <Show when={props.mission.warning} keyed>
           {(warning) => (
-            <Tooltip label={formatWarningDescription(i18n, warning)}>
+            <Tooltip align="start" label={formatWarningDescription(i18n, warning)}>
               <HazardLine
                 icon={<WarningKindIcon kind={warning} />}
                 label={i18n._(msg`Warning`)}
@@ -242,7 +242,7 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
 
         <Show when={props.mission.mutator} keyed>
           {(mutator) => (
-            <Tooltip label={formatMutatorDescription(i18n, mutator)}>
+            <Tooltip align="start" label={formatMutatorDescription(i18n, mutator)}>
               <HazardLine
                 icon={<MutatorKindIcon kind={mutator} />}
                 label={i18n._(msg`Mutator`)}

@@ -24,8 +24,15 @@ Rules in this file apply under `apps/`.
   item values (`keyed={false}` for accessors), DOM attributes are lowercase
   (`tabindex`), JSX types renamed (e.g. `JSX.ClassValue`).
 - `Portal` from @solidjs/web 2.0.0-beta.14 crashes on mount; `shared/ui/tooltip`
-  renders inline with `position: fixed` instead — keep board containers free of
-  `transform`/`filter`/`contain`, and recheck on solid upgrades.
+  appends its panel to `document.body` imperatively (hand-rolled portal) —
+  recheck on solid upgrades and switch back to `Portal` once fixed.
+- Safari-only rendering bugs may not reproduce in Chromium or Playwright
+  WebKit — verify in real Safari via safaridriver (`sudo safaridriver --enable`
+  once, then WebDriver on :4444). Focusing a tooltip trigger opens it without
+  hover synthesis.
+- Module layout: exported component first, private helpers below it. Variables
+  holding DOM elements use a `$` prefix (`$trigger`, `$panel`); keep
+  geometry/style computation pure and apply styles in a separate step.
 - Panda style values resolve against the token category declared for each
   property (sizes, colors, radii, …); `[...]` is the raw as-is escape hatch.
   Styles are extracted statically — keep style objects literal, no computed

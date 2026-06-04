@@ -1,26 +1,23 @@
-import { createEffect, createSignal, createUniqueId, Show } from 'solid-js'
+import { createEffect, createSignal, createUniqueId } from 'solid-js'
 import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import { resolveClass, type StylingProps } from '~/shared/ui/styling'
 
 type TooltipProps = StylingProps & {
   label: string
+  /** Horizontal panel placement relative to the trigger. Defaults to `center`. */
+  align?: 'center' | 'start'
   children: JSX.Element
 }
 
-// The panel renders inline with `position: fixed` instead of a portal:
-// `Portal` from @solidjs/web 2.0.0-beta.14 crashes on mount ("parameter 1 is
-// not of type 'Node'"). Fixed positioning relies on no ancestor creating a
-// containing block (transform/filter/contain) — revisit if board containers
-// gain transform animations or once Portal is fixed upstream.
+// The panel is created imperatively and appended to `document.body` — a
+// hand-rolled portal. `Portal` from @solidjs/web 2.0.0-beta.14 crashes on
+// mount ("parameter 1 is not of type 'Node'"), and rendering inline is not an
+// option: Safari clips `position: fixed` descendants of an ancestor that
+// combines `overflow: hidden` with a stacking context (e.g. the board slabs).
+// Revisit once Portal is fixed upstream.
 const VIEWPORT_GAP = 8
 const TRIGGER_GAP = 6
-
-// One-shot check instead of a reactive media query: clicks are rare, a
-// per-instance matchMedia subscription is not worth it.
-function isTouchOnly(): boolean {
-  return window.matchMedia('(hover: none)').matches
-}
 
 const triggerStyles = css.raw({
   display: 'block',
@@ -54,47 +51,28 @@ export function Tooltip(props: TooltipProps): JSX.Element {
   const tooltipId = createUniqueId()
 
   const [open, setOpen] = createSignal(false)
-  const [position, setPosition] = createSignal<{ left: number; top: number } | null>(null)
 
-  let triggerElement: HTMLSpanElement | undefined
-  let panelElement: HTMLDivElement | undefined
+  let $trigger: HTMLSpanElement | undefined
 
   const close = (): void => {
     setOpen(false)
-    setPosition(null)
   }
 
   createEffect(
-    () => open(),
-    (isOpen) => {
-      if (!isOpen || triggerElement == null || panelElement == null) return
+    () => (open() ? props.label : null),
+    (label) => {
+      if (label == null || $trigger == null) return
 
-      const trigger = triggerElement.getBoundingClientRect()
-      const panel = panelElement.getBoundingClientRect()
-      const maxLeft = window.innerWidth - panel.width - VIEWPORT_GAP
-      const left = Math.min(Math.max(trigger.left + trigger.width / 2 - panel.width / 2, VIEWPORT_GAP), maxLeft)
-      const above = trigger.top - panel.height - TRIGGER_GAP
-      const top = above >= VIEWPORT_GAP ? above : trigger.bottom + TRIGGER_GAP
+      const $panel = createPanelElement(tooltipId, label)
+      document.body.appendChild($panel)
 
-      setPosition({ left, top })
+      assignStyles($panel, computeStyles($panel, $trigger, { align: props.align ?? 'center' }))
 
-      const handleKeyDown = (event: KeyboardEvent): void => {
-        if (event.key === 'Escape') close()
-      }
-      const handlePointerDown = (event: PointerEvent): void => {
-        if (triggerElement != null && event.target instanceof Node && !triggerElement.contains(event.target)) close()
-      }
-
-      document.addEventListener('keydown', handleKeyDown)
-      document.addEventListener('pointerdown', handlePointerDown)
-      window.addEventListener('scroll', close, { capture: true, passive: true })
-      window.addEventListener('resize', close)
+      const stopDismissListeners = listenForDismiss($trigger, close)
 
       return () => {
-        document.removeEventListener('keydown', handleKeyDown)
-        document.removeEventListener('pointerdown', handlePointerDown)
-        window.removeEventListener('scroll', close, { capture: true })
-        window.removeEventListener('resize', close)
+        stopDismissListeners()
+        $panel.remove()
       }
     },
   )
@@ -103,7 +81,7 @@ export function Tooltip(props: TooltipProps): JSX.Element {
     // biome-ignore lint/a11y/noStaticElementInteractions: ARIA tooltip pattern — the trigger is a focusable wrapper, not a button
     // biome-ignore lint/a11y/useKeyWithClickEvents: onClick is a touch-only affordance; keyboard users open via focus
     <span
-      ref={triggerElement}
+      ref={$trigger}
       aria-describedby={open() ? tooltipId : undefined}
       class={resolveClass(props.class, props.css, triggerStyles)}
       tabindex="0"
@@ -122,21 +100,72 @@ export function Tooltip(props: TooltipProps): JSX.Element {
       }}
     >
       {props.children}
-      <Show when={open()}>
-        <div
-          ref={panelElement}
-          id={tooltipId}
-          role="tooltip"
-          class={css(panelStyles)}
-          style={{
-            left: `${position()?.left ?? 0}px`,
-            top: `${position()?.top ?? 0}px`,
-            visibility: position() == null ? 'hidden' : 'visible',
-          }}
-        >
-          {props.label}
-        </div>
-      </Show>
     </span>
   )
+}
+
+function createPanelElement(id: string, label: string): HTMLDivElement {
+  const panel = document.createElement('div')
+  panel.id = id
+  panel.setAttribute('role', 'tooltip')
+  panel.className = css(panelStyles)
+  panel.textContent = label
+  return panel
+}
+
+function computeStyles(
+  $panel: HTMLElement,
+  $trigger: HTMLElement,
+  opts: { align: 'center' | 'start' },
+): Partial<CSSStyleDeclaration> {
+  const { align } = opts
+
+  const triggerRect = $trigger.getBoundingClientRect()
+  const panelRect = $panel.getBoundingClientRect()
+
+  const preferredLeft =
+    align === 'start' ? triggerRect.left : triggerRect.left + triggerRect.width / 2 - panelRect.width / 2
+  const maxLeft = window.innerWidth - panelRect.width - VIEWPORT_GAP
+  const left = Math.min(Math.max(preferredLeft, VIEWPORT_GAP), maxLeft)
+
+  const above = triggerRect.top - panelRect.height - TRIGGER_GAP
+  const top = above >= VIEWPORT_GAP ? above : triggerRect.bottom + TRIGGER_GAP
+
+  return {
+    left: `${left}px`,
+    top: `${top}px`,
+  }
+}
+
+function assignStyles($panel: HTMLElement, styles: Partial<CSSStyleDeclaration>): void {
+  Object.assign($panel.style, styles)
+}
+
+// Close on Escape, on pointer down outside the trigger, and on any scroll or
+// resize (the panel does not track the trigger after opening).
+function listenForDismiss(trigger: HTMLElement, close: () => void): () => void {
+  const handleKeyDown = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') close()
+  }
+  const handlePointerDown = (event: PointerEvent): void => {
+    if (event.target instanceof Node && !trigger.contains(event.target)) close()
+  }
+
+  document.addEventListener('keydown', handleKeyDown)
+  document.addEventListener('pointerdown', handlePointerDown)
+  window.addEventListener('scroll', close, { capture: true, passive: true })
+  window.addEventListener('resize', close)
+
+  return () => {
+    document.removeEventListener('keydown', handleKeyDown)
+    document.removeEventListener('pointerdown', handlePointerDown)
+    window.removeEventListener('scroll', close, { capture: true })
+    window.removeEventListener('resize', close)
+  }
+}
+
+// One-shot check instead of a reactive media query: clicks are rare, a
+// per-instance matchMedia subscription is not worth it.
+function isTouchOnly(): boolean {
+  return window.matchMedia('(hover: none)').matches
 }

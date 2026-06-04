@@ -303,7 +303,7 @@ function QuickReadChipView(props: { chip: QuickReadChip }): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <Tooltip css={chipTooltipStyles} label={formatQuickReadChipDescription(i18n, props.chip)}>
+    <Tooltip align="center" css={chipTooltipStyles} label={formatQuickReadChipDescription(i18n, props.chip)}>
       <span class={css(chipRecipe.raw({ kind: props.chip.kind }))}>
         {props.chip.kind === 'warning' ? (
           <WarningKindIcon css={chipWarningIconStyles} kind={props.chip.value} />
