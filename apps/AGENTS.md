@@ -18,6 +18,20 @@ Rules in this file apply under `apps/`.
 - Do not hand-edit generated `apps/web/styled-system/`.
 - Put reusable UI primitives in `shared/ui`.
 - Upgrade solid-js related packages always together.
+- solid-js 2.0 beta diverges from 1.x in many APIs — verify against the
+  installed typings instead of assuming 1.x knowledge. Known traps:
+  `createEffect(compute, effect)` takes two functions, `<For>` yields plain
+  item values (`keyed={false}` for accessors), DOM attributes are lowercase
+  (`tabindex`), JSX types renamed (e.g. `JSX.ClassValue`).
+- `Portal` from @solidjs/web 2.0.0-beta.14 crashes on mount; `shared/ui/tooltip`
+  renders inline with `position: fixed` instead — keep board containers free of
+  `transform`/`filter`/`contain`, and recheck on solid upgrades.
+- Panda style values resolve against the token category declared for each
+  property (sizes, colors, radii, …); `[...]` is the raw as-is escape hatch.
+  Styles are extracted statically — keep style objects literal, no computed
+  values.
+- After changing UI strings run `pnpm exec lingui extract --clean` from
+  `apps/web`.
 
 ## API
 
