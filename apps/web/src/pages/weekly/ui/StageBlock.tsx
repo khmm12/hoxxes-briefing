@@ -2,11 +2,23 @@ import { createMemo, Show } from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
-import { token } from 'styled-system/tokens'
 import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
-import { MutatorGlyphIcon, PrimaryObjectiveIcon, SecondaryObjectiveIcon, WarningGlyphIcon } from '~/shared/ui/icon'
-import { formatMutator, formatPrimaryObjective, formatSecondaryObjective, formatWarning } from './weekly-dive-copy'
+import { Tooltip } from '~/shared/ui/tooltip'
+import {
+  formatMutator,
+  formatMutatorDescription,
+  formatPrimaryObjective,
+  formatSecondaryObjective,
+  formatWarning,
+  formatWarningDescription,
+} from './weekly-dive-copy'
+import {
+  MutatorKindIcon,
+  PrimaryObjectiveKindIcon,
+  SecondaryObjectiveKindIcon,
+  WarningKindIcon,
+} from './weekly-dive-glyphs'
 
 type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 type WeeklyMission = WeeklyDive['missions'][number]
@@ -59,38 +71,61 @@ const objectiveStackStyles = css.raw({
 
 const detailLineStyles = css.raw({
   display: 'grid',
-  gridTemplateColumns: `${token('sizes.icon.md')} minmax(0, 1fr)`,
-  gap: 'ui12',
-  alignItems: 'start',
+  gap: 'ui4',
 })
 
-const detailIconRecipe = cva({
+const detailValueLineRecipe = cva({
+  base: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 'ui8',
+    minWidth: '0',
+  },
+  variants: {
+    emphasis: {
+      primary: {
+        fontSize: '1.25rem',
+      },
+      secondary: {
+        fontSize: '1rem',
+      },
+    },
+  },
+  defaultVariants: {
+    emphasis: 'secondary',
+  },
+})
+
+// Kind icons render at 1.25em so the glyph reads slightly larger than the
+// text it labels, in every text size context.
+const lineIconRecipe = cva({
   base: {
     display: 'grid',
     placeItems: 'center',
+    flexShrink: '0',
     width: '[1em]',
     height: '[1em]',
-    marginBlockStart: 'ui2',
-    color: 'brand',
-    fontSize: token('sizes.icon.md'),
+    fontSize: '1.25em',
   },
   variants: {
     tone: {
-      primary: {},
+      primary: {
+        color: 'brand',
+      },
       secondary: {
         color: 'info',
+      },
+      warning: {
+        color: 'danger',
+      },
+      mutator: {
+        color: 'brand.hover',
       },
     },
   },
   defaultVariants: {
     tone: 'primary',
   },
-})
-
-const detailCopyStyles = css.raw({
-  display: 'grid',
-  gap: 'ui4',
-  minWidth: '0',
 })
 
 const labelRecipe = cva({
@@ -115,26 +150,11 @@ const labelRecipe = cva({
   },
 })
 
-const objectiveValueRecipe = cva({
-  base: {
-    color: 'text.primary',
-    fontWeight: '600',
-    lineHeight: '1.55',
-    overflowWrap: 'anywhere',
-  },
-  variants: {
-    emphasis: {
-      primary: {
-        fontSize: '1.25rem',
-      },
-      secondary: {
-        fontSize: '1rem',
-      },
-    },
-  },
-  defaultVariants: {
-    emphasis: 'secondary',
-  },
+const valueTextStyles = css.raw({
+  color: 'text.primary',
+  fontWeight: '600',
+  lineHeight: '1.55',
+  overflowWrap: 'anywhere',
 })
 
 const hazardStackStyles = css.raw({
@@ -149,9 +169,7 @@ const hazardStackStyles = css.raw({
 const hazardRecipe = cva({
   base: {
     display: 'grid',
-    gridTemplateColumns: `${token('sizes.icon.md')} minmax(0, 1fr)`,
-    gap: 'ui8',
-    alignItems: 'start',
+    gap: 'ui4',
     paddingBlock: 'ui8',
     paddingInline: 'ui12',
     borderWidth: '1px',
@@ -171,33 +189,6 @@ const hazardRecipe = cva({
       },
     },
   },
-})
-
-const hazardIconRecipe = cva({
-  base: {
-    display: 'grid',
-    placeItems: 'center',
-    width: '[1em]',
-    height: '[1em]',
-    color: 'danger',
-    fontSize: token('sizes.icon.md'),
-  },
-  variants: {
-    tone: {
-      warning: {},
-      mutator: {
-        color: 'brand.hover',
-      },
-    },
-  },
-})
-
-const hazardValueStyles = css.raw({
-  color: 'text.primary',
-  fontSize: '1rem',
-  fontWeight: '600',
-  lineHeight: '1.55',
-  overflowWrap: 'anywhere',
 })
 
 const quietHazardStyles = css.raw({
@@ -222,13 +213,13 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
       <div class={css(objectiveStackStyles)}>
         <ObjectiveLine
           emphasis="primary"
-          icon={<PrimaryObjectiveIcon />}
+          icon={<PrimaryObjectiveKindIcon kind={props.mission.primaryObjective.kind} />}
           label={i18n._(msg`Primary objective`)}
           value={formatPrimaryObjective(i18n, props.mission.primaryObjective)}
         />
         <ObjectiveLine
           emphasis="secondary"
-          icon={<SecondaryObjectiveIcon />}
+          icon={<SecondaryObjectiveKindIcon kind={props.mission.secondaryObjective.kind} />}
           iconTone="secondary"
           label={i18n._(msg`Secondary objective`)}
           value={formatSecondaryObjective(i18n, props.mission.secondaryObjective)}
@@ -236,22 +227,30 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
       </div>
 
       <div class={css(hazardStackStyles)}>
-        <Show when={hasWarning()}>
-          <HazardLine
-            icon={<WarningGlyphIcon />}
-            label={i18n._(msg`Warning`)}
-            tone="warning"
-            value={formatWarning(i18n, props.mission.warning)}
-          />
+        <Show when={props.mission.warning} keyed>
+          {(warning) => (
+            <Tooltip label={formatWarningDescription(i18n, warning)}>
+              <HazardLine
+                icon={<WarningKindIcon kind={warning} />}
+                label={i18n._(msg`Warning`)}
+                tone="warning"
+                value={formatWarning(i18n, warning)}
+              />
+            </Tooltip>
+          )}
         </Show>
 
-        <Show when={hasMutator()}>
-          <HazardLine
-            icon={<MutatorGlyphIcon />}
-            label={i18n._(msg`Mutator`)}
-            tone="mutator"
-            value={formatMutator(i18n, props.mission.mutator)}
-          />
+        <Show when={props.mission.mutator} keyed>
+          {(mutator) => (
+            <Tooltip label={formatMutatorDescription(i18n, mutator)}>
+              <HazardLine
+                icon={<MutatorKindIcon kind={mutator} />}
+                label={i18n._(msg`Mutator`)}
+                tone="mutator"
+                value={formatMutator(i18n, mutator)}
+              />
+            </Tooltip>
+          )}
         </Show>
 
         <Show when={!hasWarning() && !hasMutator()}>
@@ -271,12 +270,12 @@ function ObjectiveLine(props: {
 }): JSX.Element {
   return (
     <div class={css(detailLineStyles)}>
-      <span class={css(detailIconRecipe.raw({ tone: props.iconTone }))} aria-hidden="true">
-        {props.icon}
-      </span>
-      <span class={css(detailCopyStyles)}>
-        <span class={css(labelRecipe.raw({ tone: 'objective' }))}>{props.label}</span>
-        <strong class={css(objectiveValueRecipe.raw({ emphasis: props.emphasis }))}>{props.value}</strong>
+      <span class={css(labelRecipe.raw({ tone: 'objective' }))}>{props.label}</span>
+      <span class={css(detailValueLineRecipe.raw({ emphasis: props.emphasis }))}>
+        <span class={css(lineIconRecipe.raw({ tone: props.iconTone }))} aria-hidden="true">
+          {props.icon}
+        </span>
+        <strong class={css(valueTextStyles)}>{props.value}</strong>
       </span>
     </div>
   )
@@ -288,15 +287,17 @@ function HazardLine(props: {
   tone: 'mutator' | 'warning'
   value: string
 }): JSX.Element {
+  // The root is a <span> because Tooltip wraps hazard lines in its inline
+  // trigger; a <div> inside that span would be invalid HTML.
   return (
-    <div class={css(hazardRecipe.raw({ tone: props.tone }))}>
-      <span class={css(hazardIconRecipe.raw({ tone: props.tone }))} aria-hidden="true">
-        {props.icon}
+    <span class={css(hazardRecipe.raw({ tone: props.tone }))}>
+      <span class={css(labelRecipe.raw({ tone: 'hazard' }))}>{props.label}</span>
+      <span class={css(detailValueLineRecipe.raw())}>
+        <span class={css(lineIconRecipe.raw({ tone: props.tone }))} aria-hidden="true">
+          {props.icon}
+        </span>
+        <strong class={css(valueTextStyles)}>{props.value}</strong>
       </span>
-      <span class={css(detailCopyStyles)}>
-        <span class={css(labelRecipe.raw({ tone: 'hazard' }))}>{props.label}</span>
-        <strong class={css(hazardValueStyles)}>{props.value}</strong>
-      </span>
-    </div>
+    </span>
   )
 }

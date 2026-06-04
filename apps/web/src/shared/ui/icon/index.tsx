@@ -16,6 +16,16 @@ const iconStyles = css.raw({
   color: 'current',
 })
 
+export type GlyphIconProps = IconProps & { d: string }
+
+export function GlyphIcon(props: GlyphIconProps): JSX.Element {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" {...iconProps(omit(props, 'd'))}>
+      <path d={props.d} fill="currentColor" />
+    </svg>
+  )
+}
+
 export function RefreshIcon(props: IconProps): JSX.Element {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" {...iconProps(props)}>

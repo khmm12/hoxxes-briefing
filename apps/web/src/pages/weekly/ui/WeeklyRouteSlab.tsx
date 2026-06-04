@@ -8,10 +8,19 @@ import { token } from 'styled-system/tokens'
 import type { WeeklySnapshotResult } from '~/shared/api/weekly'
 import { useI18n } from '~/shared/i18n'
 import { createMediaQuery } from '~/shared/lib/create-media-query'
+import { Tooltip } from '~/shared/ui/tooltip'
 import { buildWeeklyRouteIntel } from '../model/weekly-route-intel'
 import { buildQuickReadChips, type QuickReadChip } from '../model/weekly-route-quick-read'
 import { StageBlock } from './StageBlock'
-import { formatBiome, formatDiveKind, formatMutator, formatWarning } from './weekly-dive-copy'
+import {
+  formatBiome,
+  formatDiveKind,
+  formatMutator,
+  formatMutatorDescription,
+  formatWarning,
+  formatWarningDescription,
+} from './weekly-dive-copy'
+import { BiomeKindIcon, MutatorKindIcon, WarningKindIcon } from './weekly-dive-glyphs'
 import { formatWeeklyRouteIntelNote } from './weekly-route-intel-copy'
 import { getVisibleQuickReadChips } from './weekly-route-quick-read-view'
 
@@ -112,7 +121,14 @@ const titleStyles = css.raw({
   textTransform: 'uppercase',
 })
 
+const biomeIconStyles = css.raw({
+  fontSize: '1.25em',
+})
+
 const biomeStyles = css.raw({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 'ui4',
   color: 'text.disabled',
   fontSize: '0.875rem',
   fontWeight: '500',
@@ -160,6 +176,7 @@ const chipRecipe = cva({
   base: {
     display: 'inline-flex',
     alignItems: 'center',
+    gap: 'ui4',
     minHeight: 'ui24',
     paddingBlock: 'ui4',
     paddingInline: 'ui8',
@@ -227,7 +244,10 @@ export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
         <div class={css(introStyles)}>
           <p class={css(routeKindRecipe.raw({ kind: props.kind }))}>{formatDiveKind(i18n, props.kind)}</p>
           <h2 class={css(titleStyles)}>{props.dive.name}</h2>
-          <p class={css(biomeStyles)}>{formatBiome(i18n, props.dive.biome)}</p>
+          <p class={css(biomeStyles)}>
+            <BiomeKindIcon css={biomeIconStyles} kind={props.dive.biome} />
+            {formatBiome(i18n, props.dive.biome)}
+          </p>
           {props.expired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known board`)}</p> : null}
         </div>
         <p class={css(noteStyles)}>{formatWeeklyRouteIntelNote(i18n, intel().note)}</p>
@@ -264,10 +284,42 @@ export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
   )
 }
 
+const chipWarningIconStyles = css.raw({
+  color: 'danger',
+  fontSize: '1.25em',
+})
+
+const chipMutatorIconStyles = css.raw({
+  color: 'brand.hover',
+  fontSize: '1.25em',
+})
+
+const chipTooltipStyles = css.raw({
+  display: 'inline-block',
+  borderRadius: 'full',
+})
+
 function QuickReadChipView(props: { chip: QuickReadChip }): JSX.Element {
   const i18n = useI18n()
 
-  return <span class={css(chipRecipe.raw({ kind: props.chip.kind }))}>{formatQuickReadChip(i18n, props.chip)}</span>
+  return (
+    <Tooltip css={chipTooltipStyles} label={formatQuickReadChipDescription(i18n, props.chip)}>
+      <span class={css(chipRecipe.raw({ kind: props.chip.kind }))}>
+        {props.chip.kind === 'warning' ? (
+          <WarningKindIcon css={chipWarningIconStyles} kind={props.chip.value} />
+        ) : (
+          <MutatorKindIcon css={chipMutatorIconStyles} kind={props.chip.value} />
+        )}
+        {formatQuickReadChip(i18n, props.chip)}
+      </span>
+    </Tooltip>
+  )
+}
+
+function formatQuickReadChipDescription(i18n: I18n, chip: QuickReadChip): string {
+  return chip.kind === 'warning'
+    ? formatWarningDescription(i18n, chip.value)
+    : formatMutatorDescription(i18n, chip.value)
 }
 
 function formatQuickReadChip(i18n: I18n, chip: QuickReadChip): string {

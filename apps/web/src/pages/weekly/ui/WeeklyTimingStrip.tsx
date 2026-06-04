@@ -17,7 +17,7 @@ type WeeklyTimingStripProps = {
 
 const timingStripStyles = css.raw({
   display: 'grid',
-  gridTemplateColumns: { base: '1fr', sm: 'repeat(2, minmax(min-content, 1fr))', md: 'repeat(3, minmax(0, 1fr))' },
+  gridTemplateColumns: { base: 'repeat(2, minmax(0, 1fr))', md: 'repeat(3, minmax(0, 1fr))' },
   gap: 'ui8',
 })
 
@@ -25,7 +25,7 @@ const timingItemRecipe = cva({
   base: {
     display: 'grid',
     gap: { base: 'ui2', md: 'ui4' },
-    minHeight: 'ui64',
+    minHeight: { base: 'ui48', md: 'ui64' },
     paddingBlock: { base: 'ui8', md: 'ui12' },
     paddingInline: 'ui12',
     borderWidth: '1px',
@@ -38,12 +38,7 @@ const timingItemRecipe = cva({
     placement: {
       default: {},
       remaining: {
-        '@media (min-width: 480px)': {
-          gridColumn: '1 / -1',
-        },
-        md: {
-          gridColumn: 'auto',
-        },
+        gridColumn: { base: '1 / -1', md: 'auto' },
       },
     },
   },
