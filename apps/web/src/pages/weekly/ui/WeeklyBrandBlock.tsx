@@ -26,12 +26,8 @@ const logoFrameStyles = css.raw({
 const brandTitleStyles = css.raw({
   gridArea: 'title',
   color: 'text.primary',
-  fontFamily: 'display',
+  textStyle: 'display.title',
   fontSize: { base: '1.25rem', lg: '1.5rem' },
-  fontWeight: '700',
-  letterSpacing: '0.04em',
-  lineHeight: '1.2',
-  textTransform: 'uppercase',
 })
 
 // Slogans are sacred: never clamp them.

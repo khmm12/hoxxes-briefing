@@ -7,7 +7,9 @@ import { css, cva } from 'styled-system/css'
 import { token } from 'styled-system/tokens'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
-import { createMediaQuery } from '~/shared/lib/create-media-query'
+import { createBreakpointQuery } from '~/shared/lib/create-media-query'
+import { Eyebrow } from '~/shared/ui/eyebrow'
+import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 import { Tooltip } from '~/shared/ui/tooltip'
 import { buildWeeklyRouteIntel } from '../model/weekly-route-intel'
 import { buildQuickReadChips, type QuickReadChip } from '../model/weekly-route-quick-read'
@@ -26,11 +28,12 @@ import { getVisibleQuickReadChips } from './weekly-route-quick-read-view'
 
 type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 
-type WeeklyRouteSlabProps = {
+type WeeklyRouteSlabProps = WithStylingProps<{
   dive: WeeklyDive
   expired: boolean
   kind: 'elite' | 'normal'
-}
+  inert?: boolean
+}>
 
 const slabRecipe = cva({
   base: {
@@ -87,38 +90,9 @@ const introStyles = css.raw({
   gap: { base: 'ui2', md: 'ui4' },
 })
 
-const routeKindRecipe = cva({
-  base: {
-    fontFamily: 'display',
-    fontSize: '0.875rem',
-    fontWeight: '700',
-    letterSpacing: '0.04em',
-    lineHeight: '1.333',
-    textTransform: 'uppercase',
-  },
-  variants: {
-    kind: {
-      normal: {
-        color: 'brand.hover',
-      },
-      elite: {
-        color: 'danger',
-      },
-    },
-  },
-  defaultVariants: {
-    kind: 'normal',
-  },
-})
-
 const titleStyles = css.raw({
   color: 'text.primary',
-  fontFamily: 'display',
-  fontSize: '1.5rem',
-  fontWeight: '700',
-  letterSpacing: '0.04em',
-  lineHeight: '1.2',
-  textTransform: 'uppercase',
+  textStyle: 'display.title',
 })
 
 const biomeIconStyles = css.raw({
@@ -239,10 +213,12 @@ export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
   const routeScanId = createUniqueId()
 
   return (
-    <article class={css(slabRecipe.raw({ kind: props.kind }))}>
+    <article class={resolveClass(props.class, props.css, slabRecipe.raw({ kind: props.kind }))} inert={props.inert}>
       <header class={css(headerStyles)}>
         <div class={css(introStyles)}>
-          <p class={css(routeKindRecipe.raw({ kind: props.kind }))}>{formatDiveKind(i18n, props.kind)}</p>
+          <Eyebrow css={{ srOnly: { base: true, lg: false } }} tone={props.kind === 'elite' ? 'danger' : 'brand'}>
+            {formatDiveKind(i18n, props.kind)}
+          </Eyebrow>
           <h2 class={css(titleStyles)}>{props.dive.name}</h2>
           <p class={css(biomeStyles)}>
             <BiomeKindIcon css={biomeIconStyles} kind={props.dive.biome} />
@@ -339,7 +315,6 @@ function formatOverflowChip(i18n: I18n, overflowCount: number): string {
 }
 
 function createQuickReadVisibleLimit(): Accessor<number> {
-  const isNarrow = createMediaQuery('(max-width: 719px)')
-
-  return createMemo(() => (isNarrow() ? 2 : 3))
+  const isWide = createBreakpointQuery('md')
+  return () => (isWide() ? 3 : 2)
 }

@@ -10,12 +10,7 @@ type EyebrowProps = WithStylingProps<{
 
 const eyebrowRecipe = cva({
   base: {
-    fontFamily: 'display',
-    fontSize: '0.875rem',
-    fontWeight: '700',
-    letterSpacing: '0.04em',
-    lineHeight: '1.333',
-    textTransform: 'uppercase',
+    textStyle: 'display.eyebrow',
   },
   variants: {
     tone: {

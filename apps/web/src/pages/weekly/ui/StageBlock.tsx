@@ -56,12 +56,7 @@ const stageBlockRecipe = cva({
 
 const stageIndexStyles = css.raw({
   color: 'text.primary',
-  fontFamily: 'display',
-  fontSize: '0.875rem',
-  fontWeight: '700',
-  letterSpacing: '0.04em',
-  lineHeight: '1.333',
-  textTransform: 'uppercase',
+  textStyle: 'display.eyebrow',
 })
 
 const objectiveStackStyles = css.raw({

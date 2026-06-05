@@ -4,6 +4,7 @@ import { css } from 'styled-system/css'
 import { token } from 'styled-system/tokens'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
+import { Eyebrow } from '~/shared/ui/eyebrow'
 
 type PwaNoticeProps = {
   onReload: () => Promise<void> | void
@@ -40,16 +41,6 @@ const copyStyles = css.raw({
   minWidth: '0',
 })
 
-const eyebrowStyles = css.raw({
-  color: 'info',
-  fontFamily: 'display',
-  fontSize: '0.875rem',
-  fontWeight: '700',
-  letterSpacing: '0.04em',
-  lineHeight: '1.333',
-  textTransform: 'uppercase',
-})
-
 const titleStyles = css.raw({
   color: 'text.primary',
   fontSize: '0.875rem',
@@ -79,7 +70,7 @@ export function PwaNotice(props: PwaNoticeProps): JSX.Element {
   return (
     <section class={css(dockStyles)} aria-live="polite">
       <div class={css(copyStyles)}>
-        <p class={css(eyebrowStyles)}>{i18n._(msg`App update`)}</p>
+        <Eyebrow tone="info">{i18n._(msg`App update`)}</Eyebrow>
         <h2 class={css(titleStyles)}>{i18n._(msg`New version ready`)}</h2>
         <p class={css(bodyStyles)}>{i18n._(msg`Reload for the latest app version.`)}</p>
       </div>

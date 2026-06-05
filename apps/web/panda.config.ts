@@ -4,6 +4,7 @@ import {
   defineGlobalStyles,
   defineKeyframes,
   defineLayerStyles,
+  defineTextStyles,
 } from '@pandacss/dev'
 
 const keyframes = defineKeyframes({
@@ -34,6 +35,41 @@ const keyframes = defineKeyframes({
     to: {
       opacity: 1,
       transform: 'translateY(0)',
+    },
+  },
+})
+
+const textStyles = defineTextStyles({
+  display: {
+    eyebrow: {
+      value: {
+        fontFamily: 'display',
+        fontSize: '0.875rem',
+        fontWeight: '700',
+        letterSpacing: '0.04em',
+        lineHeight: '1.333',
+        textTransform: 'uppercase',
+      },
+    },
+    control: {
+      value: {
+        fontFamily: 'display',
+        fontSize: '1rem',
+        fontWeight: '700',
+        letterSpacing: '0.04em',
+        lineHeight: '1.2',
+        textTransform: 'uppercase',
+      },
+    },
+    title: {
+      value: {
+        fontFamily: 'display',
+        fontSize: '1.5rem',
+        fontWeight: '700',
+        letterSpacing: '0.04em',
+        lineHeight: '1.2',
+        textTransform: 'uppercase',
+      },
     },
   },
 })
@@ -283,6 +319,7 @@ export default defineConfig({
           },
         },
       },
+      textStyles,
       layerStyles,
       animationStyles,
     },
