@@ -2,31 +2,13 @@ type Locales = string | string[]
 
 const cache = /* @__PURE__ */ new Map<string, unknown>()
 
-export const defaultLocale = 'en'
-
-export type DateTimeFormatValue = Parameters<Intl.DateTimeFormat['format']>[0]
-export type NumberFormatValue = Parameters<Intl.NumberFormat['format']>[0]
-
-export function date(locales: Locales, date?: number | Date | undefined, format?: Intl.DateTimeFormatOptions): string {
+export function getDateTimeFormat(locales: Locales, options?: Intl.DateTimeFormatOptions): Intl.DateTimeFormat {
   const _locales = normalizeLocales(locales)
 
-  const formatter = getMemoized(
-    () => cacheKey('date', _locales, format),
-    () => new Intl.DateTimeFormat(_locales, format),
+  return getMemoized(
+    () => cacheKey('date', _locales, options),
+    () => new Intl.DateTimeFormat(_locales, options),
   )
-
-  return formatter.format(date)
-}
-
-export function number(locales: Locales, value: NumberFormatValue, format?: Intl.NumberFormatOptions): string {
-  const _locales = normalizeLocales(locales)
-
-  const formatter = getMemoized(
-    () => cacheKey('number', _locales, format),
-    () => new Intl.NumberFormat(_locales, format),
-  )
-
-  return formatter.format(value)
 }
 
 function normalizeLocales(locales: Locales): string[] {
@@ -46,13 +28,9 @@ function getMemoized<T>(getKey: () => string, construct: () => T) {
   return formatter
 }
 
+// Locale order is the resolution priority — it must stay part of the key,
+// so no sorting. Options keys are assumed to come from literal callsites;
+// a differently-ordered duplicate only costs an extra cache entry.
 function cacheKey(type: string, locales: readonly string[], options?: unknown) {
-  const separator = '-'
-  const localeKey = Array.isArray(locales) ? locales.slice().sort().join(separator) : locales
-  const optionsKey = JSON.stringify(options)
-
-  let key = type
-  if (localeKey !== '') key += separator + localeKey
-  if (optionsKey !== '') key += (key !== '' ? separator : '') + optionsKey
-  return key
+  return `${type}:${JSON.stringify([locales, options])}`
 }

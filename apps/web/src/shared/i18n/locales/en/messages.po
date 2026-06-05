@@ -13,19 +13,19 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:167
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:146
 msgid "{days}d"
 msgstr "{days}d"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:168
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:147
 msgid "{hours}h"
 msgstr "{hours}h"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:169
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:148
 msgid "{minutes}m"
 msgstr "{minutes}m"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:170
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:149
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
@@ -47,6 +47,10 @@ msgid "A special mix of gasses in the air makes both Dwarves and aliens faster. 
 msgstr "A special mix of gasses in the air makes both Dwarves and aliens "
 "faster. As a side effect, everyone's voice is funnier than usual."
 
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:83
+msgid "Active week"
+msgstr "Active week"
+
 #: src/pages/weekly/ui/weekly-route-intel-copy.ts:18
 msgid "Advance by cover, not courage. Call angles before holds."
 msgstr "Advance by cover, not courage. Call angles before holds."
@@ -61,7 +65,7 @@ msgstr "After a few seconds of not taking damage, the creatures will start "
 msgid "All clear"
 msgstr "All clear"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:114
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:90
 msgid "already ended"
 msgstr "already ended"
 
@@ -141,7 +145,7 @@ msgstr "Clean Elite drop. Buy the round, then bring everyone home."
 msgid "Clear the cleanup. Small leftovers ruin brave revives."
 msgstr "Clear the cleanup. Small leftovers ruin brave revives."
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:162
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:141
 msgid "coming soon"
 msgstr "coming soon"
 
@@ -219,14 +223,6 @@ msgstr "Elite Deep Dive"
 #: src/pages/weekly/ui/weekly-dive-copy.ts:121
 msgid "Elite Threat"
 msgstr "Elite Threat"
-
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:106
-msgid "Ended"
-msgstr "Ended"
-
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:106
-msgid "Ends"
-msgstr "Ends"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:48
 msgid "Escort Duty"
@@ -491,6 +487,10 @@ msgstr "Page not found"
 msgid "Parasites"
 msgstr "Parasites"
 
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:83
+msgid "Past week"
+msgstr "Past week"
+
 #: src/pages/weekly/ui/weekly-dive-copy.ts:147
 msgid "Pit-Jaw Colony"
 msgstr "Pit-Jaw Colony"
@@ -551,7 +551,7 @@ msgstr "Reload for the latest app version."
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:111
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:88
 msgid "Reset status"
 msgstr "Reset status"
 
@@ -657,10 +657,6 @@ msgstr "Source on GitHub"
 msgid "Stage"
 msgstr "Stage"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:101
-msgid "Started"
-msgstr "Started"
-
 #: src/pages/weekly/ui/weekly-route-intel-copy.ts:36
 msgid "Stay near the cans. Long flanks cost more than time."
 msgstr "Stay near the cans. Long flanks cost more than time."
@@ -715,7 +711,7 @@ msgstr "This page is not available here. Head back to the weekly board."
 msgid "This week's Deep Dives"
 msgstr "This week's Deep Dives"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:111
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:88
 msgid "Time remaining"
 msgstr "Time remaining"
 
