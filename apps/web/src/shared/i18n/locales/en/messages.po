@@ -13,19 +13,19 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:146
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:104
 msgid "{days}d"
 msgstr "{days}d"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:147
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:105
 msgid "{hours}h"
 msgstr "{hours}h"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:148
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:106
 msgid "{minutes}m"
 msgstr "{minutes}m"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:149
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:107
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
@@ -47,10 +47,6 @@ msgid "A special mix of gasses in the air makes both Dwarves and aliens faster. 
 msgstr "A special mix of gasses in the air makes both Dwarves and aliens "
 "faster. As a side effect, everyone's voice is funnier than usual."
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:83
-msgid "Active week"
-msgstr "Active week"
-
 #: src/pages/weekly/ui/weekly-route-intel-copy.ts:18
 msgid "Advance by cover, not courage. Call angles before holds."
 msgstr "Advance by cover, not courage. Call angles before holds."
@@ -65,7 +61,7 @@ msgstr "After a few seconds of not taking damage, the creatures will start "
 msgid "All clear"
 msgstr "All clear"
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:90
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:71
 msgid "already ended"
 msgstr "already ended"
 
@@ -145,7 +141,7 @@ msgstr "Clean Elite drop. Buy the round, then bring everyone home."
 msgid "Clear the cleanup. Small leftovers ruin brave revives."
 msgstr "Clear the cleanup. Small leftovers ruin brave revives."
 
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:141
+#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:99
 msgid "coming soon"
 msgstr "coming soon"
 
@@ -167,13 +163,9 @@ msgstr "Crystal Scan x{0}"
 msgid "Crystalline Caverns"
 msgstr "Crystalline Caverns"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:148
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:185
 msgid "Current board loaded."
 msgstr "Current board loaded."
-
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:146
-msgid "Current board still shown. Refresh failed."
-msgstr "Current board still shown. Refresh failed."
 
 #: src/pages/weekly/ui/weekly-slogan-copy.ts:13
 msgid "Danger. Darkness. Dwarves."
@@ -322,15 +314,15 @@ msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 msgid "Last known board"
 msgstr "Last known board"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:134
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:173
 msgid "Last known board only. This cycle already ended."
 msgstr "Last known board only. This cycle already ended."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:133
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:172
 msgid "Last known board still shown. Refresh failed."
 msgstr "Last known board still shown. Refresh failed."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:132
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:171
 msgid "Last known board still shown. Refreshing now."
 msgstr "Last known board still shown. Refreshing now."
 
@@ -457,7 +449,7 @@ msgstr "No warning or mutator on this stage."
 msgid "None"
 msgstr "None"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:118
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:161
 msgid "Offline"
 msgstr "Offline"
 
@@ -486,10 +478,6 @@ msgstr "Page not found"
 #: src/pages/weekly/ui/weekly-dive-copy.ts:141
 msgid "Parasites"
 msgstr "Parasites"
-
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:83
-msgid "Past week"
-msgstr "Past week"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:147
 msgid "Pit-Jaw Colony"
@@ -523,15 +511,15 @@ msgstr "Pulling the latest deep dives now."
 msgid "Radioactive Exclusion Zone"
 msgstr "Radioactive Exclusion Zone"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:121
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:164
 msgid "Refresh"
 msgstr "Refresh"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:145
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:183
 msgid "Refreshing current board now."
 msgstr "Refreshing current board now."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:119
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:162
 msgid "Refreshing..."
 msgstr "Refreshing..."
 
@@ -550,10 +538,6 @@ msgstr "Reload for the latest app version."
 #: src/app/AppCrashScreen.tsx:25
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
-
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:88
-msgid "Reset status"
-msgstr "Reset status"
 
 #. placeholder {0}: objective.resiniteMasses
 #: src/pages/weekly/ui/weekly-dive-copy.ts:66
@@ -602,21 +586,17 @@ msgstr "Salt Pits"
 msgid "Sandblasted Corridors"
 msgstr "Sandblasted Corridors"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:142
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:180
 msgid "Saved board loaded."
 msgstr "Saved board loaded."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:140
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:179
 msgid "Saved board loaded. Refreshing now."
 msgstr "Saved board loaded. Refreshing now."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:137
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:176
 msgid "Saved board loaded. You're offline for now."
 msgstr "Saved board loaded. You're offline for now."
-
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:141
-msgid "Saved board still shown. Refresh failed."
-msgstr "Saved board still shown. Refresh failed."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:216
 msgid "Scanners have detected several clusters of Ossiran Pit Jaws in the area."
@@ -706,14 +686,6 @@ msgstr "This mission site suffers from a massive Ebonite infestation. Rock and "
 #: src/pages/not-found/ui/NotFoundPage.tsx:29
 msgid "This page is not available here. Head back to the weekly board."
 msgstr "This page is not available here. Head back to the weekly board."
-
-#: src/pages/weekly/ui/WeeklyBrandBlock.tsx:79
-msgid "This week's Deep Dives"
-msgstr "This week's Deep Dives"
-
-#: src/pages/weekly/ui/WeeklyTimingStrip.tsx:88
-msgid "Time remaining"
-msgstr "Time remaining"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:168
 msgid "Toxins in the atmosphere drains your health, but crystalize the blood of "

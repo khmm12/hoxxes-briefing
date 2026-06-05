@@ -3,7 +3,6 @@ import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { intervalToDuration, parseISO } from 'date-fns'
 import { css, cva } from 'styled-system/css'
-import type { SystemStyleObject } from 'styled-system/types'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { getDateTimeFormat, useI18n } from '~/shared/i18n'
 
@@ -15,104 +14,63 @@ type WeeklyTimingStripProps = {
   week: Week
 }
 
-const timingStripStyles = css.raw({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+// Week range and countdown are one entity — a single time scale reading
+// `Jun 1 – 8 · 14:00 · 5d 21h`. Splitting them apart breaks comprehension.
+const stripStyles = css.raw({
+  display: 'flex',
+  alignItems: 'baseline',
   gap: 'ui8',
+  minWidth: '0',
+  fontVariantNumeric: 'tabular-nums',
 })
 
-const timingItemStyles = css.raw({
-  display: 'grid',
-  gap: { base: 'ui2', md: 'ui4' },
-  minHeight: { base: 'ui48', md: 'ui64' },
-  paddingBlock: { base: 'ui8', md: 'ui12' },
-  paddingInline: 'ui12',
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderColor: 'border.subtle',
-  borderRadius: 'ui8',
-  background: 'surface.sunken',
+const rangeStyles = css.raw({
+  color: 'text.primary',
+  fontSize: { base: '0.875rem', lg: '1rem' },
+  fontWeight: '600',
+  lineHeight: '1.55',
+  whiteSpace: 'nowrap',
 })
 
-const timingLabelStyles = css.raw({
+const separatorStyles = css.raw({
   color: 'text.disabled',
-  fontSize: '0.875rem',
-  fontWeight: '500',
-  letterSpacing: '0.02em',
+  fontSize: { base: '0.8125rem', lg: '1rem' },
   lineHeight: '1.55',
 })
 
-const timingValueRecipe = cva({
+const countdownRecipe = cva({
   base: {
-    color: 'text.primary',
-    fontSize: '1rem',
+    fontSize: { base: '0.9375rem', lg: '1rem' },
     fontWeight: '600',
     lineHeight: '1.55',
-    fontVariantNumeric: 'tabular-nums',
+    whiteSpace: 'nowrap',
   },
   variants: {
-    emphasis: {
-      default: {},
-      primary: {
+    // A stale board must not glow like a live countdown.
+    tone: {
+      live: {
         color: 'brand.hover',
-        fontSize: { base: '1.125rem', sm: '1.25rem' },
       },
-      // A stale board must not glow like a live countdown.
       expired: {
         color: 'danger',
-        fontSize: { base: '1.125rem', sm: '1.25rem' },
       },
     },
   },
-  defaultVariants: {
-    emphasis: 'default',
-  },
-})
-
-const timingWeekValueStyles = css.raw({
-  fontWeight: '500',
-  fontSize: { base: '0.875rem', sm: '1rem', md: '1.125rem' },
 })
 
 export function WeeklyTimingStrip(props: WeeklyTimingStripProps): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <dl class={css(timingStripStyles)}>
-      <TimingItem
-        label={props.expired ? i18n._(msg`Past week`) : i18n._(msg`Active week`)}
-        valueCss={timingWeekValueStyles}
-        value={formatWeekRange(i18n, props.week)}
-      />
-      <TimingItem
-        label={props.expired ? i18n._(msg`Reset status`) : i18n._(msg`Time remaining`)}
-        emphasis={props.expired ? 'expired' : 'primary'}
-        value={props.expired ? i18n._(msg`already ended`) : formatRemaining(i18n, props.week.expiration, props.now)}
-      />
-    </dl>
-  )
-}
-
-function TimingItem(props: {
-  label: string
-  emphasis?: 'expired' | 'primary'
-  value: string
-  valueCss?: SystemStyleObject
-}): JSX.Element {
-  return (
-    <div class={css(timingItemStyles)}>
-      <dt class={css(timingLabelStyles)}>{props.label}</dt>
-      <dd
-        class={css(
-          timingValueRecipe.raw({
-            emphasis: props.emphasis ?? 'default',
-          }),
-          props.valueCss,
-        )}
-      >
-        {props.value}
-      </dd>
-    </div>
+    <p class={css(stripStyles)}>
+      <span class={css(rangeStyles)}>{formatWeekRange(i18n, props.week)}</span>
+      <span class={css(separatorStyles)} aria-hidden="true">
+        ·
+      </span>
+      <span class={css(countdownRecipe.raw({ tone: props.expired ? 'expired' : 'live' }))}>
+        {props.expired ? i18n._(msg`already ended`) : formatRemaining(i18n, props.week.expiration, props.now)}
+      </span>
+    </p>
   )
 }
 

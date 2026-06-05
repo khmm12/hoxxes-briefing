@@ -1,11 +1,12 @@
-import { action, createOptimistic } from 'solid-js'
+import { action, createEffect, createOptimistic, createSignal } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
-import { RefreshIcon } from '~/shared/ui/icon'
+import { OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
+import { Tooltip } from '~/shared/ui/tooltip'
 import type { WeeklyBoardViewState } from '../model/weekly-page-state'
 
 type WeeklyRefreshPanelProps = {
@@ -13,105 +14,147 @@ type WeeklyRefreshPanelProps = {
   onRefresh: () => void
 }
 
-const statusShelfStyles = css.raw({
-  display: 'grid',
-  gridTemplateColumns: 'minmax(0, 1fr) auto auto',
-  gap: 'ui12',
+type StatusTone = 'success' | 'danger' | 'offline'
+type FlashTone = 'success' | 'danger'
+
+const panelStyles = css.raw({
+  display: 'flex',
   alignItems: 'center',
-  minHeight: 'ui64',
-  paddingBlock: 'ui8',
-  paddingInline: 'ui12',
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderColor: 'border.subtle',
-  borderRadius: 'ui8',
-  background: 'surface.sunken',
-  order: { base: 0, lg: -1 },
+  gap: 'ui8',
 })
 
-const commandButtonStyles = css.raw({
-  width: { base: 'ui40', md: 'ui44' },
-  height: { base: 'ui40', md: 'ui44' },
-  minHeight: { base: 'ui40', md: 'ui44' },
-  paddingInline: 'ui0',
-  borderRadius: 'ui8',
-  fontSize: { base: '1.25rem', md: '1.5rem' },
-  flexShrink: 0,
+// The status slot is always occupied (happy = success dot) and keeps a fixed
+// box across tones, so degraded states never shift the layout.
+const statusSlotStyles = css.raw({
+  display: 'grid',
+  placeItems: 'center',
+  width: 'ui24',
+  height: 'ui24',
+  borderRadius: 'full',
 })
 
-// Failure and staleness must be visible at a glance, not only readable:
-// the slab already paints "Last known board" in danger — the rail follows.
-const statusRecipe = cva({
+// The dot reflects validity of the visible board, not the outcome of the
+// last request: danger is reserved for "this screen may be lying" (expired).
+// A failed refresh of a live board changes nothing — the board is immutable
+// within its week — so the event is reported by the button flash alone.
+const statusDotRecipe = cva({
   base: {
-    fontSize: '0.875rem',
-    fontWeight: '500',
-    lineHeight: '1.55',
-    minWidth: '0',
+    width: 'ui8',
+    height: 'ui8',
+    borderRadius: 'full',
   },
   variants: {
     tone: {
-      neutral: {
-        color: 'text.primary',
+      success: {
+        background: 'success',
       },
       danger: {
-        color: 'danger',
+        background: 'danger',
       },
     },
   },
-  defaultVariants: {
-    tone: 'neutral',
-  },
 })
 
-const dividerStyles = css.raw({
-  width: '[1px]',
-  height: { base: '[1.5rem]', md: '[1.75rem]' },
-  background: 'border.strong',
+const offlineIconStyles = css.raw({
+  color: 'text.disabled',
+  fontSize: '0.875rem',
+})
+
+// Sized down from the control tokens and pulled in by negative margins so
+// the bare icon look of the rail keeps its row height text-driven while the
+// real hit target stays 32px.
+const refreshButtonStyles = css.raw({
+  width: 'ui32',
+  height: 'ui32',
+  minHeight: 'ui32',
+  marginBlock: '-ui8',
+  marginInlineEnd: '-ui8',
+  paddingInline: 'ui0',
+  borderRadius: 'ui8',
+  fontSize: '1.125rem',
+  flexShrink: 0,
+  _flashSuccess: {
+    animationStyle: 'flashSuccess',
+  },
+  _flashDanger: {
+    animationStyle: 'flashDanger',
+  },
 })
 
 export function WeeklyRefreshPanel(props: WeeklyRefreshPanelProps): JSX.Element {
   const i18n = useI18n()
 
   const [isLoading, setIsLoading] = createOptimistic(false)
+  const [flash, setFlash] = createSignal<FlashTone | null>(null)
+
+  const refreshing = (): boolean => isLoading() || props.state.refreshing
+
+  // Refresh feedback lives on the button itself: spin while pending, then a
+  // short color flash for the outcome. There are no toasts in this app.
+  // The action only counts settled attempts — reading `refreshFailed` right
+  // after `yield` still sees the pre-commit value, so the outcome is read in
+  // an effect that runs once the attempt result has landed.
+  const [settledAttempts, setSettledAttempts] = createSignal(0)
 
   const handleRefresh = action(function* () {
+    setFlash(null)
     setIsLoading(true)
     props.onRefresh()
     yield
+    setSettledAttempts((count) => count + 1)
   })
 
+  createEffect(
+    () => ({ attempt: settledAttempts(), failed: props.state.refreshFailed }),
+    (value, previous) => {
+      if (previous != null && value.attempt !== previous.attempt) {
+        setFlash(value.failed ? 'danger' : 'success')
+      }
+    },
+  )
+
   return (
-    <div class={css(statusShelfStyles)}>
-      <p
-        class={css(statusRecipe.raw({ tone: formatBoardStatusTone(props.state) }))}
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
+    <div class={css(panelStyles)}>
+      <p class={css({ srOnly: true })} role="status" aria-live="polite" aria-atomic="true">
         {formatBoardStatus(i18n, props.state)}
       </p>
-      <span class={css(dividerStyles)} aria-hidden="true" />
+      <Tooltip label={formatBoardStatus(i18n, props.state)} css={statusSlotStyles}>
+        {resolveStatusTone(props.state) === 'offline' ? (
+          <OfflineIcon css={offlineIconStyles} />
+        ) : (
+          <span class={css(statusDotRecipe.raw({ tone: props.state.expired ? 'danger' : 'success' }))} />
+        )}
+      </Tooltip>
       <ActionControl
         aria-label={formatRefreshActionLabel(i18n, props.state)}
-        aria-busy={isLoading() ? 'true' : 'false'}
+        aria-busy={refreshing() ? 'true' : 'false'}
         component="button"
-        css={commandButtonStyles}
+        css={refreshButtonStyles}
+        data-flash={flash() ?? undefined}
         disabled={!props.state.online || props.state.refreshing}
-        onClick={handleRefresh}
         leadingIcon={
           <RefreshIcon
-            data-loading={isLoading() ? true : undefined}
+            data-loading={refreshing() ? true : undefined}
             class={css({
-              animation: { base: 'none', _loading: 'spin 1s linear infinite' },
+              _loading: { animationStyle: 'spin' },
             })}
           />
         }
         size="compact"
-        tone={props.state.expired && props.state.online ? 'primary' : 'ghost'}
+        tone="ghost"
         type="button"
-      ></ActionControl>
+        onAnimationEnd={() => setFlash(null)}
+        onClick={handleRefresh}
+      />
     </div>
   )
+}
+
+function resolveStatusTone(state: WeeklyBoardViewState): StatusTone {
+  if (state.expired) return 'danger'
+  if (!state.online) return 'offline'
+
+  return 'success'
 }
 
 function formatRefreshActionLabel(i18n: I18n, state: WeeklyBoardViewState): string {
@@ -119,10 +162,6 @@ function formatRefreshActionLabel(i18n: I18n, state: WeeklyBoardViewState): stri
   if (state.refreshing) return i18n._(msg`Refreshing...`)
 
   return i18n._(msg`Refresh`)
-}
-
-function formatBoardStatusTone(state: WeeklyBoardViewState): 'danger' | 'neutral' {
-  return state.expired || state.refreshFailed ? 'danger' : 'neutral'
 }
 
 function formatBoardStatus(i18n: I18n, state: WeeklyBoardViewState): string {
@@ -138,12 +177,10 @@ function formatBoardStatus(i18n: I18n, state: WeeklyBoardViewState): string {
 
   if (source === 'cache') {
     if (refreshing) return i18n._(msg`Saved board loaded. Refreshing now.`)
-    if (refreshFailed) return i18n._(msg`Saved board still shown. Refresh failed.`)
     return i18n._(msg`Saved board loaded.`)
   }
 
   if (refreshing) return i18n._(msg`Refreshing current board now.`)
-  if (refreshFailed) return i18n._(msg`Current board still shown. Refresh failed.`)
 
   return i18n._(msg`Current board loaded.`)
 }

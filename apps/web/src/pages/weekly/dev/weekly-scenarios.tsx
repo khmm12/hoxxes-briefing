@@ -144,6 +144,7 @@ export const weeklyScenarios: WeeklyScenario[] = [
   boardScenario('board-hazards', 'Board · hazards', HAZARD_BOARD, {}),
   boardScenario('board-expired', 'Board · expired', BOARD, { expired: true }),
   boardScenario('board-refresh-failed', 'Board · refresh failed', BOARD, { refreshFailed: true }),
+  boardScenario('board-refreshing', 'Board · refreshing', BOARD, { refreshing: true }),
   boardScenario('board-offline', 'Board · offline', BOARD, { online: false, source: 'cache' }),
   boardScenario('board-cache', 'Board · from cache', BOARD, { source: 'cache' }),
   {

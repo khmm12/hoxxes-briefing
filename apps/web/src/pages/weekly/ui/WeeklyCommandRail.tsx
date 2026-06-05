@@ -16,30 +16,38 @@ type WeeklyCommandRailProps = {
   onRefresh: () => void
 }
 
+// The rail is page chrome, not another card: no raised surface, just content
+// rows closed off by a full-width divider.
 const railStyles = css.raw({
   display: 'grid',
-  gap: { base: 'ui12', md: 'ui16' },
-  alignItems: 'start',
-  paddingBlock: { base: 'ui12', md: 'ui16' },
-  paddingInline: { base: 'ui12', md: 'ui16' },
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderColor: 'border.subtle',
-  borderRadius: 'ui12',
-  background: 'surface.raised',
-  boxShadow: 'elevation.medium',
-  overflow: 'hidden',
-  gridTemplateColumns: '1fr',
-  '@media (min-width: 1200px)': {
+  rowGap: 'ui12',
+})
+
+// paddingInline 16 over the page padding of 8 lines the rail text up with
+// the slab text below it.
+const contentStyles = css.raw({
+  display: 'grid',
+  rowGap: 'ui8',
+  paddingTop: 'ui8',
+  paddingInline: 'ui16',
+  lg: {
+    gridTemplateColumns: 'minmax(0, 1fr) auto',
+    columnGap: 'ui24',
     alignItems: 'center',
-    gridTemplateColumns: 'minmax(0, 0.95fr) minmax(0, 1.05fr)',
   },
 })
 
-const readoutStyles = css.raw({
-  display: 'grid',
-  gap: 'ui8',
+const metaRowStyles = css.raw({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: { base: 'ui8', lg: 'ui16' },
   minWidth: '0',
+})
+
+const dividerStyles = css.raw({
+  height: '[1px]',
+  background: 'border.strong',
 })
 
 export function WeeklyCommandRail(props: WeeklyCommandRailProps): JSX.Element {
@@ -49,11 +57,14 @@ export function WeeklyCommandRail(props: WeeklyCommandRailProps): JSX.Element {
 
   return (
     <header class={css(railStyles)}>
-      <WeeklyBrandBlock slogan={slogan()} />
-      <div class={css(readoutStyles)}>
-        <WeeklyTimingStrip now={props.now} expired={props.state.expired} week={props.week} />
-        <WeeklyRefreshPanel state={props.state} onRefresh={props.onRefresh} />
+      <div class={css(contentStyles)}>
+        <WeeklyBrandBlock slogan={slogan()} />
+        <div class={css(metaRowStyles)}>
+          <WeeklyTimingStrip now={props.now} expired={props.state.expired} week={props.week} />
+          <WeeklyRefreshPanel state={props.state} onRefresh={props.onRefresh} />
+        </div>
       </div>
+      <div class={css(dividerStyles)} aria-hidden="true" />
     </header>
   )
 }

@@ -12,6 +12,20 @@ const keyframes = defineKeyframes({
       transform: 'rotate(360deg)',
     },
   },
+  // Refresh feedback lives on the button itself: hold the outcome color,
+  // then ease back to the resting style (no `to` frame = computed style).
+  flashSuccess: {
+    '0%, 60%': {
+      color: '{colors.success}',
+      background: '{colors.success.surface}',
+    },
+  },
+  flashDanger: {
+    '0%, 60%': {
+      color: '{colors.danger}',
+      background: '{colors.danger.surface}',
+    },
+  },
   enterUp: {
     from: {
       opacity: 0,
@@ -52,6 +66,20 @@ const animationStyles = defineAnimationStyles({
       animationIterationCount: 'infinite',
     },
   },
+  flashSuccess: {
+    value: {
+      animationName: 'flashSuccess',
+      animationDuration: 'slow',
+      animationTimingFunction: 'standard',
+    },
+  },
+  flashDanger: {
+    value: {
+      animationName: 'flashDanger',
+      animationDuration: 'slow',
+      animationTimingFunction: 'standard',
+    },
+  },
 })
 
 const spacing = {
@@ -88,6 +116,8 @@ export default defineConfig({
   conditions: {
     extend: {
       hover: '&:is(:hover, [data-hover]):not(:disabled)',
+      flashSuccess: '&[data-flash=success]',
+      flashDanger: '&[data-flash=danger]',
     },
   },
   theme: {
