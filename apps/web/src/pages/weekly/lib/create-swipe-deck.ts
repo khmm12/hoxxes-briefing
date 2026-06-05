@@ -15,18 +15,24 @@ type SwipeDeck<T> = {
 type VelocitySample = { x: number; t: number }
 
 /**
- * Transform-driven swipe deck. Replaces native scroll-snap, whose two mobile
- * defects are not tunable (proven on device via the swipe lab):
+ * Transform-driven swipe deck.
  *
- * - axis capture: with `touch-action: pan-y` on the viewport vertical pans
- *   stay fully native, and the deck only ever drives clearly-horizontal
- *   gestures (|dx| > |dy| past slop) — fast page flicks never get eaten;
- * - settle crawl: the glide is a fixed-duration compositor transition, so
- *   there is no asymptotic tail for the eye to catch on the slab border.
+ * Why not native CSS scroll-snap: tried first and rejected on a real
+ * iPhone — two defects, neither tunable. (1) Settle crawl: the snap's
+ * asymptotic easing visibly creeps over its last pixels on any
+ * high-contrast slide edge. (2) Axis capture: a fast vertical page flick
+ * that starts on the horizontal lane gets eaten by it. JS assists on top
+ * of native scrolling (settle easing, tail jumps) were also tried and
+ * cannot fix either — don't reintroduce them.
+ *
+ * Here both are solved by construction: with `touch-action: pan-y` on the
+ * viewport vertical pans stay fully native and the deck only drives
+ * clearly-horizontal gestures (|dx| > |dy| past slop), while the settle is
+ * a fixed-duration compositor transition with no asymptotic tail.
  *
  * Swipe is touch/pen-only by design — cursor users switch via the chips.
- * While `enabled` is false (wide layout shows all slides in a grid) gestures
- * are ignored and the track keeps no inline transform.
+ * While `enabled` is false (wide layout shows all slides in a grid)
+ * gestures are ignored and the track keeps no inline transform.
  */
 export function createSwipeDeck<T extends string>(
   items: readonly [T, ...T[]],

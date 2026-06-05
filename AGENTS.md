@@ -60,7 +60,7 @@ Long-running commands may be used only when needed for manual verification:
 - When docs and code disagree, prefer verified code and update docs in the same
   change when feasible.
 - Prefer small, behavior-focused tests over broad snapshots.
-- Use Conventional Commits for commit messages.
+- Use Conventional Commits for commit messages. The body leads with the product-facing essence (especially for `feat`); implementation rationale comes after.
 
 ## Upgrading packages
 
