@@ -29,8 +29,7 @@ Rules in this file apply under `apps/`.
   (`v.picklist(...)`, `createContext(...)`, `new Map()`, `new URL(...)`)
   with `/* @__PURE__ */` so they stay tree-shakeable.
 - Vitest runs with `environment: 'node'` — no DOM or localStorage in tests.
-  Extract pure logic from hooks and test that (see `create-swipe-deck`,
-  `create-local-storage`).
+  Extract pure logic from hooks and test that (see `create-local-storage`).
 - Environment-dependent permissions (persistence, …) go through
   `shared/lib/app-capabilities` (`useAppCapabilities()`); consumers ask
   what is allowed, never where they run. The dev playground renders

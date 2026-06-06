@@ -114,16 +114,24 @@ const switchChipRecipe = cva({
 const viewportStyles = css.raw({
   overflow: { base: 'hidden', lg: 'visible' },
   touchAction: '[pan-y]',
+  // Full-bleed clip: the slide gap doubles as the bleed — the page padding
+  // floored at the ui12 design rhythm. The clip window reaches (or
+  // overshoots) the screen edge, so a mid-swipe card stays visible all the
+  // way out; with gap >= padding the resting neighbour starts at the screen
+  // edge or beyond — it can never peek by construction. The wide grid
+  // keeps its own rhythm.
+  '--deck-gap': { base: 'max(var(--layout-inline-padding), token(spacing.ui12))', lg: 'token(spacing.ui12)' },
+  marginInline: { base: '[calc(-1 * var(--deck-gap))]', lg: '0' },
+  paddingInline: { base: '[var(--deck-gap)]', lg: '0' },
 })
 
 const trackStyles = css.raw({
   display: 'grid',
-  gap: 'ui12',
+  gap: '[var(--deck-gap)]',
   gridAutoFlow: { base: 'column', lg: 'row' },
   gridAutoColumns: '[100%]',
   gridTemplateColumns: { lg: 'repeat(2, minmax(0, 1fr))' },
   alignItems: 'stretch',
-  willChange: { base: '[transform]', lg: 'auto' },
 })
 
 export function WeeklyRouteDeck(props: WeeklyRouteDeckProps): JSX.Element {

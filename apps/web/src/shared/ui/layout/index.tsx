@@ -23,7 +23,10 @@ const layoutRecipe = cva({
     alignItems: 'stretch',
     paddingBlockStart: { base: 'ui8', md: 'ui16', lg: 'ui24' },
     paddingBlockEnd: { base: `[calc(env(safe-area-inset-bottom) + ${token('spacing.ui36')})]`, md: 'ui32' },
-    paddingInline: { base: 'ui8', md: 'ui16', lg: 'ui24' },
+    // Published so full-bleed children can counter the page padding without
+    // mirroring its breakpoint scale.
+    '--layout-inline-padding': { base: 'token(spacing.ui8)', md: 'token(spacing.ui16)', lg: 'token(spacing.ui24)' },
+    paddingInline: '[var(--layout-inline-padding)]',
     '& > *': {
       minWidth: '0',
       maxWidth: 'full',
