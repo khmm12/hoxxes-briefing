@@ -100,6 +100,120 @@ describe('streamCachedQuery', () => {
     expect(cache.set).toHaveBeenCalledWith(key, freshValue)
   })
 
+  it('serves a fresh cached value immediately and revalidates in the background', async () => {
+    vi.useFakeTimers()
+
+    const key = ['weekly'] as const
+    const cachedValue = {
+      source: 'cache',
+      weekId: '2026-W17',
+    }
+    const freshValue = {
+      source: 'network',
+      weekId: '2026-W17',
+    }
+    const networkRequest = createDeferred<typeof freshValue>()
+    const isStale = vi.fn().mockReturnValue(false)
+    const cache = {
+      get: vi.fn().mockResolvedValue(cachedValue),
+      set: vi.fn().mockResolvedValue(undefined),
+    }
+
+    const iterator = streamCachedQuery({
+      cache,
+      fetcher: vi.fn(() => networkRequest.promise),
+      isStale,
+      key,
+      signal: new AbortController().signal,
+      timeoutMs: 150,
+    })
+
+    // No timer advance: a fresh value must not wait out the grace period.
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: false,
+      value: {
+        refresh: { status: 'refreshing' },
+        source: 'cache',
+        value: cachedValue,
+      },
+    })
+    expect(isStale).toHaveBeenCalledWith(cachedValue)
+
+    networkRequest.resolve(freshValue)
+
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: false,
+      value: {
+        refresh: { status: 'ok' },
+        source: 'network',
+        value: freshValue,
+      },
+    })
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: true,
+      value: undefined,
+    })
+
+    expect(cache.set).toHaveBeenCalledOnce()
+    expect(cache.set).toHaveBeenCalledWith(key, freshValue)
+  })
+
+  it('holds a stale cached value for the grace period so the network can win', async () => {
+    vi.useFakeTimers()
+
+    const key = ['weekly'] as const
+    const cachedValue = {
+      source: 'cache',
+      weekId: '2026-W16',
+    }
+    const freshValue = {
+      source: 'network',
+      weekId: '2026-W17',
+    }
+    const networkRequest = createDeferred<typeof freshValue>()
+    const isStale = vi.fn().mockReturnValue(true)
+    const cache = {
+      get: vi.fn().mockResolvedValue(cachedValue),
+      set: vi.fn().mockResolvedValue(undefined),
+    }
+
+    const iterator = streamCachedQuery({
+      cache,
+      fetcher: vi.fn(() => networkRequest.promise),
+      isStale,
+      key,
+      signal: new AbortController().signal,
+      timeoutMs: 1000,
+    })
+
+    const firstValue = iterator.next()
+    await vi.advanceTimersByTimeAsync(1000)
+    await expect(firstValue).resolves.toMatchObject({
+      done: false,
+      value: {
+        refresh: { status: 'refreshing' },
+        source: 'cache',
+        value: cachedValue,
+      },
+    })
+    expect(isStale).toHaveBeenCalledWith(cachedValue)
+
+    networkRequest.resolve(freshValue)
+
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: false,
+      value: {
+        refresh: { status: 'ok' },
+        source: 'network',
+        value: freshValue,
+      },
+    })
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: true,
+      value: undefined,
+    })
+  })
+
   it('falls back to cache without a refresh error when the initial network request fails', async () => {
     const key = ['weekly'] as const
     const cachedValue = {

@@ -2,6 +2,7 @@ import { Show } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
+import { css } from 'styled-system/css'
 import type { WeeklyRequestError } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
@@ -29,6 +30,7 @@ export function WeeklyLoadingState(props: WeeklyLoadingStateProps): JSX.Element 
   return (
     <AppLayout dockVisible={props.dockVisible}>
       <StateScreen
+        css={loadingScreenStyles}
         body={
           props.online
             ? i18n._(msg`Pulling the latest deep dives now.`)
@@ -78,6 +80,12 @@ export function WeeklyErrorState(props: WeeklyErrorStateProps): JSX.Element {
     </AppLayout>
   )
 }
+
+// Cached data usually lands within the delay — keep the loading screen
+// invisible that long so it never flashes on a warm cache.
+const loadingScreenStyles = css.raw({
+  animationStyle: 'delayedFadeIn',
+})
 
 // A request can fail without the network being at fault (API error, bad
 // payload) — do not blame the user's connection in that case.

@@ -37,6 +37,21 @@ const keyframes = defineKeyframes({
       transform: 'translateY(0)',
     },
   },
+  fadeIn: {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  },
+  // No from/to frames = computed style, so the pulse breathes from the
+  // element's resting opacity.
+  iconPulse: {
+    '50%': {
+      opacity: 0.35,
+    },
+  },
 })
 
 const textStyles = defineTextStyles({
@@ -86,6 +101,17 @@ const layerStyles = defineLayerStyles({
 })
 
 const animationStyles = defineAnimationStyles({
+  // Holds the element invisible for the delay, then fades it in. Lets a
+  // loading fallback skip painting entirely when cached data lands fast.
+  delayedFadeIn: {
+    value: {
+      animationName: 'fadeIn',
+      animationDuration: 'fast',
+      animationTimingFunction: 'standard',
+      animationDelay: 'fast',
+      animationFillMode: 'backwards',
+    },
+  },
   enterUp: {
     value: {
       animationName: 'enterUp',
@@ -114,6 +140,14 @@ const animationStyles = defineAnimationStyles({
       animationName: 'flashDanger',
       animationDuration: 'slow',
       animationTimingFunction: 'standard',
+    },
+  },
+  iconPulse: {
+    value: {
+      animationName: 'iconPulse',
+      animationDuration: 'slow',
+      animationTimingFunction: 'standard',
+      animationIterationCount: 'infinite',
     },
   },
 })

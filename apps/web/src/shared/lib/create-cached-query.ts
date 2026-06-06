@@ -9,6 +9,12 @@ export type CreateCachedQueryOptions<K, T> = {
   source: () => K
   fetcher: (key: K, ctx: { signal: AbortSignal }) => Promise<T>
   cache: CachedQueryCache<K, T>
+  /**
+   * A stale cached value waits out `timeoutMs` so the network can win the
+   * race; a non-stale one is served immediately (still revalidated in the
+   * background). Without the predicate every cached value waits.
+   */
+  isStale?: (value: T) => boolean
   timeoutMs?: number
   equal?: (left: T, right: T) => boolean
 }
@@ -24,6 +30,7 @@ export type CachedQuery<T> = {
 export type StreamCachedQueryOptions<K, T> = {
   cache: CachedQueryCache<K, T>
   fetcher: (key: K, ctx: { signal: AbortSignal }) => Promise<T>
+  isStale?: (value: T) => boolean
   key: K
   previous?: InnerState<K, T>
   signal: AbortSignal
@@ -60,6 +67,7 @@ export function createCachedQuery<const K extends readonly unknown[], T>(
     yield* streamCachedQuery({
       cache: options.cache,
       fetcher: options.fetcher,
+      isStale: options.isStale,
       key,
       previous,
       signal: abortController.signal,
@@ -148,16 +156,20 @@ export async function* streamCachedQuery<K, T>(
 
   const cachedPromise = options.cache.get(options.key)
   const networkResultPromise = networkPromise.then((value) => ok(options.key, 'network', value))
-  const cacheAfterTimeoutPromise = (async () => {
-    const [cachedValue] = await Promise.all([cachedPromise, sleep(options.timeoutMs)])
+  const gracePromise = sleep(options.timeoutMs)
+  const cachedResultPromise = (async () => {
+    const cachedValue = await cachedPromise
+    if (cachedValue === undefined) return networkResultPromise
 
-    return cachedValue === undefined
-      ? networkResultPromise
-      : refreshInFlight({ key: options.key, source: 'cache', value: cachedValue })
+    // A stale cached value waits out the grace period to give the network a
+    // chance to win the race; a non-stale one is served right away.
+    if (options.isStale?.(cachedValue) ?? true) await gracePromise
+
+    return refreshInFlight({ key: options.key, source: 'cache', value: cachedValue })
   })()
 
   try {
-    const first = await Promise.race([networkResultPromise, cacheAfterTimeoutPromise])
+    const first = await Promise.race([networkResultPromise, cachedResultPromise])
 
     if (first.source === 'network') {
       yield first

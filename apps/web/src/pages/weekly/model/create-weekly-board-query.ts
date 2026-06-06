@@ -6,8 +6,11 @@ import {
   writeCachedWeeklySnapshot,
 } from '~/shared/api'
 import { type CachedQuery, createCachedQuery } from '~/shared/lib/create-cached-query'
+import { isWeeklyExpired } from './weekly-page-state'
 
-export const defaultWeeklySnapshotGracePeriodMs = 150
+// A fresh (non-expired) snapshot is served from cache instantly; only a stale
+// one is worth holding the UI for while the network races.
+const staleWeeklySnapshotGracePeriodMs = 1000
 
 export function createWeeklyBoardQuery(): CachedQuery<WeeklySnapshotResult> {
   return createCachedQuery({
@@ -30,6 +33,9 @@ export function createWeeklyBoardQuery(): CachedQuery<WeeklySnapshotResult> {
     equal(l, r) {
       return Object.is(l, r) || JSON.stringify(l) === JSON.stringify(r)
     },
-    timeoutMs: defaultWeeklySnapshotGracePeriodMs,
+    isStale(snapshot) {
+      return isWeeklyExpired(new Date(snapshot.week.expiration), new Date())
+    },
+    timeoutMs: staleWeeklySnapshotGracePeriodMs,
   })
 }

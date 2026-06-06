@@ -87,10 +87,10 @@ export function WeeklyRefreshPanel(props: WeeklyRefreshPanelProps): JSX.Element 
   const [isLoading, setIsLoading] = createOptimistic(false)
   const [flash, setFlash] = createSignal<FlashTone | null>(null)
 
-  const refreshing = (): boolean => isLoading() || props.state.refreshing
-
-  // Refresh feedback lives on the button itself: spin while pending, then a
-  // short color flash for the outcome. There are no toasts in this app.
+  // Refresh feedback lives on the button itself: the icon pulses while the
+  // manual refresh is pending, then a short color flash for the outcome.
+  // Ambient revalidation (page open) is reported by the status dot alone —
+  // the button stays calm. There are no toasts in this app.
   // The action only counts settled attempts — reading `refreshFailed` right
   // after `yield` still sees the pre-commit value, so the outcome is read in
   // an effect that runs once the attempt result has landed.
@@ -127,16 +127,16 @@ export function WeeklyRefreshPanel(props: WeeklyRefreshPanelProps): JSX.Element 
       </Tooltip>
       <ActionControl
         aria-label={formatRefreshActionLabel(i18n, props.state)}
-        aria-busy={refreshing() ? 'true' : 'false'}
+        aria-busy={isLoading() ? 'true' : 'false'}
         component="button"
         css={refreshButtonStyles}
         data-flash={flash() ?? undefined}
         disabled={!props.state.online || props.state.refreshing}
         leadingIcon={
           <RefreshIcon
-            data-loading={refreshing() ? true : undefined}
+            data-loading={isLoading() ? true : undefined}
             class={css({
-              _loading: { animationStyle: 'spin' },
+              _loading: { animationStyle: 'iconPulse' },
             })}
           />
         }
