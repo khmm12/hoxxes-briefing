@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { streamCachedQuery } from './create-cached-query'
+import { isSameKey, streamCachedQuery } from './create-cached-query'
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -20,7 +20,6 @@ describe('streamCachedQuery', () => {
 
     const iterator = streamCachedQuery({
       cache,
-      equal: Object.is,
       fetcher: vi.fn().mockResolvedValue(networkValue),
       key,
       signal: new AbortController().signal,
@@ -65,7 +64,6 @@ describe('streamCachedQuery', () => {
 
     const iterator = streamCachedQuery({
       cache,
-      equal: (left, right) => left.weekId === right.weekId,
       fetcher: vi.fn(() => networkRequest.promise),
       key,
       signal: new AbortController().signal,
@@ -116,7 +114,6 @@ describe('streamCachedQuery', () => {
 
     const iterator = streamCachedQuery({
       cache,
-      equal: Object.is,
       fetcher: vi.fn().mockRejectedValue(networkError),
       key,
       signal: new AbortController().signal,
@@ -156,7 +153,6 @@ describe('streamCachedQuery', () => {
 
     const iterator = streamCachedQuery({
       cache,
-      equal: Object.is,
       fetcher: vi.fn(() => networkRequest.promise),
       key,
       signal: new AbortController().signal,
@@ -202,7 +198,6 @@ describe('streamCachedQuery', () => {
 
     const iterator = streamCachedQuery({
       cache,
-      equal: Object.is,
       fetcher: vi.fn().mockRejectedValue(networkError),
       key,
       signal: new AbortController().signal,
@@ -228,10 +223,10 @@ describe('streamCachedQuery', () => {
 
     const iterator = streamCachedQuery({
       cache,
-      equal: Object.is,
       fetcher: vi.fn().mockRejectedValue(networkError),
       key,
       previous: {
+        key,
         refresh: { status: 'ok' },
         source: 'network',
         value: previousValue,
@@ -255,6 +250,26 @@ describe('streamCachedQuery', () => {
 
     expect(cache.get).not.toHaveBeenCalled()
     expect(cache.set).not.toHaveBeenCalled()
+  })
+})
+
+describe('isSameKey', () => {
+  it('treats structurally equal keys as the same regardless of array identity', () => {
+    expect(isSameKey(['weekly', '2026-W17'], ['weekly', '2026-W17'])).toBe(true)
+  })
+
+  it('treats keys with a differing element as different', () => {
+    expect(isSameKey(['weekly', '2026-W17'], ['weekly', '2026-W18'])).toBe(false)
+  })
+
+  it('treats a key prefix as a different key', () => {
+    expect(isSameKey(['weekly'], ['weekly', '2026-W17'])).toBe(false)
+    expect(isSameKey(['weekly', '2026-W17'], ['weekly'])).toBe(false)
+  })
+
+  it('compares elements with Object.is semantics', () => {
+    expect(isSameKey([Number.NaN], [Number.NaN])).toBe(true)
+    expect(isSameKey([0], [-0])).toBe(false)
   })
 })
 
