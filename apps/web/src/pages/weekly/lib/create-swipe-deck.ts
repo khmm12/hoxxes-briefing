@@ -1,4 +1,4 @@
-import { type Accessor, createRenderEffect, createSignal } from 'solid-js'
+import { type Accessor, createRenderEffect, createSignal, untrack } from 'solid-js'
 import EmblaCarousel, { type EmblaCarouselType } from 'embla-carousel'
 import { createMediaQuery } from '~/shared/lib/create-media-query'
 
@@ -48,7 +48,7 @@ export function createSwipeDeck<T extends string>(
   options: SwipeDeckOptions<NoInfer<T>> = {},
 ): SwipeDeck<T> {
   // An unknown initial item (stale persisted value) falls back to the first.
-  const [activeIndex, setActiveIndex] = createSignal(
+  const [activeIndex, setActiveIndex] = createSignal(() =>
     options.initial == null ? 0 : Math.max(0, items.indexOf(options.initial)),
   )
   const prefersReducedMotion = createMediaQuery('(prefers-reduced-motion: reduce)')
@@ -85,7 +85,7 @@ export function createSwipeDeck<T extends string>(
         container: $container,
         align: 'start',
         duration: SETTLE_DURATION,
-        startIndex: activeIndex(),
+        startIndex: untrack(activeIndex),
         watchDrag: (_, event) => !(event instanceof MouseEvent),
       })
       // Fires on drag settles and programmatic scrolls alike; activate()

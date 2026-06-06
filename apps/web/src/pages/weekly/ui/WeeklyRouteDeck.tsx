@@ -148,7 +148,12 @@ export function WeeklyRouteDeck(props: WeeklyRouteDeckProps): JSX.Element {
   // The picked dive survives reloads; onActivate fires only on user
   // selection (chip or settled swipe), so every write reflects a choice.
   const [storedKind, setStoredKind] = createLocalStorage(DIVE_KIND_STORAGE_KEY, diveKindSchema)
-  const deck = createSwipeDeck(DIVE_KINDS, stacked, { initial: storedKind(), onActivate: setStoredKind })
+  const deck = createSwipeDeck(DIVE_KINDS, stacked, {
+    get initial() {
+      return storedKind()
+    },
+    onActivate: setStoredKind,
+  })
   // The section's top edge is the switch's resting position (first child),
   // making it the stable anchor for the scroll-linked shrink.
   const [$section, setSection] = createSignal<HTMLElement>()
