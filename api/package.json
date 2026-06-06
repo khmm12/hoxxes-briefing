@@ -4,5 +4,8 @@
 	"type": "module",
 	"dependencies": {
 		"@hoxxes-briefing/api": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/node": "^24.12.4"
 	}
 }

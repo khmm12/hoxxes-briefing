@@ -23,6 +23,10 @@ importers:
       '@hoxxes-briefing/api':
         specifier: workspace:*
         version: link:../apps/api
+    devDependencies:
+      '@types/node':
+        specifier: ^24.12.4
+        version: 24.12.4
 
   apps/api:
     dependencies:
