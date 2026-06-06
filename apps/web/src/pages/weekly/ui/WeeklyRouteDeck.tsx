@@ -1,9 +1,11 @@
 import { msg } from '@lingui/core/macro'
 import { For, type JSX } from '@solidjs/web'
+import { createSignal } from 'solid-js'
 import { css, cva } from 'styled-system/css'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { createBreakpointQuery } from '~/shared/lib/create-media-query'
+import { createShrinkProgress } from '../lib/create-shrink-progress'
 import { createSwipeDeck } from '../lib/create-swipe-deck'
 import { WeeklyRouteSlab } from './WeeklyRouteSlab'
 import { formatDiveKind } from './weekly-dive-copy'
@@ -21,16 +23,40 @@ const deckStyles = css.raw({
   display: 'grid',
   gap: 'ui12',
   marginTop: 'ui12',
+  // The shrinking switch reflows content below it; keep Chrome's scroll
+  // anchoring from compensating the shift and fighting the scroll-linked
+  // progress (Safari has no anchoring).
+  overflowAnchor: 'none',
 })
 
+// The switch is the sticky bar: it pins to the viewport top at full size,
+// then compresses in step with `--shrink-progress` (set on the deck section
+// by createShrinkProgress) over the first px of pinned scrolling — the iOS
+// large-title collapse. The opaque backdrop rides the separate
+// `--shrink-chrome`, completing on the final approach so content never
+// slides under a still-transparent bar.
 const switchStyles = css.raw({
   display: { base: 'grid', lg: 'none' },
+  position: { base: 'sticky', lg: 'static' },
+  top: '0',
+  // Above the slabs (each isolates its own stacking context).
+  zIndex: '1',
   gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
   gap: 'ui8',
-  margin: '0',
-  padding: '0',
+  // Constant breathing: invisible at rest (transparent backdrop), and by
+  // the pin it guarantees the under-sliding card meets backdrop, never the
+  // chips themselves. Interpolating it instead leaves ~1px at the moment
+  // the card first reaches the bar. The negative block margin takes the
+  // breathing back out of the flow slot, so the section's gap to the card
+  // stays as designed; it also makes the border box pin earlier than the
+  // section top — create-shrink-progress measures this bleed at activation.
+  marginBlock: '-ui8',
+  marginInline: '0',
+  paddingBlock: 'ui8',
+  paddingInline: '0',
   borderWidth: '0',
   minWidth: '0',
+  backgroundColor: '[color-mix(in srgb, token(colors.bg) calc(var(--shrink-chrome, 0) * 100%), transparent)]',
 })
 
 const switchChipRecipe = cva({
@@ -38,8 +64,9 @@ const switchChipRecipe = cva({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 'control.compact',
-    paddingBlock: 'ui8',
+    // control.compact (2.75rem) at rest → 2rem stuck, driven by scroll.
+    minHeight: '[calc(token(sizes.control.compact) - 0.75rem * var(--shrink-progress, 0))]',
+    paddingBlock: '[calc(token(spacing.ui8) - 0.25rem * var(--shrink-progress, 0))]',
     paddingInline: 'ui12',
     borderWidth: '1px',
     borderStyle: 'solid',
@@ -100,9 +127,13 @@ export function WeeklyRouteDeck(props: WeeklyRouteDeckProps): JSX.Element {
   // One slide at a time below lg: gestures live, the inactive slab inert.
   const stacked = () => !isWide()
   const deck = createSwipeDeck(DIVE_KINDS, stacked)
+  // The section's top edge is the switch's resting position (first child),
+  // making it the stable anchor for the scroll-linked shrink.
+  const [$section, setSection] = createSignal<HTMLElement>()
+  createShrinkProgress({ $host: $section, active: stacked })
 
   return (
-    <section aria-label={i18n._(msg`Deep dive mission board`)} class={css(deckStyles)}>
+    <section aria-label={i18n._(msg`Deep dive mission board`)} class={css(deckStyles)} ref={setSection}>
       <fieldset aria-label={i18n._(msg`Dive routes`)} class={css(switchStyles)}>
         {DIVE_KINDS.map((kind) => (
           <button

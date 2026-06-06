@@ -15,7 +15,10 @@ const layoutRecipe = cva({
     width: 'full',
     minHeight: '[100svh]',
     color: 'text',
-    overflow: 'hidden',
+    // `clip` over `hidden`: same clipping, but no scroll container — a hidden
+    // ancestor would re-anchor descendant `position: sticky` to <main>, which
+    // never scrolls (page scrolling lives on the window).
+    overflow: 'clip',
     display: 'flex',
     alignItems: 'stretch',
     paddingBlockStart: { base: 'ui8', md: 'ui16', lg: 'ui24' },

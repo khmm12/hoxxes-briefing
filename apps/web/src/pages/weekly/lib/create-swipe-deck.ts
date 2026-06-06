@@ -1,4 +1,4 @@
-import { type Accessor, createEffect, createSignal } from 'solid-js'
+import { type Accessor, createEffect, createRenderEffect, createSignal } from 'solid-js'
 import { createMediaQuery } from '~/shared/lib/create-media-query'
 
 type SwipeDeck<T> = {
@@ -222,7 +222,7 @@ export function createSwipeDeck<T extends string>(
 
   // Entering the wide layout strips the inline transform so the grid lays
   // out untouched; returning to the deck re-aims at the active slide.
-  createEffect(
+  createRenderEffect(
     () => ({ on: enabled(), $el: $track() }),
     ({ on, $el }) => {
       if ($el == null) return

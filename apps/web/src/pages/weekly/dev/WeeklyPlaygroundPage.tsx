@@ -7,18 +7,20 @@ import { weeklyScenarios } from './weekly-scenarios'
 // Dev-only playground: renders every weekly page state from fixtures, no
 // network involved. Registered in the app router only when import.meta.env.DEV.
 
+// Bottom-docked so it never occludes the page's own top-pinned chrome
+// (the dive switch sticks to the viewport top on mobile).
 const switcherStyles = css.raw({
   position: 'fixed',
-  insetBlockStart: '0',
+  insetBlockEnd: '0',
   insetInline: '0',
   zIndex: 48,
   display: 'flex',
   gap: 'ui4',
   paddingBlock: 'ui4',
   paddingInline: 'ui8',
-  borderBlockEndWidth: '1px',
-  borderBlockEndStyle: 'solid',
-  borderBlockEndColor: 'border.strong',
+  borderBlockStartWidth: '1px',
+  borderBlockStartStyle: 'solid',
+  borderBlockStartColor: 'border.strong',
   background: 'surface.raised',
   overflowX: 'auto',
 })
@@ -54,7 +56,7 @@ const switcherLinkRecipe = cva({
 })
 
 const stageStyles = css.raw({
-  paddingBlockStart: 'ui32',
+  paddingBlockEnd: 'ui32',
 })
 
 export function WeeklyPlaygroundPage(): JSX.Element {
