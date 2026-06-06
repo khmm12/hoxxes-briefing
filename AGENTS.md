@@ -49,9 +49,11 @@ Long-running commands may be used only when needed for manual verification:
 
 ## Verification
 
-- UI/runtime changes: run `pnpm test` and `pnpm build`.
-- Rust boundary changes: run `cargo test --workspace`.
-- Cross-stack changes: run `pnpm check`.
+- Before committing or declaring work done: `pnpm check`, regardless of
+  change type. `pnpm test`/`pnpm build` alone run neither biome nor
+  typecheck.
+- While iterating, narrower runs (`pnpm test`, `pnpm build`) are fine.
+- Rust boundary changes: also `cargo test --workspace`.
 
 ## Repo Rules
 
