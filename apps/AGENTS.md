@@ -22,7 +22,19 @@ Rules in this file apply under `apps/`.
   installed typings instead of assuming 1.x knowledge. Known traps:
   `createEffect(compute, effect)` takes two functions, `<For>` yields plain
   item values (`keyed={false}` for accessors), DOM attributes are lowercase
-  (`tabindex`), JSX types renamed (e.g. `JSX.ClassValue`).
+  (`tabindex`), JSX types renamed (e.g. `JSX.ClassValue`), `createSignal`
+  with a generic `T` fails the `Exclude<T, Function>` value overload — seed
+  via the compute-function overload `createSignal(() => initial)` instead.
+- Annotate module-level constructor calls assigned to constants
+  (`v.picklist(...)`, `createContext(...)`, `new Map()`, `new URL(...)`)
+  with `/* @__PURE__ */` so they stay tree-shakeable.
+- Vitest runs with `environment: 'node'` — no DOM or localStorage in tests.
+  Extract pure logic from hooks and test that (see `create-swipe-deck`,
+  `create-local-storage`).
+- Environment-dependent permissions (persistence, …) go through
+  `shared/lib/app-capabilities` (`useAppCapabilities()`); consumers ask
+  what is allowed, never where they run. The dev playground renders
+  scenarios with `persistence: false`.
 - `Portal` from @solidjs/web 2.0.0-beta.14 crashes on mount; `shared/ui/tooltip`
   appends its panel to `document.body` imperatively (hand-rolled portal) —
   recheck on solid upgrades and switch back to `Portal` once fixed.

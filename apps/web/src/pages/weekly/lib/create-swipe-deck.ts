@@ -12,6 +12,13 @@ type SwipeDeck<T> = {
   pick: (item: T) => void
 }
 
+type SwipeDeckOptions<T> = {
+  /** Slide shown before any interaction; unknown values fall back to the first. */
+  initial?: T
+  /** Notified when the user activates a different slide (chip pick or settled swipe). */
+  onActivate?: (item: T) => void
+}
+
 type VelocitySample = { x: number; t: number }
 
 /**
@@ -37,8 +44,12 @@ type VelocitySample = { x: number; t: number }
 export function createSwipeDeck<T extends string>(
   items: readonly [T, ...T[]],
   enabled: Accessor<boolean>,
+  options: SwipeDeckOptions<NoInfer<T>> = {},
 ): SwipeDeck<T> {
-  const [activeIndex, setActiveIndex] = createSignal(0)
+  // An unknown initial item (stale persisted value) falls back to the first.
+  const [activeIndex, setActiveIndex] = createSignal(
+    options.initial == null ? 0 : Math.max(0, items.indexOf(options.initial)),
+  )
   const prefersReducedMotion = createMediaQuery('(prefers-reduced-motion: reduce)')
   // Refs are signals so the listener effect re-runs once they mount.
   const [$viewport, setViewport] = createSignal<HTMLElement>()
@@ -113,9 +124,16 @@ export function createSwipeDeck<T extends string>(
     step = Math.max(1, $slides.length > 1 ? $slides[1].offsetLeft - $slides[0].offsetLeft : $el.offsetWidth)
   }
 
+  // User-driven activation (vs the initial seed): notifies the consumer,
+  // and only on an actual change.
+  const activate = (index: number) => {
+    if (index !== activeIndex()) options.onActivate?.(items[index] ?? items[0])
+    setActiveIndex(index)
+  }
+
   const settle = (velocity: number) => {
     const index = resolveTargetIndex(-offset / step, velocity, items.length)
-    setActiveIndex(index)
+    activate(index)
     travelTo(-index * step)
   }
 
@@ -123,7 +141,7 @@ export function createSwipeDeck<T extends string>(
     const index = items.indexOf(item)
     // An active drag owns the deck; the finger wins over the chip.
     if (index < 0 || lock === 'horizontal') return
-    setActiveIndex(index)
+    activate(index)
     if (enabled()) travelTo(-index * step)
   }
 

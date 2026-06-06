@@ -2,6 +2,7 @@ import { For } from 'solid-js'
 import { useParams } from '@solidjs/router'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
+import { AppCapabilitiesProvider } from '~/shared/lib/app-capabilities'
 import { weeklyScenarios } from './weekly-scenarios'
 
 // Dev-only playground: renders every weekly page state from fixtures, no
@@ -79,7 +80,10 @@ export function WeeklyPlaygroundPage(): JSX.Element {
           )}
         </For>
       </nav>
-      <div class={css(stageStyles)}>{scenario().render()}</div>
+      {/* Scenarios are fixtures: persisted state must not leak between them. */}
+      <div class={css(stageStyles)}>
+        <AppCapabilitiesProvider capabilities={{ persistence: false }}>{scenario().render()}</AppCapabilitiesProvider>
+      </div>
     </>
   )
 }

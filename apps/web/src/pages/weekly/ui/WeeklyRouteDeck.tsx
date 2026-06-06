@@ -1,9 +1,11 @@
+import { createSignal } from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import { For, type JSX } from '@solidjs/web'
-import { createSignal } from 'solid-js'
 import { css, cva } from 'styled-system/css'
+import * as v from 'valibot'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
+import { createLocalStorage } from '~/shared/lib/create-local-storage'
 import { createBreakpointQuery } from '~/shared/lib/create-media-query'
 import { createShrinkProgress } from '../lib/create-shrink-progress'
 import { createSwipeDeck } from '../lib/create-swipe-deck'
@@ -18,6 +20,9 @@ type WeeklyRouteDeckProps = {
 }
 
 const DIVE_KINDS = ['normal', 'elite'] as const satisfies readonly DiveKind[]
+
+const DIVE_KIND_STORAGE_KEY = 'weekly-dive-kind'
+const diveKindSchema = /* @__PURE__ */ v.picklist(DIVE_KINDS)
 
 const deckStyles = css.raw({
   display: 'grid',
@@ -126,7 +131,10 @@ export function WeeklyRouteDeck(props: WeeklyRouteDeckProps): JSX.Element {
   const isWide = createBreakpointQuery('lg')
   // One slide at a time below lg: gestures live, the inactive slab inert.
   const stacked = () => !isWide()
-  const deck = createSwipeDeck(DIVE_KINDS, stacked)
+  // The picked dive survives reloads; onActivate fires only on user
+  // selection (chip or settled swipe), so every write reflects a choice.
+  const [storedKind, setStoredKind] = createLocalStorage(DIVE_KIND_STORAGE_KEY, diveKindSchema)
+  const deck = createSwipeDeck(DIVE_KINDS, stacked, { initial: storedKind(), onActivate: setStoredKind })
   // The section's top edge is the switch's resting position (first child),
   // making it the stable anchor for the scroll-linked shrink.
   const [$section, setSection] = createSignal<HTMLElement>()
