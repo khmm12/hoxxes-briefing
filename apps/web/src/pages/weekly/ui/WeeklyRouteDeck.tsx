@@ -56,9 +56,15 @@ const switchStyles = css.raw({
   // stays as designed; it also makes the border box pin earlier than the
   // section top — create-shrink-progress measures this bleed at activation.
   marginBlock: '-ui8',
-  marginInline: '0',
+  // Full-bleed backdrop: the deck viewport breaks out to the screen edge, so
+  // a pinned bar spanning only the content width leaves the page gutters
+  // uncovered — under-sliding cards peek there. Counter the layout padding
+  // the same way the viewport does (anything the deck pushes past the screen
+  // edge is cut by the layout's overflow: clip anyway), and pad it back so
+  // the chips stay on the content grid.
+  marginInline: { base: '[calc(-1 * var(--layout-inline-padding))]', lg: '0' },
   paddingBlock: 'ui8',
-  paddingInline: '0',
+  paddingInline: { base: '[var(--layout-inline-padding)]', lg: '0' },
   borderWidth: '0',
   minWidth: '0',
   backgroundColor: '[color-mix(in srgb, token(colors.bg) calc(var(--shrink-chrome, 0) * 100%), transparent)]',
