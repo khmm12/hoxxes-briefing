@@ -27,7 +27,7 @@ const diveKindSchema = /* @__PURE__ */ v.picklist(DIVE_KINDS)
 const deckStyles = css.raw({
   display: 'grid',
   gap: '3',
-  marginTop: '3',
+  marginTop: { base: '3', md: '4' },
   // The shrinking switch reflows content below it; keep Chrome's scroll
   // anchoring from compensating the shift and fighting the scroll-linked
   // progress (Safari has no anchoring).

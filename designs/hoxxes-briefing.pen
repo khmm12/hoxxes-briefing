@@ -11419,7 +11419,7 @@
           "name": "Content",
           "width": 1280,
           "layout": "vertical",
-          "gap": 24,
+          "gap": 16,
           "children": [
             {
               "id": "wLLzl",
@@ -11432,7 +11432,7 @@
               "id": "zWYWS",
               "name": "Route Deck",
               "width": "fill_container",
-              "gap": 24,
+              "gap": 16,
               "children": [
                 {
                   "type": "frame",
@@ -12120,7 +12120,7 @@
               "name": "Footer Wrap",
               "width": "fill_container",
               "padding": [
-                24,
+                16,
                 0,
                 0,
                 0
@@ -12164,7 +12164,7 @@
           "name": "Content",
           "width": 1280,
           "layout": "vertical",
-          "gap": 24,
+          "gap": 16,
           "children": [
             {
               "id": "d6yWkF",
@@ -12186,7 +12186,7 @@
               "id": "iYHek",
               "name": "Route Deck",
               "width": "fill_container",
-              "gap": 24,
+              "gap": 16,
               "children": [
                 {
                   "type": "frame",
@@ -12868,7 +12868,7 @@
               "name": "Footer Wrap",
               "width": "fill_container",
               "padding": [
-                24,
+                16,
                 0,
                 0,
                 0
@@ -12943,6 +12943,7 @@
       "name": "Screen · Mobile · Board (live)",
       "clip": true,
       "width": 390,
+      "height": 1217,
       "fill": "$bg",
       "layout": "vertical",
       "gap": 12,
@@ -13490,7 +13491,7 @@
           "name": "Footer Wrap",
           "width": "fill_container",
           "padding": [
-            24,
+            12,
             0,
             0,
             0
@@ -13516,6 +13517,7 @@
       "name": "Screen · Mobile · Board (offline, cached)",
       "clip": true,
       "width": 390,
+      "height": 1217,
       "fill": "$bg",
       "layout": "vertical",
       "gap": 12,
@@ -14079,7 +14081,7 @@
           "name": "Footer Wrap",
           "width": "fill_container",
           "padding": [
-            24,
+            12,
             0,
             0,
             0
@@ -14120,7 +14122,12 @@
           "type": "ref",
           "ref": "vK5dQ",
           "name": "State",
-          "width": "fill_container"
+          "width": "fill_container",
+          "descendants": {
+            "NeU7Q": {
+              "width": 64
+            }
+          }
         }
       ]
     },
@@ -14736,7 +14743,7 @@
           "name": "Footer Wrap",
           "width": "fill_container",
           "padding": [
-            24,
+            12,
             0,
             0,
             0
@@ -15331,7 +15338,7 @@
               "name": "Footer Wrap",
               "width": "fill_container",
               "padding": [
-                24,
+                12,
                 0,
                 0,
                 0
@@ -15903,40 +15910,1153 @@
                   "id": "Y1XJVH",
                   "name": "Board Footer",
                   "reusable": true,
-                  "width": 400,
+                  "width": "fill_container",
                   "layout": "vertical",
-                  "gap": 4,
+                  "gap": "$space-2",
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "text",
-                      "id": "mTObC",
-                      "name": "F1",
-                      "fill": "$text-muted",
-                      "content": "Rock and Stone, Miner!",
-                      "fontFamily": "$font-body",
-                      "fontSize": "$text-sm",
-                      "fontWeight": "normal"
+                      "type": "frame",
+                      "id": "IW9d0",
+                      "name": "Salute Row",
+                      "width": "fill_container",
+                      "gap": "$space-6",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Kp2af",
+                          "name": "Hazard Band Left",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 8,
+                          "fill": "#00000000",
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "rectangle",
+                              "id": "dzEul",
+                              "x": -30,
+                              "y": -12,
+                              "name": "Stripe 0",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "DF78j",
+                              "x": -14,
+                              "y": -12,
+                              "name": "Stripe 1",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "QkP8L",
+                              "x": 2,
+                              "y": -12,
+                              "name": "Stripe 2",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "hCdVy",
+                              "x": 18,
+                              "y": -12,
+                              "name": "Stripe 3",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "tKHWu",
+                              "x": 34,
+                              "y": -12,
+                              "name": "Stripe 4",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "sU9ou",
+                              "x": 50,
+                              "y": -12,
+                              "name": "Stripe 5",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "M34Q1B",
+                              "x": 66,
+                              "y": -12,
+                              "name": "Stripe 6",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "TSDsk",
+                              "x": 82,
+                              "y": -12,
+                              "name": "Stripe 7",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "O6czX1",
+                              "x": 98,
+                              "y": -12,
+                              "name": "Stripe 8",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "ipVyB",
+                              "x": 114,
+                              "y": -12,
+                              "name": "Stripe 9",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "EwbF2",
+                              "x": 130,
+                              "y": -12,
+                              "name": "Stripe 10",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "gL8Ki",
+                              "x": 146,
+                              "y": -12,
+                              "name": "Stripe 11",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "f1ZjCe",
+                              "x": 162,
+                              "y": -12,
+                              "name": "Stripe 12",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "g7XX2",
+                              "x": 178,
+                              "y": -12,
+                              "name": "Stripe 13",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "y7iApK",
+                              "x": 194,
+                              "y": -12,
+                              "name": "Stripe 14",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "yXm7I",
+                              "x": 210,
+                              "y": -12,
+                              "name": "Stripe 15",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "PeYOX",
+                              "x": 226,
+                              "y": -12,
+                              "name": "Stripe 16",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "B1HI9y",
+                              "x": 242,
+                              "y": -12,
+                              "name": "Stripe 17",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "JnvLO",
+                              "x": 258,
+                              "y": -12,
+                              "name": "Stripe 18",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "d5bZ5",
+                              "x": 274,
+                              "y": -12,
+                              "name": "Stripe 19",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "L69vR",
+                              "x": 290,
+                              "y": -12,
+                              "name": "Stripe 20",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "H7ZcAa",
+                              "x": 306,
+                              "y": -12,
+                              "name": "Stripe 21",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "VXEYC",
+                              "x": 322,
+                              "y": -12,
+                              "name": "Stripe 22",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "O8qlW",
+                              "x": 338,
+                              "y": -12,
+                              "name": "Stripe 23",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "hG39I",
+                              "x": 354,
+                              "y": -12,
+                              "name": "Stripe 24",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "M2Ee3",
+                              "x": 370,
+                              "y": -12,
+                              "name": "Stripe 25",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "KMXAk",
+                              "x": 386,
+                              "y": -12,
+                              "name": "Stripe 26",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Y7wlzv",
+                              "x": 402,
+                              "y": -12,
+                              "name": "Stripe 27",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "mrHjx",
+                              "x": 418,
+                              "y": -12,
+                              "name": "Stripe 28",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "ySd8N",
+                              "x": 434,
+                              "y": -12,
+                              "name": "Stripe 29",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "PvV6h",
+                              "x": 450,
+                              "y": -12,
+                              "name": "Stripe 30",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "j4IJKE",
+                              "x": 466,
+                              "y": -12,
+                              "name": "Stripe 31",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "WAEq3",
+                              "x": 482,
+                              "y": -12,
+                              "name": "Stripe 32",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Xg7D2",
+                              "x": 498,
+                              "y": -12,
+                              "name": "Stripe 33",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "XuGBV",
+                              "x": 514,
+                              "y": -12,
+                              "name": "Stripe 34",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "jQWUW",
+                              "x": 530,
+                              "y": -12,
+                              "name": "Stripe 35",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "XKbYA",
+                              "x": 546,
+                              "y": -12,
+                              "name": "Stripe 36",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "kdZ46",
+                              "x": 562,
+                              "y": -12,
+                              "name": "Stripe 37",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "uiDzF",
+                              "x": 578,
+                              "y": -12,
+                              "name": "Stripe 38",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "ghMRU",
+                              "x": 594,
+                              "y": -12,
+                              "name": "Stripe 39",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "LLmFA",
+                              "x": 610,
+                              "y": -12,
+                              "name": "Stripe 40",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "EtVFp",
+                              "x": 626,
+                              "y": -12,
+                              "name": "Stripe 41",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "rT76j",
+                              "x": 642,
+                              "y": -12,
+                              "name": "Stripe 42",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "r8eLU",
+                              "x": 658,
+                              "y": -12,
+                              "name": "Stripe 43",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "bucH2",
+                              "x": 674,
+                              "y": -12,
+                              "name": "Stripe 44",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "i5FVEY",
+                              "x": 690,
+                              "y": -12,
+                              "name": "Stripe 45",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "jp3C2",
+                              "x": 706,
+                              "y": -12,
+                              "name": "Stripe 46",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "WnbLA",
+                              "x": 722,
+                              "y": -12,
+                              "name": "Stripe 47",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "xtmyK",
+                          "name": "Salute",
+                          "fill": "$gold-400",
+                          "content": "ROCK AND STONE!",
+                          "fontFamily": "$font-display",
+                          "fontSize": "$text-xl",
+                          "fontWeight": "700",
+                          "letterSpacing": 1.5
+                        },
+                        {
+                          "type": "frame",
+                          "id": "K1k3eQ",
+                          "name": "Hazard Band Right",
+                          "flipX": true,
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 8,
+                          "fill": "#00000000",
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "rectangle",
+                              "id": "Y7jZ6",
+                              "x": -30,
+                              "y": -12,
+                              "name": "Stripe 0",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Eeyul",
+                              "x": -14,
+                              "y": -12,
+                              "name": "Stripe 1",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "kUEHv",
+                              "x": 2,
+                              "y": -12,
+                              "name": "Stripe 2",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "B1nBY1",
+                              "x": 18,
+                              "y": -12,
+                              "name": "Stripe 3",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "CHiae",
+                              "x": 34,
+                              "y": -12,
+                              "name": "Stripe 4",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "VWbRf",
+                              "x": 50,
+                              "y": -12,
+                              "name": "Stripe 5",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "E3iimc",
+                              "x": 66,
+                              "y": -12,
+                              "name": "Stripe 6",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "eSCGx",
+                              "x": 82,
+                              "y": -12,
+                              "name": "Stripe 7",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Zyknn",
+                              "x": 98,
+                              "y": -12,
+                              "name": "Stripe 8",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "gAPgH",
+                              "x": 114,
+                              "y": -12,
+                              "name": "Stripe 9",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "ijKAL",
+                              "x": 130,
+                              "y": -12,
+                              "name": "Stripe 10",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "dFQub",
+                              "x": 146,
+                              "y": -12,
+                              "name": "Stripe 11",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "uGVS1",
+                              "x": 162,
+                              "y": -12,
+                              "name": "Stripe 12",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "ViM9s",
+                              "x": 178,
+                              "y": -12,
+                              "name": "Stripe 13",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "ySgoB",
+                              "x": 194,
+                              "y": -12,
+                              "name": "Stripe 14",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "FDphb",
+                              "x": 210,
+                              "y": -12,
+                              "name": "Stripe 15",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "FXj2a",
+                              "x": 226,
+                              "y": -12,
+                              "name": "Stripe 16",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "EC4kA",
+                              "x": 242,
+                              "y": -12,
+                              "name": "Stripe 17",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "t0qxWa",
+                              "x": 258,
+                              "y": -12,
+                              "name": "Stripe 18",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "SFvki",
+                              "x": 274,
+                              "y": -12,
+                              "name": "Stripe 19",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Qhi2A",
+                              "x": 290,
+                              "y": -12,
+                              "name": "Stripe 20",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "KYMMd",
+                              "x": 306,
+                              "y": -12,
+                              "name": "Stripe 21",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "ydpfX",
+                              "x": 322,
+                              "y": -12,
+                              "name": "Stripe 22",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "wcG7r",
+                              "x": 338,
+                              "y": -12,
+                              "name": "Stripe 23",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "nXwPJ",
+                              "x": 354,
+                              "y": -12,
+                              "name": "Stripe 24",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "PSCDu",
+                              "x": 370,
+                              "y": -12,
+                              "name": "Stripe 25",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "hJQKZ",
+                              "x": 386,
+                              "y": -12,
+                              "name": "Stripe 26",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "NSozS",
+                              "x": 402,
+                              "y": -12,
+                              "name": "Stripe 27",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "BnzMb",
+                              "x": 418,
+                              "y": -12,
+                              "name": "Stripe 28",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "SdYdv",
+                              "x": 434,
+                              "y": -12,
+                              "name": "Stripe 29",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Zxnwj",
+                              "x": 450,
+                              "y": -12,
+                              "name": "Stripe 30",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "H5wiZo",
+                              "x": 466,
+                              "y": -12,
+                              "name": "Stripe 31",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "rGDVv",
+                              "x": 482,
+                              "y": -12,
+                              "name": "Stripe 32",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "tZc0p",
+                              "x": 498,
+                              "y": -12,
+                              "name": "Stripe 33",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "vOsX6",
+                              "x": 514,
+                              "y": -12,
+                              "name": "Stripe 34",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "k5Sugv",
+                              "x": 530,
+                              "y": -12,
+                              "name": "Stripe 35",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "VgjqL",
+                              "x": 546,
+                              "y": -12,
+                              "name": "Stripe 36",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "hTxx6",
+                              "x": 562,
+                              "y": -12,
+                              "name": "Stripe 37",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "AuQYt",
+                              "x": 578,
+                              "y": -12,
+                              "name": "Stripe 38",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "jfSNR",
+                              "x": 594,
+                              "y": -12,
+                              "name": "Stripe 39",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "hrgf7",
+                              "x": 610,
+                              "y": -12,
+                              "name": "Stripe 40",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "XhG1a",
+                              "x": 626,
+                              "y": -12,
+                              "name": "Stripe 41",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "mN7Oe",
+                              "x": 642,
+                              "y": -12,
+                              "name": "Stripe 42",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "yZmCc",
+                              "x": 658,
+                              "y": -12,
+                              "name": "Stripe 43",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "F8DQcn",
+                              "x": 674,
+                              "y": -12,
+                              "name": "Stripe 44",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "v0grg5",
+                              "x": 690,
+                              "y": -12,
+                              "name": "Stripe 45",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "OYhCK",
+                              "x": 706,
+                              "y": -12,
+                              "name": "Stripe 46",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "FxlsF",
+                              "x": 722,
+                              "y": -12,
+                              "name": "Stripe 47",
+                              "rotation": 45,
+                              "fill": "#e2b94859",
+                              "width": 7,
+                              "height": 44
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
-                      "type": "text",
-                      "id": "P1C37j",
-                      "name": "F2",
-                      "fill": "$text-muted",
-                      "content": "Made with love by khmm12 ❤️",
-                      "fontFamily": "$font-body",
-                      "fontSize": "$text-sm",
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "tgYr3",
-                      "name": "F3",
-                      "fill": "$text-muted",
-                      "content": "Source on GitHub",
-                      "fontFamily": "$font-body",
-                      "fontSize": "$text-sm",
-                      "fontWeight": "normal"
+                      "type": "frame",
+                      "id": "Z1DfxJ",
+                      "name": "Signoff Row",
+                      "gap": "$space-3",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SJwZF",
+                          "name": "Made By",
+                          "fill": "$text-muted",
+                          "content": "Made with love by khmm12 ❤️",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ksJoR",
+                          "name": "Dot",
+                          "fill": "$text-muted",
+                          "content": "·",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "S3xZP",
+                          "name": "GitHub Link",
+                          "fill": "$text-secondary",
+                          "content": "Source on GitHub",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "normal"
+                        }
+                      ]
                     }
                   ]
                 },

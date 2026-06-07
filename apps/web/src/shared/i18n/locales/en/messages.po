@@ -69,7 +69,7 @@ msgstr "already ended"
 msgid "App crashed"
 msgstr "App crashed"
 
-#: src/widgets/pwa-notice/ui/PwaNotice.tsx:69
+#: src/widgets/pwa-notice/ui/PwaNotice.tsx:60
 msgid "App update"
 msgstr "App update"
 
@@ -163,7 +163,7 @@ msgstr "Crystal Scan x{0}"
 msgid "Crystalline Caverns"
 msgstr "Crystalline Caverns"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:157
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:158
 msgid "Current board loaded."
 msgstr "Current board loaded."
 
@@ -318,15 +318,15 @@ msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 msgid "Last known board"
 msgstr "Last known board"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:145
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:146
 msgid "Last known board only. This cycle already ended."
 msgstr "Last known board only. This cycle already ended."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:144
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:145
 msgid "Last known board still shown. Refresh failed."
 msgstr "Last known board still shown. Refresh failed."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:143
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:144
 msgid "Last known board still shown. Refreshing now."
 msgstr "Last known board still shown. Refreshing now."
 
@@ -366,7 +366,7 @@ msgstr "Low Oxygen"
 msgid "Mactera Plague"
 msgstr "Mactera Plague"
 
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:39
+#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:79
 msgid "Made with love by"
 msgstr "Made with love by"
 
@@ -436,7 +436,7 @@ msgid "Mysterious gravitational irregularities result in lowered overall "
 msgstr "Mysterious gravitational irregularities result in lowered overall "
 "gravity in the mission area."
 
-#: src/widgets/pwa-notice/ui/PwaNotice.tsx:70
+#: src/widgets/pwa-notice/ui/PwaNotice.tsx:61
 msgid "New version ready"
 msgstr "New version ready"
 
@@ -453,7 +453,7 @@ msgstr "No warning or mutator on this stage."
 msgid "None"
 msgstr "None"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:133
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:134
 msgid "Offline"
 msgstr "Offline"
 
@@ -515,15 +515,15 @@ msgstr "Pulling the latest deep dives now."
 msgid "Radioactive Exclusion Zone"
 msgstr "Radioactive Exclusion Zone"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:136
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:137
 msgid "Refresh"
 msgstr "Refresh"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:155
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:156
 msgid "Refreshing current board now."
 msgstr "Refreshing current board now."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:134
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:135
 msgid "Refreshing..."
 msgstr "Refreshing..."
 
@@ -535,7 +535,7 @@ msgstr "Regenerative Bugs"
 msgid "Reload app"
 msgstr "Reload app"
 
-#: src/widgets/pwa-notice/ui/PwaNotice.tsx:71
+#: src/widgets/pwa-notice/ui/PwaNotice.tsx:62
 msgid "Reload for the latest app version."
 msgstr "Reload for the latest app version."
 
@@ -565,11 +565,8 @@ msgstr "Rival Presence"
 msgid "Rock and Stone, Brother!"
 msgstr "Rock and Stone, Brother!"
 
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:37
-msgid "Rock and Stone, Miner!"
-msgstr "Rock and Stone, Miner!"
-
 #: src/pages/weekly/ui/weekly-slogan-copy.ts:7
+#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:75
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
 
@@ -590,15 +587,15 @@ msgstr "Salt Pits"
 msgid "Sandblasted Corridors"
 msgstr "Sandblasted Corridors"
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:152
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:153
 msgid "Saved board loaded."
 msgstr "Saved board loaded."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:151
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:152
 msgid "Saved board loaded. Refreshing now."
 msgstr "Saved board loaded. Refreshing now."
 
-#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:148
+#: src/pages/weekly/ui/WeeklyRefreshPanel.tsx:149
 msgid "Saved board loaded. You're offline for now."
 msgstr "Saved board loaded. You're offline for now."
 
@@ -633,7 +630,7 @@ msgid "Something is eating the creatures from the inside out, and will go after 
 msgstr "Something is eating the creatures from the inside out, and will go "
 "after you as soon as their hosts die."
 
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:51
+#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:90
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
 
@@ -709,7 +706,7 @@ msgstr "Try again once the connection settles."
 msgid "Twins"
 msgstr "Twins"
 
-#: src/widgets/pwa-notice/ui/PwaNotice.tsx:76
+#: src/widgets/pwa-notice/ui/PwaNotice.tsx:66
 msgid "Update app"
 msgstr "Update app"
 

@@ -477,8 +477,14 @@ labeled variant.
   max-width 288, `label` text.
 - **PWA notice** — bottom dock card: `rounded.lg`, subtle border, info
   eyebrow, title/body, secondary action.
-- **Footer** — three centered `body-sm` lines, all `text-muted`; links
-  inherit the color and reveal an underline + `text-secondary` on hover.
+- **Footer** — board sign-off, flat on the page background (no card chrome),
+  centered: an uppercase gold display salute (`ROCK AND STONE!`) flanked by
+  thin angled gold hazard-stripe bands that extend full-bleed to the screen
+  edge on mobile (mirroring the header divider treatment), above a single
+  `body-sm` `text-muted` signoff (`Made with love by khmm12 ❤️ · Source on
+  GitHub`); the GitHub link reveals an underline + `text-secondary` on hover.
+  Spaced from the cards by `spacing.6` (24 px) on mobile and `spacing.8`
+  (32 px) on desktop — visually separated from the board, not just padded.
 
 ## Interaction states
 
