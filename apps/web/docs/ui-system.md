@@ -1,7 +1,10 @@
 # Web UI System
 
 This document covers implementation rules for `apps/web`. Product intent lives
-in [../../../docs/product.md](../../../docs/product.md).
+in [../../../docs/product.md](../../../docs/product.md). The visual language —
+tokens, typography roles, component specs, motion — is owned by
+[../../../designs/DESIGN.md](../../../designs/DESIGN.md) (the text companion to
+`designs/hoxxes-briefing.pen`); this document does not restate it.
 
 ## Panda CSS
 
@@ -14,25 +17,16 @@ Panda CSS is the styling system for the web app.
 - Keep global CSS thin. It should set document-level basics and import what
   Panda requires, not carry page styling.
 
-## Tokens
+## Tokens And Typography
 
-Prefer existing design tokens before adding new values.
+The token set and the typography roles live in the design system; in code they
+exist only as the Panda theme (`panda.config.ts`).
 
-- Use spacing, radius, shadow, color, and typography roles from the Panda theme.
+- Use existing semantic tokens and text roles before adding new values; a new
+  value belongs in the design system first, then in the theme.
 - Promote repeated raw colors, alpha fills, borders, or shadows into semantic
   tokens or shared recipes.
-- Keep primitive palette tokens separate from semantic product roles.
-- Use readable semantic names for product meaning, such as text, surface, border,
-  accent, success, warning, and danger.
-
-## Typography
-
-The current type system uses Rajdhani for display roles and IBM Plex Sans for
-body text.
-
-- Use existing text roles and type tokens.
 - Do not scale text directly with viewport width.
-- Keep dense UI labels readable on mobile.
 - Values, metadata, chips, timing labels, and repeated utility text should stay
   visually stable across board states.
 
@@ -84,12 +78,14 @@ payload, service worker, or cache in primary UI copy.
 
 ## Verification
 
-For web UI changes:
+For web UI changes run the full gate from the repo root:
 
 ```bash
-pnpm --filter @hoxxes-briefing/web test
-pnpm --filter @hoxxes-briefing/web build
+pnpm check
 ```
+
+While iterating, the narrower `pnpm --filter @hoxxes-briefing/web test` and
+`... build` runs are fine, but they skip biome and typecheck.
 
 When a change touches layout, state screens, offline behavior, or PWA update UI,
 also inspect desktop and common mobile widths in a browser.

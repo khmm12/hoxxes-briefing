@@ -20,19 +20,18 @@ type WeeklyCommandRailProps = {
 // rows closed off by a full-width divider.
 const railStyles = css.raw({
   display: 'grid',
-  rowGap: 'ui12',
+  rowGap: '3',
 })
 
-// paddingInline 16 over the page padding of 8 lines the rail text up with
-// the slab text below it.
+// The page gutter already lines the rail text up with the slab edge below
+// it — the rail adds no inline padding of its own.
 const contentStyles = css.raw({
   display: 'grid',
-  rowGap: 'ui8',
-  paddingTop: 'ui8',
-  paddingInline: 'ui16',
-  lg: {
+  rowGap: '2',
+  paddingTop: '2',
+  md: {
     gridTemplateColumns: 'minmax(0, 1fr) auto',
-    columnGap: 'ui24',
+    columnGap: '6',
     alignItems: 'center',
   },
 })
@@ -41,13 +40,16 @@ const metaRowStyles = css.raw({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  gap: { base: 'ui8', lg: 'ui16' },
+  gap: { base: '2', md: '4' },
   minWidth: '0',
 })
 
+// Closes the rail with a full-width stroke: full-bleed across the mobile
+// page gutters, back to the content column on desktop.
 const dividerStyles = css.raw({
   height: '[1px]',
   background: 'border.strong',
+  marginInline: { base: '[calc(var(--layout-inline-padding) * -1)]', md: '0' },
 })
 
 export function WeeklyCommandRail(props: WeeklyCommandRailProps): JSX.Element {

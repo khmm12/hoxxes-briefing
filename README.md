@@ -49,11 +49,13 @@ Regenerate the committed WASM package after Rust generator changes:
 - `packages/contracts/` - shared API schemas and parsing helpers
 - `crates/` - Rust generator facade and WASM bridge
 - `api/` - Vercel Function entrypoints
+- `designs/` - Pencil mockups and the design-system spec
 
 ## Documentation
 
 - [Architecture](docs/architecture.md) - system shape and data flow
 - [Product](docs/product.md) - product and UX intent
+- [Design System](designs/DESIGN.md) - tokens, typography roles, components, motion
 - [Domain](docs/domain.md) - Deep Rock Galactic terms and contract values
 - [Deployment](docs/deployment.md) - Vercel deployment runbook
 - [Web App](apps/web/README.md) - web app ownership and local notes

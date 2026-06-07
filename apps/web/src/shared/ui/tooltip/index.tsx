@@ -22,7 +22,7 @@ const TRIGGER_GAP = 6
 const triggerStyles = css.raw({
   display: 'block',
   cursor: 'help',
-  borderRadius: 'ui8',
+  borderRadius: 'md',
   _focusVisible: {
     layerStyle: 'focusRing',
   },
@@ -30,20 +30,20 @@ const triggerStyles = css.raw({
 
 const panelStyles = css.raw({
   position: 'fixed',
-  zIndex: 24,
-  maxWidth: '[18rem]',
-  paddingBlock: 'ui8',
-  paddingInline: 'ui12',
+  zIndex: 'overlay',
+  maxWidth: 'content.tooltip',
+  paddingBlock: '2',
+  paddingInline: '3',
   borderWidth: '1px',
   borderStyle: 'solid',
-  borderColor: 'border.strong',
-  borderRadius: 'ui8',
+  // The surface is already raised and carries `elevation.high` — a strong
+  // border on top would double the depth cue.
+  borderColor: 'border.subtle',
+  borderRadius: 'md',
   background: 'surface.raised',
   boxShadow: 'elevation.high',
   color: 'text.secondary',
-  fontSize: '0.875rem',
-  fontWeight: '500',
-  lineHeight: '1.55',
+  textStyle: 'label',
   pointerEvents: 'none',
 })
 

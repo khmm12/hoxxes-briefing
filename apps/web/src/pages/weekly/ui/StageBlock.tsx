@@ -32,13 +32,13 @@ type StageBlockProps = {
 const stageBlockRecipe = cva({
   base: {
     display: 'grid',
-    gap: { base: 'ui8', md: 'ui12' },
-    paddingBlock: 'ui12',
-    paddingInline: { base: 'ui12', md: 'ui16' },
+    gap: '3',
+    paddingBlock: '3',
+    paddingInline: '4',
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: 'border.subtle',
-    borderRadius: 'ui8',
+    borderRadius: 'md',
     background: 'surface.sunken',
   },
   variants: {
@@ -56,43 +56,29 @@ const stageBlockRecipe = cva({
 
 const stageIndexStyles = css.raw({
   color: 'text.primary',
-  textStyle: 'display.eyebrow',
+  textStyle: 'eyebrow',
 })
 
 const objectiveStackStyles = css.raw({
   display: 'grid',
-  gap: 'ui8',
+  gap: '2',
 })
 
 const detailLineStyles = css.raw({
   display: 'grid',
-  gap: 'ui4',
+  gap: '1',
 })
 
-const detailValueLineRecipe = cva({
-  base: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 'ui8',
-    minWidth: '0',
-  },
-  variants: {
-    emphasis: {
-      primary: {
-        fontSize: '1.25rem',
-      },
-      secondary: {
-        fontSize: '1rem',
-      },
-    },
-  },
-  defaultVariants: {
-    emphasis: 'secondary',
-  },
+const detailValueLineStyles = css.raw({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2',
+  minWidth: '0',
 })
 
-// Kind icons render at 1.25em so the glyph reads slightly larger than the
-// text it labels, in every text size context.
+// Kind icons ride the slot scale: 24 next to primary values, 20 next to
+// secondary values and hazards — the glyph reads slightly larger than the
+// text it labels.
 const lineIconRecipe = cva({
   base: {
     display: 'grid',
@@ -100,12 +86,13 @@ const lineIconRecipe = cva({
     flexShrink: '0',
     width: '[1em]',
     height: '[1em]',
-    fontSize: '1.25em',
+    fontSize: '[token(sizes.icon.20)]',
   },
   variants: {
     tone: {
       primary: {
-        color: 'brand',
+        color: 'primary',
+        fontSize: '[token(sizes.icon.24)]',
       },
       secondary: {
         color: 'info',
@@ -114,7 +101,7 @@ const lineIconRecipe = cva({
         color: 'danger',
       },
       mutator: {
-        color: 'brand.hover',
+        color: 'primary.hover',
       },
     },
   },
@@ -125,15 +112,12 @@ const lineIconRecipe = cva({
 
 const labelRecipe = cva({
   base: {
-    fontSize: '0.875rem',
-    fontWeight: '500',
-    letterSpacing: '0.02em',
-    lineHeight: '1.55',
+    textStyle: 'label',
   },
   variants: {
     tone: {
       objective: {
-        color: 'text.disabled',
+        color: 'text.muted',
       },
       hazard: {
         color: 'text.secondary',
@@ -145,17 +129,30 @@ const labelRecipe = cva({
   },
 })
 
-const valueTextStyles = css.raw({
-  color: 'text.primary',
-  fontWeight: '600',
-  lineHeight: '1.55',
-  overflowWrap: 'anywhere',
+const valueTextRecipe = cva({
+  base: {
+    color: 'text.primary',
+    overflowWrap: 'anywhere',
+  },
+  variants: {
+    emphasis: {
+      primary: {
+        textStyle: 'metric',
+      },
+      secondary: {
+        textStyle: 'metric.sm',
+      },
+    },
+  },
+  defaultVariants: {
+    emphasis: 'secondary',
+  },
 })
 
 const hazardStackStyles = css.raw({
   display: 'grid',
-  gap: 'ui8',
-  paddingBlockStart: 'ui8',
+  gap: '2',
+  paddingBlockStart: '2',
   borderBlockStartWidth: '1px',
   borderBlockStartStyle: 'solid',
   borderBlockStartColor: 'border.subtle',
@@ -164,13 +161,12 @@ const hazardStackStyles = css.raw({
 const hazardRecipe = cva({
   base: {
     display: 'grid',
-    gap: 'ui4',
-    paddingBlock: 'ui8',
-    paddingInline: 'ui12',
+    gap: '1',
+    paddingBlock: '2',
+    paddingInline: '3',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderRadius: 'ui8',
-    background: 'surface',
+    borderRadius: 'md',
   },
   variants: {
     tone: {
@@ -179,8 +175,8 @@ const hazardRecipe = cva({
         background: 'danger.surface',
       },
       mutator: {
-        borderColor: 'brand.border',
-        background: 'brand.surface',
+        borderColor: 'primary.border',
+        background: 'primary.surface',
       },
     },
   },
@@ -188,9 +184,7 @@ const hazardRecipe = cva({
 
 const quietHazardStyles = css.raw({
   color: 'text.secondary',
-  fontSize: '0.875rem',
-  fontWeight: '500',
-  lineHeight: '1.55',
+  textStyle: 'label',
 })
 
 export function StageBlock(props: StageBlockProps): JSX.Element {
@@ -266,11 +260,11 @@ function ObjectiveLine(props: {
   return (
     <div class={css(detailLineStyles)}>
       <span class={css(labelRecipe.raw({ tone: 'objective' }))}>{props.label}</span>
-      <span class={css(detailValueLineRecipe.raw({ emphasis: props.emphasis }))}>
+      <span class={css(detailValueLineStyles)}>
         <span class={css(lineIconRecipe.raw({ tone: props.iconTone }))} aria-hidden="true">
           {props.icon}
         </span>
-        <strong class={css(valueTextStyles)}>{props.value}</strong>
+        <strong class={css(valueTextRecipe.raw({ emphasis: props.emphasis }))}>{props.value}</strong>
       </span>
     </div>
   )
@@ -287,11 +281,11 @@ function HazardLine(props: {
   return (
     <span class={css(hazardRecipe.raw({ tone: props.tone }))}>
       <span class={css(labelRecipe.raw({ tone: 'hazard' }))}>{props.label}</span>
-      <span class={css(detailValueLineRecipe.raw())}>
+      <span class={css(detailValueLineStyles)}>
         <span class={css(lineIconRecipe.raw({ tone: props.tone }))} aria-hidden="true">
           {props.icon}
         </span>
-        <strong class={css(valueTextStyles)}>{props.value}</strong>
+        <strong class={css(valueTextRecipe.raw())}>{props.value}</strong>
       </span>
     </span>
   )

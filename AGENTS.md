@@ -9,6 +9,9 @@ clarity, and launch readiness over speculative features.
 
 - System shape: [docs/architecture.md](docs/architecture.md)
 - Product and UX intent: [docs/product.md](docs/product.md)
+- Design system (tokens, typography roles, components, motion):
+  [designs/DESIGN.md](designs/DESIGN.md), text companion to
+  `designs/hoxxes-briefing.pen`
 - Deep Rock Galactic vocabulary: [docs/domain.md](docs/domain.md)
 - Web UI implementation rules: [apps/web/docs/ui-system.md](apps/web/docs/ui-system.md)
 - Deployment shape: [docs/deployment.md](docs/deployment.md)

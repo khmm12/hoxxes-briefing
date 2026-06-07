@@ -12,10 +12,8 @@ type ActionControlOwnProps = {
   leadingIcon?: JSX.Element
 }
 
-type ActionControlSize = 'compact' | 'default'
 type ActionControlTone = 'danger' | 'ghost' | 'primary' | 'secondary'
 type ActionControlVariants = {
-  size?: ActionControlSize
   tone?: ActionControlTone
 }
 
@@ -25,21 +23,19 @@ const actionControlRecipe = cva({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 'ui8',
-    paddingInline: 'ui16',
+    gap: '2',
+    minHeight: 'control.button',
+    paddingInline: '5',
     borderWidth: '1px',
     borderStyle: 'solid',
     borderRadius: 'full',
     color: 'text.primary',
-    fontFamily: 'body',
-    fontSize: '1rem',
-    fontWeight: 500,
-    lineHeight: '1.55',
+    textStyle: 'action',
     textAlign: 'center',
     cursor: 'pointer',
-    transitionDuration: 'fast',
+    transitionDuration: 'press',
     transitionProperty: '[background-color, border-color, color, transform]',
-    transitionTimingFunction: 'standard',
+    transitionTimingFunction: 'press',
     _hover: {
       transform: 'translateY(-1px)',
     },
@@ -48,19 +44,11 @@ const actionControlRecipe = cva({
     },
     _disabled: {
       cursor: 'default',
-      opacity: 0.56,
+      opacity: 'disabled',
       transform: 'none',
     },
   },
   variants: {
-    size: {
-      compact: {
-        minHeight: 'control.compact',
-      },
-      default: {
-        minHeight: 'control.default',
-      },
-    },
     tone: {
       danger: {
         borderColor: 'danger.border',
@@ -83,22 +71,22 @@ const actionControlRecipe = cva({
           borderColor: 'border.subtle',
           background: 'transparent',
           color: 'text.secondary',
-          opacity: 1,
+          opacity: 'full',
         },
       },
       primary: {
-        borderColor: 'brand.border',
-        background: 'brand.surface',
+        borderColor: 'primary.border',
+        background: 'primary.surface',
         color: 'text.primary',
         _hover: {
-          borderColor: 'brand',
-          background: 'brand.surface.hover',
+          borderColor: 'primary',
+          background: 'primary.surface.hover',
         },
         _disabled: {
-          borderColor: 'brand.border',
-          background: 'brand.surface',
-          color: 'brand.hover',
-          opacity: 1,
+          borderColor: 'primary.border',
+          background: 'primary.surface',
+          color: 'primary.hover',
+          opacity: 'full',
         },
       },
       secondary: {
@@ -111,7 +99,6 @@ const actionControlRecipe = cva({
     },
   },
   defaultVariants: {
-    size: 'default',
     tone: 'primary',
   },
 })
@@ -142,8 +129,9 @@ export type ActionControlProps<TComponent extends ActionControlComponent = 'butt
 
 type AnyActionControlProps = ActionControlProps<'button'> | ActionControlProps<'a'> | ActionControlProps<typeof A>
 
+// Busy keeps the control size; the spinner rides the 12px icon slot.
 const busySpinnerStyles = css.raw({
-  fontSize: '0.75rem',
+  fontSize: '[token(sizes.icon.12)]',
 })
 
 type DynamicActionControlProps = {
@@ -165,7 +153,7 @@ export function ActionControl<TComponent extends ActionControlComponent = 'butto
     return (
       <DynamicActionControl
         component={component}
-        class={resolveActionControlClass(actionProps.class, actionProps.css, actionProps.tone, actionProps.size)}
+        class={resolveActionControlClass(actionProps.class, actionProps.css, actionProps.tone)}
         {...controlProps}
       >
         <ActionControlContent busy={actionProps.busy} leadingIcon={actionProps.leadingIcon}>
@@ -180,7 +168,7 @@ export function ActionControl<TComponent extends ActionControlComponent = 'butto
 
 function resolveDynamicActionControlProps(props: AnyActionControlProps): Record<string, unknown> {
   if (isButtonAction(props)) {
-    const rest = omit(props, 'busy', 'children', 'class', 'component', 'css', 'disabled', 'leadingIcon', 'size', 'tone')
+    const rest = omit(props, 'busy', 'children', 'class', 'component', 'css', 'disabled', 'leadingIcon', 'tone')
 
     return {
       ...rest,
@@ -188,7 +176,7 @@ function resolveDynamicActionControlProps(props: AnyActionControlProps): Record<
     }
   }
 
-  return omit(props, 'busy', 'children', 'class', 'component', 'css', 'leadingIcon', 'size', 'tone')
+  return omit(props, 'busy', 'children', 'class', 'component', 'css', 'leadingIcon', 'tone')
 }
 
 function ActionControlContent(props: ActionControlOwnProps): JSX.Element {
@@ -207,9 +195,8 @@ function resolveActionControlClass(
   className: AnyActionControlProps['class'],
   cssProp: AnyActionControlProps['css'],
   tone: ActionControlTone | undefined,
-  size: ActionControlSize | undefined,
 ): JSX.ClassValue {
-  return resolveClass(className, cssProp, actionControlRecipe.raw({ size, tone }))
+  return resolveClass(className, cssProp, actionControlRecipe.raw({ tone }))
 }
 
 function isButtonAction(props: AnyActionControlProps): props is ActionControlProps<'button'> {

@@ -4,10 +4,9 @@ import { css } from 'styled-system/css'
 import { useI18n } from '~/shared/i18n'
 
 const footerStyles = css.raw({
-  marginTop: 'ui16',
-  color: 'text.disabled',
-  fontSize: '0.875rem',
-  lineHeight: '1.55',
+  marginTop: '4',
+  color: 'text.muted',
+  textStyle: 'body.sm',
   textAlign: 'center',
 })
 
@@ -17,15 +16,15 @@ const footerLinkStyles = css.raw({
   textDecorationColor: 'transparent',
   textDecorationThickness: '1px',
   textUnderlineOffset: '0.18em',
-  transitionDuration: 'fast',
+  transitionDuration: 'press',
   transitionProperty: '[color, text-decoration-color]',
-  transitionTimingFunction: 'standard',
+  transitionTimingFunction: 'press',
   _hover: {
     color: 'text.secondary',
     textDecorationColor: 'current',
   },
   _focusVisible: {
-    borderRadius: 'ui2',
+    borderRadius: 'sm',
     layerStyle: 'focusRing',
   },
 })

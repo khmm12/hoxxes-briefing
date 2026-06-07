@@ -11,21 +11,21 @@ type AppLayoutProps = WithStylingProps<{
 const layoutRecipe = cva({
   base: {
     position: 'relative',
-    zIndex: 1,
+    zIndex: 'base',
     width: 'full',
     minHeight: '[100svh]',
-    color: 'text',
+    color: 'text.secondary',
     // `clip` over `hidden`: same clipping, but no scroll container — a hidden
     // ancestor would re-anchor descendant `position: sticky` to <main>, which
     // never scrolls (page scrolling lives on the window).
     overflow: 'clip',
     display: 'flex',
     alignItems: 'stretch',
-    paddingBlockStart: { base: 'ui8', md: 'ui16', lg: 'ui24' },
-    paddingBlockEnd: { base: `[calc(env(safe-area-inset-bottom) + ${token('spacing.ui36')})]`, md: 'ui32' },
+    paddingBlockStart: { base: '2', md: '4' },
+    paddingBlockEnd: { base: `[calc(env(safe-area-inset-bottom) + ${token('spacing.8')})]`, md: '12' },
     // Published so full-bleed children can counter the page padding without
     // mirroring its breakpoint scale.
-    '--layout-inline-padding': { base: 'token(spacing.ui8)', md: 'token(spacing.ui16)', lg: 'token(spacing.ui24)' },
+    '--layout-inline-padding': { base: 'token(spacing.3)', md: 'token(spacing.4)', lg: 'token(spacing.6)' },
     paddingInline: '[var(--layout-inline-padding)]',
     '& > *': {
       minWidth: '0',
@@ -36,7 +36,8 @@ const layoutRecipe = cva({
     dock: {
       hidden: {},
       visible: {
-        paddingBlockEnd: { base: `[calc(env(safe-area-inset-bottom) + ${token('spacing.ui80')})]`, md: 'ui48' },
+        // Clearance for the floating PWA dock, not a scale step.
+        paddingBlockEnd: { base: '[calc(env(safe-area-inset-bottom) + 5rem)]', md: '16' },
       },
     },
   },

@@ -14,11 +14,11 @@ const switcherStyles = css.raw({
   position: 'fixed',
   insetBlockEnd: '0',
   insetInline: '0',
-  zIndex: 48,
+  zIndex: 'overlay',
   display: 'flex',
-  gap: 'ui4',
-  paddingBlock: 'ui4',
-  paddingInline: 'ui8',
+  gap: '1',
+  paddingBlock: '1',
+  paddingInline: '2',
   borderBlockStartWidth: '1px',
   borderBlockStartStyle: 'solid',
   borderBlockStartColor: 'border.strong',
@@ -29,13 +29,12 @@ const switcherStyles = css.raw({
 const switcherLinkRecipe = cva({
   base: {
     flexShrink: '0',
-    paddingBlock: 'ui2',
-    paddingInline: 'ui8',
-    borderRadius: 'ui8',
+    paddingBlock: '0.5',
+    paddingInline: '2',
+    borderRadius: 'md',
     color: 'text.secondary',
-    fontSize: '0.75rem',
+    textStyle: 'caption',
     fontWeight: '600',
-    lineHeight: '1.55',
     whiteSpace: 'nowrap',
     textDecoration: 'none',
     _hover: {
@@ -46,7 +45,7 @@ const switcherLinkRecipe = cva({
     active: {
       true: {
         background: 'surface.sunken',
-        color: 'brand.hover',
+        color: 'primary.hover',
       },
       false: {},
     },
@@ -57,7 +56,7 @@ const switcherLinkRecipe = cva({
 })
 
 const stageStyles = css.raw({
-  paddingBlockEnd: 'ui32',
+  paddingBlockEnd: '8',
 })
 
 export function WeeklyPlaygroundPage(): JSX.Element {

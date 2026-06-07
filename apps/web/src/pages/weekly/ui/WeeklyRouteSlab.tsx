@@ -37,19 +37,19 @@ type WeeklyRouteSlabProps = WithStylingProps<{
 
 const slabRecipe = cva({
   base: {
-    '--route-accent-surface': token('colors.brand.surface'),
+    '--route-accent-surface': token('colors.primary.surface'),
     position: 'relative',
     isolation: 'isolate',
     display: 'grid',
     gridTemplateRows: 'auto auto minmax(0, 1fr)',
-    gap: { base: 'ui12', md: 'ui16' },
+    gap: '4',
     height: 'full',
-    paddingBlock: { base: 'ui16', md: 'ui24' },
-    paddingInline: { base: 'ui16', md: 'ui24' },
+    paddingBlock: { base: '4', md: '5', lg: '6' },
+    paddingInline: { base: '4', md: '5', lg: '6' },
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: 'brand.border',
-    borderRadius: 'ui12',
+    borderColor: 'primary.border',
+    borderRadius: 'lg',
     background: 'surface.raised',
     boxShadow: 'elevation.medium',
     overflow: 'hidden',
@@ -62,7 +62,7 @@ const slabRecipe = cva({
     },
     '& > *': {
       position: 'relative',
-      zIndex: 1,
+      zIndex: 'raised',
     },
   },
   variants: {
@@ -82,88 +82,74 @@ const slabRecipe = cva({
 
 const headerStyles = css.raw({
   display: 'grid',
-  gap: 'ui8',
+  gap: '1',
 })
 
 const introStyles = css.raw({
   display: 'grid',
-  gap: { base: 'ui2', md: 'ui4' },
+  gap: '1',
 })
 
 const titleStyles = css.raw({
   color: 'text.primary',
-  textStyle: 'display.title',
+  // display.xl on every viewport: the dive name is seed-generated flavor,
+  // it does not earn the page's largest type on desktop.
+  textStyle: 'display.xl',
 })
 
 const biomeIconStyles = css.raw({
-  fontSize: '1.25em',
+  fontSize: '[token(sizes.icon.16)]',
 })
 
 const biomeStyles = css.raw({
   display: 'flex',
   alignItems: 'center',
-  gap: 'ui4',
-  color: 'text.disabled',
-  fontSize: '0.875rem',
-  fontWeight: '500',
-  letterSpacing: '0.02em',
-  lineHeight: '1.55',
+  gap: '1.5',
+  color: 'text.muted',
+  textStyle: 'label',
 })
 
 const freshnessStyles = css.raw({
   color: 'danger',
-  fontSize: '0.875rem',
-  fontWeight: '600',
-  letterSpacing: '0.02em',
-  lineHeight: '1.55',
+  textStyle: 'label.strong',
 })
 
 const noteStyles = css.raw({
   color: 'text.secondary',
-  display: { base: '-webkit-box', md: 'block' },
-  fontSize: '0.875rem',
-  lineHeight: '1.55',
-  overflow: 'hidden',
-  lineClamp: { base: 2, md: 'none' },
+  textStyle: 'body.sm',
 })
 
 const metaStyles = css.raw({
   display: 'grid',
-  gap: 'ui8',
+  gap: '2',
 })
 
 const metaLabelStyles = css.raw({
-  color: 'text.disabled',
-  fontSize: '0.875rem',
-  fontWeight: '500',
-  letterSpacing: '0.02em',
-  lineHeight: '1.55',
+  color: 'text.muted',
+  textStyle: 'label',
 })
 
 const chipsStyles = css.raw({
   display: 'flex',
   flexWrap: 'wrap',
-  gap: 'ui8',
+  gap: '2',
 })
 
 const chipRecipe = cva({
   base: {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 'ui4',
-    minHeight: 'ui24',
-    paddingBlock: 'ui4',
-    paddingInline: 'ui8',
+    gap: '1',
+    minHeight: '7',
+    paddingBlock: '1',
+    paddingInline: '2.5',
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: 'border.subtle',
     borderRadius: 'full',
     background: 'transparent',
     color: 'text.secondary',
-    fontSize: '0.875rem',
-    fontWeight: '500',
-    letterSpacing: '0.02em',
-    lineHeight: '1.55',
+    textStyle: 'label',
   },
   variants: {
     kind: {
@@ -172,11 +158,11 @@ const chipRecipe = cva({
         borderColor: 'danger.border',
       },
       mutator: {
-        borderColor: 'brand.border',
+        borderColor: 'primary.border',
       },
       overflow: {
         borderColor: 'border.strong',
-        color: 'brand.hover',
+        color: 'primary.hover',
         fontWeight: '600',
         cursor: 'pointer',
         _hover: {
@@ -196,7 +182,7 @@ const chipRecipe = cva({
 const stageListStyles = css.raw({
   display: 'grid',
   alignContent: 'start',
-  gap: 'ui12',
+  gap: '3',
   listStyle: 'none',
   padding: '0',
 })
@@ -216,7 +202,7 @@ export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
     <article class={resolveClass(props.class, props.css, slabRecipe.raw({ kind: props.kind }))} inert={props.inert}>
       <header class={css(headerStyles)}>
         <div class={css(introStyles)}>
-          <Eyebrow css={{ srOnly: { base: true, lg: false } }} tone={props.kind === 'elite' ? 'danger' : 'brand'}>
+          <Eyebrow css={{ srOnly: { base: true, md: false } }} tone={props.kind === 'elite' ? 'danger' : 'primary'}>
             {formatDiveKind(i18n, props.kind)}
           </Eyebrow>
           <h2 class={css(titleStyles)}>{props.dive.name}</h2>
@@ -262,12 +248,12 @@ export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
 
 const chipWarningIconStyles = css.raw({
   color: 'danger',
-  fontSize: '1.25em',
+  fontSize: '[token(sizes.icon.16)]',
 })
 
 const chipMutatorIconStyles = css.raw({
-  color: 'brand.hover',
-  fontSize: '1.25em',
+  color: 'primary.hover',
+  fontSize: '[token(sizes.icon.16)]',
 })
 
 const chipTooltipStyles = css.raw({

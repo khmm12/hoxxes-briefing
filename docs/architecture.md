@@ -51,6 +51,7 @@ network and replace the cached snapshot after a successful newer response.
 ## Source Documents
 
 - Product and UX intent: [product.md](product.md)
+- Design system (tokens, typography, components, motion): [../designs/DESIGN.md](../designs/DESIGN.md)
 - Deep Rock Galactic domain language: [domain.md](domain.md)
 - Web UI implementation rules: [../apps/web/docs/ui-system.md](../apps/web/docs/ui-system.md)
 - Deployment runbook: [deployment.md](deployment.md)

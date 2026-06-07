@@ -1,26 +1,21 @@
 import { omit } from 'solid-js'
 import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
-import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
+import { GlyphIcon, type IconProps } from '~/shared/ui/icon'
+import { resolveClass } from '~/shared/ui/styling'
 
-type NativeSpinnerProps = Omit<JSX.HTMLAttributes<HTMLSpanElement>, 'children' | 'class' | 'css'>
+export type SpinnerProps = IconProps
 
-export type SpinnerProps = WithStylingProps<NativeSpinnerProps>
+// A glyph like any other (`glyph/spinner`): a 280° arc ring on the 24×24
+// grid, animated by rotation at runtime. Busy states render it at regular
+// icon slot sizes — no bespoke spinners.
+const spinnerGlyph = 'M12 2.3a9.7 9.7 0 1 1-9.55 8.01l1.97 0.35a7.7 7.7 0 1 0 7.58-6.36z'
 
 const spinnerStyles = css.raw({
-  display: 'inline-block',
-  flexShrink: 0,
-  width: '[1em]',
-  height: '[1em]',
-  borderWidth: '2px',
-  borderStyle: 'solid',
-  borderColor: 'current',
-  borderRightColor: 'transparent',
-  borderRadius: 'full',
   animationStyle: 'spin',
 })
 
 export function Spinner(props: SpinnerProps): JSX.Element {
   const rest = omit(props, 'class', 'css')
-  return <span aria-hidden="true" class={resolveClass(props.class, props.css, spinnerStyles)} {...rest} />
+  return <GlyphIcon d={spinnerGlyph} class={resolveClass(props.class, props.css, spinnerStyles)} {...rest} />
 }

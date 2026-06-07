@@ -19,37 +19,32 @@ type WeeklyTimingStripProps = {
 const stripStyles = css.raw({
   display: 'flex',
   alignItems: 'baseline',
-  gap: 'ui8',
+  gap: '2',
   minWidth: '0',
   fontVariantNumeric: 'tabular-nums',
 })
 
 const rangeStyles = css.raw({
   color: 'text.primary',
-  fontSize: { base: '0.875rem', lg: '1rem' },
-  fontWeight: '600',
-  lineHeight: '1.55',
+  textStyle: { base: 'label.strong', md: 'metric.sm' },
   whiteSpace: 'nowrap',
 })
 
 const separatorStyles = css.raw({
-  color: 'text.disabled',
-  fontSize: { base: '0.8125rem', lg: '1rem' },
-  lineHeight: '1.55',
+  color: 'text.muted',
+  textStyle: { base: 'body.sm', md: 'body.md' },
 })
 
 const countdownRecipe = cva({
   base: {
-    fontSize: { base: '0.9375rem', lg: '1rem' },
-    fontWeight: '600',
-    lineHeight: '1.55',
+    textStyle: { base: 'label.strong', md: 'metric.sm' },
     whiteSpace: 'nowrap',
   },
   variants: {
     // A stale board must not glow like a live countdown.
     tone: {
       live: {
-        color: 'brand.hover',
+        color: 'primary.hover',
       },
       expired: {
         color: 'danger',

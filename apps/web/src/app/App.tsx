@@ -5,9 +5,10 @@ import { Route, Router } from '@solidjs/router'
 import type { JSX } from '@solidjs/web'
 import { AppCrashScreen } from '~/app/AppCrashScreen'
 import { I18nProvider } from '~/app/providers'
-import { createPwaNoticeState, PwaNotice } from '~/app/pwa'
+import { createPwaNoticeState } from '~/app/pwa'
 import { WeeklyPage } from '~/pages/weekly'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
+import { PwaNotice } from '~/widgets/pwa-notice'
 import './styles.css'
 
 const NotFoundPage = lazy(() => import('~/pages/not-found').then((module) => ({ default: module.NotFoundPage })))

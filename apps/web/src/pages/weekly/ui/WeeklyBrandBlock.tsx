@@ -11,31 +11,29 @@ type WeeklyBrandBlockProps = {
 const blockStyles = css.raw({
   display: 'grid',
   gridTemplateColumns: 'auto minmax(0, 1fr)',
-  gridTemplateAreas: { base: '"logo title" "slogan slogan"', lg: '"logo title" "logo slogan"' },
-  columnGap: { base: 'ui12', lg: 'ui16' },
-  rowGap: { base: 'ui8', lg: 'ui2' },
+  gridTemplateAreas: { base: '"logo title" "slogan slogan"', md: '"logo title" "logo slogan"' },
+  columnGap: { base: '3', md: '4' },
+  rowGap: { base: '2', md: '0.5' },
   alignItems: 'center',
 })
 
 const logoFrameStyles = css.raw({
   gridArea: 'logo',
-  width: { base: 'ui32', lg: 'ui40' },
-  height: { base: 'ui32', lg: 'ui40' },
+  width: { base: '8', md: '10' },
+  height: { base: '8', md: '10' },
 })
 
 const brandTitleStyles = css.raw({
   gridArea: 'title',
   color: 'text.primary',
-  textStyle: 'display.title',
-  fontSize: { base: '1.25rem', lg: '1.5rem' },
+  textStyle: { base: 'display.lg', md: 'display.xl' },
 })
 
 // Slogans are sacred: never clamp them.
 const sloganStyles = css.raw({
   gridArea: 'slogan',
   color: 'text.secondary',
-  fontSize: { base: '0.8125rem', lg: '0.9375rem' },
-  lineHeight: '1.55',
+  textStyle: 'body.sm',
 })
 
 export function WeeklyBrandBlock(props: WeeklyBrandBlockProps): JSX.Element {

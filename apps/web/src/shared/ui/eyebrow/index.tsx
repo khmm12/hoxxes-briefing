@@ -5,17 +5,17 @@ import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 type EyebrowProps = WithStylingProps<{
   as?: 'p' | 'span'
   children: JSX.Element
-  tone?: 'brand' | 'danger' | 'info'
+  tone?: 'danger' | 'info' | 'primary'
 }>
 
 const eyebrowRecipe = cva({
   base: {
-    textStyle: 'display.eyebrow',
+    textStyle: 'eyebrow',
   },
   variants: {
     tone: {
-      brand: {
-        color: 'brand.hover',
+      primary: {
+        color: 'primary',
       },
       danger: {
         color: 'danger',
@@ -26,7 +26,7 @@ const eyebrowRecipe = cva({
     },
   },
   defaultVariants: {
-    tone: 'brand',
+    tone: 'primary',
   },
 })
 

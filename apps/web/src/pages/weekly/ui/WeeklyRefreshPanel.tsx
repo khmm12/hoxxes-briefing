@@ -4,8 +4,8 @@ import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import { useI18n } from '~/shared/i18n'
-import { ActionControl } from '~/shared/ui/action-button'
 import { OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
+import { IconButton } from '~/shared/ui/icon-button'
 import { Tooltip } from '~/shared/ui/tooltip'
 import type { WeeklyBoardViewState } from '../model/weekly-page-state'
 
@@ -20,7 +20,7 @@ type FlashTone = 'success' | 'danger'
 const panelStyles = css.raw({
   display: 'flex',
   alignItems: 'center',
-  gap: 'ui8',
+  gap: '2',
 })
 
 // The status slot is always occupied (happy = success dot) and keeps a fixed
@@ -28,8 +28,8 @@ const panelStyles = css.raw({
 const statusSlotStyles = css.raw({
   display: 'grid',
   placeItems: 'center',
-  width: 'ui24',
-  height: 'ui24',
+  width: '6',
+  height: '6',
   borderRadius: 'full',
 })
 
@@ -39,8 +39,8 @@ const statusSlotStyles = css.raw({
 // within its week — so the event is reported by the button flash alone.
 const statusDotRecipe = cva({
   base: {
-    width: 'ui8',
-    height: 'ui8',
+    width: '2',
+    height: '2',
     borderRadius: 'full',
   },
   variants: {
@@ -55,30 +55,11 @@ const statusDotRecipe = cva({
   },
 })
 
+// Muted, unlike the full-color status dots: offline is a passive condition,
+// not an outcome demanding attention.
 const offlineIconStyles = css.raw({
-  color: 'text.disabled',
-  fontSize: '0.875rem',
-})
-
-// Sized down from the control tokens and pulled in by negative margins so
-// the bare icon look of the rail keeps its row height text-driven while the
-// real hit target stays 32px.
-const refreshButtonStyles = css.raw({
-  width: 'ui32',
-  height: 'ui32',
-  minHeight: 'ui32',
-  marginBlock: '-ui8',
-  marginInlineEnd: '-ui8',
-  paddingInline: 'ui0',
-  borderRadius: 'ui8',
-  fontSize: '1.125rem',
-  flexShrink: 0,
-  _flashSuccess: {
-    animationStyle: 'flashSuccess',
-  },
-  _flashDanger: {
-    animationStyle: 'flashDanger',
-  },
+  color: 'text.muted',
+  fontSize: '[token(sizes.icon.14)]',
 })
 
 export function WeeklyRefreshPanel(props: WeeklyRefreshPanelProps): JSX.Element {
@@ -87,8 +68,9 @@ export function WeeklyRefreshPanel(props: WeeklyRefreshPanelProps): JSX.Element 
   const [isLoading, setIsLoading] = createOptimistic(false)
   const [flash, setFlash] = createSignal<FlashTone | null>(null)
 
-  // Refresh feedback lives on the button itself: the icon pulses while the
-  // manual refresh is pending, then a short color flash for the outcome.
+  // Refresh feedback lives on the button itself: the spinner replaces the
+  // glyph while the manual refresh is pending, then a short color flash for
+  // the outcome.
   // Ambient revalidation (page open) is reported by the status dot alone —
   // the button stays calm. There are no toasts in this app.
   // The action only counts settled attempts — reading `refreshFailed` right
@@ -125,27 +107,18 @@ export function WeeklyRefreshPanel(props: WeeklyRefreshPanelProps): JSX.Element 
           <span class={css(statusDotRecipe.raw({ tone: props.state.expired ? 'danger' : 'success' }))} />
         )}
       </Tooltip>
-      <ActionControl
+      <IconButton
         aria-label={formatRefreshActionLabel(i18n, props.state)}
         aria-busy={isLoading() ? 'true' : 'false'}
-        component="button"
-        css={refreshButtonStyles}
+        busy={isLoading() || props.state.refreshing}
         data-flash={flash() ?? undefined}
-        disabled={!props.state.online || props.state.refreshing}
-        leadingIcon={
-          <RefreshIcon
-            data-loading={isLoading() ? true : undefined}
-            class={css({
-              _loading: { animationStyle: 'iconPulse' },
-            })}
-          />
-        }
-        size="compact"
-        tone="ghost"
+        disabled={!props.state.online}
         type="button"
         onAnimationEnd={() => setFlash(null)}
         onClick={handleRefresh}
-      />
+      >
+        <RefreshIcon />
+      </IconButton>
     </div>
   )
 }

@@ -7,28 +7,28 @@ import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 type StateScreenProps = WithStylingProps<{
   action?: JSX.Element
   body: string
-  bodyTone?: 'default' | 'disabled'
+  bodyTone?: 'default' | 'muted'
   busy?: boolean
   eyebrow: string
   indicator?: JSX.Element
   passiveStatus?: string
   title: string
-  tone?: 'brand' | 'danger' | 'info' | 'warning'
+  tone?: 'danger' | 'info' | 'primary'
 }>
 
 const indicatorRecipe = cva({
   base: {
     display: 'grid',
     placeItems: 'center',
-    width: 'icon.lg',
-    height: 'icon.lg',
+    width: 'icon.64',
+    height: 'icon.64',
     marginInline: 'auto',
-    fontSize: '4rem',
+    fontSize: '[token(sizes.icon.64)]',
   },
   variants: {
     tone: {
-      brand: {
-        color: 'brand',
+      primary: {
+        color: 'primary',
       },
       danger: {
         color: 'danger',
@@ -36,13 +36,10 @@ const indicatorRecipe = cva({
       info: {
         color: 'info',
       },
-      warning: {
-        color: 'warning',
-      },
     },
   },
   defaultVariants: {
-    tone: 'brand',
+    tone: 'primary',
   },
 })
 
@@ -58,36 +55,30 @@ const stateScreenFrameStyles = css.raw({
 const stateScreenCoreStyles = css.raw({
   display: 'grid',
   gridTemplateColumns: 'minmax(0, 1fr)',
-  gap: { base: 'ui8', md: 'ui16' },
+  gap: '4',
   alignItems: 'center',
   justifyItems: 'stretch',
-  paddingBlock: 'ui16',
-  paddingInline: 'ui0',
+  paddingBlock: '4',
+  paddingInline: '0',
   textAlign: 'center',
 })
 
 const titleStyles = css.raw({
   color: 'text.primary',
-  fontFamily: 'display',
-  fontSize: { base: '1.5rem', md: '2rem' },
-  fontWeight: '700',
-  letterSpacing: '0.02em',
-  lineHeight: '1.2',
-  marginTop: 'ui4',
+  textStyle: 'headline',
 })
 
 const bodyRecipe = cva({
   base: {
-    fontSize: { base: '0.875rem', md: '1rem' },
-    lineHeight: '1.55',
+    textStyle: 'body.md',
   },
   variants: {
     tone: {
       default: {
         color: 'text.secondary',
       },
-      disabled: {
-        color: 'text.disabled',
+      muted: {
+        color: 'text.muted',
       },
     },
   },
@@ -98,13 +89,13 @@ const bodyRecipe = cva({
 
 const passiveStatusStyles = css.raw({
   color: 'text.secondary',
-  fontSize: '0.875rem',
-  lineHeight: '1.55',
+  textStyle: 'body.md',
 })
 
 const actionRowStyles = css.raw({
   display: 'grid',
   width: 'full',
+  paddingBlockStart: '2',
   placeItems: 'center',
   '& > *': {
     width: 'full',
@@ -118,7 +109,7 @@ const statusRowStyles = css.raw({
 })
 
 export function StateScreen(props: StateScreenProps): JSX.Element {
-  const resolvedTone = () => props.tone ?? 'brand'
+  const resolvedTone = () => props.tone ?? 'primary'
 
   return (
     <section
@@ -126,7 +117,7 @@ export function StateScreen(props: StateScreenProps): JSX.Element {
       aria-busy={props.busy === true ? 'true' : 'false'}
     >
       <div class={css(stateScreenCoreStyles)}>
-        <Eyebrow tone="brand">{props.eyebrow}</Eyebrow>
+        <Eyebrow tone="primary">{props.eyebrow}</Eyebrow>
         <div class={css(indicatorRecipe.raw({ tone: resolvedTone() }))} aria-hidden="true">
           {props.indicator}
         </div>

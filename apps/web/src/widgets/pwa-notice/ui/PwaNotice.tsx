@@ -12,56 +12,43 @@ type PwaNoticeProps = {
 
 const dockStyles = css.raw({
   position: 'fixed',
-  insetBlockEnd: `[calc(env(safe-area-inset-bottom) + ${token('spacing.ui12')})]`,
-  zIndex: 18,
+  insetBlockEnd: `[calc(env(safe-area-inset-bottom) + ${token('spacing.3')})]`,
+  zIndex: 'overlay',
   display: 'grid',
-  gridTemplateColumns: { base: 'minmax(0, 1fr)', md: 'minmax(0, 1fr) auto' },
-  gap: { base: 'ui12', md: 'ui8' },
+  gridTemplateColumns: 'minmax(0, 1fr) auto',
+  gap: '2',
   alignItems: 'center',
   width: {
-    base: `[min(calc(100% - ${token('spacing.ui16')}), 30rem)]`,
-    lg: `[min(24rem, calc(100% - ${token('spacing.ui48')}))]`,
+    base: `[min(calc(100% - ${token('spacing.8')}), 30rem)]`,
+    lg: `[min(24rem, calc(100% - ${token('spacing.12')}))]`,
   },
-  paddingBlock: { base: 'ui12', md: 'ui8' },
-  paddingInline: { base: 'ui12', md: 'ui12' },
+  paddingBlock: '2',
+  paddingInline: '3',
   borderWidth: '1px',
   borderStyle: 'solid',
   borderColor: 'border.subtle',
-  borderRadius: 'ui12',
-  background: { base: 'surface', lg: 'surface.sunken' },
-  boxShadow: 'elevation.none',
+  borderRadius: 'lg',
+  background: 'surface.sunken',
   transform: { base: 'translateX(-50%)', lg: 'none' },
   insetInlineStart: { base: '[50%]', lg: '[auto]' },
-  insetInlineEnd: { lg: 'ui24' },
+  insetInlineEnd: { lg: '6' },
 })
 
 const copyStyles = css.raw({
   display: 'grid',
-  gap: 'ui4',
+  gap: '1',
   minWidth: '0',
 })
 
 const titleStyles = css.raw({
   color: 'text.primary',
-  fontSize: '0.875rem',
-  fontWeight: '600',
-  lineHeight: '1.333',
+  textStyle: 'label.strong',
 })
 
 const bodyStyles = css.raw({
   color: 'text.secondary',
-  fontSize: '0.875rem',
-  lineHeight: '1.55',
+  textStyle: 'body.sm',
   overflowWrap: 'anywhere',
-})
-
-const actionSlotStyles = css.raw({
-  display: 'grid',
-  justifyItems: { base: 'stretch', md: 'end' },
-})
-
-const actionStyles = css.raw({
-  width: { base: 'full', md: 'auto' },
 })
 
 export function PwaNotice(props: PwaNoticeProps): JSX.Element {
@@ -74,19 +61,10 @@ export function PwaNotice(props: PwaNoticeProps): JSX.Element {
         <h2 class={css(titleStyles)}>{i18n._(msg`New version ready`)}</h2>
         <p class={css(bodyStyles)}>{i18n._(msg`Reload for the latest app version.`)}</p>
       </div>
-      <div class={css(actionSlotStyles)}>
-        {/* event handlers should be placed to last */}
-        <ActionControl
-          component="button"
-          css={actionStyles}
-          onClick={props.onReload}
-          size="compact"
-          tone="secondary"
-          type="button"
-        >
-          {i18n._(msg`Update app`)}
-        </ActionControl>
-      </div>
+      {/* event handlers should be placed to last */}
+      <ActionControl component="button" onClick={props.onReload} tone="secondary" type="button">
+        {i18n._(msg`Update app`)}
+      </ActionControl>
     </section>
   )
 }

@@ -2,6 +2,7 @@ import type { JSX } from '@solidjs/web'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { WeeklyRequestError } from '~/shared/api'
 import { AppLayout } from '~/shared/ui/layout'
+import { PwaNotice } from '~/widgets/pwa-notice'
 import type { WeeklyBoardViewState } from '../model/weekly-page-state'
 import { WeeklyBoard } from '../ui/WeeklyBoard'
 import { WeeklyErrorState, WeeklyLoadingState } from '../ui/WeeklyPageStates'
@@ -147,6 +148,18 @@ export const weeklyScenarios: WeeklyScenario[] = [
   boardScenario('board-refreshing', 'Board · refreshing', BOARD, { refreshing: true }),
   boardScenario('board-offline', 'Board · offline', BOARD, { online: false, source: 'cache' }),
   boardScenario('board-cache', 'Board · from cache', BOARD, { source: 'cache' }),
+  {
+    id: 'board-update-dock',
+    title: 'Board · app update',
+    render: (): JSX.Element => (
+      <>
+        <AppLayout dockVisible>
+          <WeeklyBoard now={NOW} state={LIVE_STATE} data={BOARD} onRefresh={() => {}} />
+        </AppLayout>
+        <PwaNotice onReload={() => {}} />
+      </>
+    ),
+  },
   {
     id: 'loading',
     title: 'Loading',

@@ -1,13 +1,14 @@
 import { omit, Show } from 'solid-js'
 import type { JSX } from '@solidjs/web'
+import { token } from 'styled-system/tokens'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import {
   GlyphIcon,
   type IconProps,
-  MutatorGlyphIcon,
-  PrimaryObjectiveIcon,
-  SecondaryObjectiveIcon,
-  WarningGlyphIcon,
+  MutatorGenericIcon,
+  ObjectivePrimaryIcon,
+  ObjectiveSecondaryIcon,
+  WarningGenericIcon,
 } from '~/shared/ui/icon'
 
 type WeeklyDive = WeeklySnapshotResult['dives']['normal']
@@ -175,7 +176,7 @@ export function PrimaryObjectiveKindIcon(props: PrimaryObjectiveKindIconProps): 
   const rest = omit(props, 'kind')
 
   return (
-    <Show when={primaryObjectiveGlyphs[props.kind]} fallback={<PrimaryObjectiveIcon {...rest} />} keyed>
+    <Show when={primaryObjectiveGlyphs[props.kind]} fallback={<ObjectivePrimaryIcon {...rest} />} keyed>
       {(d) => <GlyphIcon d={d} {...rest} />}
     </Show>
   )
@@ -187,7 +188,7 @@ export function SecondaryObjectiveKindIcon(props: SecondaryObjectiveKindIconProp
   const rest = omit(props, 'kind')
 
   return (
-    <Show when={secondaryObjectiveGlyphs[props.kind]} fallback={<SecondaryObjectiveIcon {...rest} />} keyed>
+    <Show when={secondaryObjectiveGlyphs[props.kind]} fallback={<ObjectiveSecondaryIcon {...rest} />} keyed>
       {(d) => <GlyphIcon d={d} {...rest} />}
     </Show>
   )
@@ -201,7 +202,7 @@ export function WarningKindIcon(props: WarningKindIconProps): JSX.Element {
   return (
     <Show
       when={props.kind != null ? warningGlyphs[props.kind] : undefined}
-      fallback={<WarningGlyphIcon {...rest} />}
+      fallback={<WarningGenericIcon {...rest} />}
       keyed
     >
       {(d) => <GlyphIcon d={d} {...rest} />}
@@ -217,7 +218,7 @@ export function MutatorKindIcon(props: MutatorKindIconProps): JSX.Element {
   return (
     <Show
       when={props.kind != null ? mutatorGlyphs[props.kind] : undefined}
-      fallback={<MutatorGlyphIcon {...rest} />}
+      fallback={<MutatorGenericIcon {...rest} />}
       keyed
     >
       {(d) => <GlyphIcon d={d} {...rest} />}
@@ -274,20 +275,20 @@ const biomeGlyphs: Record<BiomeKind, string> = {
   OssuaryDepths: ossuaryDepths,
 }
 
-// Accent colors sampled from the canonical region shapes on the Hoxxes planet map,
-// lightened for the dark board background.
+// Biome accents are domain constants (`colors.biome.*`) — the one sanctioned
+// primitive-level token use; everything else goes through semantic roles.
 const biomeAccents: Record<BiomeKind, string> = {
-  CrystallineCaverns: '#8869d3',
-  FungusBogs: '#d38469',
-  MagmaCore: '#d37869',
-  RadioactiveExclusionZone: '#70d369',
-  DenseBiozone: '#69d3c5',
-  SandblastedCorridors: '#d3a869',
-  SaltPits: '#d37569',
-  GlacialStrata: '#6994d3',
-  AzureWeald: '#8969d3',
-  HollowBough: '#d2906a',
-  OssuaryDepths: '#d3a269',
+  CrystallineCaverns: token('colors.biome.crystallineCaverns'),
+  FungusBogs: token('colors.biome.fungusBogs'),
+  MagmaCore: token('colors.biome.magmaCore'),
+  RadioactiveExclusionZone: token('colors.biome.radioactiveExclusionZone'),
+  DenseBiozone: token('colors.biome.denseBiozone'),
+  SandblastedCorridors: token('colors.biome.sandblastedCorridors'),
+  SaltPits: token('colors.biome.saltPits'),
+  GlacialStrata: token('colors.biome.glacialStrata'),
+  AzureWeald: token('colors.biome.azureWeald'),
+  HollowBough: token('colors.biome.hollowBough'),
+  OssuaryDepths: token('colors.biome.ossuaryDepths'),
 }
 
 type BiomeKindIconProps = IconProps & { kind: BiomeKind }

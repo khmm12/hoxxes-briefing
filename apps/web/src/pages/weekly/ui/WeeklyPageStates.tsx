@@ -6,7 +6,7 @@ import { css } from 'styled-system/css'
 import type { WeeklyRequestError } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
-import { EmptyBoardIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
+import { BoardUnavailableIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
 import { AppLayout } from '~/shared/ui/layout'
 import { Spinner } from '~/shared/ui/spinner'
 import { StateScreen } from '~/shared/ui/state-screen'
@@ -36,7 +36,7 @@ export function WeeklyLoadingState(props: WeeklyLoadingStateProps): JSX.Element 
             ? i18n._(msg`Pulling the latest deep dives now.`)
             : i18n._(msg`Looking for deep dives on your device.`)
         }
-        bodyTone="disabled"
+        bodyTone="muted"
         busy
         eyebrow={i18n._(msg`Checking this week`)}
         indicator={<Spinner />}
@@ -72,9 +72,9 @@ export function WeeklyErrorState(props: WeeklyErrorStateProps): JSX.Element {
           }
           body={formatBoardUnavailableBody(i18n, props.error)}
           eyebrow={i18n._(msg`Board unavailable`)}
-          indicator={<EmptyBoardIcon />}
+          indicator={<BoardUnavailableIcon />}
           title={i18n._(msg`Could not load the weekly board`)}
-          tone="warning"
+          tone="primary"
         />
       </Show>
     </AppLayout>

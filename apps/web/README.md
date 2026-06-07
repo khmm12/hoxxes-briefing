@@ -26,8 +26,11 @@ local API.
 ## Ownership
 
 - Weekly page code lives in `src/pages/weekly`.
-- App-level PWA behavior lives in `src/app/pwa`.
+- App-level PWA behavior lives in `src/app/pwa`; the update-notice widget lives
+  in `src/widgets/pwa-notice`.
 - Shared UI primitives live in `src/shared/ui`.
 - Generated Panda output lives in `styled-system` and must not be hand-edited.
 
-For UI system rules, see [docs/ui-system.md](docs/ui-system.md).
+For UI system rules, see [docs/ui-system.md](docs/ui-system.md). The design
+system (tokens, typography roles, components) lives in
+[../../designs/DESIGN.md](../../designs/DESIGN.md).
