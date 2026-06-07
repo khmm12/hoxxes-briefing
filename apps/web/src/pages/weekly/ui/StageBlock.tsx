@@ -33,7 +33,7 @@ const stageBlockRecipe = cva({
   base: {
     display: 'grid',
     gap: '3',
-    paddingBlock: '3',
+    paddingBlock: { base: '3', md: '4' },
     paddingInline: { base: '3', md: '4' },
     borderWidth: '1px',
     borderStyle: 'solid',

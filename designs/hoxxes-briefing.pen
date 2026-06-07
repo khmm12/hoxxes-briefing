@@ -17172,10 +17172,7 @@
                   "strokeWidth": 1,
                   "layout": "vertical",
                   "gap": 12,
-                  "padding": [
-                    12,
-                    16
-                  ],
+                  "padding": 16,
                   "children": [
                     {
                       "type": "text",
