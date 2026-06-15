@@ -1,11 +1,15 @@
 import { type AssetType, defineConfig, type ResolvedAssetSize } from '@vite-pwa/assets-generator/config'
 
+// Filename version — see pwa-assets.config.ts. Versions the served SVG favicon
+// (Safari's tab icon); favicon.ico below stays unversioned as the crawler fallback.
+const ICON_VERSION = 'v1'
+
 export default defineConfig({
-  images: ['public/favicon.svg'],
+  images: [`public/favicon.${ICON_VERSION}.svg`],
   headLinkOptions: {
     basePath: '/',
     preset: '2023',
-    resolveSvgName: () => 'favicon.svg',
+    resolveSvgName: () => `favicon.${ICON_VERSION}.svg`,
   },
   manifestIconsEntry: false,
   preset: {

@@ -54,10 +54,10 @@ Generic inline icons should share one predictable pattern:
 The Hoxxes Briefing brand mark is page-local product artwork, not a generic icon.
 
 Regenerate favicon and PWA install assets from the SVG sources instead of editing
-raster files by hand. The sources are `public/favicon.svg` plus `app-icon.svg` and
-`app-maskable-icon.svg` under `assets/icons/` (kept out of `public/` so they never
-ship). One script regenerates every icon, moves the generated PNGs into `public/`,
-and runs the lossless pass:
+raster files by hand. The sources are `public/favicon.<version>.svg` plus
+`app-icon.svg` and `app-maskable-icon.svg` under `assets/icons/` (kept out of
+`public/` so they never ship). One script regenerates every icon, moves the
+generated PNGs into `public/`, and runs the lossless pass:
 
 ```bash
 apps/web/scripts/generate-icons.sh
@@ -65,6 +65,20 @@ apps/web/scripts/generate-icons.sh
 
 PWA install icons should be full-bleed square truecolor assets. Do not bake in
 rounded corners; platform masks own the visible icon shape.
+
+Icon filenames carry a version (`favicon.v1.svg`, `apple-touch-icon.v1.png`,
+`icon-192.v1.png`, …) because Safari caches favicons by URL and ignores query
+strings — a fresh filename is the only reliable cache-bust. `favicon.ico` stays
+unversioned at the root as the crawler fallback. To ship new artwork, bump the
+version in lockstep, then rerun the script:
+
+- `ICON_VERSION` in the three `pwa-*-assets.config.ts` files
+- rename `public/favicon.<old>.svg` → `public/favicon.<new>.svg`
+- the `<link>` hrefs in `index.html` (svg + apple-touch)
+- the icon `src`s in `public/manifest.webmanifest`
+
+After regenerating, confirm every icon href/src resolves to a file in `dist/` — a
+stale reference is a silent 404 the build will not catch.
 
 The OpenGraph preview image has its own scripted source. Regenerate it, then run
 the same lossless pass — the script above does not touch it:

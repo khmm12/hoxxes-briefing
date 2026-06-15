@@ -28,9 +28,6 @@ pnpm exec pwa-assets-generator --config pwa-maskable-assets.config.ts
 mv assets/icons/*.png public/
 
 # The generators emit unoptimized PNGs. Lossless only — palette/lossy quantization
-# bands the gold gradient.
-oxipng -o max --strip safe \
-	public/apple-touch-icon.png \
-	public/icon-192.png \
-	public/icon-512.png \
-	public/icon-maskable-512.png
+# bands the gold gradient. Globs stay version-agnostic so bumping the icon version
+# never touches this script.
+oxipng -o max --strip safe public/apple-touch-icon*.png public/icon-*.png
