@@ -1,11 +1,11 @@
 import { type AssetType, defineConfig, type ResolvedAssetSize } from '@vite-pwa/assets-generator/config'
 
-// Android maskable icon only. Its source (icon-pwa-maskable.svg) carries the
+// Android maskable icon only. Its source (app-maskable-icon.svg) carries the
 // emblem at 0.72 so the wing tips stay inside the maskable 80% safe circle —
 // the home-screen/browser icons keep the fuller 0.86 emblem via
 // pwa-assets.config.ts.
 export default defineConfig({
-  images: ['public/icon-pwa-maskable.svg'],
+  images: ['assets/icons/app-maskable-icon.svg'],
   headLinkOptions: {
     basePath: '/',
     preset: '2023',

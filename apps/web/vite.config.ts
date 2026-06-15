@@ -24,14 +24,7 @@ export function createWebViteConfig(): ViteUserConfig {
         manifest: false,
         injectManifest: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-          globIgnores: [
-            'icon-192.png',
-            'icon-512.png',
-            'icon-maskable-*.png',
-            'icon-pwa-maskable.svg',
-            'og-image.png',
-            'google*.html',
-          ],
+          globIgnores: ['icon-*.png', 'og-image.png', 'google*.html'],
         },
         strategies: 'injectManifest',
         srcDir: 'src/app',

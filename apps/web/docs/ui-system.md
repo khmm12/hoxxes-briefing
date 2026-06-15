@@ -54,32 +54,29 @@ Generic inline icons should share one predictable pattern:
 The Hoxxes Briefing brand mark is page-local product artwork, not a generic icon.
 
 Regenerate favicon and PWA install assets from the SVG sources instead of editing
-raster files by hand:
+raster files by hand. The sources are `public/favicon.svg` plus `app-icon.svg` and
+`app-maskable-icon.svg` under `assets/icons/` (kept out of `public/` so they never
+ship). One script regenerates every icon, moves the generated PNGs into `public/`,
+and runs the lossless pass:
 
 ```bash
-pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-favicon-assets.config.ts
-pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-assets.config.ts
-pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-maskable-assets.config.ts
+apps/web/scripts/generate-icons.sh
 ```
 
 PWA install icons should be full-bleed square truecolor assets. Do not bake in
 rounded corners; platform masks own the visible icon shape.
 
-Regenerate the OpenGraph preview image from the scripted source:
+The OpenGraph preview image has its own scripted source. Regenerate it, then run
+the same lossless pass — the script above does not touch it:
 
 ```bash
 pnpm --filter @hoxxes-briefing/web exec node scripts/generate-og-image.ts
+oxipng -o max --strip safe apps/web/public/og-image.png
 ```
 
-The generators emit unoptimized PNGs. After regenerating any favicon, icon, or
-OG-image raster, run a lossless pass with
-[oxipng](https://github.com/oxipng/oxipng) (`brew install oxipng`) before
-committing. Use lossless only — palette/lossy quantization bands the gold
-gradient on the brand mark:
-
-```bash
-oxipng -o max --strip safe apps/web/public/*.png
-```
+Both rely on [oxipng](https://github.com/oxipng/oxipng) (`brew install oxipng`).
+Lossless only — palette/lossy quantization bands the gold gradient on the brand
+mark.
 
 ## Lingui
 
