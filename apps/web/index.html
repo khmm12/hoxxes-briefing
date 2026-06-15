@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
+    <!-- Paint the dark canvas before the external CSS bundle loads, so launching
+         the installed PWA (or any first paint) does not flash white. Mirrors the
+         `bg` token (neutral.950) and the manifest background_color — keep in sync. -->
+    <style>
+      html {
+        background-color: #090909;
+      }
+    </style>
     <meta
       name="description"
       content="Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board with weekly stages, objectives, hazards, mutators, and reset timing."
