@@ -15,7 +15,7 @@
   <rect width="1024" height="1024" fill="url(#gold)"/>
   <rect width="1024" height="1024" fill="url(#goldShade)"/>
 
-  <g transform="translate(512 512) scale(0.72) translate(-512 -512)">
+  <g transform="translate(512 512) scale(0.86) translate(-512 -512)">
     <path d="M 406 782 L 512 969 L 579 851 L 579 847 Z
 M 746 693 L 690 590 L 542 646 L 507 591 L 295 670 L 284 687 L 336 783 L 398 671 L 456 699 L 430 752 L 518 784 L 578 671 L 635 696 L 614 752 L 700 783 Z
 M 139 469 L 211 604 L 315 566 L 263 468 L 311 451 L 393 604 L 496 566 L 444 468 L 491 450 L 572 605 L 678 566 L 625 468 L 672 451 L 755 603 L 844 434 L 716 387 L 567 442 L 536 387 L 388 442 L 352 387 Z

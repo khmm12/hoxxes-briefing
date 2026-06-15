@@ -1,9 +1,4 @@
-import {
-  type AssetType,
-  defaultAssetName,
-  defineConfig,
-  type ResolvedAssetSize,
-} from '@vite-pwa/assets-generator/config'
+import { type AssetType, defineConfig, type ResolvedAssetSize } from '@vite-pwa/assets-generator/config'
 
 export default defineConfig({
   images: ['public/favicon.svg'],
@@ -30,11 +25,9 @@ export default defineConfig({
 })
 
 function assetName(type: AssetType, size: ResolvedAssetSize): string {
-  switch (type) {
-    case 'transparent':
-      return `favicon-${size.width}x${size.height}.png`
-    case 'maskable':
-    case 'apple':
-      return defaultAssetName(type, size)
+  if (type !== 'transparent') {
+    throw new Error(`pwa-favicon-assets.config only generates the favicon, got "${type}"`)
   }
+
+  return `favicon-${size.width}x${size.height}.png`
 }

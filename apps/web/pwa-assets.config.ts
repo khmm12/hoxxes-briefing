@@ -1,7 +1,11 @@
 import { type AssetType, defineConfig, type ResolvedAssetSize } from '@vite-pwa/assets-generator/config'
 
+// Home-screen and browser icons (apple-touch + any-purpose 192/512) generate from
+// the full-bleed app-icon source, where the emblem sits at 0.86. Android maskable
+// icons need the emblem inside their 80% safe circle, so they generate from
+// icon-pwa-maskable.svg (emblem at 0.72) via pwa-maskable-assets.config.ts.
 export default defineConfig({
-  images: ['public/icon-pwa-maskable.svg'],
+  images: ['public/app-icon.svg'],
   headLinkOptions: {
     basePath: '/',
     preset: '2023',
@@ -19,11 +23,7 @@ export default defineConfig({
       },
     },
     maskable: {
-      sizes: [512],
-      padding: 0,
-      resizeOptions: {
-        background: 'transparent',
-      },
+      sizes: [],
     },
     apple: {
       sizes: [180],
@@ -40,9 +40,9 @@ function assetName(type: AssetType, size: ResolvedAssetSize): string {
   switch (type) {
     case 'transparent':
       return `icon-${size.width}.png`
-    case 'maskable':
-      return `icon-maskable-${size.width}.png`
     case 'apple':
       return size.width === 180 ? 'apple-touch-icon.png' : `apple-touch-icon-${size.width}.png`
+    default:
+      throw new Error(`pwa-assets.config does not generate "${type}" icons`)
   }
 }
