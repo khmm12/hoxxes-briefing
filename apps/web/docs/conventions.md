@@ -1,4 +1,4 @@
-# Web UI System
+# Web Conventions
 
 This document covers implementation rules for `apps/web`. Product intent lives
 in [../../../docs/product.md](../../../docs/product.md). The visual language —
@@ -91,6 +91,16 @@ oxipng -o max --strip safe apps/web/public/og-image.png
 Both rely on [oxipng](https://github.com/oxipng/oxipng) (`brew install oxipng`).
 Lossless only — palette/lossy quantization bands the gold gradient on the brand
 mark.
+
+### Service worker precache
+
+The service worker precaches the **app shell only**: `index.html` plus what Vite
+hashes into `assets/` (JS, CSS, woff2, and any app-imported image). Browser/OS
+chrome — favicon, apple-touch, manifest install icons, the OG image — lives at the
+`dist/` root, not under `assets/`, so it is excluded by path; the versioned
+filenames above are what bust those instead. An image the app actually renders is
+offline by default because Vite emits it into `assets/`. The `globPatterns`
+comment in `vite.config.ts` carries the full rationale.
 
 ## Lingui
 

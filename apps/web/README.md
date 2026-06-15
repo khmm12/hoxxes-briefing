@@ -31,6 +31,6 @@ local API.
 - Shared UI primitives live in `src/shared/ui`.
 - Generated Panda output lives in `styled-system` and must not be hand-edited.
 
-For UI system rules, see [docs/ui-system.md](docs/ui-system.md). The design
+For UI system rules, see [docs/conventions.md](docs/conventions.md). The design
 system (tokens, typography roles, components) lives in
 [../../designs/DESIGN.md](../../designs/DESIGN.md).

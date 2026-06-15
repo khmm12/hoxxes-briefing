@@ -13,7 +13,7 @@ clarity, and launch readiness over speculative features.
   [designs/DESIGN.md](designs/DESIGN.md), text companion to
   `designs/hoxxes-briefing.pen`
 - Deep Rock Galactic vocabulary: [docs/domain.md](docs/domain.md)
-- Web UI implementation rules: [apps/web/docs/ui-system.md](apps/web/docs/ui-system.md)
+- Web UI implementation rules: [apps/web/docs/conventions.md](apps/web/docs/conventions.md)
 - Deployment shape: [docs/deployment.md](docs/deployment.md)
 - Behavioral specs: `openspec/specs/` (OpenSpec). Consult before changing
   covered behavior. The workflow is under evaluation — do not add new specs
@@ -80,3 +80,8 @@ Long-running commands may be used only when needed for manual verification:
   or abstraction earns its place when it reduces cognitive load or gives a
   cheap way to reason about future change — judge by that, not by line count.
 - Boy Scout Rule: leave code cleaner than you found it. If a feature requires a workaround because existing structure resists it — refactor first, then add.
+- Principle of least surprise: default to the behavior a developer would reasonably
+  expect, even when nothing exercises it yet. YAGNI justifies not building unused
+  *features* — never a surprising *gap* in existing behavior (e.g. an app-rendered
+  asset silently left out of the offline cache). Make the expected case work by
+  default and call out any deliberate exception.

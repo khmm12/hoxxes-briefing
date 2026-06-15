@@ -13,7 +13,7 @@ Rules in this file apply under `apps/`.
 ## Web
 
 - Follow FSD; use the `feature-sliced-design` skill when working on structure.
-- UI system rules (Panda CSS, tokens, typography): `apps/web/docs/ui-system.md`.
+- UI system rules (Panda CSS, tokens, typography): `apps/web/docs/conventions.md`.
 - Keep Rust/WASM generation code out of the client bundle.
 - Do not hand-edit generated `apps/web/styled-system/`.
 - Put reusable UI primitives in `shared/ui`.
