@@ -59,6 +59,7 @@ raster files by hand:
 ```bash
 pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-favicon-assets.config.ts
 pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-assets.config.ts
+pnpm --filter @hoxxes-briefing/web exec pwa-assets-generator --config pwa-maskable-assets.config.ts
 ```
 
 PWA install icons should be full-bleed square truecolor assets. Do not bake in
@@ -68,6 +69,16 @@ Regenerate the OpenGraph preview image from the scripted source:
 
 ```bash
 pnpm --filter @hoxxes-briefing/web exec node scripts/generate-og-image.ts
+```
+
+The generators emit unoptimized PNGs. After regenerating any favicon, icon, or
+OG-image raster, run a lossless pass with
+[oxipng](https://github.com/oxipng/oxipng) (`brew install oxipng`) before
+committing. Use lossless only — palette/lossy quantization bands the gold
+gradient on the brand mark:
+
+```bash
+oxipng -o max --strip safe apps/web/public/*.png
 ```
 
 ## Lingui
