@@ -22,9 +22,20 @@ export function createWebViteConfig(): ViteUserConfig {
       VitePWA({
         registerType: 'prompt',
         manifest: false,
+        // Precache the app shell: index.html plus everything Vite hashes into
+        // assets/ — JS, CSS, woff2, and any app-imported image. An image the app
+        // renders is offline by default because Vite emits it into assets/, so no
+        // glob change is needed when you add one (reach for a runtime cache only
+        // if you ever precache something large/responsive — see Workbox).
+        //
+        // Browser/OS chrome (favicon, apple-touch, manifest install icons,
+        // og-image) lives at the dist root, not under assets/, so it stays out
+        // automatically; its versioned filenames already handle cache-busting.
+        // The literal index.html (not *.html) keeps the search-console
+        // verification file out without a globIgnores entry. woff is omitted —
+        // every @font-face is woff2-first, so the woff fallback is never fetched.
         injectManifest: {
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-          globIgnores: ['icon-*.png', 'og-image.png', 'google*.html'],
+          globPatterns: ['index.html', 'assets/**/*.{js,css,woff2,png,svg,jpg,jpeg,webp,avif,gif}'],
         },
         strategies: 'injectManifest',
         srcDir: 'src/app',
