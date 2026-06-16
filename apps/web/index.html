@@ -18,6 +18,10 @@
     />
     <meta name="theme-color" content="#171713" />
     <meta name="apple-mobile-web-app-title" content="Hoxxes Briefing" />
+    <!-- iOS reads the apple- prefixed capable flag; the generic one is for Android/Chrome. Both are
+         kept: the apple flag is what gates the standalone web-app path the apple-touch-startup-image
+         splash hangs off (manifest display:standalone launches fullscreen but does not arm it). -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="canonical" href="https://hoxxes-briefing.vercel.app/" />
