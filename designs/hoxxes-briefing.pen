@@ -5663,12 +5663,22 @@
                   "type": "ref",
                   "ref": "GMrtZ",
                   "name": "PWA/desktop"
-                },
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "o9pmQ",
+              "name": "Footer Row",
+              "width": 720,
+              "layout": "vertical",
+              "children": [
                 {
                   "id": "B7s8G4",
                   "type": "ref",
                   "ref": "Y1XJVH",
-                  "name": "Footer/default"
+                  "name": "Footer/default",
+                  "width": "fill_container"
                 }
               ]
             }
@@ -12986,10 +12996,6 @@
                     "khamG": {
                       "width": 32,
                       "height": 39
-                    },
-                    "MtX1n": {
-                      "width": 32,
-                      "height": 39
                     }
                   }
                 },
@@ -13558,10 +13564,6 @@
                   "height": 39,
                   "descendants": {
                     "khamG": {
-                      "width": 32,
-                      "height": 39
-                    },
-                    "MtX1n": {
                       "width": 32,
                       "height": 39
                     }
@@ -14238,10 +14240,6 @@
                     "khamG": {
                       "width": 32,
                       "height": 39
-                    },
-                    "MtX1n": {
-                      "width": 32,
-                      "height": 39
                     }
                   }
                 },
@@ -14833,10 +14831,6 @@
                         "khamG": {
                           "width": 32,
                           "height": 39
-                        },
-                        "MtX1n": {
-                          "width": 32,
-                          "height": 39
                         }
                       }
                     },
@@ -15359,9 +15353,8 @@
         {
           "type": "frame",
           "id": "zwpw4",
-          "layoutPosition": "absolute",
           "x": 0,
-          "y": 21,
+          "y": 0,
           "name": "Sticky Switch",
           "width": 390,
           "fill": "$bg",
@@ -15516,42 +15509,6 @@
                           },
                           {
                             "color": "#c9971d",
-                            "position": 1
-                          }
-                        ]
-                      },
-                      "width": 40,
-                      "height": 48
-                    },
-                    {
-                      "type": "path",
-                      "id": "MtX1n",
-                      "x": 0,
-                      "y": 0,
-                      "name": "Logo Shade",
-                      "geometry": "M843 432l-128-46-144 53-38-53-143 53-36-54-216 85 69 135 119-42 14 4 7 31 18 14 9 25-82 33-9 19 52 95 27-45 18 0 132 232 69-121-52-29 43-61-6-15 14-5 121 44 46-94-55-108 40-15 26 37z m-437 349l168 63 7 5-69 121-106-185z m341-88l-49 92-85-33 22-55-58-24-56 108-7 3-84-31 24-56-58-25-61 111-52-97 12-17 212-79 35 55 148-56z m-609-225l214-82 33 55 149-54 35 54 147-55 129 49-91 168-83-152-45 17 52 99-106 39-83-155-44 18 51 98-103 38-83-154-46 18 51 98-104 38z m740-370l-33 0-66 91 65 117 8-5 35-33-2-7-43-71 1-8 34-78z m0 2l-38 89 47 78-42 38-55-96-10-21 65-89z m-735 0l34 78 3 11-46 78 40 38 4 0 63-112 1-5-66-90z m2-1l31 0 66 89-53 97-13 20-41-38 2-6 44-71-37-89z m17 282l111-44 8 13-30 39 3 9 111-41 36 51 142-57 36 57 125-50 58 23-18-33 9-9 107 40-109-199-50-26-11 1-18-47-98-58-124 0-97 57-20 51-13-4-49 25z m597-1l-55-23-126 51-31-60-147 60-31-54-115 42 54-89 66-29 79 0 58 50 63-50 60-1 74 19z m-246-212l34 21 13 60-46 44-3 1-47-44 0-5 12-55 4-4 27-16z m189-11l3-1 46 25 109 198-18-5-88-37-54-101 40 0z m-384-2l1 3-37 78 40 2-54 98-7 5-94 38-5 0 109-199z m1 57l36-106 95-56 127 2 95 57 34 105-133 0-9-40-51-29-54 30-10 40z",
-                      "fillRule": "evenodd",
-                      "viewBox": [
-                        120,
-                        40,
-                        792,
-                        940
-                      ],
-                      "fill": {
-                        "type": "gradient",
-                        "gradientType": "linear",
-                        "enabled": true,
-                        "rotation": 225,
-                        "size": {
-                          "height": 1
-                        },
-                        "colors": [
-                          {
-                            "color": "#a27707",
-                            "position": 0
-                          },
-                          {
-                            "color": "#7b5600",
                             "position": 1
                           }
                         ]
@@ -15902,8 +15859,9 @@
               "type": "frame",
               "id": "n4plB",
               "name": "Row",
+              "width": 720,
+              "layout": "vertical",
               "gap": 24,
-              "alignItems": "center",
               "children": [
                 {
                   "type": "frame",
@@ -17793,6 +17751,36 @@
           "fontFamily": "$font-body",
           "fontSize": "$text-sm",
           "fontWeight": "500"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "KIlKZ",
+      "x": 8100,
+      "y": 7436,
+      "name": "Screen · Mobile · iOS Splash",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "#090909",
+      "layout": "vertical",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "id": "IMYJ9",
+          "type": "ref",
+          "ref": "HAhKs",
+          "name": "Brand Logo",
+          "width": 156,
+          "height": 187,
+          "descendants": {
+            "khamG": {
+              "width": 156,
+              "height": 187
+            }
+          }
         }
       ]
     }
