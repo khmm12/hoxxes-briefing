@@ -121,16 +121,19 @@ are kept **out of the precache** (see below): the SW can never serve them, so pr
 
 ### Service worker precache
 
-The service worker precaches the **app shell only**: `index.html` plus what Vite
-hashes into `assets/` (JS, CSS, woff2, and any app-referenced image — including the
-favicon SVG, apple-touch icon, and manifest install icons, which now live under
-`assets/` with Vite hashes). An image the app renders is offline by default.
+The service worker precaches the **app shell only**: `index.html`, the JS/CSS/woff2
+chunks Vite hashes into `assets/`, and the images the app actually renders as page
+subresources — the favicon SVG (the brand logo is inlined into the JS bundle). An image
+the app renders is offline by default.
 
-Two deliberate exclusions: the iOS splash PNGs also pass through `assets/` but are
-dropped via `globIgnores: ['**/apple-splash-*']` — the SW can never serve a launch
-screen, so ~1.8 MB of them would be dead weight. And the dist-root files
-(`favicon.ico`, the generated `manifest.webmanifest`, `og-image.png`) stay out by path,
-since the glob only reaches `assets/`. The `globPatterns`/`globIgnores` comment in
+The install artwork is **excluded**, even though it lands in `assets/` with the same Vite
+hashes: the manifest install icons (`icon-*`), the home-screen apple-touch icon, and the
+iOS launch screens (`apple-splash-*`) are all fetched by the OS/Safari out of SW scope at
+install time — never as page subresources — so the SW can never serve them and precaching
+~2 MB of them is dead weight. They drop out via
+`globIgnores: ['**/icon-*', '**/apple-touch-icon-*', '**/apple-splash-*']`. The dist-root
+files (`favicon.ico`, the generated `manifest.webmanifest`, `og-image.png`) stay out by
+path, since the globs only reach `assets/`. The `globPatterns`/`globIgnores` comment in
 `vite.config.ts` carries the full rationale.
 
 ## Lingui

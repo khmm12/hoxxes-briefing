@@ -26,20 +26,22 @@ export function createWebViteConfig(): ViteUserConfig {
       VitePWA({
         registerType: 'prompt',
         manifest: false,
-        // Precache the app shell: index.html plus everything Vite hashes into assets/ — JS,
-        // CSS, woff2, and any app-referenced image. The install icons, favicon.svg, and the
-        // apple-touch icon all land here now that they're referenced by relative paths and
-        // Vite content-hashes them; an image the app renders is offline by default.
+        // Precache the app shell: index.html, the JS/CSS/font chunks Vite hashes into assets/,
+        // and the images the app actually renders as page subresources (the favicon SVG; the
+        // brand logo is inlined into the JS bundle under the 4 KB limit). The two globs split
+        // those intents — code/fonts unconditionally, images minus the install artifacts below.
         //
-        // The iOS splash PNGs also pass through assets/ but are excluded by globIgnores: the
-        // launch screen renders before the service worker exists, so precaching ~1.8 MB of
-        // images the SW can never serve is dead weight. The generated manifest.webmanifest and
-        // public/favicon.ico sit at the dist root, out of the glob by path. index.html
-        // (literal, not *.html) keeps the search-console verification file out. woff is
-        // omitted — every @font-face is woff2-first, so the woff fallback is never fetched.
+        // Platform-install assets are subtracted by globIgnores: the manifest install icons, the
+        // home-screen apple-touch icon, and the pre-WebView iOS launch screens all land in assets/
+        // with Vite hashes too, but the OS/Safari fetch them out of SW scope at install time —
+        // never as page subresources — so the SW can never serve them and precaching ~2 MB of them
+        // is dead weight. The generated manifest.webmanifest and public/favicon.ico sit at the dist
+        // root, out of the globs by path. index.html (literal, not *.html) keeps the search-console
+        // verification file out. woff is omitted — every @font-face is woff2-first, so the woff
+        // fallback is never fetched.
         injectManifest: {
-          globPatterns: ['index.html', 'assets/**/*.{js,css,woff2,png,svg,jpg,jpeg,webp,avif,gif}'],
-          globIgnores: ['**/apple-splash-*'],
+          globPatterns: ['index.html', 'assets/**/*.{js,css,woff2}', 'assets/**/*.{png,svg,jpg,jpeg,webp,avif,gif}'],
+          globIgnores: ['**/icon-*', '**/apple-touch-icon-*', '**/apple-splash-*'],
         },
         strategies: 'injectManifest',
         srcDir: 'src/app',
