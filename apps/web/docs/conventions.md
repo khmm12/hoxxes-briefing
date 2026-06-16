@@ -53,54 +53,85 @@ Generic inline icons should share one predictable pattern:
 
 The Hoxxes Briefing brand mark is page-local product artwork, not a generic icon.
 
-Regenerate favicon and PWA install assets from the SVG sources instead of editing
-raster files by hand. The sources are `public/favicon.<version>.svg` plus
-`app-icon.svg` and `app-maskable-icon.svg` under `assets/icons/` (kept out of
-`public/` so they never ship). One script regenerates every icon, moves the
-generated PNGs into `public/`, and runs the lossless pass:
+Regenerate the favicon and every PWA icon from the SVG sources instead of editing
+raster files by hand. The app icon, maskable icon, in-app brand logo, and iOS splash
+all draw the same dwarf mark, so they share one source — `assets/icons/emblem.ts`
+(the path, palette, and the `renderFullBleedIcon`/`renderBareLogo` renderers). The
+favicon keeps its own hand-authored source at `assets/icons/favicon.svg`.
+
+One script rasterizes everything and is the only thing that touches these files:
 
 ```bash
-apps/web/scripts/generate-icons.sh
+pnpm --filter @hoxxes-briefing/web gen:icons
 ```
+
+`scripts/generate-icons.ts` rasterizes the install icons, the 38 iOS splash screens,
+the in-app `brand-logo.svg`, and `favicon.ico` from those two sources; runs the
+lossless pass; and rewrites the splash `<link>` block in `index.html`. The PNGs are
+**committed** under `assets/icons/` and are NOT regenerated on every build —
+rasterizing 38 splash screens costs ~8s, two-thirds of the build. Requires
+[oxipng](https://github.com/oxipng/oxipng) (`brew install oxipng`); lossless only —
+palette/lossy quantization bands the gold gradient.
 
 PWA install icons should be full-bleed square truecolor assets. Do not bake in
 rounded corners; platform masks own the visible icon shape.
 
-Icon filenames carry a version (`favicon.v1.svg`, `apple-touch-icon.v1.png`,
-`icon-192.v1.png`, …) because Safari caches favicons by URL and ignores query
-strings — a fresh filename is the only reliable cache-bust. `favicon.ico` stays
-unversioned at the root as the crawler fallback. To ship new artwork, bump the
-version in lockstep, then rerun the script:
+**Cache-busting is Vite's job, not a manual version.** Every icon referenced by a
+relative path gets a content hash for free, so there is no `ICON_VERSION` to keep in
+sync — change `emblem.ts` (or `favicon.svg`), rerun `gen:icons`, and every hash moves
+on its own:
 
-- `ICON_VERSION` in the three `pwa-*-assets.config.ts` files
-- rename `public/favicon.<old>.svg` → `public/favicon.<new>.svg`
-- the `<link>` hrefs in `index.html` (svg + apple-touch)
-- the icon `src`s in `public/manifest.webmanifest`
+- The favicon SVG and apple-touch icon are `<link href="./assets/icons/…">` in
+  `index.html`; Vite rewrites them to hashed `/assets/…` paths at build.
+- The manifest install icons (192/512/maskable) can't be reached that way — the OS
+  reads the manifest as static JSON, which Vite never scans for assets. The
+  `manifest-icons` plugin in `vite.config.ts` resolves each one through Vite's
+  resolver (`this.resolve`) and routes it through the asset pipeline (`emitFile` →
+  `getFileName`), then emits `manifest.webmanifest` with the hashed paths. It computes
+  no hash itself; `assets/manifest.webmanifest` is the template — every non-icon field,
+  icons by ordinary relative path like everywhere else.
 
-After regenerating, confirm every icon href/src resolves to a file in `dist/` — a
-stale reference is a silent 404 the build will not catch.
+The one exception is **`public/favicon.ico`**: crawlers hard-code `/favicon.ico`, so it
+stays at the fixed root path, unhashed, as the fallback (and is the only icon a build
+can't bust). After regenerating, confirm every icon href/src resolves to a file in
+`dist/` — a stale reference is a silent 404 the build will not catch.
 
-The OpenGraph preview image has its own scripted source. Regenerate it, then run
-the same lossless pass — the script above does not touch it:
+The OpenGraph preview image has its own scripted source (`gen:icons` does not touch it); it runs the
+same lossless pass internally:
 
 ```bash
-pnpm --filter @hoxxes-briefing/web exec node scripts/generate-og-image.ts
-oxipng -o max --strip safe apps/web/public/og-image.png
+pnpm --filter @hoxxes-briefing/web gen:og
 ```
 
-Both rely on [oxipng](https://github.com/oxipng/oxipng) (`brew install oxipng`).
-Lossless only — palette/lossy quantization bands the gold gradient on the brand
-mark.
+### iOS launch screens
+
+iOS ignores the manifest `background_color` for the pre-WebView launch screen, so an
+installed PWA flashes white on launch without per-device `apple-touch-startup-image`
+images. `gen:icons` rasterizes 38 of them (the 53-device table dedupes to 19 unique
+screen sizes — media queries match on size, not device name — × 2 orientations) into
+`assets/icons/splash/` and writes the matching `<link>` block into `index.html` between
+the `<!-- splash:start -->` / `<!-- splash:end -->` markers, so the PNG set and the tags
+come from one source and cannot drift.
+
+They are ordinary committed assets referenced relatively, so Vite content-hashes them
+like every other icon — the launch screen renders before the service worker exists, so
+iOS caches each image by URL and only refetches when the hashed filename changes. They
+are kept **out of the precache** (see below): the SW can never serve them, so precaching
+~1.8 MB would be dead weight.
 
 ### Service worker precache
 
 The service worker precaches the **app shell only**: `index.html` plus what Vite
-hashes into `assets/` (JS, CSS, woff2, and any app-imported image). Browser/OS
-chrome — favicon, apple-touch, manifest install icons, the OG image — lives at the
-`dist/` root, not under `assets/`, so it is excluded by path; the versioned
-filenames above are what bust those instead. An image the app actually renders is
-offline by default because Vite emits it into `assets/`. The `globPatterns`
-comment in `vite.config.ts` carries the full rationale.
+hashes into `assets/` (JS, CSS, woff2, and any app-referenced image — including the
+favicon SVG, apple-touch icon, and manifest install icons, which now live under
+`assets/` with Vite hashes). An image the app renders is offline by default.
+
+Two deliberate exclusions: the iOS splash PNGs also pass through `assets/` but are
+dropped via `globIgnores: ['**/apple-splash-*']` — the SW can never serve a launch
+screen, so ~1.8 MB of them would be dead weight. And the dist-root files
+(`favicon.ico`, the generated `manifest.webmanifest`, `og-image.png`) stay out by path,
+since the glob only reaches `assets/`. The `globPatterns`/`globIgnores` comment in
+`vite.config.ts` carries the full rationale.
 
 ## Lingui
 

@@ -1,9 +1,13 @@
 import { Buffer } from 'node:buffer'
+import { execFile } from 'node:child_process'
 import { readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
 import { Resvg } from '@resvg/resvg-js'
 import satori from 'satori'
+
+const execFileAsync = promisify(execFile)
 
 const width = 1200
 const height = 630
@@ -46,6 +50,8 @@ const publicDir = resolve(scriptDir, '../public')
 const emblemPath = resolve(scriptDir, '../src/pages/weekly/ui/brand-logo.svg')
 const outputPath = resolve(publicDir, 'og-image.png')
 
+await assertOxipng()
+
 const [rajdhaniBold, plexMedium, emblemSvg] = await Promise.all([
   loadFontsourceFont('@fontsource/rajdhani/files/rajdhani-latin-700-normal.woff'),
   loadFontsourceFont('@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff'),
@@ -81,7 +87,18 @@ const png = new Resvg(svg, {
 
 await writeFile(outputPath, png.asPng())
 
+// Lossless only — palette/lossy quantization bands the gold gradient (same constraint as gen:icons).
+await execFileAsync('oxipng', ['-o', 'max', '--strip', 'safe', outputPath])
+
 console.log(`Generated ${outputPath}`)
+
+async function assertOxipng(): Promise<void> {
+  try {
+    await execFileAsync('oxipng', ['--version'])
+  } catch {
+    throw new Error('generate-og-image: oxipng not found — install it first (brew install oxipng)')
+  }
+}
 
 async function loadFontsourceFont(specifier: string): Promise<ArrayBuffer> {
   const fontPath = fileURLToPath(import.meta.resolve(specifier))

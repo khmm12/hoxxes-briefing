@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"composite": true,
+		"allowImportingTsExtensions": true,
 		"tsBuildInfoFile": "../../node_modules/.tmp/apps-web.tsconfig.node.tsbuildinfo"
 	},
-	"include": ["vite.config.ts", "scripts/**/*.ts"]
+	"include": ["*.config.ts", "scripts/**/*.ts", "assets/icons/**/*.ts"]
 }

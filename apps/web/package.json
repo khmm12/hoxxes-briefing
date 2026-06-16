@@ -5,6 +5,8 @@
 	"scripts": {
 		"dev": "panda codegen --clean && vite dev --host 127.0.0.1 --port 5173",
 		"build": "panda codegen --clean && vite build",
+		"gen:icons": "node scripts/generate-icons.ts",
+		"gen:og": "node scripts/generate-og-image.ts",
 		"lint:fsd": "steiger ./src",
 		"test": "vitest run",
 		"typecheck": "panda codegen --clean && tsc -b tsconfig.json",

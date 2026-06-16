@@ -1,9 +1,13 @@
+import { readFile } from 'node:fs/promises'
+import { basename, dirname, relative, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { defineConfig, type ViteUserConfig } from 'vitest/config'
+import { defineConfig, type Plugin, type ViteUserConfig } from 'vitest/config'
 import { lingui as linguiPlugin, linguiTransformerBabelPreset } from '@lingui/vite-plugin'
 import babelPlugin from '@rolldown/plugin-babel'
 import { VitePWA } from 'vite-plugin-pwa'
 import solidPlugin from 'vite-plugin-solid'
+
+const manifestTemplate = fileURLToPath(new URL('./assets/manifest.webmanifest', import.meta.url))
 
 export const localApiDevOrigin = 'http://localhost:3001'
 
@@ -22,20 +26,20 @@ export function createWebViteConfig(): ViteUserConfig {
       VitePWA({
         registerType: 'prompt',
         manifest: false,
-        // Precache the app shell: index.html plus everything Vite hashes into
-        // assets/ — JS, CSS, woff2, and any app-imported image. An image the app
-        // renders is offline by default because Vite emits it into assets/, so no
-        // glob change is needed when you add one (reach for a runtime cache only
-        // if you ever precache something large/responsive — see Workbox).
+        // Precache the app shell: index.html plus everything Vite hashes into assets/ — JS,
+        // CSS, woff2, and any app-referenced image. The install icons, favicon.svg, and the
+        // apple-touch icon all land here now that they're referenced by relative paths and
+        // Vite content-hashes them; an image the app renders is offline by default.
         //
-        // Browser/OS chrome (favicon, apple-touch, manifest install icons,
-        // og-image) lives at the dist root, not under assets/, so it stays out
-        // automatically; its versioned filenames already handle cache-busting.
-        // The literal index.html (not *.html) keeps the search-console
-        // verification file out without a globIgnores entry. woff is omitted —
-        // every @font-face is woff2-first, so the woff fallback is never fetched.
+        // The iOS splash PNGs also pass through assets/ but are excluded by globIgnores: the
+        // launch screen renders before the service worker exists, so precaching ~1.8 MB of
+        // images the SW can never serve is dead weight. The generated manifest.webmanifest and
+        // public/favicon.ico sit at the dist root, out of the glob by path. index.html
+        // (literal, not *.html) keeps the search-console verification file out. woff is
+        // omitted — every @font-face is woff2-first, so the woff fallback is never fetched.
         injectManifest: {
           globPatterns: ['index.html', 'assets/**/*.{js,css,woff2,png,svg,jpg,jpeg,webp,avif,gif}'],
+          globIgnores: ['**/apple-splash-*'],
         },
         strategies: 'injectManifest',
         srcDir: 'src/app',
@@ -45,6 +49,7 @@ export function createWebViteConfig(): ViteUserConfig {
           type: 'module',
         },
       }),
+      webManifest(),
     ],
     resolve: {
       alias: {
@@ -64,6 +69,77 @@ export function createWebViteConfig(): ViteUserConfig {
       include: ['*.test.ts', 'src/**/*.test.ts'],
     },
   }
+}
+
+// The OS installer reads the web manifest as a static JSON file, so neither Vite's index.html
+// asset rewriting nor vite-plugin-pwa ever content-hashes its icon paths (vite-plugin-pwa is
+// left `manifest: false` on purpose — its generateWebManifestFile is `JSON.stringify(manifest)`
+// verbatim, so it would ship un-busted icon URLs). This one plugin owns the manifest end to end
+// from a single template read: at build it routes each icon through Vite's asset pipeline
+// (this.resolve → emitFile → getFileName) and emits the manifest with the hashed paths; in dev,
+// where that bundle does not exist, it serves the template with each icon rebased onto the path
+// Vite serves the source file from. It computes no hash itself — Vite owns cache-busting end to
+// end, exactly as for the index.html-referenced assets. The template references its icons by
+// ordinary relative paths and carries every non-icon field verbatim.
+function webManifest(): Plugin {
+  const refs = new Map<string, string>()
+  let manifest: ManifestTemplate
+  let root: string
+  let isBuild = false
+  return {
+    name: 'web-manifest',
+    configResolved(config) {
+      root = config.root
+      isBuild = config.command === 'build'
+    },
+    // dev: the build bundle does not exist, so serve the template directly. Vite serves source
+    // files from the project root, so an icon at assets/icons/x.png is reachable at the path it
+    // sits at relative to root — derive that instead of assuming a fixed `/assets/` prefix.
+    configureServer(server) {
+      server.middlewares.use('/manifest.webmanifest', async (_req, res) => {
+        const template = await loadManifestTemplate()
+        const icons = template.icons.map((icon) => ({ ...icon, src: devIconUrl(icon.src) }))
+        res.setHeader('Content-Type', 'application/manifest+json')
+        res.end(JSON.stringify({ ...template, icons }, null, 2))
+      })
+    },
+    // build: resolve and emit each icon so Vite content-hashes it, recording its reference id.
+    // buildStart also fires in serve, where emitFile is unsupported — dev is handled by the
+    // middleware above, so there's nothing to do.
+    async buildStart() {
+      if (!isBuild) return
+      refs.clear()
+      manifest = await loadManifestTemplate()
+      for (const icon of manifest.icons) {
+        const resolved = await this.resolve(icon.src, manifestTemplate)
+        if (!resolved) throw new Error(`web-manifest: cannot resolve icon "${icon.src}"`)
+        const source = await readFile(resolved.id)
+        refs.set(icon.src, this.emitFile({ type: 'asset', name: basename(resolved.id), source }))
+      }
+    },
+    generateBundle() {
+      const icons = manifest.icons.map((icon) => ({
+        ...icon,
+        src: `/${this.getFileName(refs.get(icon.src) ?? '')}`,
+      }))
+      this.emitFile({
+        type: 'asset',
+        fileName: 'manifest.webmanifest',
+        source: JSON.stringify({ ...manifest, icons }, null, 2),
+      })
+    },
+  }
+
+  function devIconUrl(src: string): string {
+    const fromRoot = relative(root, resolve(dirname(manifestTemplate), src))
+    return `/${fromRoot.split(sep).join('/')}`
+  }
+}
+
+type ManifestTemplate = { icons: Array<{ src: string }>; [field: string]: unknown }
+
+async function loadManifestTemplate(): Promise<ManifestTemplate> {
+  return JSON.parse(await readFile(manifestTemplate, 'utf8'))
 }
 
 export default defineConfig(createWebViteConfig())
