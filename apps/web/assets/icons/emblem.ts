@@ -62,6 +62,7 @@ ${GOLD_SHADE_GRADIENT}
 // Bare gold mark on a transparent, tightly cropped canvas (in-app brand logo + iOS splash).
 export function renderBareLogo(): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${EMBLEM_VIEWBOX_TIGHT}" width="${EMBLEM_TIGHT_WIDTH}" height="${EMBLEM_TIGHT_HEIGHT}">
+  <title>Hoxxes Briefing</title>
   <defs>
 ${GOLD_GRADIENT}
   </defs>
@@ -81,11 +82,12 @@ const FAVICON_INSET = { x: 12, y: 10, width: 96, height: 100 }
 export function renderFaviconTile(): string {
   const { x, y, width, height } = FAVICON_INSET
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${FAVICON_SIZE} ${FAVICON_SIZE}" width="${FAVICON_SIZE}" height="${FAVICON_SIZE}">
+  <title>Hoxxes Briefing</title>
   <defs>
 ${GOLD_GRADIENT}
   </defs>
   <rect width="${FAVICON_SIZE}" height="${FAVICON_SIZE}" rx="${FAVICON_RADIUS}" fill="url(#gold)"/>
-  <svg x="${x}" y="${y}" width="${width}" height="${height}" viewBox="${EMBLEM_VIEWBOX_TIGHT}" preserveAspectRatio="xMidYMid meet">
+  <svg aria-hidden="true" x="${x}" y="${y}" width="${width}" height="${height}" viewBox="${EMBLEM_VIEWBOX_TIGHT}" preserveAspectRatio="xMidYMid meet">
     <path d="${EMBLEM_PATH}" fill="${MARK_ON_PLATE_FILL}" fill-rule="evenodd"/>
   </svg>
 </svg>
