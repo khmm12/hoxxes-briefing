@@ -34,28 +34,20 @@ msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:201
-msgid "A slow, but invulnerable and deadly creature has been detected in this "
-"area. It will relentlessly chase you, throughout the mission. Do not let "
-"it get close."
-msgstr "A slow, but invulnerable and deadly creature has been detected in this "
-"area. It will relentlessly chase you, throughout the mission. Do not "
-"let it get close."
+msgid "A slow, but invulnerable and deadly creature has been detected in this area. It will relentlessly chase you, throughout the mission. Do not let it get close."
+msgstr "A slow, but invulnerable and deadly creature has been detected in this area. It will relentlessly chase you, throughout the mission. Do not let it get close."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:162
-msgid "A special mix of gasses in the air makes both Dwarves and aliens faster. "
-"As a side effect, everyone's voice is funnier than usual."
-msgstr "A special mix of gasses in the air makes both Dwarves and aliens "
-"faster. As a side effect, everyone's voice is funnier than usual."
+msgid "A special mix of gasses in the air makes both Dwarves and aliens faster. As a side effect, everyone's voice is funnier than usual."
+msgstr "A special mix of gasses in the air makes both Dwarves and aliens faster. As a side effect, everyone's voice is funnier than usual."
 
 #: src/pages/weekly/ui/weekly-route-intel-copy.ts:18
 msgid "Advance by cover, not courage. Call angles before holds."
 msgstr "Advance by cover, not courage. Call angles before holds."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:178
-msgid "After a few seconds of not taking damage, the creatures will start "
-"recovering health."
-msgstr "After a few seconds of not taking damage, the creatures will start "
-"recovering health."
+msgid "After a few seconds of not taking damage, the creatures will start recovering health."
+msgstr "After a few seconds of not taking damage, the creatures will start recovering health."
 
 #: src/pages/weekly/ui/WeeklyRouteSlab.tsx:296
 msgid "All clear"
@@ -115,11 +107,8 @@ msgid "Cave Leech Cluster"
 msgstr "Cave Leech Cluster"
 
 #: src/pages/weekly/ui/WeeklyPage.tsx:43
-msgid "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board "
-"with weekly stages, objectives, hazards, mutators, and reset timing."
-msgstr "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive "
-"board with weekly stages, objectives, hazards, mutators, and reset "
-"timing."
+msgid "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board with weekly stages, objectives, hazards, mutators, and reset timing."
+msgstr "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board with weekly stages, objectives, hazards, mutators, and reset timing."
 
 #: src/pages/weekly/ui/WeeklyPageStates.tsx:41
 msgid "Checking this week"
@@ -241,10 +230,8 @@ msgid "For Karl!"
 msgstr "For Karl!"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:189
-msgid "For reasons unknown, there are far more ranged enemies of all classes at "
-"this mission site. Seek cover!"
-msgstr "For reasons unknown, there are far more ranged enemies of all classes "
-"at this mission site. Seek cover!"
+msgid "For reasons unknown, there are far more ranged enemies of all classes at this mission site. Seek cover!"
+msgstr "For reasons unknown, there are far more ranged enemies of all classes at this mission site. Seek cover!"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:21
 msgid "Fungus Bogs"
@@ -301,6 +288,10 @@ msgstr "Just show me where to shoot!"
 #: src/pages/weekly/ui/weekly-slogan-copy.ts:9
 msgid "Karl Would Be Proud!"
 msgstr "Karl Would Be Proud!"
+
+#: src/pages/weekly/ui/weekly-route-intel-copy.ts:40
+msgid "Keep eyes on the air. Open ground only helps teams that shoot first."
+msgstr "Keep eyes on the air. Open ground only helps teams that shoot first."
 
 #: src/pages/weekly/ui/weekly-route-intel-copy.ts:24
 msgid "Keep holds loose and exits clear. Tight teams make loud mistakes."
@@ -366,7 +357,7 @@ msgstr "Low Oxygen"
 msgid "Mactera Plague"
 msgstr "Mactera Plague"
 
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:79
+#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:77
 msgid "Made with love by"
 msgstr "Made with love by"
 
@@ -411,10 +402,8 @@ msgid "Morkite x{0}"
 msgstr "Morkite x{0}"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:184
-msgid "Most threats in this mission will come from the air, the caves are full "
-"of Mactera."
-msgstr "Most threats in this mission will come from the air, the caves are full "
-"of Mactera."
+msgid "Most threats in this mission will come from the air, the caves are full of Mactera."
+msgstr "Most threats in this mission will come from the air, the caves are full of Mactera."
 
 #: src/pages/weekly/ui/weekly-route-intel-copy.ts:32
 msgid "Move like rent is due. Mine fast, regroup faster."
@@ -431,10 +420,8 @@ msgid "Mutator"
 msgstr "Mutator"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:171
-msgid "Mysterious gravitational irregularities result in lowered overall "
-"gravity in the mission area."
-msgstr "Mysterious gravitational irregularities result in lowered overall "
-"gravity in the mission area."
+msgid "Mysterious gravitational irregularities result in lowered overall gravity in the mission area."
+msgstr "Mysterious gravitational irregularities result in lowered overall gravity in the mission area."
 
 #: src/widgets/pwa-notice/ui/PwaNotice.tsx:61
 msgid "New version ready"
@@ -462,18 +449,12 @@ msgid "Offline cache miss"
 msgstr "Offline cache miss"
 
 #: src/pages/weekly/ui/WeeklyPageStates.tsx:61
-msgid "Open Hoxxes Briefing while online once to keep a board available "
-"offline."
-msgstr "Open Hoxxes Briefing while online once to keep a board available "
-"offline."
+msgid "Open Hoxxes Briefing while online once to keep a board available offline."
+msgstr "Open Hoxxes Briefing while online once to keep a board available offline."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:39
 msgid "Ossuary Depths"
 msgstr "Ossuary Depths"
-
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:40
-msgid "Own the ceiling lines. Open space only helps prepared teams."
-msgstr "Own the ceiling lines. Open space only helps prepared teams."
 
 #: src/pages/not-found/ui/NotFoundPage.tsx:32
 msgid "Page not found"
@@ -566,7 +547,7 @@ msgid "Rock and Stone, Brother!"
 msgstr "Rock and Stone, Brother!"
 
 #: src/pages/weekly/ui/weekly-slogan-copy.ts:7
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:75
+#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:73
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
 
@@ -601,8 +582,7 @@ msgstr "Saved board loaded. You're offline for now."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:216
 msgid "Scanners have detected several clusters of Ossiran Pit Jaws in the area."
-msgstr "Scanners have detected several clusters of Ossiran Pit Jaws in the "
-"area."
+msgstr "Scanners have detected several clusters of Ossiran Pit Jaws in the area."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:149
 msgid "Scrab Nesting Grounds"
@@ -625,12 +605,10 @@ msgid "Show less"
 msgstr "Show less"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:209
-msgid "Something is eating the creatures from the inside out, and will go after "
-"you as soon as their hosts die."
-msgstr "Something is eating the creatures from the inside out, and will go "
-"after you as soon as their hosts die."
+msgid "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
+msgstr "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
 
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:90
+#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:88
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
 
@@ -643,10 +621,8 @@ msgid "Stay near the cans. Long flanks cost more than time."
 msgstr "Stay near the cans. Long flanks cost more than time."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:181
-msgid "Stronger, faster, and deadlier enemy variants might appear in the caves. "
-"Make every bullet count!"
-msgstr "Stronger, faster, and deadlier enemy variants might appear in the "
-"caves. Make every bullet count!"
+msgid "Stronger, faster, and deadlier enemy variants might appear in the caves. Make every bullet count!"
+msgstr "Stronger, faster, and deadlier enemy variants might appear in the caves. Make every bullet count!"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:143
 msgid "Swarmageddon"
@@ -661,38 +637,28 @@ msgid "Sweep the ankles before the work. Tiny teeth stop big plans."
 msgstr "Sweep the ankles before the work. Tiny teeth stop big plans."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:195
-msgid "The mission area has particularly low concentrations of breathable air. "
-"Dwarves must frequently replenish their O2 by standing near one of the "
-"tanks attached to the M.U.L.E. and other devices."
-msgstr "The mission area has particularly low concentrations of breathable air. "
-"Dwarves must frequently replenish their O2 by standing near one of the "
-"tanks attached to the M.U.L.E. and other devices."
+msgid "The mission area has particularly low concentrations of breathable air. Dwarves must frequently replenish their O2 by standing near one of the tanks attached to the M.U.L.E. and other devices."
+msgstr "The mission area has particularly low concentrations of breathable air. Dwarves must frequently replenish their O2 by standing near one of the tanks attached to the M.U.L.E. and other devices."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:158
-msgid "The odd composition of local food sources means all enemies violently "
-"combust upon death, causing area damage."
-msgstr "The odd composition of local food sources means all enemies violently "
-"combust upon death, causing area damage."
+msgid "The odd composition of local food sources means all enemies violently combust upon death, causing area damage."
+msgstr "The odd composition of local food sources means all enemies violently combust upon death, causing area damage."
 
 #: src/pages/weekly/ui/WeeklyPageStates.tsx:58
 msgid "This device is offline and has no saved weekly board."
 msgstr "This device is offline and has no saved weekly board."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:186
-msgid "This mission site suffers from a massive Ebonite infestation. Rock and "
-"Stone - literally!"
-msgstr "This mission site suffers from a massive Ebonite infestation. Rock and "
-"Stone - literally!"
+msgid "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
+msgstr "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 
 #: src/pages/not-found/ui/NotFoundPage.tsx:29
 msgid "This page is not available here. Head back to the weekly board."
 msgstr "This page is not available here. Head back to the weekly board."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:168
-msgid "Toxins in the atmosphere drains your health, but crystalize the blood of "
-"Hoxxes Wildlife into Red Sugar. Kill to survive!"
-msgstr "Toxins in the atmosphere drains your health, but crystalize the blood "
-"of Hoxxes Wildlife into Red Sugar. Kill to survive!"
+msgid "Toxins in the atmosphere drains your health, but crystalize the blood of Hoxxes Wildlife into Red Sugar. Kill to survive!"
+msgstr "Toxins in the atmosphere drains your health, but crystalize the blood of Hoxxes Wildlife into Red Sugar. Kill to survive!"
 
 #: src/pages/weekly/ui/WeeklyPageStates.tsx:70
 msgid "Try again"
@@ -735,7 +701,5 @@ msgid "Wrong tunnel"
 msgstr "Wrong tunnel"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:198
-msgid "You will be attacked by an almost constant flow of Glyphid Exploder "
-"packs."
-msgstr "You will be attacked by an almost constant flow of Glyphid Exploder "
-"packs."
+msgid "You will be attacked by an almost constant flow of Glyphid Exploder packs."
+msgstr "You will be attacked by an almost constant flow of Glyphid Exploder packs."

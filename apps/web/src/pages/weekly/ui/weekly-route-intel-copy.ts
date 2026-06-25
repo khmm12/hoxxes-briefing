@@ -37,7 +37,7 @@ export function formatWeeklyRouteIntelNote(i18n: I18n, note: WeeklyRouteIntelNot
     case 'low-oxygen-long-route':
       return i18n._(msg`Plan resupply hops early. Long caves punish greedy legs.`)
     case 'mactera-plague':
-      return i18n._(msg`Own the ceiling lines. Open space only helps prepared teams.`)
+      return i18n._(msg`Keep eyes on the air. Open ground only helps teams that shoot first.`)
     case 'parasites':
       return i18n._(msg`Clear the cleanup. Small leftovers ruin brave revives.`)
     case 'pit-jaw-colony':
