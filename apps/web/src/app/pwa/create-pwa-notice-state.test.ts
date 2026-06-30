@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { createRoot, createSignal, flush } from 'solid-js'
+import { createPwaNoticeState } from './create-pwa-notice-state'
 
 const [needRefresh, setNeedRefresh] = createSignal(false)
 const [offlineReady, setOfflineReady] = createSignal(false)
@@ -23,9 +24,7 @@ describe('createPwaNoticeState', () => {
     updateServiceWorker.mockClear()
   })
 
-  it('has no notice until a refresh is needed', async () => {
-    const { createPwaNoticeState } = await import('./create-pwa-notice-state')
-
+  it('has no notice until a refresh is needed', () => {
     createRoot((dispose) => {
       const state = createPwaNoticeState()
 
@@ -35,9 +34,7 @@ describe('createPwaNoticeState', () => {
     })
   })
 
-  it('surfaces a dismissible notice once a refresh is needed', async () => {
-    const { createPwaNoticeState } = await import('./create-pwa-notice-state')
-
+  it('surfaces a dismissible notice once a refresh is needed', () => {
     let state: ReturnType<typeof createPwaNoticeState> | undefined
     const dispose = createRoot((dispose) => {
       state = createPwaNoticeState()
@@ -56,8 +53,6 @@ describe('createPwaNoticeState', () => {
   })
 
   it('reloadForUpdate hands off to updateServiceWorker', async () => {
-    const { createPwaNoticeState } = await import('./create-pwa-notice-state')
-
     await createRoot(async (dispose) => {
       const state = createPwaNoticeState()
 
@@ -69,9 +64,7 @@ describe('createPwaNoticeState', () => {
     })
   })
 
-  it('dismissInstallHint clears both offlineReady and needRefresh', async () => {
-    const { createPwaNoticeState } = await import('./create-pwa-notice-state')
-
+  it('dismissInstallHint clears both offlineReady and needRefresh', () => {
     let state: ReturnType<typeof createPwaNoticeState> | undefined
     const dispose = createRoot((dispose) => {
       state = createPwaNoticeState()
