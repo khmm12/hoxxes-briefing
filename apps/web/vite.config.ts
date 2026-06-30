@@ -15,6 +15,11 @@ export function createWebViteConfig(): ViteUserConfig {
   return {
     plugins: [
       solidPlugin({
+        // Under Vitest, disable the solid-refresh HMR wrapper: it has no meaning
+        // in a single test run and its component proxy breaks v8's source-mapped
+        // coverage for thin wrapper components (and prefixes test names with
+        // `[solid-refresh]`). Left on for `vite dev`, where HMR matters.
+        refresh: { disabled: process.env.VITEST != null },
         babel: {
           plugins: ['@lingui/babel-plugin-lingui-macro'],
         },
