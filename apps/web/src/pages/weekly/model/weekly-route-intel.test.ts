@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { WeeklyDive, WeeklyMission } from './weekly-route-catalog'
-import { buildWeeklyRouteIntel } from './weekly-route-intel'
+import { buildWeeklyRouteIntel, type WeeklyRouteIntelNote } from './weekly-route-intel'
 
 describe('buildWeeklyRouteIntel', () => {
   it('selects Haunted Cave over any mutator', () => {
@@ -192,6 +192,31 @@ describe('buildWeeklyRouteIntel', () => {
     expect(buildWeeklyRouteIntel(dive, 'normal')).toEqual({
       note: 'favorable-mobility',
     })
+  })
+
+  it('maps every remaining warning straight to its dedicated note', () => {
+    const directNotes: Record<string, WeeklyRouteIntelNote> = {
+      CaveLeechCluster: 'cave-leech-cluster',
+      EboniteOutbreak: 'ebonite-outbreak',
+      EliteThreat: 'elite-threat',
+      LethalEnemies: 'lethal-enemies',
+      MacteraPlague: 'mactera-plague',
+      PitJawColony: 'pit-jaw-colony',
+      RegenerativeBugs: 'regenerative-bugs',
+      RivalPresence: 'rival-presence',
+      ShieldDisruption: 'shield-disruption',
+      Swarmageddon: 'swarmageddon',
+    }
+
+    for (const [warning, note] of Object.entries(directNotes)) {
+      const dive = createDive([
+        createMission({ warning: warning as WeeklyMission['warning'] }),
+        createMission(),
+        createMission(),
+      ])
+
+      expect(buildWeeklyRouteIntel(dive, 'normal').note).toBe(note)
+    }
   })
 
   it('keeps elite clean fallback sharper than normal clean fallback', () => {

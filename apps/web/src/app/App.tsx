@@ -1,6 +1,5 @@
 import { createEffect, Errored, Loading, lazy, Show } from 'solid-js'
 import type { I18n } from '@lingui/core'
-import { MetaProvider } from '@solidjs/meta'
 import { Route, Router } from '@solidjs/router'
 import type { JSX } from '@solidjs/web'
 import { AppCrashScreen } from '~/app/AppCrashScreen'
@@ -30,36 +29,34 @@ export function App(props: AppProps): JSX.Element {
 
   return (
     <I18nProvider i18n={props.i18n}>
-      <MetaProvider>
-        <Errored
-          fallback={(error) => {
-            createEffect(error, (value) => console.error('AppErrorBoundary', value))
+      <Errored
+        fallback={(error) => {
+          createEffect(error, (value) => console.error('AppErrorBoundary', value))
 
-            // A runtime crash is never a normal state for this app, so no
-            // soft-reset ceremony: recover with a real reload — through the
-            // waiting service worker when an update is available, so a crash
-            // fixed by a fresh deploy is actually recoverable.
-            const recover = (): void => {
-              if (pwaNotice.notice() != null) void pwaNotice.reloadForUpdate()
-              else window.location.reload()
-            }
+          // A runtime crash is never a normal state for this app, so no
+          // soft-reset ceremony: recover with a real reload — through the
+          // waiting service worker when an update is available, so a crash
+          // fixed by a fresh deploy is actually recoverable.
+          const recover = (): void => {
+            if (pwaNotice.notice() != null) void pwaNotice.reloadForUpdate()
+            else window.location.reload()
+          }
 
-            return <AppCrashScreen dockVisible={pwaDockVisible()} onRecover={recover} />
-          }}
-        >
-          <Router root={(props) => <Loading>{props.children}</Loading>}>
-            <Route path="/" component={() => <WeeklyPage dockVisible={pwaDockVisible()} />} />
-            {WeeklyPlaygroundPage != null ? (
-              <Route path="/__playground/:scenario?" component={WeeklyPlaygroundPage} />
-            ) : null}
-            <Route path="*404" component={() => <NotFoundPage dockVisible={pwaDockVisible()} />} />
-          </Router>
-        </Errored>
+          return <AppCrashScreen dockVisible={pwaDockVisible()} onRecover={recover} />
+        }}
+      >
+        <Router root={(props) => <Loading>{props.children}</Loading>}>
+          <Route path="/" component={() => <WeeklyPage dockVisible={pwaDockVisible()} />} />
+          {WeeklyPlaygroundPage != null ? (
+            <Route path="/__playground/:scenario?" component={WeeklyPlaygroundPage} />
+          ) : null}
+          <Route path="*404" component={() => <NotFoundPage dockVisible={pwaDockVisible()} />} />
+        </Router>
+      </Errored>
 
-        <Show when={pwaDockVisible()}>
-          <PwaNotice onReload={pwaNotice.reloadForUpdate} />
-        </Show>
-      </MetaProvider>
+      <Show when={pwaDockVisible()}>
+        <PwaNotice onReload={pwaNotice.reloadForUpdate} />
+      </Show>
     </I18nProvider>
   )
 }

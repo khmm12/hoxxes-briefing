@@ -46,7 +46,7 @@ export async function clearCachedWeeklySnapshot(request: RequestInfo | URL = wee
 }
 
 export async function clearStaleWeeklySnapshotCache(): Promise<void> {
-  if (!isCacheStorageAvailable) return
+  if (!isCacheStorageAvailable()) return
 
   const cacheKeys = await caches.keys()
   const staleWeeklyDataCaches = cacheKeys.filter((cacheName) => {

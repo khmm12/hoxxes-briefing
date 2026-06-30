@@ -1,13 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { fetchWeeklySnapshot, weeklySnapshotUrl } from './weekly-client'
-import { clearCachedWeeklySnapshot, readCachedWeeklySnapshot, writeCachedWeeklySnapshot } from './weekly-client-cache'
-
-type FakeCache = {
-  initialResponse?: Response
-  match: ReturnType<typeof vi.fn>
-  put: ReturnType<typeof vi.fn>
-  delete: ReturnType<typeof vi.fn>
-}
 
 const createMission = () => ({
   primaryObjective: {
@@ -20,6 +12,12 @@ const createMission = () => ({
   },
   mutator: null,
   warning: 'RegenerativeBugs' as const,
+})
+
+const createDive = (name: string) => ({
+  name,
+  biome: 'AzureWeald' as const,
+  missions: [createMission(), createMission(), createMission()],
 })
 
 const createWeeklyPayload = () => ({
@@ -35,15 +33,8 @@ const createWeeklyPayload = () => ({
   },
 })
 
-const createDive = (name: string) => ({
-  name,
-  biome: 'AzureWeald' as const,
-  missions: [createMission(), createMission(), createMission()],
-})
-
 afterEach(() => {
   vi.restoreAllMocks()
-  vi.unstubAllGlobals()
 })
 
 describe('fetchWeeklySnapshot', () => {
@@ -133,63 +124,37 @@ describe('fetchWeeklySnapshot', () => {
       status: 200,
     })
   })
-})
 
-describe('weekly cache helpers', () => {
-  it('write/read/delete cache helpers persist and clear a schema-versioned snapshot', async () => {
-    const fakeCache = createFakeCache()
-    vi.stubGlobal('caches', {
-      open: vi.fn(async () => fakeCache),
+  it('throws an invalid-payload error when a success body is not valid JSON', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(
+      new Response('<<not json>>', {
+        status: 200,
+        headers: {
+          'content-type': 'application/json',
+        },
+      }),
+    )
+
+    await expect(fetchWeeklySnapshot({ fetch: fetchImpl })).rejects.toMatchObject({
+      kind: 'invalid-payload',
+      status: 200,
     })
-
-    const payload = createWeeklyPayload()
-    await writeCachedWeeklySnapshot(payload)
-
-    expect(fakeCache.put).toHaveBeenCalledOnce()
-    const [request, response] = fakeCache.put.mock.calls[0]
-    expect(request).toBe('/api/v1/weekly')
-
-    const raw = await response.clone().json()
-    expect(raw.schemaVersion).toBe(1)
-    expect(raw.payload.week.id).toBe('2026-W17')
-
-    const readResult = await readCachedWeeklySnapshot()
-    expect(readResult).toBeDefined()
-    expect(readResult?.week.id).toBe('2026-W17')
-
-    await clearCachedWeeklySnapshot()
-    expect(fakeCache.delete).toHaveBeenCalledWith('/api/v1/weekly')
   })
 
-  it('delete helper clears only the weekly snapshot key', async () => {
-    const deleteMock = vi.fn(async () => undefined)
-    const fakeCache = createFakeCache({ delete: deleteMock })
+  it('falls back to a generic API error when a non-2xx body is not a structured error', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ unexpected: true }), {
+        status: 500,
+        headers: {
+          'content-type': 'application/json',
+        },
+      }),
+    )
 
-    vi.stubGlobal('caches', {
-      open: vi.fn(async () => fakeCache),
+    await expect(fetchWeeklySnapshot({ fetch: fetchImpl })).rejects.toMatchObject({
+      kind: 'api',
+      status: 500,
+      publicError: undefined,
     })
-
-    await clearCachedWeeklySnapshot('https://example.test/api/v1/weekly?source=ui')
-
-    expect(deleteMock).toHaveBeenCalledOnce()
-    expect(deleteMock).toHaveBeenCalledWith('/api/v1/weekly?source=ui')
   })
 })
-
-function createFakeCache(overrides: Partial<FakeCache> = {}): FakeCache {
-  let response = overrides.initialResponse
-  const match = vi.fn(async () => response)
-  const put = vi.fn(async (_request: RequestInfo | URL, next: Response) => {
-    response = next
-  })
-  const deleteFn = vi.fn(async () => {
-    response = undefined
-  })
-
-  return {
-    match,
-    put: overrides.put ?? put,
-    delete: overrides.delete ?? deleteFn,
-    initialResponse: response,
-  }
-}

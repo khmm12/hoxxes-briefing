@@ -15,6 +15,11 @@ export function createWebViteConfig(): ViteUserConfig {
   return {
     plugins: [
       solidPlugin({
+        // Under Vitest, disable the solid-refresh HMR wrapper: it has no meaning
+        // in a single test run and its component proxy breaks v8's source-mapped
+        // coverage for thin wrapper components (and prefixes test names with
+        // `[solid-refresh]`). Left on for `vite dev`, where HMR matters.
+        refresh: { disabled: process.env.VITEST != null },
         babel: {
           plugins: ['@lingui/babel-plugin-lingui-macro'],
         },
@@ -56,6 +61,7 @@ export function createWebViteConfig(): ViteUserConfig {
     resolve: {
       alias: {
         '~': fileURLToPath(new URL('./src', import.meta.url)),
+        '~test': fileURLToPath(new URL('./test', import.meta.url)),
         'styled-system': fileURLToPath(new URL('./styled-system', import.meta.url)),
       },
     },
@@ -67,8 +73,21 @@ export function createWebViteConfig(): ViteUserConfig {
       },
     },
     test: {
-      environment: 'node',
-      include: ['*.test.ts', 'src/**/*.test.ts'],
+      environment: 'jsdom',
+      setupFiles: ['./vitest.setup.ts'],
+      include: ['*.test.{ts,tsx}', 'src/**/*.test.{ts,tsx}'],
+      coverage: {
+        provider: 'v8',
+        include: ['src/**/*.{ts,tsx}'],
+        // Type-only files, the bootstrap entry, the service worker (covered by
+        // its own sw.test.ts), and the dev-only playground/fixtures are not
+        // behavior we unit-test here. NB: do NOT blanket-exclude index.{ts,tsx} —
+        // under FSD the component implementations live in `<Name>/index.tsx`
+        // (and shared/ui/styling/index.ts holds real logic), so that glob would
+        // drop the very files these tests cover. Pure re-export barrels stay in
+        // and read ~100% once a test imports through them.
+        exclude: ['src/**/*.d.ts', 'src/main.tsx', 'src/app/sw.ts', 'src/**/dev/**'],
+      },
     },
   }
 }

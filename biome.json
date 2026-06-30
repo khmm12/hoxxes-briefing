@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!crates/drg_mission_gen_wasm/pkg"]
+		"includes": ["**", "!crates/drg_mission_gen_wasm/pkg", "!skills-lock.json"]
 	},
 	"formatter": {
 		"enabled": true,

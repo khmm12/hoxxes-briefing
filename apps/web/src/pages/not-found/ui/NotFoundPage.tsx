@@ -1,9 +1,8 @@
-import { untrack } from 'solid-js'
 import { msg } from '@lingui/core/macro'
-import { Title } from '@solidjs/meta'
 import { A } from '@solidjs/router'
 import type { JSX } from '@solidjs/web'
 import { useI18n } from '~/shared/i18n'
+import { Title } from '~/shared/lib/document-head'
 import { ActionControl } from '~/shared/ui/action-button'
 import { NotFoundIcon } from '~/shared/ui/icon'
 import { AppLayout } from '~/shared/ui/layout'
@@ -15,11 +14,10 @@ type NotFoundPageProps = {
 
 export function NotFoundPage(props: NotFoundPageProps): JSX.Element {
   const i18n = useI18n()
-  const pageTitle = untrack(() => i18n._(msg`Hoxxes Briefing | Not Found`))
 
   return (
     <AppLayout dockVisible={props.dockVisible}>
-      <Title>{pageTitle}</Title>
+      <Title>{i18n._(msg`Hoxxes Briefing | Not Found`)}</Title>
       <StateScreen
         action={
           <ActionControl component={A} href="/">
