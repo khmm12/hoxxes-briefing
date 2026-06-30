@@ -160,6 +160,12 @@ describe('formatMutatorDescription', () => {
   it.each(mutators)('returns flavor text for %s', (mutator) => {
     expect(formatMutatorDescription(i18n, mutator)).toBeTruthy()
   })
+
+  it('gives every mutator its own flavor text', () => {
+    const texts = mutators.map((mutator) => formatMutatorDescription(i18n, mutator))
+
+    expect(new Set(texts).size).toBe(mutators.length)
+  })
 })
 
 describe('formatWarningDescription', () => {
@@ -184,5 +190,11 @@ describe('formatWarningDescription', () => {
 
   it.each(warnings)('returns flavor text for %s', (warning) => {
     expect(formatWarningDescription(i18n, warning)).toBeTruthy()
+  })
+
+  it('gives every warning its own flavor text', () => {
+    const texts = warnings.map((warning) => formatWarningDescription(i18n, warning))
+
+    expect(new Set(texts).size).toBe(warnings.length)
   })
 })

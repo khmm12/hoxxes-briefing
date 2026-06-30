@@ -57,14 +57,23 @@ describe('createOnlineStatus', () => {
     expect(result()).toBe(true)
   })
 
-  it('removes both listeners on dispose', () => {
+  it('removes the exact listeners it registered on dispose', () => {
+    const addSpy = vi.spyOn(window, 'addEventListener')
     const removeSpy = vi.spyOn(window, 'removeEventListener')
 
     const { cleanup } = renderHook(() => createOnlineStatus())
     flush()
+
+    const registered = addSpy.mock.calls.filter(([type]) => type === 'online' || type === 'offline')
+    expect(registered).toHaveLength(2)
+
     cleanup()
     flush()
 
-    expect(removeSpy.mock.calls.map((call) => call[0]).sort()).toEqual(['offline', 'online'])
+    // Pin handler identity, not just the event type: a regression that removed
+    // the wrong function would still touch both types and slip past.
+    for (const [type, handler] of registered) {
+      expect(removeSpy).toHaveBeenCalledWith(type, handler)
+    }
   })
 })

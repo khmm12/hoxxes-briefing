@@ -78,6 +78,21 @@ describe('createLocalStorage', () => {
     expect(localStorage.getItem('hoxxes-briefing-dive-kind')).toBe('"elite"')
   })
 
+  it('starts undefined when localStorage.getItem throws', () => {
+    // Safari private mode denies storage access by throwing on read; init
+    // must degrade to in-memory state, not crash the component tree.
+    const getItem = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+      throw new Error('access denied')
+    })
+
+    const { result } = renderHook(() => createLocalStorage('dive-kind', schema))
+    const [value] = result
+
+    expect(value()).toBeUndefined()
+
+    getItem.mockRestore()
+  })
+
   it('keeps the in-memory value when localStorage.setItem throws', () => {
     const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('quota exceeded')

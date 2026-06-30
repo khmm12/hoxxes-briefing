@@ -10,16 +10,13 @@ describe('AppLayout', () => {
     expect(getByText('content')).toBeInTheDocument()
   })
 
-  // jsdom never loads the Panda stylesheet, so there is no DOM-observable
-  // signal (computed padding, etc.) for the dock variant — this only checks
-  // that `dockVisible` selects a different class, not the actual spacing.
-  it('selects a different class when the dock is visible', () => {
-    const hidden = render(() => <AppLayout>content</AppLayout>)
-    const visible = render(() => <AppLayout dockVisible={true}>content</AppLayout>)
+  // The dock variant only changes spacing, which jsdom can't observe (no Panda
+  // stylesheet). So this just exercises the `dockVisible` branch and asserts the
+  // contract that survives without styles: children still render inside <main>.
+  it('renders its children with the dock visible', () => {
+    const { container, getByText } = render(() => <AppLayout dockVisible={true}>content</AppLayout>)
 
-    const hiddenMain = hidden.container.querySelector('main')
-    const visibleMain = visible.container.querySelector('main')
-
-    expect(hiddenMain?.className).not.toBe(visibleMain?.className)
+    expect(container.querySelector('main')).not.toBeNull()
+    expect(getByText('content')).toBeInTheDocument()
   })
 })

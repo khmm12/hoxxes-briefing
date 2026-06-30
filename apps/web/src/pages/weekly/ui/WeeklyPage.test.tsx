@@ -1,8 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { fireEvent, render } from '@solidjs/testing-library'
+import { fireEvent } from '@solidjs/testing-library'
 import type { WeeklySnapshotResult } from '~/shared/api'
-import { I18nProvider } from '~/shared/i18n'
-import { createTestI18n } from '~test/render'
+import { renderWithProviders } from '~test/render'
 import { WeeklyPage } from './WeeklyPage'
 
 // createWeeklyBoardQuery (model/create-weekly-board-query.ts) talks to the
@@ -80,11 +79,7 @@ function jsonResponse(body: unknown, status = 200): Response {
 }
 
 function renderWeeklyPage(dockVisible: boolean) {
-  return render(() => (
-    <I18nProvider i18n={createTestI18n()}>
-      <WeeklyPage dockVisible={dockVisible} />
-    </I18nProvider>
-  ))
+  return renderWithProviders(() => <WeeklyPage dockVisible={dockVisible} />)
 }
 
 describe('WeeklyPage', () => {

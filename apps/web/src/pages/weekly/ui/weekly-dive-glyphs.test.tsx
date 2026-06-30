@@ -65,6 +65,12 @@ describe('SecondaryObjectiveKindIcon', () => {
   it.each(kinds)('renders a glyph path for %s', (kind) => {
     expect(renderedGlyphPath(() => <SecondaryObjectiveKindIcon kind={kind} />)).not.toBe('')
   })
+
+  it('renders a different path per kind', () => {
+    const paths = kinds.map((kind) => renderedGlyphPath(() => <SecondaryObjectiveKindIcon kind={kind} />))
+
+    expect(new Set(paths).size).toBe(kinds.length)
+  })
 })
 
 describe('WarningKindIcon', () => {
@@ -91,6 +97,12 @@ describe('WarningKindIcon', () => {
     expect(renderedGlyphPath(() => <WarningKindIcon kind={kind} />)).not.toBe('')
   })
 
+  it('renders a different path per kind', () => {
+    const paths = kinds.map((kind) => renderedGlyphPath(() => <WarningKindIcon kind={kind} />))
+
+    expect(new Set(paths).size).toBe(kinds.length)
+  })
+
   it('falls back to the generic warning glyph when there is no warning', () => {
     const fallbackPath = renderedGlyphPath(() => <WarningKindIcon kind={null} />)
     const knownPath = renderedGlyphPath(() => <WarningKindIcon kind="EliteThreat" />)
@@ -105,6 +117,12 @@ describe('MutatorKindIcon', () => {
 
   it.each(kinds)('renders a glyph path for %s', (kind) => {
     expect(renderedGlyphPath(() => <MutatorKindIcon kind={kind} />)).not.toBe('')
+  })
+
+  it('renders a different path per kind', () => {
+    const paths = kinds.map((kind) => renderedGlyphPath(() => <MutatorKindIcon kind={kind} />))
+
+    expect(new Set(paths).size).toBe(kinds.length)
   })
 
   it('falls back to the generic mutator glyph when there is no mutator', () => {
@@ -135,10 +153,19 @@ describe('BiomeKindIcon', () => {
     expect(renderedGlyphPath(() => <BiomeKindIcon kind={kind} />)).not.toBe('')
   })
 
-  it('tints the glyph with the biome accent color', () => {
-    const { container } = render(() => <BiomeKindIcon kind="MagmaCore" />)
-    const svg = container.querySelector('svg')
+  it('renders a different path per kind', () => {
+    const paths = kinds.map((kind) => renderedGlyphPath(() => <BiomeKindIcon kind={kind} />))
 
-    expect(svg?.style.color).not.toBe('')
+    expect(new Set(paths).size).toBe(kinds.length)
+  })
+
+  it('tints each biome glyph with its own accent color', () => {
+    const colors = kinds.map((kind) => {
+      const { container } = render(() => <BiomeKindIcon kind={kind} />)
+      return container.querySelector('svg')?.style.color ?? ''
+    })
+
+    expect(colors.every((color) => color !== '')).toBe(true)
+    expect(new Set(colors).size).toBe(kinds.length)
   })
 })
