@@ -32,6 +32,17 @@ const deckStyles = css.raw({
   // anchoring from compensating the shift and fighting the scroll-linked
   // progress (Safari has no anchoring).
   overflowAnchor: 'none',
+  // How much the pinned switch loses to the collapse — the single source the
+  // chip's min-height and the compensation below both read, so a retune can't
+  // desync them and silently revive the feedback loop.
+  '--shrink-amount': '0.75rem',
+  // Reclaim exactly what the bar sheds as it pins, so the document's height
+  // never tracks `--shrink-progress`. Without this the page shortens as you
+  // scroll into the collapse; at the bottom edge the scroll clamps, progress
+  // backs off, and the bar judders between sizes (worst on short overflow —
+  // iPad Mini). Holding the height constant lets a too-short page simply not
+  // finish the collapse instead of fighting it.
+  paddingBottom: '[calc(var(--shrink-amount) * var(--shrink-progress, 0))]',
 })
 
 // The switch is the sticky bar: it pins to the viewport top at full size,
@@ -75,8 +86,10 @@ const switchChipRecipe = cva({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // control.tab (2.75rem) at rest → 2rem stuck, driven by scroll.
-    minHeight: '[calc(token(sizes.control.tab) - 0.75rem * var(--shrink-progress, 0))]',
+    // control.tab (2.75rem) at rest → 2rem stuck, driven by scroll. The shed
+    // height (--shrink-amount) is reclaimed by the deck's padding so the
+    // document height stays put.
+    minHeight: '[calc(token(sizes.control.tab) - var(--shrink-amount) * var(--shrink-progress, 0))]',
     paddingBlock: '[calc(token(spacing.2) - 0.25rem * var(--shrink-progress, 0))]',
     paddingInline: '3',
     borderWidth: '1px',
