@@ -22,8 +22,15 @@ Rules in this file apply under `apps/`.
 - Annotate module-level constructor calls assigned to constants
   (`v.picklist(...)`, `createContext(...)`, `new Map()`, `new URL(...)`)
   with `/* @__PURE__ */` so they stay tree-shakeable.
-- Vitest runs with `environment: 'node'` — no DOM or localStorage in tests.
-  Extract pure logic from hooks and test that (see `create-local-storage`).
+- Vitest runs under `jsdom` with `@solidjs/testing-library`. Render components
+  via `renderWithProviders` from `~test/render` (wraps the tree in the i18n
+  provider with the real en-US catalog); query through the returned helpers,
+  not a global `screen` (there is none). Reactive primitives: drive them in
+  `createRoot`/`renderHook` and `flush()` before asserting. The two node-only
+  suites (`sw`, `vite-proxy`) opt back out with a `// @vitest-environment node`
+  docblock. jsdom has no real layout — embla/scroll/observer-driven code still
+  needs its pure logic extracted and unit-tested (see `create-shrink-progress`,
+  `create-swipe-deck`); don't fake layout geometry.
 - Environment-dependent permissions (persistence, …) go through
   `shared/lib/app-capabilities` (`useAppCapabilities()`); consumers ask
   what is allowed, never where they run. The dev playground renders

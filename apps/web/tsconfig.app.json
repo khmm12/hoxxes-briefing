@@ -6,7 +6,11 @@
 		"jsx": "preserve",
 		"jsxImportSource": "@solidjs/web",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"types": ["vite/client", "vite-plugin-pwa/solid", "@testing-library/jest-dom"],
+		"types": [
+			"vite/client",
+			"vite-plugin-pwa/solid",
+			"@testing-library/jest-dom"
+		],
 		"paths": {
 			"~/*": ["./src/*"],
 			"~test/*": ["./test/*"],
@@ -15,6 +19,12 @@
 		"composite": true,
 		"tsBuildInfoFile": "../../node_modules/.tmp/apps-web.tsconfig.app.tsbuildinfo"
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "test/**/*.ts", "test/**/*.tsx"],
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"src/**/*.d.ts",
+		"test/**/*.ts",
+		"test/**/*.tsx"
+	],
 	"exclude": ["src/app/sw.ts", "styled-system"]
 }

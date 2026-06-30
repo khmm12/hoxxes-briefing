@@ -1,5 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { isSameKey, streamCachedQuery } from './create-cached-query'
+import { createSignal, flush, resolve } from 'solid-js'
+import { renderHook } from '@solidjs/testing-library'
+import { createCachedQuery, isSameKey, streamCachedQuery } from './create-cached-query'
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -364,6 +366,97 @@ describe('streamCachedQuery', () => {
 
     expect(cache.get).not.toHaveBeenCalled()
     expect(cache.set).not.toHaveBeenCalled()
+  })
+})
+
+describe('createCachedQuery', () => {
+  it('exposes the resolved value, its source, and a settled pending state', async () => {
+    const key = ['weekly'] as const
+    const networkValue = { weekId: '2026-W17' }
+    const cache = {
+      get: vi.fn().mockResolvedValue(undefined),
+      set: vi.fn().mockResolvedValue(undefined),
+    }
+
+    const { result } = renderHook(() =>
+      createCachedQuery({
+        source: () => key,
+        fetcher: vi.fn().mockResolvedValue(networkValue),
+        cache,
+        timeoutMs: 50,
+      }),
+    )
+
+    await resolve(() => result.data)
+    flush()
+
+    expect(result.data).toEqual(networkValue)
+    expect(result.source).toBe('network')
+    expect(result.pending).toBe(false)
+    expect(result.lastRefreshError).toBeNull()
+  })
+
+  it('surfaces a refresh error without losing the previously visible value', async () => {
+    const key = ['weekly'] as const
+    const networkValue = { weekId: '2026-W17' }
+    const cache = {
+      get: vi.fn().mockResolvedValue(undefined),
+      set: vi.fn().mockResolvedValue(undefined),
+    }
+    const fetcher = vi.fn().mockResolvedValueOnce(networkValue)
+
+    const { result } = renderHook(() =>
+      createCachedQuery({
+        source: () => key,
+        fetcher,
+        cache,
+        timeoutMs: 50,
+      }),
+    )
+
+    await resolve(() => result.data)
+    flush()
+    expect(result.lastRefreshError).toBeNull()
+
+    const refreshError = new Error('offline')
+    fetcher.mockRejectedValueOnce(refreshError)
+    result.refresh()
+    flush()
+    await resolve(() => result.data)
+    flush()
+
+    expect(result.data).toEqual(networkValue)
+    expect(result.lastRefreshError).toBe(refreshError)
+  })
+
+  it('refetches when the source key changes', async () => {
+    const cache = {
+      get: vi.fn().mockResolvedValue(undefined),
+      set: vi.fn().mockResolvedValue(undefined),
+    }
+    const fetcher = vi.fn().mockResolvedValueOnce({ weekId: 'first' }).mockResolvedValueOnce({ weekId: 'second' })
+    const [weekId, setWeekId] = createSignal('first')
+
+    const { result } = renderHook(() =>
+      createCachedQuery({
+        source: () => [weekId()] as const,
+        fetcher,
+        cache,
+        timeoutMs: 50,
+      }),
+    )
+
+    await resolve(() => result.data)
+    flush()
+    expect(result.data).toEqual({ weekId: 'first' })
+
+    setWeekId('second')
+    flush()
+    await resolve(() => result.data)
+    flush()
+
+    expect(result.data).toEqual({ weekId: 'second' })
+    expect(fetcher).toHaveBeenCalledTimes(2)
   })
 })
 

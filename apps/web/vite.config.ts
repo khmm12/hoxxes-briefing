@@ -74,10 +74,14 @@ export function createWebViteConfig(): ViteUserConfig {
       coverage: {
         provider: 'v8',
         include: ['src/**/*.{ts,tsx}'],
-        // Generated Panda output, type-only files, barrels, the bootstrap entry,
-        // the service worker (covered by its own sw.test.ts), and the dev-only
-        // playground/fixtures are not behavior we unit-test here.
-        exclude: ['src/**/*.d.ts', 'src/**/index.{ts,tsx}', 'src/main.tsx', 'src/app/sw.ts', 'src/**/dev/**'],
+        // Type-only files, the bootstrap entry, the service worker (covered by
+        // its own sw.test.ts), and the dev-only playground/fixtures are not
+        // behavior we unit-test here. NB: do NOT blanket-exclude index.{ts,tsx} —
+        // under FSD the component implementations live in `<Name>/index.tsx`
+        // (and shared/ui/styling/index.ts holds real logic), so that glob would
+        // drop the very files these tests cover. Pure re-export barrels stay in
+        // and read ~100% once a test imports through them.
+        exclude: ['src/**/*.d.ts', 'src/main.tsx', 'src/app/sw.ts', 'src/**/dev/**'],
       },
     },
   }
