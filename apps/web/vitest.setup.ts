@@ -1,4 +1,11 @@
 import '@testing-library/jest-dom/vitest'
+import { afterEach } from 'vitest'
+import { cleanup } from '@solidjs/testing-library'
+
+// @solidjs/testing-library only self-registers cleanup when `afterEach` is a
+// global, which it is not here (vitest globals are off). Register it once so
+// every rendered tree is unmounted between tests and document.body stays clean.
+afterEach(cleanup)
 
 // jsdom ships no matchMedia; create-media-query reads it at construction time.
 // Default to "not matching" so breakpoint-reactive code has a deterministic
