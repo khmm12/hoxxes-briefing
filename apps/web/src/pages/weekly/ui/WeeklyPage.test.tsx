@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { MetaProvider } from '@solidjs/meta'
 import { fireEvent, render } from '@solidjs/testing-library'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { I18nProvider } from '~/shared/i18n'
@@ -80,14 +79,10 @@ function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } })
 }
 
-// <Title>/<Meta> need @solidjs/meta's head context, which renderWithProviders
-// does not set up (most pages don't render either tag).
 function renderWeeklyPage(dockVisible: boolean) {
   return render(() => (
     <I18nProvider i18n={createTestI18n()}>
-      <MetaProvider>
-        <WeeklyPage dockVisible={dockVisible} />
-      </MetaProvider>
+      <WeeklyPage dockVisible={dockVisible} />
     </I18nProvider>
   ))
 }
@@ -97,15 +92,6 @@ describe('WeeklyPage', () => {
 
   beforeEach(() => {
     realFetch = globalThis.fetch
-
-    // @solidjs/meta 0.30.0-next.0 emits a spurious STRICT_READ_UNTRACKED on
-    // <Title>; our code is clean. Swallow only that known line so real
-    // warnings still fail loud. Remove when @solidjs/meta is upgraded.
-    const realWarn = console.warn.bind(console)
-    vi.spyOn(console, 'warn').mockImplementation((...args) => {
-      if (typeof args[0] === 'string' && args[0].includes('[STRICT_READ_UNTRACKED]')) return
-      realWarn(...args)
-    })
   })
 
   afterEach(() => {

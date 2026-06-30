@@ -73,9 +73,6 @@ importers:
       '@lingui/core':
         specifier: ^6.4.0
         version: 6.4.0
-      '@solidjs/meta':
-        specifier: 0.30.0-next.0
-        version: 0.30.0-next.0(@solidjs/web@2.0.0-beta.15(solid-js@2.0.0-beta.15))(solid-js@2.0.0-beta.15)
       '@solidjs/router':
         specifier: 0.17.0-next.3
         version: 0.17.0-next.3(@solidjs/web@2.0.0-beta.15(solid-js@2.0.0-beta.15))(solid-js@2.0.0-beta.15)
@@ -1774,12 +1771,6 @@ packages:
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
-
-  '@solidjs/meta@0.30.0-next.0':
-    resolution: {integrity: sha512-jzaOMQDrgEM3G6ykcr+kh5F3H/1Hz1SWs+mmQMjU3gGN2pmrMIa+scMMvcxBIt+keqlVBdCdJNQ4yr/QnWDDMA==}
-    peerDependencies:
-      '@solidjs/web': '>=2.0.0-beta.0 <2.0.0'
-      solid-js: '>=2.0.0-beta.0 <2.0.0'
 
   '@solidjs/router@0.17.0-next.3':
     resolution: {integrity: sha512-zI3bvcSNkIe89Hy5/s4u14OrcCUspUq5FFbqKNME0BuofTnbZmn9MXcG9cdQiNYI2a51JO1q5Ss9fN7YuAjM9Q==}
@@ -5952,11 +5943,6 @@ snapshots:
   '@sinclair/typebox@0.27.10': {}
 
   '@sindresorhus/merge-streams@2.3.0': {}
-
-  '@solidjs/meta@0.30.0-next.0(@solidjs/web@2.0.0-beta.15(solid-js@2.0.0-beta.15))(solid-js@2.0.0-beta.15)':
-    dependencies:
-      '@solidjs/web': 2.0.0-beta.15(solid-js@2.0.0-beta.15)
-      solid-js: 2.0.0-beta.15
 
   '@solidjs/router@0.17.0-next.3(@solidjs/web@2.0.0-beta.15(solid-js@2.0.0-beta.15))(solid-js@2.0.0-beta.15)':
     dependencies:

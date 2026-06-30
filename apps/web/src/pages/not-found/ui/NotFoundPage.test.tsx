@@ -1,21 +1,18 @@
 import { describe, expect, it } from 'vitest'
-import { MetaProvider } from '@solidjs/meta'
 import { MemoryRouter, Route } from '@solidjs/router'
 import { render } from '@solidjs/testing-library'
 import { I18nProvider } from '~/shared/i18n'
 import { createTestI18n } from '~test/render'
 import { NotFoundPage } from './NotFoundPage'
 
-// NotFoundPage uses <A> and <Title>, which need router and meta context — a
-// MemoryRouter wired to a single root route stands in for the real app shell.
+// NotFoundPage uses <A>, which needs router context — a MemoryRouter wired to a
+// single root route stands in for the real app shell.
 function renderNotFoundPage(dockVisible: boolean) {
   return render(() => (
     <I18nProvider i18n={createTestI18n()}>
-      <MetaProvider>
-        <MemoryRouter root={(props) => <>{props.children}</>}>
-          <Route path="/" component={() => <NotFoundPage dockVisible={dockVisible} />} />
-        </MemoryRouter>
-      </MetaProvider>
+      <MemoryRouter root={(props) => <>{props.children}</>}>
+        <Route path="/" component={() => <NotFoundPage dockVisible={dockVisible} />} />
+      </MemoryRouter>
     </I18nProvider>
   ))
 }
