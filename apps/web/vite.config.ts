@@ -56,6 +56,7 @@ export function createWebViteConfig(): ViteUserConfig {
     resolve: {
       alias: {
         '~': fileURLToPath(new URL('./src', import.meta.url)),
+        '~test': fileURLToPath(new URL('./test', import.meta.url)),
         'styled-system': fileURLToPath(new URL('./styled-system', import.meta.url)),
       },
     },
@@ -67,8 +68,17 @@ export function createWebViteConfig(): ViteUserConfig {
       },
     },
     test: {
-      environment: 'node',
-      include: ['*.test.ts', 'src/**/*.test.ts'],
+      environment: 'jsdom',
+      setupFiles: ['./vitest.setup.ts'],
+      include: ['*.test.{ts,tsx}', 'src/**/*.test.{ts,tsx}'],
+      coverage: {
+        provider: 'v8',
+        include: ['src/**/*.{ts,tsx}'],
+        // Generated Panda output, type-only files, barrels, the bootstrap entry,
+        // the service worker (covered by its own sw.test.ts), and the dev-only
+        // playground/fixtures are not behavior we unit-test here.
+        exclude: ['src/**/*.d.ts', 'src/**/index.{ts,tsx}', 'src/main.tsx', 'src/app/sw.ts', 'src/**/dev/**'],
+      },
     },
   }
 }
