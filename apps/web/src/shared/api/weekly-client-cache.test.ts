@@ -1,6 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { weeklySnapshotUrl } from './weekly-client'
-import { clearCachedWeeklySnapshot, readCachedWeeklySnapshot, writeCachedWeeklySnapshot } from './weekly-client-cache'
+import {
+  clearCachedWeeklySnapshot,
+  clearStaleWeeklySnapshotCache,
+  readCachedWeeklySnapshot,
+  writeCachedWeeklySnapshot,
+} from './weekly-client-cache'
 
 type FakeCache = {
   initialResponse?: Response
@@ -116,6 +121,31 @@ describe('weekly cache helpers', () => {
     await clearCachedWeeklySnapshot('http://')
 
     expect(deleteMock).toHaveBeenCalledWith(weeklySnapshotUrl)
+  })
+})
+
+describe('clearStaleWeeklySnapshotCache', () => {
+  it('resolves without touching CacheStorage when it is unavailable', async () => {
+    // jsdom defines no `caches`; the guard must short-circuit instead of
+    // dereferencing the missing global.
+    await expect(clearStaleWeeklySnapshotCache()).resolves.toBeUndefined()
+  })
+
+  it('evicts superseded weekly cache versions and keeps the live one', async () => {
+    const deleteMock = vi.fn(async () => true)
+    vi.stubGlobal('caches', {
+      keys: vi.fn(async () => [
+        'hoxxes-briefing-weekly-cache-v0',
+        'hoxxes-briefing-weekly-cache-v1',
+        'unrelated-cache',
+      ]),
+      delete: deleteMock,
+    })
+
+    await clearStaleWeeklySnapshotCache()
+
+    expect(deleteMock).toHaveBeenCalledTimes(1)
+    expect(deleteMock).toHaveBeenCalledWith('hoxxes-briefing-weekly-cache-v0')
   })
 })
 
