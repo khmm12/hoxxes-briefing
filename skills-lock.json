@@ -1,23 +1,23 @@
 {
-	"version": 1,
-	"skills": {
-		"feature-sliced-design": {
-			"source": "feature-sliced/skills",
-			"sourceType": "github",
-			"skillPath": "feature-sliced-design/SKILL.md",
-			"computedHash": "c57a32d524addae35b41b07bbfdd35eea3d85b3d0bd8f4779032eb31b62e5ce9"
-		},
-		"solidjs-v2": {
-			"source": "khmm12/solidjs-v2-skills",
-			"sourceType": "github",
-			"skillPath": "skills/solidjs-v2/SKILL.md",
-			"computedHash": "56107139c535081281a4d01e8dfcdc2f79f5aec7b023b36c5b50611075acad4d"
-		},
-		"solidjs-v2-reviewer": {
-			"source": "khmm12/solidjs-v2-skills",
-			"sourceType": "github",
-			"skillPath": "skills/solidjs-v2-reviewer/SKILL.md",
-			"computedHash": "5987f06e45116b308dbf0744def375f2795d7953017091d1bf2f58299dd529ec"
-		}
-	}
+  "version": 1,
+  "skills": {
+    "feature-sliced-design": {
+      "source": "feature-sliced/skills",
+      "sourceType": "github",
+      "skillPath": "feature-sliced-design/SKILL.md",
+      "computedHash": "c57a32d524addae35b41b07bbfdd35eea3d85b3d0bd8f4779032eb31b62e5ce9"
+    },
+    "solidjs-v2": {
+      "source": "khmm12/solidjs-v2-skills",
+      "sourceType": "github",
+      "skillPath": "skills/solidjs-v2/SKILL.md",
+      "computedHash": "f1966152fbe447b0b46d4054b63497abe2419d7d8bef11d08b07ec593478dac0"
+    },
+    "solidjs-v2-reviewer": {
+      "source": "khmm12/solidjs-v2-skills",
+      "sourceType": "github",
+      "skillPath": "skills/solidjs-v2-reviewer/SKILL.md",
+      "computedHash": "5824dcce87080be14cf0a62119456ad7a89597e8fb4872126957cc25b143d164"
+    }
+  }
 }
