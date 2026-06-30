@@ -18,13 +18,7 @@ Rules in this file apply under `apps/`.
 - Do not hand-edit generated `apps/web/styled-system/`.
 - Put reusable UI primitives in `shared/ui`.
 - Upgrade solid-js related packages always together.
-- solid-js 2.0 beta diverges from 1.x in many APIs — verify against the
-  installed typings instead of assuming 1.x knowledge. Known traps:
-  `createEffect(compute, effect)` takes two functions, `<For>` yields plain
-  item values (`keyed={false}` for accessors), DOM attributes are lowercase
-  (`tabindex`), JSX types renamed (e.g. `JSX.ClassValue`), `createSignal`
-  with a generic `T` fails the `Exclude<T, Function>` value overload — seed
-  via the compute-function overload `createSignal(() => initial)` instead.
+- solid-js 2.0 beta diverges from 1.x in many APIs — use `solidjs-v2` skill instead of assuming 1.x knowledge.
 - Annotate module-level constructor calls assigned to constants
   (`v.picklist(...)`, `createContext(...)`, `new Map()`, `new URL(...)`)
   with `/* @__PURE__ */` so they stay tree-shakeable.
@@ -34,9 +28,6 @@ Rules in this file apply under `apps/`.
   `shared/lib/app-capabilities` (`useAppCapabilities()`); consumers ask
   what is allowed, never where they run. The dev playground renders
   scenarios with `persistence: false`.
-- `Portal` from @solidjs/web 2.0.0-beta.14 crashes on mount; `shared/ui/tooltip`
-  appends its panel to `document.body` imperatively (hand-rolled portal) —
-  recheck on solid upgrades and switch back to `Portal` once fixed.
 - Safari-only rendering bugs may not reproduce in Chromium or Playwright
   WebKit — verify in real Safari via safaridriver (`sudo safaridriver --enable`
   once, then WebDriver on :4444). Focusing a tooltip trigger opens it without

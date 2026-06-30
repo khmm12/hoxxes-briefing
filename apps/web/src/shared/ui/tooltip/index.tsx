@@ -1,5 +1,6 @@
-import { createEffect, createSignal, createUniqueId } from 'solid-js'
+import { createEffect, createRenderEffect, createSignal, createUniqueId, Show } from 'solid-js'
 import type { JSX } from '@solidjs/web'
+import { Portal } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import { resolveClass, type StylingProps } from '~/shared/ui/styling'
 
@@ -10,12 +11,9 @@ type TooltipProps = StylingProps & {
   children: JSX.Element
 }
 
-// The panel is created imperatively and appended to `document.body` — a
-// hand-rolled portal. `Portal` from @solidjs/web 2.0.0-beta.14 crashes on
-// mount ("parameter 1 is not of type 'Node'"), and rendering inline is not an
-// option: Safari clips `position: fixed` descendants of an ancestor that
+// The panel renders through a `Portal` into `document.body`: inline is not an
+// option because Safari clips `position: fixed` descendants of an ancestor that
 // combines `overflow: hidden` with a stacking context (e.g. the board slabs).
-// Revisit once Portal is fixed upstream.
 const VIEWPORT_GAP = 8
 const TRIGGER_GAP = 6
 
@@ -51,6 +49,7 @@ export function Tooltip(props: TooltipProps): JSX.Element {
   const tooltipId = createUniqueId()
 
   const [open, setOpen] = createSignal(false)
+  const [$panel, setPanel] = createSignal<HTMLDivElement>()
 
   let $trigger: HTMLSpanElement | undefined
 
@@ -58,59 +57,62 @@ export function Tooltip(props: TooltipProps): JSX.Element {
     setOpen(false)
   }
 
+  // Position from a render effect: by the time
+  // the panel signal is set the portalled node is already in the DOM,
+  // and applying coordinates synchronously here lands them
+  // before paint — the panel never flashes unpositioned.
+  // Include `props.label` to recompute on label changes.
+  createRenderEffect(
+    () => [$panel(), props.align ?? 'center', props.label] as const,
+    ([panel, align]) => {
+      if (panel == null || $trigger == null) return
+      assignStyles(panel, computeStyles(panel, $trigger, { align }))
+    },
+  )
+
+  // Global dismiss listeners are needed only while the tooltip is visible.
   createEffect(
-    () => (open() ? props.label : null),
-    (label) => {
-      if (label == null || $trigger == null) return
-
-      const $panel = createPanelElement(tooltipId, label)
-      document.body.appendChild($panel)
-
-      assignStyles($panel, computeStyles($panel, $trigger, { align: props.align ?? 'center' }))
-
-      const stopDismissListeners = listenForDismiss($trigger, close)
-
-      return () => {
-        stopDismissListeners()
-        $panel.remove()
-      }
+    () => open(),
+    (isOpen) => {
+      if (!isOpen || $trigger == null) return
+      return listenForDismiss($trigger, close)
     },
   )
 
   return (
-    // biome-ignore lint/a11y/noStaticElementInteractions: ARIA tooltip pattern — the trigger is a focusable wrapper, not a button
-    // biome-ignore lint/a11y/useKeyWithClickEvents: onClick is a touch-only affordance; keyboard users open via focus
-    <span
-      ref={$trigger}
-      aria-describedby={open() ? tooltipId : undefined}
-      class={resolveClass(props.class, props.css, triggerStyles)}
-      tabindex="0"
-      onClick={() => {
-        // Touch taps may not focus a tabbable span on every platform; make
-        // sure a tap always opens. Closing happens via outside tap or Escape.
-        if (isTouchOnly()) setOpen(true)
-      }}
-      onFocusIn={() => setOpen(true)}
-      onFocusOut={close}
-      onPointerEnter={(event) => {
-        if (event.pointerType === 'mouse') setOpen(true)
-      }}
-      onPointerLeave={(event) => {
-        if (event.pointerType === 'mouse') close()
-      }}
-    >
-      {props.children}
-    </span>
+    <>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: ARIA tooltip pattern — the trigger is a focusable wrapper, not a button */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: onClick is a touch-only affordance; keyboard users open via focus */}
+      <span
+        ref={$trigger}
+        aria-describedby={open() ? tooltipId : undefined}
+        class={resolveClass(props.class, props.css, triggerStyles)}
+        tabindex="0"
+        onClick={() => {
+          // Touch taps may not focus a tabbable span on every platform; make
+          // sure a tap always opens. Closing happens via outside tap or Escape.
+          if (isTouchOnly()) setOpen(true)
+        }}
+        onFocusIn={() => setOpen(true)}
+        onFocusOut={close}
+        onPointerEnter={(event) => {
+          if (event.pointerType === 'mouse') setOpen(true)
+        }}
+        onPointerLeave={(event) => {
+          if (event.pointerType === 'mouse') close()
+        }}
+      >
+        {props.children}
+      </span>
+      <Show when={open()}>
+        <Portal>
+          <div ref={setPanel} id={tooltipId} role="tooltip" class={css(panelStyles)}>
+            {props.label}
+          </div>
+        </Portal>
+      </Show>
+    </>
   )
-}
-
-function createPanelElement(id: string, label: string): HTMLDivElement {
-  const panel = document.createElement('div')
-  panel.id = id
-  panel.setAttribute('role', 'tooltip')
-  panel.className = css(panelStyles)
-  panel.textContent = label
-  return panel
 }
 
 function computeStyles(
