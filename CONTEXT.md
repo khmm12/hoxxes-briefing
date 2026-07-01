@@ -16,20 +16,20 @@ The aggregate root is the **Briefing**:
 **Briefing**:
 The current, time-boxed set of Deep Dives the app serves — the two dives plus
 when the set was released and when it expires. The aggregate root; a new
-Briefing is issued each Reset.
+Briefing is issued each Reset. A real domain word (the briefing a player reads),
+not a coined label — so it legitimately names the concept at both ends: the
+aggregate the API serves and the page the reader opens (`pages/briefing`, per
+FSD). "Briefing" is likewise the canonical qualifier for whatever derives from
+that data — the query that fetches it, the view-state that drives its screen.
 _Avoid_: Weekly (that's cadence, and DRG already uses "Weekly" for Assignments),
-Snapshot, Rotation, Current Deep Dives.
+Snapshot, Rotation, Current Deep Dives; naming the data, query, or view-state
+"board".
 
 **Reset**:
 The cadence event that replaces the current Briefing with a new one (Thursdays,
 11:00 UTC). Before Reset every player sees the same Briefing; after, the previous
 one is gone.
 _Avoid_: rotation tick, refresh, weekly reset.
-
-**Board**:
-The rendered first screen that presents the Briefing — the industrial mission
-board. This is the view, not the data.
-_Avoid_: using "board" to name the fetched data or the query.
 
 ## Deep Dives
 
@@ -177,6 +177,13 @@ A cave region that sets a Deep Dive's visual identity, terrain, and hazards
 
 Shared vocabulary for how the domain is rendered — kept deliberately distinct
 from the data concepts above.
+
+**Board**:
+The assembled first-screen surface that renders a Briefing — the industrial
+mission board holding the command rail, dive deck, and footer. A presentation
+surface, like Deck and Slab; the view, not the data.
+_Avoid_: naming the fetched data, the query, or the derived view-state "board" —
+use **Briefing** for those.
 
 **Deck**:
 The mobile swipe carousel holding the two dives.
