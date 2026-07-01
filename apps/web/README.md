@@ -25,7 +25,7 @@ local API.
 
 ## Ownership
 
-- Weekly page code lives in `src/pages/weekly`.
+- Briefing page code lives in `src/pages/briefing`.
 - App-level PWA behavior lives in `src/app/pwa`; the update-notice widget lives
   in `src/widgets/pwa-notice`.
 - Shared UI primitives live in `src/shared/ui`.

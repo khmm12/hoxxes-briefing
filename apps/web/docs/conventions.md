@@ -34,7 +34,7 @@ exist only as the Panda theme (`panda.config.ts`).
 
 Follow Feature-Sliced Design for placement.
 
-- Weekly-specific composition belongs in `src/pages/weekly`.
+- Briefing-specific composition belongs in `src/pages/briefing`.
 - Shared primitives belong in `src/shared/ui` only when they are reusable beyond
   one page.
 - Do not create empty or speculative FSD slices.

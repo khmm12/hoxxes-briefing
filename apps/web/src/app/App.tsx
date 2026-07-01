@@ -5,7 +5,7 @@ import type { JSX } from '@solidjs/web'
 import { AppCrashScreen } from '~/app/AppCrashScreen'
 import { I18nProvider } from '~/app/providers'
 import { createPwaNoticeState } from '~/app/pwa'
-import { WeeklyPage } from '~/pages/weekly'
+import { BriefingPage } from '~/pages/briefing'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { PwaNotice } from '~/widgets/pwa-notice'
 import './styles.css'
@@ -14,8 +14,8 @@ const NotFoundPage = lazy(() => import('~/pages/not-found').then((module) => ({ 
 
 // Dev-only state playground; the false branch is statically eliminated, so
 // neither the route nor its chunk exists in production builds.
-const WeeklyPlaygroundPage = import.meta.env.DEV
-  ? lazy(() => import('~/pages/weekly/dev').then((module) => ({ default: module.WeeklyPlaygroundPage })))
+const PlaygroundPage = import.meta.env.DEV
+  ? lazy(() => import('~/pages/briefing/dev').then((module) => ({ default: module.PlaygroundPage })))
   : null
 
 type AppProps = {
@@ -46,10 +46,8 @@ export function App(props: AppProps): JSX.Element {
         }}
       >
         <Router root={(props) => <Loading>{props.children}</Loading>}>
-          <Route path="/" component={() => <WeeklyPage dockVisible={pwaDockVisible()} />} />
-          {WeeklyPlaygroundPage != null ? (
-            <Route path="/__playground/:scenario?" component={WeeklyPlaygroundPage} />
-          ) : null}
+          <Route path="/" component={() => <BriefingPage dockVisible={pwaDockVisible()} />} />
+          {PlaygroundPage != null ? <Route path="/__playground/:scenario?" component={PlaygroundPage} /> : null}
           <Route path="*404" component={() => <NotFoundPage dockVisible={pwaDockVisible()} />} />
         </Router>
       </Errored>
