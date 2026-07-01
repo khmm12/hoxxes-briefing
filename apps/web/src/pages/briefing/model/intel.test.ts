@@ -224,7 +224,7 @@ function createDive(missions: [DeepDiveMission, DeepDiveMission, DeepDiveMission
   return {
     biome: 'AzureWeald',
     missions,
-    name: 'Test Route',
+    name: 'Test Dive',
   }
 }
 
