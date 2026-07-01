@@ -4761,7 +4761,7 @@
         {
           "type": "frame",
           "id": "QVIfR",
-          "name": "Route Slabs",
+          "name": "Slabs",
           "layout": "vertical",
           "gap": 20,
           "children": [
@@ -4770,7 +4770,7 @@
               "id": "t5nan",
               "name": "Section",
               "fill": "$text-primary",
-              "content": "ROUTE SLAB",
+              "content": "SLAB",
               "fontFamily": "$font-display",
               "fontSize": "$text-xl",
               "fontWeight": "700"
@@ -4784,7 +4784,7 @@
                 {
                   "type": "frame",
                   "id": "OIF8d",
-                  "name": "Route Slab / normal",
+                  "name": "Slab / normal",
                   "width": 600,
                   "fill": [
                     "$surface-raised",
@@ -4894,7 +4894,7 @@
                           "name": "Freshness",
                           "enabled": false,
                           "fill": "$danger",
-                          "content": "Last known board",
+                          "content": "Last known briefing",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
@@ -4917,7 +4917,7 @@
                     {
                       "type": "frame",
                       "id": "aD1d4",
-                      "name": "Route Scan",
+                      "name": "Quick Read",
                       "width": "fill_container",
                       "layout": "vertical",
                       "gap": 8,
@@ -4925,9 +4925,9 @@
                         {
                           "type": "text",
                           "id": "WxZVF",
-                          "name": "Scan Label",
+                          "name": "Quick Read Label",
                           "fill": "$text-muted",
-                          "content": "Route scan",
+                          "content": "Quick read",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "500",
@@ -5099,7 +5099,7 @@
                 {
                   "type": "frame",
                   "id": "uxmYx",
-                  "name": "Route Slab / elite",
+                  "name": "Slab / elite",
                   "width": 600,
                   "fill": [
                     "$surface-sunken",
@@ -5209,7 +5209,7 @@
                           "name": "Freshness",
                           "enabled": false,
                           "fill": "$danger",
-                          "content": "Last known board",
+                          "content": "Last known briefing",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
@@ -5232,7 +5232,7 @@
                     {
                       "type": "frame",
                       "id": "p9hyj",
-                      "name": "Route Scan",
+                      "name": "Quick Read",
                       "width": "fill_container",
                       "layout": "vertical",
                       "gap": 8,
@@ -5240,9 +5240,9 @@
                         {
                           "type": "text",
                           "id": "y4DPOV",
-                          "name": "Scan Label",
+                          "name": "Quick Read Label",
                           "fill": "$text-muted",
-                          "content": "Route scan",
+                          "content": "Quick read",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "500",
@@ -5905,7 +5905,7 @@
                 {
                   "type": "frame",
                   "id": "o19ao",
-                  "name": "board-unavailable",
+                  "name": "briefing-unavailable",
                   "width": 136,
                   "fill": "$surface",
                   "cornerRadius": "$radius-md",
@@ -5922,7 +5922,7 @@
                     {
                       "type": "path",
                       "id": "WfeCe",
-                      "name": "glyph/board-unavailable",
+                      "name": "glyph/briefing-unavailable",
                       "reusable": true,
                       "geometry": "M5 3.5l14 0 2 2 0 14-2 2-14 0-2-2 0-14z m-0.4 3.1l0 11.8 1.5 1.5 11.8 0 1.5-1.5 0-11.8-1.5-1.5-11.8 0z m10.33 0.85l2.12 2.12-2.93 2.93 2.93 2.93-2.12 2.12-2.93-2.93-2.93 2.93-2.12-2.12 2.93-2.93-2.93-2.93 2.12-2.12 2.93 2.93z",
                       "fillRule": "evenodd",
@@ -5944,7 +5944,7 @@
                       "id": "EgOOD",
                       "name": "Role",
                       "fill": "$text-secondary",
-                      "content": "board-unavailable",
+                      "content": "briefing-unavailable",
                       "fontFamily": "$font-body",
                       "fontSize": "$text-xs",
                       "fontWeight": "600"
@@ -8498,7 +8498,7 @@
                 {
                   "type": "frame",
                   "id": "m5RhT6",
-                  "name": "board-unavailable",
+                  "name": "briefing-unavailable",
                   "width": 136,
                   "fill": "$surface",
                   "cornerRadius": "$radius-md",
@@ -8515,7 +8515,7 @@
                     {
                       "type": "icon",
                       "id": "e22rbK",
-                      "name": "Glyph board-unavailable",
+                      "name": "Glyph briefing-unavailable",
                       "width": 24,
                       "height": 24,
                       "icon": "clipboard-x",
@@ -8527,7 +8527,7 @@
                       "id": "O6pq0",
                       "name": "Role",
                       "fill": "$text-secondary",
-                      "content": "board-unavailable",
+                      "content": "briefing-unavailable",
                       "fontFamily": "$font-body",
                       "fontSize": "$text-xs",
                       "fontWeight": "600"
@@ -11264,10 +11264,10 @@
                       ]
                     },
                     "yi4ni": {
-                      "content": "No saved board"
+                      "content": "No saved briefing"
                     },
                     "YCmRU": {
-                      "content": "This device is offline and has no saved weekly board."
+                      "content": "This device is offline and has no saved briefing."
                     },
                     "brsaf": {
                       "enabled": true
@@ -11322,13 +11322,13 @@
                       "content": "Page not found"
                     },
                     "YCmRU": {
-                      "content": "This page is not available here. Head back to the weekly board."
+                      "content": "This page is not available here. Head back to the briefing."
                     },
                     "Ci0Xn/HOF1Q": {
                       "enabled": false
                     },
                     "Ci0Xn/zdMGK": {
-                      "content": "Go to weekly board"
+                      "content": "Go to the briefing"
                     }
                   }
                 },
@@ -11440,7 +11440,7 @@
             {
               "type": "frame",
               "id": "zWYWS",
-              "name": "Route Deck",
+              "name": "Dive Deck",
               "width": "fill_container",
               "gap": 16,
               "children": [
@@ -11557,7 +11557,7 @@
                           "name": "Freshness",
                           "enabled": false,
                           "fill": "$danger",
-                          "content": "Last known board",
+                          "content": "Last known briefing",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
@@ -11580,7 +11580,7 @@
                     {
                       "type": "frame",
                       "id": "qCOqJ",
-                      "name": "Route Scan",
+                      "name": "Quick Read",
                       "width": "fill_container",
                       "layout": "vertical",
                       "gap": 8,
@@ -11588,9 +11588,9 @@
                         {
                           "type": "text",
                           "id": "Lb07f",
-                          "name": "Scan Label",
+                          "name": "Quick Read Label",
                           "fill": "$text-muted",
-                          "content": "Route scan",
+                          "content": "Quick read",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "500",
@@ -11872,7 +11872,7 @@
                           "name": "Freshness",
                           "enabled": false,
                           "fill": "$danger",
-                          "content": "Last known board",
+                          "content": "Last known briefing",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
@@ -11895,7 +11895,7 @@
                     {
                       "type": "frame",
                       "id": "wLdAx",
-                      "name": "Route Scan",
+                      "name": "Quick Read",
                       "width": "fill_container",
                       "layout": "vertical",
                       "gap": 8,
@@ -11903,9 +11903,9 @@
                         {
                           "type": "text",
                           "id": "FTGsU",
-                          "name": "Scan Label",
+                          "name": "Quick Read Label",
                           "fill": "$text-muted",
-                          "content": "Route scan",
+                          "content": "Quick read",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "500",
@@ -12194,7 +12194,7 @@
             {
               "type": "frame",
               "id": "iYHek",
-              "name": "Route Deck",
+              "name": "Dive Deck",
               "width": "fill_container",
               "gap": 16,
               "children": [
@@ -12308,7 +12308,7 @@
                           "id": "gv43J",
                           "name": "Freshness",
                           "fill": "$danger",
-                          "content": "Last known board",
+                          "content": "Last known briefing",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
@@ -12331,7 +12331,7 @@
                     {
                       "type": "frame",
                       "id": "A7JNO",
-                      "name": "Route Scan",
+                      "name": "Quick Read",
                       "width": "fill_container",
                       "layout": "vertical",
                       "gap": 8,
@@ -12339,9 +12339,9 @@
                         {
                           "type": "text",
                           "id": "J21mEl",
-                          "name": "Scan Label",
+                          "name": "Quick Read Label",
                           "fill": "$text-muted",
-                          "content": "Route scan",
+                          "content": "Quick read",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "500",
@@ -12620,7 +12620,7 @@
                           "id": "YQ98M",
                           "name": "Freshness",
                           "fill": "$danger",
-                          "content": "Last known board",
+                          "content": "Last known briefing",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
@@ -12643,7 +12643,7 @@
                     {
                       "type": "frame",
                       "id": "rh4z0",
-                      "name": "Route Scan",
+                      "name": "Quick Read",
                       "width": "fill_container",
                       "layout": "vertical",
                       "gap": 8,
@@ -12651,9 +12651,9 @@
                         {
                           "type": "text",
                           "id": "c2B3P",
-                          "name": "Scan Label",
+                          "name": "Quick Read Label",
                           "fill": "$text-muted",
-                          "content": "Route scan",
+                          "content": "Quick read",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "500",
@@ -13287,7 +13287,7 @@
                       "name": "Freshness",
                       "enabled": false,
                       "fill": "$danger",
-                      "content": "Last known board",
+                      "content": "Last known briefing",
                       "fontFamily": "$font-body",
                       "fontSize": "$text-sm",
                       "fontWeight": "600"
@@ -13310,7 +13310,7 @@
                 {
                   "type": "frame",
                   "id": "p1mpO",
-                  "name": "Route Scan",
+                  "name": "Quick Read",
                   "width": "fill_container",
                   "layout": "vertical",
                   "gap": 8,
@@ -13318,9 +13318,9 @@
                     {
                       "type": "text",
                       "id": "uBZUx",
-                      "name": "Scan Label",
+                      "name": "Quick Read Label",
                       "fill": "$text-muted",
-                      "content": "Route scan",
+                      "content": "Quick read",
                       "fontFamily": "$font-body",
                       "fontSize": "$text-sm",
                       "fontWeight": "500",
@@ -13873,7 +13873,7 @@
                       "name": "Freshness",
                       "enabled": false,
                       "fill": "$danger",
-                      "content": "Last known board",
+                      "content": "Last known briefing",
                       "fontFamily": "$font-body",
                       "fontSize": "$text-sm",
                       "fontWeight": "600"
@@ -13896,7 +13896,7 @@
                 {
                   "type": "frame",
                   "id": "LymlX",
-                  "name": "Route Scan",
+                  "name": "Quick Read",
                   "width": "fill_container",
                   "layout": "vertical",
                   "gap": 8,
@@ -13904,9 +13904,9 @@
                     {
                       "type": "text",
                       "id": "c13ZVB",
-                      "name": "Scan Label",
+                      "name": "Quick Read Label",
                       "fill": "$text-muted",
-                      "content": "Route scan",
+                      "content": "Quick read",
                       "fontFamily": "$font-body",
                       "fontSize": "$text-sm",
                       "fontWeight": "500",
@@ -14177,13 +14177,13 @@
               "content": "Page not found"
             },
             "YCmRU": {
-              "content": "This page is not available here. Head back to the weekly board."
+              "content": "This page is not available here. Head back to the briefing."
             },
             "Ci0Xn/HOF1Q": {
               "enabled": false
             },
             "Ci0Xn/zdMGK": {
-              "content": "Go to weekly board"
+              "content": "Go to the briefing"
             }
           }
         }
@@ -14531,7 +14531,7 @@
                       "name": "Freshness",
                       "enabled": false,
                       "fill": "$danger",
-                      "content": "Last known board",
+                      "content": "Last known briefing",
                       "fontFamily": "$font-body",
                       "fontSize": "$text-sm",
                       "fontWeight": "600"
@@ -14554,7 +14554,7 @@
                 {
                   "type": "frame",
                   "id": "w2BwmC",
-                  "name": "Route Scan",
+                  "name": "Quick Read",
                   "width": "fill_container",
                   "layout": "vertical",
                   "gap": 8,
@@ -14562,9 +14562,9 @@
                     {
                       "type": "text",
                       "id": "Weq8S",
-                      "name": "Scan Label",
+                      "name": "Quick Read Label",
                       "fill": "$text-muted",
-                      "content": "Route scan",
+                      "content": "Quick read",
                       "fontFamily": "$font-body",
                       "fontSize": "$text-sm",
                       "fontWeight": "500",
@@ -15122,7 +15122,7 @@
                           "name": "Freshness",
                           "enabled": false,
                           "fill": "$danger",
-                          "content": "Last known board",
+                          "content": "Last known briefing",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
@@ -15145,7 +15145,7 @@
                     {
                       "type": "frame",
                       "id": "NshZw",
-                      "name": "Route Scan",
+                      "name": "Quick Read",
                       "width": "fill_container",
                       "layout": "vertical",
                       "gap": 8,
@@ -15153,9 +15153,9 @@
                         {
                           "type": "text",
                           "id": "pvZ2h",
-                          "name": "Scan Label",
+                          "name": "Quick Read Label",
                           "fill": "$text-muted",
-                          "content": "Route scan",
+                          "content": "Quick read",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "500",
@@ -17254,7 +17254,7 @@
                     {
                       "type": "frame",
                       "id": "w30Svd",
-                      "name": "Hazards",
+                      "name": "Mutators",
                       "width": "fill_container",
                       "layout": "vertical",
                       "gap": 8,
@@ -17327,7 +17327,7 @@
                         {
                           "type": "frame",
                           "id": "tPSFp",
-                          "name": "Mutator Card",
+                          "name": "Anomaly Card",
                           "width": "fill_container",
                           "fill": "$primary-surface",
                           "cornerRadius": "$radius-md",
@@ -17343,9 +17343,9 @@
                             {
                               "type": "text",
                               "id": "CxSeI",
-                              "name": "Mut Label",
+                              "name": "Anomaly Label",
                               "fill": "$text-secondary",
-                              "content": "Mutator",
+                              "content": "Anomaly",
                               "fontFamily": "$font-body",
                               "fontSize": "$text-sm",
                               "fontWeight": "500",
@@ -17354,7 +17354,7 @@
                             {
                               "type": "frame",
                               "id": "LZUHG",
-                              "name": "Mut Row",
+                              "name": "Anomaly Row",
                               "gap": 8,
                               "alignItems": "center",
                               "children": [
@@ -17362,7 +17362,7 @@
                                   "id": "o88W2",
                                   "type": "ref",
                                   "ref": "SUeSv",
-                                  "name": "Mut Icon",
+                                  "name": "Anomaly Icon",
                                   "width": 20,
                                   "height": 20,
                                   "fill": "$primary-hover"
@@ -17370,7 +17370,7 @@
                                 {
                                   "type": "text",
                                   "id": "oxd79",
-                                  "name": "Mut Value",
+                                  "name": "Anomaly Value",
                                   "fill": "$text-primary",
                                   "content": "Low Gravity",
                                   "fontFamily": "$font-body",
@@ -17389,7 +17389,7 @@
                           "name": "Quiet Note",
                           "enabled": false,
                           "fill": "$text-secondary",
-                          "content": "No warning or mutator on this stage.",
+                          "content": "No warning or anomaly on this stage.",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "500"
@@ -17413,7 +17413,7 @@
                       "type": "ref",
                       "ref": "WNdRs",
                       "name": "SS Eyebrow",
-                      "content": "BOARD UNAVAILABLE",
+                      "content": "BRIEFING UNAVAILABLE",
                       "fill": "$primary"
                     },
                     {
@@ -17443,7 +17443,7 @@
                       "fill": "$text-primary",
                       "textGrowth": "fixed-width",
                       "width": "fill_container",
-                      "content": "Could not load the weekly board",
+                      "content": "Could not load the briefing",
                       "textAlign": "center",
                       "fontFamily": "$font-display",
                       "fontSize": "$text-2xl",
@@ -17474,7 +17474,7 @@
                       "fill": "$text-secondary",
                       "textGrowth": "fixed-width",
                       "width": "fill_container(0)",
-                      "content": "Open Hoxxes Briefing while online once to keep a board available offline.",
+                      "content": "Open Hoxxes Briefing while online once to keep a briefing available offline.",
                       "lineHeight": 1.55,
                       "textAlign": "center",
                       "fontFamily": "$font-body",
