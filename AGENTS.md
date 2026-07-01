@@ -38,7 +38,7 @@ clarity, and launch readiness over speculative features.
 
 The following commands are safe to run when relevant:
 
-- `pnpm check` (biome lint + typecheck + test + build)
+- `pnpm check` (biome lint + typecheck + rustfmt + clippy + test + build)
 - `pnpm test`
 - `pnpm build`
 - `cargo test --workspace`
@@ -53,8 +53,8 @@ Long-running commands may be used only when needed for manual verification:
 ## Verification
 
 - Before committing or declaring work done: `pnpm check`, regardless of
-  change type. `pnpm test`/`pnpm build` alone run neither biome nor
-  typecheck.
+  change type. `pnpm test`/`pnpm build` alone run neither biome, typecheck,
+  rustfmt, nor clippy.
 - While iterating, narrower runs (`pnpm test`, `pnpm build`) are fine.
 - Rust boundary changes: also `cargo test --workspace`.
 
