@@ -8,6 +8,11 @@ fight alien bugs and machines, then extract.
 This reference covers the weekly Deep Dive rotation: Deep Dives, stages, biomes,
 objectives, warnings, anomalies (mutators), and reset timing.
 
+This is the game reference catalogue. For the team's ubiquitous language —
+canonical terms, deliberate deviations, and terms to avoid — see
+[CONTEXT.md](../CONTEXT.md). Where an app label diverges from the official noun
+(e.g. "Crystal Scan" vs. Resonance Crystal), CONTEXT.md is the arbiter.
+
 ## Deep Dives
 
 A Deep Dive is a fixed weekly sequence of three pre-seeded missions played
@@ -69,9 +74,9 @@ Some names can appear in both places and still mean different things. A primary
 Crystal Scan is the full Deep Scan mission with scanners, the Drillevator, the
 geode, and the upward extraction. A secondary Crystal Scan is only the shorter
 scan task. A primary On-site Refining stage is the full refinery and pipeline
-mission. A secondary Morkite Well is a short one-well hookup. In the Resinite
-family, Heavy Extraction is the full primary mission and Heavy Excavation is the
-smaller secondary job.
+mission. A secondary Morkite Well is a short one-well hookup. Resinite Mass
+extraction is Heavy Extraction whether it appears as the full primary mission or
+as the smaller secondary job — DRG has no separate "Heavy Excavation" mission.
 
 ## Primary Objectives
 
@@ -101,15 +106,26 @@ smaller secondary job.
 | Mule xN | Repair the required Mini M.U.L.E.s without the full uplink and fuel-cell finale. | `SalvageOperation` |
 | Resinite Mass xN | Extract a smaller Resinite quota, usually one mass, using Lift Rockets. | `HeavyExcavation` |
 
+The secondary `HeavyExcavation` enum is a non-canonical internal name: DRG has no
+"Heavy Excavation" mission, and every other objective that appears in both places
+(`DeepScan`, `EggHunt`, `Elimination`, `MiningExpedition`, `OnSiteRefining`,
+`SalvageOperation`) shares one enum key across primary and secondary. Rename
+candidate: `HeavyExtraction`.
+
 ## Dreadnought Values
 
 `Elimination` objectives name the boss variants that appear in the stage.
 
-| Name | Description | Enum |
+| Name | Description | Enum (wire) |
 | --- | --- | --- |
 | Classic | Standard Glyphid Dreadnought with armor-shell timing and direct boss pressure. | `Dreadnought` |
 | Hiveguard | Dreadnought variant with Sentinel adds and phased vulnerability. | `Hiveguard` |
 | Twins | Paired Lacerator and Arbalest fight with split melee and ranged pressure. | `Twins` |
+
+Officially all three are Glyphid Dreadnoughts; the standard one has no
+disambiguating suffix. We name it `Classic` in our domain model (see
+[CONTEXT.md](../CONTEXT.md)); the wire tag stays `Dreadnought` for
+backward-compatibility.
 
 ## Warnings
 
@@ -137,8 +153,13 @@ change what players must respect during the run.
 
 ## Anomalies (Mutators)
 
-Anomalies are nonstandard mission modifiers that can help, hurt, or simply
-change mission feel.
+Anomalies are nonstandard mission modifiers that are neutral or beneficial and
+add no difficulty (no hazard bonus).
+
+Officially, **Mutator** is the umbrella term and splits into two subtypes:
+**Warnings** (harmful, above) and **Anomalies** (neutral/beneficial, below). The
+code enum for this category is named `DeepDiveMutator`/`mutator`, but it holds
+exactly the Anomalies — a misnomer for `Anomaly`. See [CONTEXT.md](../CONTEXT.md).
 
 | Name | Description | Enum |
 | --- | --- | --- |

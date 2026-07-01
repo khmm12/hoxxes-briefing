@@ -12,7 +12,9 @@ clarity, and launch readiness over speculative features.
 - Design system (tokens, typography roles, components, motion):
   [designs/DESIGN.md](designs/DESIGN.md), text companion to
   `designs/hoxxes-briefing.pen`
-- Deep Rock Galactic vocabulary: [docs/domain.md](docs/domain.md)
+- Ubiquitous language (canonical terms, deliberate deviations, terms to avoid):
+  [CONTEXT.md](CONTEXT.md)
+- Deep Rock Galactic reference catalogue: [docs/domain.md](docs/domain.md)
 - Web UI implementation rules: [apps/web/docs/conventions.md](apps/web/docs/conventions.md)
 - Deployment shape: [docs/deployment.md](docs/deployment.md)
 - Behavioral specs: `openspec/specs/` (OpenSpec). Consult before changing
