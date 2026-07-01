@@ -28,7 +28,7 @@ describe('TimingStrip', () => {
     expect(container.textContent).toMatch(/Jun.*\d.*\d/)
   })
 
-  it('shows "already ended" once the board is marked expired', () => {
+  it('shows "already ended" once the briefing is marked expired', () => {
     const { getByText } = renderWithProviders(() => (
       <TimingStrip now={now} expired={true} timing={{ ...baseTiming, expiration: expirationAfter(DAY) }} />
     ))
@@ -36,7 +36,7 @@ describe('TimingStrip', () => {
     expect(getByText('already ended')).toBeInTheDocument()
   })
 
-  it('shows "coming soon" once the deadline has actually passed, even before the board is marked expired', () => {
+  it('shows "coming soon" once the deadline has actually passed, even before the briefing is marked expired', () => {
     const { getByText } = renderWithProviders(() => (
       <TimingStrip now={now} expired={false} timing={{ ...baseTiming, expiration: expirationAfter(-SECOND) }} />
     ))

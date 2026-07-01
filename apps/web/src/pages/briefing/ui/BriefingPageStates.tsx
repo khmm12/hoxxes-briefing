@@ -6,7 +6,7 @@ import { css } from 'styled-system/css'
 import type { BriefingRequestError } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
-import { BoardUnavailableIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
+import { BriefingUnavailableIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
 import { AppLayout } from '~/shared/ui/layout'
 import { Spinner } from '~/shared/ui/spinner'
 import { StateScreen } from '~/shared/ui/state-screen'
@@ -70,9 +70,9 @@ export function BriefingErrorState(props: BriefingErrorStateProps): JSX.Element 
               {i18n._(msg`Try again`)}
             </ActionControl>
           }
-          body={formatBoardUnavailableBody(i18n, props.error)}
+          body={formatBriefingUnavailableBody(i18n, props.error)}
           eyebrow={i18n._(msg`Briefing unavailable`)}
-          indicator={<BoardUnavailableIcon />}
+          indicator={<BriefingUnavailableIcon />}
           title={i18n._(msg`Could not load the briefing`)}
           tone="primary"
         />
@@ -89,7 +89,7 @@ const loadingScreenStyles = css.raw({
 
 // A request can fail without the network being at fault (API error, bad
 // payload) — do not blame the user's connection in that case.
-function formatBoardUnavailableBody(i18n: I18n, error: BriefingRequestError): string {
+function formatBriefingUnavailableBody(i18n: I18n, error: BriefingRequestError): string {
   if (error.kind === 'network') return i18n._(msg`Try again once the connection settles.`)
 
   return i18n._(msg`Mission Control is having trouble on its end. Try again in a moment.`)

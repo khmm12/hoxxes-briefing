@@ -1,6 +1,6 @@
 import { isBefore, isEqual, isValid } from 'date-fns'
 
-export type BoardViewState = {
+export type BriefingViewState = {
   source: 'cache' | 'network'
   expired: boolean
   online: boolean

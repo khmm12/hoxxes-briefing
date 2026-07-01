@@ -41,7 +41,7 @@ const countdownRecipe = cva({
     whiteSpace: 'nowrap',
   },
   variants: {
-    // A stale board must not glow like a live countdown.
+    // A stale briefing must not glow like a live countdown.
     tone: {
       live: {
         color: 'primary.hover',

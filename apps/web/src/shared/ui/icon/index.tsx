@@ -48,9 +48,9 @@ const refresh =
 const alert =
   'M16.06 2.21l5.73 5.73 0 8.12-5.73 5.73-8.12 0-5.73-5.73 0-8.12 5.73-5.73z m-0.62 1.49l4.86 4.86 0 6.88-4.86 4.86-6.88 0-4.86-4.86 0-6.88 4.86-4.86z m-4.54 2.9l2.2 0-0.4 6.9-1.4 0z m1.1 11.1a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6z'
 
-// A crossed-out board panel — the board could not be loaded. There is no
-// "empty board" state: a deep dive exists every week.
-const boardUnavailable =
+// A crossed-out panel — the briefing could not be loaded. There is no
+// "empty briefing" state: a deep dive exists every week.
+const briefingUnavailable =
   'M5 3.5l14 0 2 2 0 14-2 2-14 0-2-2 0-14z m-0.4 3.1l0 11.8 1.5 1.5 11.8 0 1.5-1.5 0-11.8-1.5-1.5-11.8 0z m10.33 0.85l2.12 2.12-2.93 2.93 2.93 2.93-2.12 2.12-2.93-2.93-2.93 2.93-2.12-2.12 2.93-2.93-2.93-2.93 2.12-2.12 2.93 2.93z'
 
 const offline =
@@ -79,8 +79,8 @@ export function AlertIcon(props: IconProps): JSX.Element {
   return <GlyphIcon d={alert} fillRule="evenodd" {...props} />
 }
 
-export function BoardUnavailableIcon(props: IconProps): JSX.Element {
-  return <GlyphIcon d={boardUnavailable} fillRule="evenodd" {...props} />
+export function BriefingUnavailableIcon(props: IconProps): JSX.Element {
+  return <GlyphIcon d={briefingUnavailable} fillRule="evenodd" {...props} />
 }
 
 export function OfflineIcon(props: IconProps): JSX.Element {

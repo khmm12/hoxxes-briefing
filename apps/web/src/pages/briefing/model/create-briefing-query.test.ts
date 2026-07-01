@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { Briefing } from '~/shared/api'
 import type { CreateCachedQueryOptions } from '~/shared/lib/create-cached-query'
-import { createBoardQuery } from './create-board-query'
+import { createBriefingQuery } from './create-briefing-query'
 
-// `createBoardQuery` is a thin wiring layer over `createCachedQuery`:
+// `createBriefingQuery` is a thin wiring layer over `createCachedQuery`:
 // the interesting reactive/async behavior (race, grace period, staleness)
 // already lives in create-cached-query.test.ts. Here we only verify the
 // wiring is correct — fetcher hits the briefing endpoint, cache reads/writes
@@ -40,9 +40,9 @@ function createBriefing(expiration: string): Briefing {
   return { expiration } as unknown as Briefing
 }
 
-describe('createBoardQuery', () => {
+describe('createBriefingQuery', () => {
   it('fetches from the briefing URL with the query signal', async () => {
-    createBoardQuery()
+    createBriefingQuery()
 
     const options = captureOptions()
     const signal = new AbortController().signal
@@ -58,7 +58,7 @@ describe('createBoardQuery', () => {
   })
 
   it('reads and writes through the shared briefing client cache', async () => {
-    createBoardQuery()
+    createBriefingQuery()
 
     const options = captureOptions()
     const cachedValue = createBriefing('2026-07-01T00:00:00.000Z')
@@ -72,7 +72,7 @@ describe('createBoardQuery', () => {
   })
 
   it('treats a missing cached briefing as undefined', async () => {
-    createBoardQuery()
+    createBriefingQuery()
 
     const options = captureOptions()
     mockReadCachedBriefing.mockResolvedValue(null)
@@ -81,7 +81,7 @@ describe('createBoardQuery', () => {
   })
 
   it('treats a briefing as stale once it has expired', async () => {
-    createBoardQuery()
+    createBriefingQuery()
 
     const options = captureOptions()
 
@@ -90,7 +90,7 @@ describe('createBoardQuery', () => {
   })
 
   it('treats structurally equal briefings as equal even across distinct objects', async () => {
-    createBoardQuery()
+    createBriefingQuery()
 
     const options = captureOptions()
     const a = createBriefing('2026-07-01T00:00:00.000Z')

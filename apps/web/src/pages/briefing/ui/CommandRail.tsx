@@ -3,7 +3,7 @@ import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import type { Briefing } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
-import type { BoardViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../model/briefing-page-state'
 import { BrandBlock } from './BrandBlock'
 import { RefreshPanel } from './RefreshPanel'
 import { getSlogan } from './slogan-copy'
@@ -11,7 +11,7 @@ import { TimingStrip } from './TimingStrip'
 
 type CommandRailProps = {
   now: Date
-  state: BoardViewState
+  state: BriefingViewState
   briefing: Briefing
   onRefresh: () => void
 }

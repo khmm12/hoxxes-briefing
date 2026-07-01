@@ -3,7 +3,7 @@ import type { Briefing } from '~/shared/api'
 import { BriefingRequestError } from '~/shared/api'
 import { AppLayout } from '~/shared/ui/layout'
 import { PwaNotice } from '~/widgets/pwa-notice'
-import type { BoardViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../model/briefing-page-state'
 import { Board } from '../ui/Board'
 import { BriefingErrorState, BriefingLoadingState } from '../ui/BriefingPageStates'
 
@@ -16,7 +16,7 @@ export type Scenario = {
 // A fixed clock keeps countdowns and screenshots deterministic.
 const NOW = new Date('2026-06-02T13:24:00Z')
 
-const BOARD: Briefing = {
+const BRIEFING: Briefing = {
   seed: 0xc0ffee,
   release: '2026-06-01T11:00:00Z',
   expiration: '2026-06-08T11:00:00Z',
@@ -75,12 +75,12 @@ const BOARD: Briefing = {
 // Every mutator combination the board layout must survive: warning + anomaly
 // on one stage, anomaly only, an Elimination objective, and enough quick-read
 // chips to trigger the overflow control.
-const MUTATOR_BOARD: Briefing = {
-  ...BOARD,
+const MUTATOR_BRIEFING: Briefing = {
+  ...BRIEFING,
   dives: {
-    ...BOARD.dives,
+    ...BRIEFING.dives,
     normal: {
-      ...BOARD.dives.normal,
+      ...BRIEFING.dives.normal,
       missions: [
         {
           primaryObjective: { kind: 'Elimination', dreadnoughts: ['Classic', 'Hiveguard', 'Twins'] },
@@ -105,7 +105,7 @@ const MUTATOR_BOARD: Briefing = {
   },
 }
 
-const LIVE_STATE: BoardViewState = {
+const LIVE_STATE: BriefingViewState = {
   source: 'network',
   expired: false,
   online: true,
@@ -113,7 +113,7 @@ const LIVE_STATE: BoardViewState = {
   refreshFailed: false,
 }
 
-function boardScenario(id: string, title: string, data: Briefing, state: Partial<BoardViewState>) {
+function boardScenario(id: string, title: string, data: Briefing, state: Partial<BriefingViewState>) {
   return {
     id,
     title,
@@ -136,20 +136,20 @@ function errorScenario(id: string, title: string, error: BriefingRequestError, o
 }
 
 export const scenarios: Scenario[] = [
-  boardScenario('board', 'Board · live', BOARD, {}),
-  boardScenario('board-mutators', 'Board · mutators', MUTATOR_BOARD, {}),
-  boardScenario('board-expired', 'Board · expired', BOARD, { expired: true }),
-  boardScenario('board-refresh-failed', 'Board · refresh failed', BOARD, { refreshFailed: true }),
-  boardScenario('board-refreshing', 'Board · refreshing', BOARD, { refreshing: true }),
-  boardScenario('board-offline', 'Board · offline', BOARD, { online: false, source: 'cache' }),
-  boardScenario('board-cache', 'Board · from cache', BOARD, { source: 'cache' }),
+  boardScenario('board', 'Board · live', BRIEFING, {}),
+  boardScenario('board-mutators', 'Board · mutators', MUTATOR_BRIEFING, {}),
+  boardScenario('board-expired', 'Board · expired', BRIEFING, { expired: true }),
+  boardScenario('board-refresh-failed', 'Board · refresh failed', BRIEFING, { refreshFailed: true }),
+  boardScenario('board-refreshing', 'Board · refreshing', BRIEFING, { refreshing: true }),
+  boardScenario('board-offline', 'Board · offline', BRIEFING, { online: false, source: 'cache' }),
+  boardScenario('board-cache', 'Board · from cache', BRIEFING, { source: 'cache' }),
   {
     id: 'board-update-dock',
     title: 'Board · app update',
     render: (): JSX.Element => (
       <>
         <AppLayout dockVisible>
-          <Board now={NOW} state={LIVE_STATE} data={BOARD} onRefresh={() => {}} />
+          <Board now={NOW} state={LIVE_STATE} data={BRIEFING} onRefresh={() => {}} />
         </AppLayout>
         <PwaNotice onReload={() => {}} />
       </>

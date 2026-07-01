@@ -208,7 +208,7 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
             <BiomeKindIcon css={biomeIconStyles} kind={props.dive.biome} />
             {formatBiome(i18n, props.dive.biome)}
           </p>
-          {props.expired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known board`)}</p> : null}
+          {props.expired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known briefing`)}</p> : null}
         </div>
         <p class={css(noteStyles)}>{formatIntelNote(i18n, intel().note)}</p>
       </header>

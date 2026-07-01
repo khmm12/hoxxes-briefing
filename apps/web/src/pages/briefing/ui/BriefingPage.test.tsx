@@ -4,17 +4,17 @@ import type { Briefing } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
 import { BriefingPage } from './BriefingPage'
 
-// createBoardQuery (model/create-board-query.ts) talks to the
+// createBriefingQuery (model/create-briefing-query.ts) talks to the
 // network through the global `fetch` and to an on-device cache through the
 // Cache Storage API. jsdom does not implement Cache Storage, so the cache
 // layer is already a no-op here (`caches` is undefined) — only `fetch` needs
 // stubbing to drive the page through its Loading/Errored/ready states.
 // Relative to the real host clock (not pinned): BriefingPage reads `new Date()`
 // directly for its expiry check, so a fixed past timestamp here would make
-// the board silently render expired once that date passes.
+// the briefing silently render expired once that date passes.
 const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
 
-const BOARD: Briefing = {
+const BRIEFING: Briefing = {
   seed: 1,
   release: new Date().toISOString(),
   expiration: oneWeekFromNow,
@@ -91,8 +91,8 @@ describe('BriefingPage', () => {
     vi.restoreAllMocks()
   })
 
-  it('sets the document title immediately, then loads the board', async () => {
-    globalThis.fetch = vi.fn(async () => jsonResponse(BOARD))
+  it('sets the document title immediately, then loads the briefing', async () => {
+    globalThis.fetch = vi.fn(async () => jsonResponse(BRIEFING))
 
     const { findByText } = renderBriefingPage(false)
 
@@ -101,7 +101,7 @@ describe('BriefingPage', () => {
   })
 
   it('shows the error state on a failed request and retries on demand', async () => {
-    const fetchMock = vi.fn(async () => jsonResponse(BOARD))
+    const fetchMock = vi.fn(async () => jsonResponse(BRIEFING))
     fetchMock.mockRejectedValueOnce(new TypeError('network down'))
     globalThis.fetch = fetchMock
     // BriefingPage logs the caught boundary error (BriefingPage.tsx) — expected

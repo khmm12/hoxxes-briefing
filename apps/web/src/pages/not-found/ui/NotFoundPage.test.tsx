@@ -18,7 +18,7 @@ function renderNotFoundPage(dockVisible: boolean) {
 }
 
 describe('NotFoundPage', () => {
-  it('renders the not-found copy and a link back to the weekly board', () => {
+  it('renders the not-found copy and a link back to the briefing', () => {
     const { getByText, getByRole } = renderNotFoundPage(false)
 
     expect(getByText('Page not found')).toBeInTheDocument()

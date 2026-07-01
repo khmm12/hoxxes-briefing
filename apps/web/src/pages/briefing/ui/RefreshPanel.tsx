@@ -7,10 +7,10 @@ import { useI18n } from '~/shared/i18n'
 import { OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
 import { IconButton } from '~/shared/ui/icon-button'
 import { Tooltip } from '~/shared/ui/tooltip'
-import type { BoardViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../model/briefing-page-state'
 
 type RefreshPanelProps = {
-  state: BoardViewState
+  state: BriefingViewState
   onRefresh: () => void
 }
 
@@ -33,9 +33,9 @@ const statusSlotStyles = css.raw({
   borderRadius: 'full',
 })
 
-// The dot reflects validity of the visible board, not the outcome of the
+// The dot reflects validity of the visible briefing, not the outcome of the
 // last request: danger is reserved for "this screen may be lying" (expired).
-// A failed refresh of a live board changes nothing — the board is immutable
+// A failed refresh of a live briefing changes nothing — the briefing is immutable
 // within its week — so the event is reported by the button flash alone.
 const statusDotRecipe = cva({
   base: {
@@ -98,9 +98,9 @@ export function RefreshPanel(props: RefreshPanelProps): JSX.Element {
   return (
     <div class={css(panelStyles)}>
       <p class={css({ srOnly: true })} role="status" aria-live="polite" aria-atomic="true">
-        {formatBoardStatus(i18n, props.state)}
+        {formatBriefingStatus(i18n, props.state)}
       </p>
-      <Tooltip label={formatBoardStatus(i18n, props.state)} css={statusSlotStyles}>
+      <Tooltip label={formatBriefingStatus(i18n, props.state)} css={statusSlotStyles}>
         {resolveStatusTone(props.state) === 'offline' ? (
           <OfflineIcon css={offlineIconStyles} />
         ) : (
@@ -123,37 +123,37 @@ export function RefreshPanel(props: RefreshPanelProps): JSX.Element {
   )
 }
 
-function resolveStatusTone(state: BoardViewState): StatusTone {
+function resolveStatusTone(state: BriefingViewState): StatusTone {
   if (state.expired) return 'danger'
   if (!state.online) return 'offline'
 
   return 'success'
 }
 
-function formatRefreshActionLabel(i18n: I18n, state: BoardViewState): string {
+function formatRefreshActionLabel(i18n: I18n, state: BriefingViewState): string {
   if (!state.online) return i18n._(msg`Offline`)
   if (state.refreshing) return i18n._(msg`Refreshing...`)
 
   return i18n._(msg`Refresh`)
 }
 
-function formatBoardStatus(i18n: I18n, state: BoardViewState): string {
+function formatBriefingStatus(i18n: I18n, state: BriefingViewState): string {
   const { expired, refreshing, refreshFailed, online, source } = state
 
   if (expired) {
-    if (refreshing) return i18n._(msg`Last known board still shown. Refreshing now.`)
-    if (refreshFailed) return i18n._(msg`Last known board still shown. Refresh failed.`)
-    return i18n._(msg`Last known board only. This cycle already ended.`)
+    if (refreshing) return i18n._(msg`Last known briefing still shown. Refreshing now.`)
+    if (refreshFailed) return i18n._(msg`Last known briefing still shown. Refresh failed.`)
+    return i18n._(msg`Last known briefing only. This cycle already ended.`)
   }
 
-  if (!online) return i18n._(msg`Saved board loaded. You're offline for now.`)
+  if (!online) return i18n._(msg`Saved briefing loaded. You're offline for now.`)
 
   if (source === 'cache') {
-    if (refreshing) return i18n._(msg`Saved board loaded. Refreshing now.`)
-    return i18n._(msg`Saved board loaded.`)
+    if (refreshing) return i18n._(msg`Saved briefing loaded. Refreshing now.`)
+    return i18n._(msg`Saved briefing loaded.`)
   }
 
-  if (refreshing) return i18n._(msg`Refreshing current board now.`)
+  if (refreshing) return i18n._(msg`Refreshing current briefing now.`)
 
-  return i18n._(msg`Current board loaded.`)
+  return i18n._(msg`Current briefing loaded.`)
 }

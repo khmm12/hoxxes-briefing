@@ -6,7 +6,7 @@ import { isBriefingExpired } from './briefing-page-state'
 // one is worth holding the UI for while the network races.
 const staleBriefingGracePeriodMs = 1000
 
-export function createBoardQuery(): CachedQuery<Briefing> {
+export function createBriefingQuery(): CachedQuery<Briefing> {
   return createCachedQuery({
     source: () => [] as const,
     fetcher: (_, ctx) =>

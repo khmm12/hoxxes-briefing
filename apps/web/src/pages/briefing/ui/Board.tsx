@@ -1,14 +1,14 @@
 import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import type { Briefing } from '~/shared/api'
-import type { BoardViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../model/briefing-page-state'
 import { BoardFooter } from './BoardFooter'
 import { CommandRail } from './CommandRail'
 import { DiveDeck } from './DiveDeck'
 
 type BoardProps = {
   now: Date
-  state: BoardViewState
+  state: BriefingViewState
   data: Briefing
   onRefresh: () => void
 }

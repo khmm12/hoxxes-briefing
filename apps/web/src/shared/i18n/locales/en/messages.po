@@ -157,8 +157,8 @@ msgid "Crystalline Caverns"
 msgstr "Crystalline Caverns"
 
 #: src/pages/briefing/ui/RefreshPanel.tsx:158
-msgid "Current board loaded."
-msgstr "Current board loaded."
+msgid "Current briefing loaded."
+msgstr "Current briefing loaded."
 
 #: src/pages/briefing/ui/slogan-copy.ts:13
 msgid "Danger. Darkness. Dwarves."
@@ -310,20 +310,20 @@ msgid "Keep the floor tidy. Little trouble grows fast under pressure."
 msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 
 #: src/pages/briefing/ui/DiveSlab.tsx:211
-msgid "Last known board"
-msgstr "Last known board"
+msgid "Last known briefing"
+msgstr "Last known briefing"
 
 #: src/pages/briefing/ui/RefreshPanel.tsx:146
-msgid "Last known board only. This cycle already ended."
-msgstr "Last known board only. This cycle already ended."
+msgid "Last known briefing only. This cycle already ended."
+msgstr "Last known briefing only. This cycle already ended."
 
 #: src/pages/briefing/ui/RefreshPanel.tsx:145
-msgid "Last known board still shown. Refresh failed."
-msgstr "Last known board still shown. Refresh failed."
+msgid "Last known briefing still shown. Refresh failed."
+msgstr "Last known briefing still shown. Refresh failed."
 
 #: src/pages/briefing/ui/RefreshPanel.tsx:144
-msgid "Last known board still shown. Refreshing now."
-msgstr "Last known board still shown. Refreshing now."
+msgid "Last known briefing still shown. Refreshing now."
+msgstr "Last known briefing still shown. Refreshing now."
 
 #: src/pages/briefing/ui/intel-copy.ts:20
 msgid "Leave brawling room. Cramped teams run out of options fast."
@@ -506,8 +506,8 @@ msgid "Refresh"
 msgstr "Refresh"
 
 #: src/pages/briefing/ui/RefreshPanel.tsx:156
-msgid "Refreshing current board now."
-msgstr "Refreshing current board now."
+msgid "Refreshing current briefing now."
+msgstr "Refreshing current briefing now."
 
 #: src/pages/briefing/ui/RefreshPanel.tsx:135
 msgid "Refreshing..."
@@ -569,16 +569,16 @@ msgid "Sandblasted Corridors"
 msgstr "Sandblasted Corridors"
 
 #: src/pages/briefing/ui/RefreshPanel.tsx:153
-msgid "Saved board loaded."
-msgstr "Saved board loaded."
+msgid "Saved briefing loaded."
+msgstr "Saved briefing loaded."
 
 #: src/pages/briefing/ui/RefreshPanel.tsx:152
-msgid "Saved board loaded. Refreshing now."
-msgstr "Saved board loaded. Refreshing now."
+msgid "Saved briefing loaded. Refreshing now."
+msgstr "Saved briefing loaded. Refreshing now."
 
 #: src/pages/briefing/ui/RefreshPanel.tsx:149
-msgid "Saved board loaded. You're offline for now."
-msgstr "Saved board loaded. You're offline for now."
+msgid "Saved briefing loaded. You're offline for now."
+msgstr "Saved briefing loaded. You're offline for now."
 
 #: src/pages/briefing/ui/dive-copy.ts:216
 msgid "Scanners have detected several clusters of Ossiran Pit Jaws in the area."

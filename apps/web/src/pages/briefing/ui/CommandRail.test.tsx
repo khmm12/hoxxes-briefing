@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { Briefing } from '~/shared/api'
 import { createTestI18n, renderWithProviders } from '~test/render'
-import type { BoardViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../model/briefing-page-state'
 import { CommandRail } from './CommandRail'
 import { getSlogan } from './slogan-copy'
 
@@ -15,7 +15,7 @@ const briefing = {
 
 const now = new Date('2026-06-02T13:24:00Z')
 
-const liveState: BoardViewState = {
+const liveState: BriefingViewState = {
   source: 'network',
   expired: false,
   online: true,
@@ -37,7 +37,7 @@ describe('CommandRail', () => {
     expect(getByRole('button', { name: 'Refresh' })).toBeInTheDocument()
   })
 
-  it('shows the countdown as already ended once the board is marked expired', () => {
+  it('shows the countdown as already ended once the briefing is marked expired', () => {
     const { getByText } = renderWithProviders(() => (
       <CommandRail now={now} state={{ ...liveState, expired: true }} briefing={briefing} onRefresh={() => {}} />
     ))

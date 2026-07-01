@@ -54,10 +54,10 @@ describe('DiveSlab', () => {
     expect(queryByRole('region', { name: 'Quick read' })).not.toBeInTheDocument()
   })
 
-  it('flags the board as a last known board once expired', () => {
+  it('flags the briefing as last known once expired', () => {
     const { getByText } = renderWithProviders(() => <DiveSlab dive={DIVE} expired={true} kind="normal" />)
 
-    expect(getByText('Last known board')).toBeInTheDocument()
+    expect(getByText('Last known briefing')).toBeInTheDocument()
   })
 
   it('labels the Elite dive distinctly from a normal one', () => {
