@@ -1,4 +1,4 @@
-import { type Accessor, createContext, createEffect, createSignal } from 'solid-js'
+import { type Accessor, createContext, createEffect, createSignal, useContext } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import type { JSX } from '@solidjs/web'
 
@@ -9,7 +9,7 @@ type LinguiProviderProps = {
 
 export type I18nContextValue = { i18n: I18n }
 
-export const I18nContext = createContext<I18nContextValue | null>(null)
+export const I18nContext = createContext<I18nContextValue>()
 
 export function I18nProvider(props: LinguiProviderProps): JSX.Element {
   const i18n = createI18n(() => props.i18n)
@@ -17,6 +17,10 @@ export function I18nProvider(props: LinguiProviderProps): JSX.Element {
   const ctx: I18nContextValue = { i18n }
 
   return <I18nContext value={ctx}>{props.children}</I18nContext>
+}
+
+export function useI18n(): I18n {
+  return useContext(I18nContext).i18n
 }
 
 function createI18n(i18n: Accessor<I18n>): I18n {
@@ -37,5 +41,3 @@ function createI18n(i18n: Accessor<I18n>): I18n {
     },
   })
 }
-
-export default I18nProvider
