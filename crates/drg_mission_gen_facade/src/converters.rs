@@ -155,11 +155,9 @@ fn map_primary_objective_instance(
         ObjectiveInstance::Elimination {
             kind: OBJ_Eliminate_Eggs,
             targets,
-        } => Ok(DeepDivePrimaryObjective::elimination_objective(
-            duration,
-            complexity,
-            targets.into_iter().map(Into::into).collect(),
-        )),
+        } => Ok(DeepDivePrimaryObjective::Elimination {
+            dreadnought_kinds: targets.into_iter().map(Into::into).collect(),
+        }),
         ObjectiveInstance::Other {
             kind: OBJ_1st_DeepScan,
         } => Ok(DeepDivePrimaryObjective::new_deep_scan(
@@ -222,7 +220,6 @@ fn map_secondary_objective_instance(
             kind: OBJ_DD_Elimination_Eggs,
             targets,
         } => Ok(Obj::Elimination {
-            dreadnoughts: 1,
             dreadnought_kinds: targets.into_iter().map(Into::into).collect(),
         }),
         ObjectiveInstance::Other {
@@ -339,3 +336,6 @@ impl From<EDreadnought> for Dreadnought {
         }
     }
 }
+
+#[cfg(test)]
+mod tests;

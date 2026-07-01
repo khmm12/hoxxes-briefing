@@ -27,3 +27,6 @@ pub enum ConverterError {
     #[error("only expected to have {MISSION_COUNT} missions, but was given {count}")]
     MissionsCountMismatch { count: usize },
 }
+
+#[cfg(test)]
+mod tests;
