@@ -57,7 +57,7 @@ Rules in this file apply under `apps/`.
 ## API
 
 - Keep contract mapping and validation at the HTTP boundary.
-- Keep application logic behind explicit ports such as `DeepDivesProvider`.
+- Keep application logic behind explicit ports such as `BriefingProvider`.
 
 ## Verification
 

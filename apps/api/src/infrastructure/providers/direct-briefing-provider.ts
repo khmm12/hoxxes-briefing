@@ -1,41 +1,39 @@
-import type { DeepDivesProvider } from '../../ports/deep-dives-provider.ts'
-import { DeepDivesProviderError } from '../../ports/deep-dives-provider.ts'
-import { type GeneratedDeepDives, generateWeeklyDives } from '../generator/generator-bridge.ts'
+import type { BriefingProvider } from '../../ports/briefing-provider.ts'
+import { BriefingProviderError } from '../../ports/briefing-provider.ts'
+import { type GeneratedBriefing, generateBriefing } from '../generator/generator-bridge.ts'
 import { type DeepDiveEvent, getDeepDiveEvent } from '../upstream/get-deep-dive-event.ts'
 
-export type DirectDeepDivesProviderDependencies = {
+export type DirectBriefingProviderDependencies = {
   loadEvent?: typeof getDeepDiveEvent
-  generateFromSeed?: typeof generateWeeklyDives
+  generateFromSeed?: typeof generateBriefing
 }
 
-export function createDirectDeepDivesProvider(
-  dependencies: DirectDeepDivesProviderDependencies = {},
-): DeepDivesProvider {
+export function createDirectBriefingProvider(dependencies: DirectBriefingProviderDependencies = {}): BriefingProvider {
   const loadEvent = dependencies.loadEvent ?? getDeepDiveEvent
-  const generateFromSeed = dependencies.generateFromSeed ?? generateWeeklyDives
+  const generateFromSeed = dependencies.generateFromSeed ?? generateBriefing
 
   return {
-    async getCurrentDeepDives() {
+    async getBriefing() {
       let event: DeepDiveEvent
 
       try {
         event = await loadEvent()
       } catch (cause) {
         console.error(cause)
-        throw new DeepDivesProviderError(
+        throw new BriefingProviderError(
           'UPSTREAM_UNAVAILABLE',
           'Failed to fetch current deep dive event',
           toErrorOptions(cause),
         )
       }
 
-      let generated: GeneratedDeepDives
+      let generated: GeneratedBriefing
       try {
         generated = generateFromSeed(event.seed)
       } catch (cause) {
-        throw new DeepDivesProviderError(
+        throw new BriefingProviderError(
           'WEEKLY_DATA_UNAVAILABLE',
-          'Failed to generate weekly payload from deep dive event',
+          'Failed to generate briefing from deep dive event',
           toErrorOptions(cause),
         )
       }
@@ -56,9 +54,9 @@ function toErrorOptions(cause: unknown): ErrorOptions | undefined {
   return cause === undefined ? undefined : { cause }
 }
 
-function ensureGeneratedSeed(event: DeepDiveEvent, generated: GeneratedDeepDives): void {
+function ensureGeneratedSeed(event: DeepDiveEvent, generated: GeneratedBriefing): void {
   if (event.seed !== generated.seed) {
-    throw new DeepDivesProviderError(
+    throw new BriefingProviderError(
       'WEEKLY_DATA_UNAVAILABLE',
       `Generator seed mismatch: event=${event.seed}, generated=${generated.seed}`,
     )

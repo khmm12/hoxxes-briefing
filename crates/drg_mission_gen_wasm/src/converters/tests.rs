@@ -332,12 +332,12 @@ fn secondary_objective_maps_salvage_operation() {
 }
 
 #[test]
-fn secondary_objective_maps_heavy_excavation() {
+fn secondary_objective_maps_heavy_extraction() {
     assert_eq!(
         wasm::DeepDiveSecondaryObjective::from(
-            facade::DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses: 3 }
+            facade::DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses: 3 }
         ),
-        wasm::DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses: 3 }
+        wasm::DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses: 3 }
     );
 }
 

@@ -134,8 +134,8 @@ impl From<facade::DeepDiveSecondaryObjective> for wasm::DeepDiveSecondaryObjecti
             facade::DeepDiveSecondaryObjective::SalvageOperation { mini_mules } => {
                 wasm::DeepDiveSecondaryObjective::SalvageOperation { mini_mules }
             }
-            facade::DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses } => {
-                wasm::DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses }
+            facade::DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses } => {
+                wasm::DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses }
             }
         }
     }

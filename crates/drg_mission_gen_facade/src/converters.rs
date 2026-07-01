@@ -235,7 +235,7 @@ fn map_secondary_objective_instance(
         } => Ok(Obj::Blackbox { black_boxes: 1 }),
         ObjectiveInstance::Other {
             kind: OBJ_DD_Excavation,
-        } => Ok(Obj::HeavyExcavation { resinite_masses: 1 }),
+        } => Ok(Obj::HeavyExtraction { resinite_masses: 1 }),
         ObjectiveInstance::Other {
             kind: OBJ_DD_Morkite,
         } => Ok(Obj::MiningExpedition { morkite: 150 }),

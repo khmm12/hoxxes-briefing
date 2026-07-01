@@ -1,6 +1,6 @@
 import { generate } from '@hoxxes-briefing/wasm'
-import type { CurrentDeepDives } from '../../application/models/current-deep-dives.ts'
+import type { Briefing } from '../../application/models/briefing.ts'
 
-export type GeneratedDeepDives = Pick<CurrentDeepDives, 'seed' | 'dives'>
+export type GeneratedBriefing = Pick<Briefing, 'seed' | 'dives'>
 
-export const generateWeeklyDives = (seed: number): GeneratedDeepDives => generate(seed)
+export const generateBriefing = (seed: number): GeneratedBriefing => generate(seed)

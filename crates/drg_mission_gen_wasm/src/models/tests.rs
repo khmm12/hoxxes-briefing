@@ -160,3 +160,14 @@ fn dreadnought_serializes_classic_to_legacy_wire_tag() {
         "\"Twins\""
     );
 }
+
+#[test]
+fn secondary_heavy_extraction_serializes_to_legacy_wire_tag() {
+    // Domain variant is `HeavyExtraction`, but the wire tag stays
+    // "HeavyExcavation" for backward compat. Locks the `#[serde(rename)]`.
+    assert_eq!(
+        serde_json::to_string(&DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses: 2 })
+            .unwrap(),
+        "{\"kind\":\"HeavyExcavation\",\"resiniteMasses\":2}"
+    );
+}

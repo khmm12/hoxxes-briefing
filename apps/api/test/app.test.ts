@@ -2,10 +2,10 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import * as v1 from '@hoxxes-briefing/contracts/api/v1'
 import { createApp } from '../src/app.ts'
-import type { CurrentDeepDives } from '../src/application/models/current-deep-dives.ts'
-import { type DeepDivesProvider, DeepDivesProviderError } from '../src/ports/deep-dives-provider.ts'
+import type { Briefing } from '../src/application/models/briefing.ts'
+import { type BriefingProvider, BriefingProviderError } from '../src/ports/briefing-provider.ts'
 
-const createMission = (): CurrentDeepDives['dives']['normal']['missions'][number] => {
+const createMission = (): Briefing['dives']['normal']['missions'][number] => {
   return {
     primaryObjective: {
       kind: 'DeepScan',
@@ -20,7 +20,7 @@ const createMission = (): CurrentDeepDives['dives']['normal']['missions'][number
   }
 }
 
-const createCurrentDeepDives = (): CurrentDeepDives => {
+const createBriefing = (): Briefing => {
   return {
     seed: 1234567890,
     release: '2026-04-16T11:00:00.000Z',
@@ -55,15 +55,15 @@ const createCurrentDeepDives = (): CurrentDeepDives => {
   }
 }
 
-const createProvider = (implementation: DeepDivesProvider['getCurrentDeepDives']): DeepDivesProvider => {
+const createProvider = (implementation: BriefingProvider['getBriefing']): BriefingProvider => {
   return {
-    getCurrentDeepDives: implementation,
+    getBriefing: implementation,
   }
 }
 
 test('GET /api/v1/weekly returns the weekly contract payload', async () => {
   const app = createApp({
-    deepDivesProvider: createProvider(async () => createCurrentDeepDives()),
+    briefingProvider: createProvider(async () => createBriefing()),
   })
 
   const response = await app.request('/api/v1/weekly')
@@ -84,8 +84,8 @@ test('GET /api/v1/weekly returns the weekly contract payload', async () => {
 
 test('GET /api/v1/weekly returns CDN cache headers for a fresh weekly payload', async () => {
   const app = createApp({
-    deepDivesProvider: createProvider(async () => ({
-      ...createCurrentDeepDives(),
+    briefingProvider: createProvider(async () => ({
+      ...createBriefing(),
       release: '2999-04-16T11:00:00.000Z',
       expiration: '2999-04-23T11:00:00.000Z',
     })),
@@ -104,8 +104,8 @@ test('GET /api/v1/weekly returns CDN cache headers for a fresh weekly payload', 
 
 test('GET /api/v1/weekly returns a structured upstream failure', async () => {
   const app = createApp({
-    deepDivesProvider: createProvider(async () => {
-      throw new DeepDivesProviderError('UPSTREAM_UNAVAILABLE', 'boom')
+    briefingProvider: createProvider(async () => {
+      throw new BriefingProviderError('UPSTREAM_UNAVAILABLE', 'boom')
     }),
   })
 
@@ -127,8 +127,8 @@ test('GET /api/v1/weekly returns a structured upstream failure', async () => {
 
 test('GET /api/v1/weekly returns a structured invalid payload error', async () => {
   const app = createApp({
-    deepDivesProvider: createProvider(async () => {
-      const invalid = createCurrentDeepDives()
+    briefingProvider: createProvider(async () => {
+      const invalid = createBriefing()
       return {
         ...invalid,
         dives: {
@@ -138,7 +138,7 @@ test('GET /api/v1/weekly returns a structured invalid payload error', async () =
             missions: [createMission()],
           },
         },
-      } as unknown as CurrentDeepDives
+      } as unknown as Briefing
     }),
   })
 

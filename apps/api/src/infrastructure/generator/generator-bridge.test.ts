@@ -1,17 +1,17 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {
-  type CurrentDeepDives,
+  type Briefing,
   DEEP_DIVE_BIOMES,
   DEEP_DIVE_DREADNOUGHTS,
   DEEP_DIVE_MUTATORS,
   DEEP_DIVE_WARNINGS,
   type DeepDivePrimaryObjective,
   type DeepDiveSecondaryObjective,
-} from '../../application/models/current-deep-dives.ts'
-import { generateWeeklyDives } from './generator-bridge.ts'
+} from '../../application/models/briefing.ts'
+import { generateBriefing } from './generator-bridge.ts'
 
-type GeneratedDeepDives = Pick<CurrentDeepDives, 'seed' | 'dives'>
+type GeneratedBriefing = Pick<Briefing, 'seed' | 'dives'>
 
 const primaryObjectiveKeysByKind = {
   DeepScan: ['kind', 'resonanceCrystals'],
@@ -55,7 +55,7 @@ const assertKnownObjective = (
   }
 }
 
-function assertGeneratedDeepDivesShape(generated: GeneratedDeepDives): void {
+function assertGeneratedBriefingShape(generated: GeneratedBriefing): void {
   assertObjectKeys(generated, ['seed', 'dives'])
   assert.equal(Number.isInteger(generated.seed), true)
   assertObjectKeys(generated.dives, ['normal', 'elite'])
@@ -85,8 +85,8 @@ function assertGeneratedDeepDivesShape(generated: GeneratedDeepDives): void {
   }
 }
 
-test('generateWeeklyDives returns the WASM payload in the application model shape', () => {
-  const generated: GeneratedDeepDives = generateWeeklyDives(1234567890)
+test('generateBriefing returns the WASM payload in the application model shape', () => {
+  const generated: GeneratedBriefing = generateBriefing(1234567890)
 
-  assertGeneratedDeepDivesShape(generated)
+  assertGeneratedBriefingShape(generated)
 })

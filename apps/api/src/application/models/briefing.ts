@@ -83,7 +83,7 @@ export type DeepDive = Readonly<{
   missions: ReadonlyArray<DeepDiveMission>
 }>
 
-export type CurrentDeepDives = Readonly<{
+export type Briefing = Readonly<{
   seed: number
   release: string
   expiration: string

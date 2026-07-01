@@ -73,7 +73,7 @@ pub enum DeepDivePrimaryObjective {
     OnSiteRefining { morkite_wells: u32 },
     SalvageOperation { mini_mules: u32 },
     Elimination { dreadnought_kinds: Vec<Dreadnought> },
-    HeavyExtraction { resinite_masses: u32 }, // TODO: NAMING
+    HeavyExtraction { resinite_masses: u32 },
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -85,7 +85,7 @@ pub enum DeepDiveSecondaryObjective {
     MiningExpedition { morkite: u32 },
     OnSiteRefining { morkite_wells: u32 },
     SalvageOperation { mini_mules: u32 },
-    HeavyExcavation { resinite_masses: u32 }, // TODO: NAMING
+    HeavyExtraction { resinite_masses: u32 },
 }
 
 #[derive(Debug, Copy, Clone, PartialEq)]

@@ -300,7 +300,7 @@ fn secondary_objective_maps_every_supported_kind() {
         ),
         (
             OBJ_DD_Excavation,
-            DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses: 1 },
+            DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses: 1 },
         ),
         (
             OBJ_DD_Morkite,

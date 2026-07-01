@@ -1,26 +1,26 @@
 import type { Context, Hono } from 'hono'
-import { getCurrentDeepDives } from '../../application/get-current-deep-dives.ts'
-import type { DeepDivesProvider } from '../../ports/deep-dives-provider.ts'
+import { getBriefing } from '../../application/get-briefing.ts'
+import type { BriefingProvider } from '../../ports/briefing-provider.ts'
 import { InvalidResponsePayloadError, toPublicErrorResponse } from '../errors.ts'
-import { mapCurrentDeepDivesToWeeklyResponse } from '../map-weekly-response.ts'
+import { mapBriefingToWeeklyResponse } from '../map-briefing-to-weekly-response.ts'
 import { createWeeklyErrorCacheHeaders, createWeeklySuccessCacheHeaders } from '../weekly-cache-headers.ts'
 
 export type WeeklyRouteDependencies = {
-  deepDivesProvider: DeepDivesProvider
+  briefingProvider: BriefingProvider
 }
 
 export function registerWeeklyRoute(app: Hono, dependencies: WeeklyRouteDependencies): void {
   app.get('/api/v1/weekly', async (context) => {
     try {
-      const currentDeepDives = await getCurrentDeepDives(dependencies.deepDivesProvider)
+      const briefing = await getBriefing(dependencies.briefingProvider)
 
       try {
-        const responsePayload = mapCurrentDeepDivesToWeeklyResponse(currentDeepDives)
+        const responsePayload = mapBriefingToWeeklyResponse(briefing)
         applyHeaders(context, createWeeklySuccessCacheHeaders(responsePayload.week.expiration))
 
         return context.json(responsePayload)
       } catch (cause) {
-        throw new InvalidResponsePayloadError('Failed to map current deep dives to API response', { cause })
+        throw new InvalidResponsePayloadError('Failed to map briefing to weekly response', { cause })
       }
     } catch (error) {
       const { status, body } = toPublicErrorResponse(error, context.req.header('x-request-id'))

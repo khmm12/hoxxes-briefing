@@ -98,8 +98,13 @@ pub enum DeepDiveSecondaryObjective {
         #[serde(rename = "dreadnoughts")]
         dreadnought_kinds: Vec<Dreadnought>,
     },
-    #[serde(rename_all = "camelCase")]
-    HeavyExcavation { resinite_masses: u32 },
+    // Domain name is `HeavyExtraction` (ubiquitous language, see
+    // docs/domain.md); the wire tag stays "HeavyExcavation" for backward
+    // compat with shipped payloads and warm client caches.
+    // TODO: align the TS contract on `HeavyExtraction` and flip the wire
+    // (drop this rename) once a cache-busting deploy is acceptable.
+    #[serde(rename = "HeavyExcavation", rename_all = "camelCase")]
+    HeavyExtraction { resinite_masses: u32 },
     #[serde(rename_all = "camelCase")]
     MiningExpedition { morkite: u32 },
     #[serde(rename_all = "camelCase")]
