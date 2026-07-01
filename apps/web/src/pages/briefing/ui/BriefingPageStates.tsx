@@ -38,7 +38,7 @@ export function BriefingLoadingState(props: BriefingLoadingStateProps): JSX.Elem
         }
         bodyTone="muted"
         busy
-        eyebrow={i18n._(msg`Checking this week`)}
+        eyebrow={i18n._(msg`Checking the briefing`)}
         indicator={<Spinner />}
         title={i18n._(msg`Mining Morkite`)}
       />
@@ -55,11 +55,11 @@ export function BriefingErrorState(props: BriefingErrorStateProps): JSX.Element 
         when={props.online}
         fallback={
           <StateScreen
-            body={i18n._(msg`This device is offline and has no saved weekly board.`)}
+            body={i18n._(msg`This device is offline and has no saved briefing.`)}
             eyebrow={i18n._(msg`Offline cache miss`)}
             indicator={<OfflineIcon />}
-            passiveStatus={i18n._(msg`Open Hoxxes Briefing while online once to keep a board available offline.`)}
-            title={i18n._(msg`No saved board`)}
+            passiveStatus={i18n._(msg`Open Hoxxes Briefing while online once to keep it available offline.`)}
+            title={i18n._(msg`No saved briefing`)}
             tone="info"
           />
         }
@@ -71,9 +71,9 @@ export function BriefingErrorState(props: BriefingErrorStateProps): JSX.Element 
             </ActionControl>
           }
           body={formatBoardUnavailableBody(i18n, props.error)}
-          eyebrow={i18n._(msg`Board unavailable`)}
+          eyebrow={i18n._(msg`Briefing unavailable`)}
           indicator={<BoardUnavailableIcon />}
-          title={i18n._(msg`Could not load the weekly board`)}
+          title={i18n._(msg`Could not load the briefing`)}
           tone="primary"
         />
       </Show>

@@ -29,7 +29,7 @@ describe('BriefingErrorState', () => {
       />
     ))
 
-    expect(getByText('Could not load the weekly board')).toBeInTheDocument()
+    expect(getByText('Could not load the briefing')).toBeInTheDocument()
     expect(getByRole('button', { name: 'Try again' })).toBeInTheDocument()
   })
 
@@ -43,7 +43,7 @@ describe('BriefingErrorState', () => {
       />
     ))
 
-    expect(getByText('No saved board')).toBeInTheDocument()
+    expect(getByText('No saved briefing')).toBeInTheDocument()
     expect(queryByRole('button')).toBeNull()
   })
 })

@@ -96,7 +96,7 @@ describe('BriefingPage', () => {
 
     const { findByText } = renderBriefingPage(false)
 
-    expect(document.title).toBe('Hoxxes Briefing | DRG Deep Dive Board')
+    expect(document.title).toBe('Hoxxes Briefing | DRG Deep Dive Overview')
     expect(await findByText('Awful Catacomb')).toBeInTheDocument()
   })
 
@@ -111,7 +111,7 @@ describe('BriefingPage', () => {
 
     const { findByText, findByRole } = renderBriefingPage(false)
 
-    expect(await findByText('Could not load the weekly board')).toBeInTheDocument()
+    expect(await findByText('Could not load the briefing')).toBeInTheDocument()
     expect(errorSpy).toHaveBeenCalledWith('ErrorBoundary', expect.anything())
 
     fireEvent.click(await findByRole('button', { name: 'Try again' }))

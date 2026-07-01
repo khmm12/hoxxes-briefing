@@ -36,11 +36,11 @@ export function BriefingPage(props: BriefingPageProps): JSX.Element {
 
   return (
     <>
-      <Title>{i18n._(msg`Hoxxes Briefing | DRG Deep Dive Board`)}</Title>
+      <Title>{i18n._(msg`Hoxxes Briefing | DRG Deep Dive Overview`)}</Title>
       <Meta
         name="description"
         content={i18n._(
-          msg`Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive board with weekly stages, objectives, hazards, mutators, and reset timing.`,
+          msg`Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive with stages, objectives, mutators, and reset timing.`,
         )}
       />
 

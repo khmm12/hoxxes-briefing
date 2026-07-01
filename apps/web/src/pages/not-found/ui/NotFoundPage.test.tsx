@@ -22,9 +22,9 @@ describe('NotFoundPage', () => {
     const { getByText, getByRole } = renderNotFoundPage(false)
 
     expect(getByText('Page not found')).toBeInTheDocument()
-    expect(getByText('This page is not available here. Head back to the weekly board.')).toBeInTheDocument()
+    expect(getByText('This page is not available here. Head back to the briefing.')).toBeInTheDocument()
 
-    const link = getByRole('link', { name: 'Go to weekly board' })
+    const link = getByRole('link', { name: 'Go to the briefing' })
     expect(link).toBeInTheDocument()
     expect(link).toHaveAttribute('href', '/')
   })
