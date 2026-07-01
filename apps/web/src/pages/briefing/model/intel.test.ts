@@ -53,7 +53,7 @@ describe('buildIntel', () => {
     })
   })
 
-  it('does not treat a clean Elimination route as a fixed objective fallback', () => {
+  it('does not treat a clean Elimination dive as a fixed objective fallback', () => {
     const dive = createDive([
       createMission({
         primaryObjective: {

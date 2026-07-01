@@ -80,7 +80,7 @@ const mutatorEntryKeys = ['intelPriority', 'quickReadPriority']
 void typeCoverageAssertions
 
 describe('domain catalog', () => {
-  it('covers every current primary objective with only route context data', () => {
+  it('covers every current primary objective with only context-tag data', () => {
     expect(Object.keys(primaryObjectiveCatalog)).toEqual([...primaryObjectiveKinds])
 
     for (const kind of primaryObjectiveKinds) {
@@ -91,7 +91,7 @@ describe('domain catalog', () => {
     }
   })
 
-  it('covers every current secondary objective with only route context data', () => {
+  it('covers every current secondary objective with only context-tag data', () => {
     expect(Object.keys(secondaryObjectiveCatalog)).toEqual([...secondaryObjectiveKinds])
 
     for (const kind of secondaryObjectiveKinds) {

@@ -64,7 +64,7 @@ describe('DiveDeck · desktop layout (md and up)', () => {
     window.matchMedia = restoreMatchMedia
   })
 
-  it('renders both dive routes at once, with their switch chips', () => {
+  it('renders both dives at once, with their switch chips', () => {
     const { getByText, getByRole } = renderWithProviders(() => <DiveDeck dives={DIVES} expired={false} />)
 
     expect(getByText('Awful Catacomb')).toBeInTheDocument()
@@ -93,14 +93,14 @@ describe('DiveDeck · desktop layout (md and up)', () => {
 })
 
 describe('DiveDeck · mobile swipe deck (below md)', () => {
-  it('starts on the normal route with the elite slab inert', () => {
+  it('starts on the normal dive with the elite slab inert', () => {
     const { container, getByRole } = renderWithProviders(() => <DiveDeck dives={DIVES} expired={false} />)
 
     expect(getByRole('button', { name: 'Deep Dive' })).toHaveAttribute('aria-current', 'true')
     expect(container.querySelectorAll('article[inert]')).toHaveLength(1)
   })
 
-  it('switches the active route and inert slab when a switch chip is picked', () => {
+  it('switches the active dive and inert slab when a switch chip is picked', () => {
     const { container, getByRole } = renderWithProviders(() => <DiveDeck dives={DIVES} expired={false} />)
 
     fireEvent.click(getByRole('button', { name: 'Elite Deep Dive' }))
