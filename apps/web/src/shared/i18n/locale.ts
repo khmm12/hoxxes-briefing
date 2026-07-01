@@ -1,6 +1,10 @@
-export const defaultLocale = 'en-US' as const
+export enum Locale {
+  English = 'en-US',
+}
 
-export const supportedLocales = ['en-US'] as const
+export const defaultLocale = Locale.English
+
+export const supportedLocales = [Locale.English] as const
 export type SupportedLocale = (typeof supportedLocales)[number]
 
 export function resolveLocale(candidates: readonly string[]): SupportedLocale {
@@ -8,7 +12,7 @@ export function resolveLocale(candidates: readonly string[]): SupportedLocale {
     const normalized = candidate.toLowerCase()
 
     if (normalized.startsWith('en')) {
-      return 'en-US'
+      return Locale.English
     }
   }
 
