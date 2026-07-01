@@ -6,28 +6,28 @@ import { useI18n } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { Meta, Title } from '~/shared/lib/document-head'
 import { AppLayout } from '~/shared/ui/layout'
-import { createWeeklyBoardQuery } from '../model/create-weekly-board-query'
-import { isWeeklyExpired, type WeeklyBoardViewState } from '../model/weekly-page-state'
-import { WeeklyBoard } from './WeeklyBoard'
+import { createBoardQuery } from '../model/create-board-query'
+import { type BoardViewState, isWeeklyExpired } from '../model/weekly-page-state'
+import { Board } from './Board'
 import { WeeklyErrorState, WeeklyLoadingState } from './WeeklyPageStates'
 
-type WeeklyBoardQuery = ReturnType<typeof createWeeklyBoardQuery>
+type BoardQuery = ReturnType<typeof createBoardQuery>
 
 type WeeklyPageProps = {
   dockVisible: boolean
 }
 
-type ReadyWeeklyBoardProps = {
+type ReadyBoardProps = {
   dockVisible: boolean
   online: boolean
-  query: WeeklyBoardQuery
+  query: BoardQuery
   onRefresh: () => void
 }
 
 export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
   const i18n = useI18n()
   const online = createOnlineStatus()
-  const boardQuery = createWeeklyBoardQuery()
+  const boardQuery = createBoardQuery()
   const [retryVersion, setRetryVersion] = createSignal(0)
 
   const handleRefresh = (): void => {
@@ -77,19 +77,14 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
             )
           }}
         >
-          <ReadyWeeklyBoard
-            dockVisible={props.dockVisible}
-            online={online()}
-            query={boardQuery}
-            onRefresh={handleRefresh}
-          />
+          <ReadyBoard dockVisible={props.dockVisible} online={online()} query={boardQuery} onRefresh={handleRefresh} />
         </Errored>
       </Loading>
     </>
   )
 }
 
-function ReadyWeeklyBoard(props: ReadyWeeklyBoardProps): JSX.Element {
+function ReadyBoard(props: ReadyBoardProps): JSX.Element {
   const now = createWallClock()
 
   const state = createState(
@@ -102,12 +97,12 @@ function ReadyWeeklyBoard(props: ReadyWeeklyBoardProps): JSX.Element {
 
   return (
     <AppLayout dockVisible={props.dockVisible}>
-      <WeeklyBoard now={now()} state={state} data={props.query.data} onRefresh={props.onRefresh} />
+      <Board now={now()} state={state} data={props.query.data} onRefresh={props.onRefresh} />
     </AppLayout>
   )
 }
 
-function createState(props: ReadyWeeklyBoardProps & { now: Date }): WeeklyBoardViewState {
+function createState(props: ReadyBoardProps & { now: Date }): BoardViewState {
   const expiration = createMemo(() => new Date(props.query.data.week.expiration), {
     equals: (a, b) => a instanceof Date && b instanceof Date && a.getTime() === b.getTime(),
   })

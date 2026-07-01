@@ -1,8 +1,8 @@
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import type { WeeklyRouteIntelNote } from '../model/weekly-route-intel'
+import type { IntelNote } from '../model/intel'
 
-export function formatWeeklyRouteIntelNote(i18n: I18n, note: WeeklyRouteIntelNote): string {
+export function formatIntelNote(i18n: I18n, note: IntelNote): string {
   switch (note) {
     case 'blood-sugar':
       return i18n._(msg`Mind the sugar route. A dry stretch kills momentum.`)

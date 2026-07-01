@@ -3,8 +3,8 @@ import type { WeeklySnapshotResult } from '~/shared/api'
 import { WeeklyRequestError } from '~/shared/api'
 import { AppLayout } from '~/shared/ui/layout'
 import { PwaNotice } from '~/widgets/pwa-notice'
-import type { WeeklyBoardViewState } from '../model/weekly-page-state'
-import { WeeklyBoard } from '../ui/WeeklyBoard'
+import type { BoardViewState } from '../model/weekly-page-state'
+import { Board } from '../ui/Board'
 import { WeeklyErrorState, WeeklyLoadingState } from '../ui/WeeklyPageStates'
 
 export type WeeklyScenario = {
@@ -77,10 +77,10 @@ const BOARD: WeeklySnapshotResult = {
   },
 }
 
-// Every hazard combination the board layout must survive: warning + mutator
+// Every mutator combination the board layout must survive: warning + mutator
 // on one stage, mutator only, an Elimination objective, and enough quick-read
 // chips to trigger the overflow control.
-const HAZARD_BOARD: WeeklySnapshotResult = {
+const MUTATOR_BOARD: WeeklySnapshotResult = {
   ...BOARD,
   dives: {
     ...BOARD.dives,
@@ -110,7 +110,7 @@ const HAZARD_BOARD: WeeklySnapshotResult = {
   },
 }
 
-const LIVE_STATE: WeeklyBoardViewState = {
+const LIVE_STATE: BoardViewState = {
   source: 'network',
   expired: false,
   online: true,
@@ -118,13 +118,13 @@ const LIVE_STATE: WeeklyBoardViewState = {
   refreshFailed: false,
 }
 
-function boardScenario(id: string, title: string, data: WeeklySnapshotResult, state: Partial<WeeklyBoardViewState>) {
+function boardScenario(id: string, title: string, data: WeeklySnapshotResult, state: Partial<BoardViewState>) {
   return {
     id,
     title,
     render: (): JSX.Element => (
       <AppLayout>
-        <WeeklyBoard now={NOW} state={{ ...LIVE_STATE, ...state }} data={data} onRefresh={() => {}} />
+        <Board now={NOW} state={{ ...LIVE_STATE, ...state }} data={data} onRefresh={() => {}} />
       </AppLayout>
     ),
   }
@@ -142,7 +142,7 @@ function errorScenario(id: string, title: string, error: WeeklyRequestError, onl
 
 export const weeklyScenarios: WeeklyScenario[] = [
   boardScenario('board', 'Board · live', BOARD, {}),
-  boardScenario('board-hazards', 'Board · hazards', HAZARD_BOARD, {}),
+  boardScenario('board-mutators', 'Board · mutators', MUTATOR_BOARD, {}),
   boardScenario('board-expired', 'Board · expired', BOARD, { expired: true }),
   boardScenario('board-refresh-failed', 'Board · refresh failed', BOARD, { refreshFailed: true }),
   boardScenario('board-refreshing', 'Board · refreshing', BOARD, { refreshing: true }),
@@ -154,7 +154,7 @@ export const weeklyScenarios: WeeklyScenario[] = [
     render: (): JSX.Element => (
       <>
         <AppLayout dockVisible>
-          <WeeklyBoard now={NOW} state={LIVE_STATE} data={BOARD} onRefresh={() => {}} />
+          <Board now={NOW} state={LIVE_STATE} data={BOARD} onRefresh={() => {}} />
         </AppLayout>
         <PwaNotice onReload={() => {}} />
       </>

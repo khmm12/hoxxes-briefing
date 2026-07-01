@@ -29,7 +29,7 @@ msgstr "{minutes}m"
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:300
+#: src/pages/weekly/ui/DiveSlab.tsx:300
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
@@ -41,7 +41,7 @@ msgstr "A slow, but invulnerable and deadly creature has been detected in this a
 msgid "A special mix of gasses in the air makes both Dwarves and aliens faster. As a side effect, everyone's voice is funnier than usual."
 msgstr "A special mix of gasses in the air makes both Dwarves and aliens faster. As a side effect, everyone's voice is funnier than usual."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:18
+#: src/pages/weekly/ui/intel-copy.ts:18
 msgid "Advance by cover, not courage. Call angles before holds."
 msgstr "Advance by cover, not courage. Call angles before holds."
 
@@ -49,7 +49,7 @@ msgstr "Advance by cover, not courage. Call angles before holds."
 msgid "After a few seconds of not taking damage, the creatures will start recovering health."
 msgstr "After a few seconds of not taking damage, the creatures will start recovering health."
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:296
+#: src/pages/weekly/ui/DiveSlab.tsx:296
 msgid "All clear"
 msgstr "All clear"
 
@@ -86,7 +86,7 @@ msgstr "Blood Sugar"
 msgid "Board unavailable"
 msgstr "Board unavailable"
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:48
+#: src/pages/weekly/ui/intel-copy.ts:48
 msgid "Bring armor-cracking focus. Machines do not care about swagger."
 msgstr "Bring armor-cracking focus. Machines do not care about swagger."
 
@@ -94,11 +94,11 @@ msgstr "Bring armor-cracking focus. Machines do not care about swagger."
 msgid "Brotherhood. Danger. Profit."
 msgstr "Brotherhood. Danger. Profit."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:22
+#: src/pages/weekly/ui/intel-copy.ts:22
 msgid "Call big targets early. Hero trades make bad stories."
 msgstr "Call big targets early. Hero trades make bad stories."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:26
+#: src/pages/weekly/ui/intel-copy.ts:26
 msgid "Call weakpoints and burn big targets early."
 msgstr "Call weakpoints and burn big targets early."
 
@@ -118,15 +118,15 @@ msgstr "Checking this week"
 msgid "Classic"
 msgstr "Classic"
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:14
+#: src/pages/weekly/ui/intel-copy.ts:14
 msgid "Clean drop. Round at the Abyss Bar, then keep it tight."
 msgstr "Clean drop. Round at the Abyss Bar, then keep it tight."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:12
+#: src/pages/weekly/ui/intel-copy.ts:12
 msgid "Clean Elite drop. Buy the round, then bring everyone home."
 msgstr "Clean Elite drop. Buy the round, then bring everyone home."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:42
+#: src/pages/weekly/ui/intel-copy.ts:42
 msgid "Clear the cleanup. Small leftovers ruin brave revives."
 msgstr "Clear the cleanup. Small leftovers ruin brave revives."
 
@@ -168,17 +168,17 @@ msgstr "Darkness, here I come!"
 msgid "Deep Dive"
 msgstr "Deep Dive"
 
-#: src/pages/weekly/ui/WeeklyRouteDeck.tsx:167
+#: src/pages/weekly/ui/DiveDeck.tsx:180
 msgid "Deep dive mission board"
 msgstr "Deep dive mission board"
+
+#: src/pages/weekly/ui/DiveDeck.tsx:181
+msgid "Deep Dives"
+msgstr "Deep Dives"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:27
 msgid "Dense Biozone"
 msgstr "Dense Biozone"
-
-#: src/pages/weekly/ui/WeeklyRouteDeck.tsx:168
-msgid "Dive routes"
-msgstr "Dive routes"
 
 #. placeholder {0}: objective.dreadnoughts.length
 #. placeholder {1}: formatDreadnoughtList(i18n, objective.dreadnoughts)
@@ -217,11 +217,11 @@ msgstr "Escort Duty"
 msgid "Exploder Infestation"
 msgstr "Exploder Infestation"
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:10
+#: src/pages/weekly/ui/intel-copy.ts:10
 msgid "Eyes up, miners. Greed before scanning gets expensive."
 msgstr "Eyes up, miners. Greed before scanning gets expensive."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:46
+#: src/pages/weekly/ui/intel-copy.ts:46
 msgid "Finish what you start. Half-cleared fights drain the whole dive."
 msgstr "Finish what you start. Half-cleared fights drain the whole dive."
 
@@ -241,7 +241,7 @@ msgstr "Fungus Bogs"
 msgid "Glacial Strata"
 msgstr "Glacial Strata"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:26
+#: src/pages/not-found/ui/NotFoundPage.tsx:24
 msgid "Go to weekly board"
 msgstr "Go to weekly board"
 
@@ -265,7 +265,7 @@ msgstr "Hollow Bough"
 msgid "Hoxxes Briefing | DRG Deep Dive Board"
 msgstr "Hoxxes Briefing | DRG Deep Dive Board"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:18
+#: src/pages/not-found/ui/NotFoundPage.tsx:20
 msgid "Hoxxes Briefing | Not Found"
 msgstr "Hoxxes Briefing | Not Found"
 
@@ -289,23 +289,23 @@ msgstr "Just show me where to shoot!"
 msgid "Karl Would Be Proud!"
 msgstr "Karl Would Be Proud!"
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:40
+#: src/pages/weekly/ui/intel-copy.ts:40
 msgid "Keep eyes on the air. Open ground only helps teams that shoot first."
 msgstr "Keep eyes on the air. Open ground only helps teams that shoot first."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:24
+#: src/pages/weekly/ui/intel-copy.ts:24
 msgid "Keep holds loose and exits clear. Tight teams make loud mistakes."
 msgstr "Keep holds loose and exits clear. Tight teams make loud mistakes."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:16
+#: src/pages/weekly/ui/intel-copy.ts:16
 msgid "Keep moving between cover. Open ground has teeth today."
 msgstr "Keep moving between cover. Open ground has teeth today."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:50
+#: src/pages/weekly/ui/intel-copy.ts:50
 msgid "Keep the floor tidy. Little trouble grows fast under pressure."
 msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:213
+#: src/pages/weekly/ui/DiveSlab.tsx:213
 msgid "Last known board"
 msgstr "Last known board"
 
@@ -321,7 +321,7 @@ msgstr "Last known board still shown. Refresh failed."
 msgid "Last known board still shown. Refreshing now."
 msgstr "Last known board still shown. Refreshing now."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:20
+#: src/pages/weekly/ui/intel-copy.ts:20
 msgid "Leave brawling room. Cramped teams run out of options fast."
 msgstr "Leave brawling room. Cramped teams run out of options fast."
 
@@ -357,7 +357,7 @@ msgstr "Low Oxygen"
 msgid "Mactera Plague"
 msgstr "Mactera Plague"
 
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:77
+#: src/pages/weekly/ui/BoardFooter.tsx:77
 msgid "Made with love by"
 msgstr "Made with love by"
 
@@ -373,11 +373,11 @@ msgstr "Magnetic interference is causing all shields to malfunction."
 msgid "Melee damage from all enemies hurts a lot more than usual."
 msgstr "Melee damage from all enemies hurts a lot more than usual."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:8
+#: src/pages/weekly/ui/intel-copy.ts:8
 msgid "Mind the sugar route. A dry stretch kills momentum."
 msgstr "Mind the sugar route. A dry stretch kills momentum."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:56
+#: src/pages/weekly/ui/intel-copy.ts:56
 msgid "Mind your spacing. Dead bugs can still ruin the formation."
 msgstr "Mind your spacing. Dead bugs can still ruin the formation."
 
@@ -405,7 +405,7 @@ msgstr "Morkite x{0}"
 msgid "Most threats in this mission will come from the air, the caves are full of Mactera."
 msgstr "Most threats in this mission will come from the air, the caves are full of Mactera."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:32
+#: src/pages/weekly/ui/intel-copy.ts:32
 msgid "Move like rent is due. Mine fast, regroup faster."
 msgstr "Move like rent is due. Mine fast, regroup faster."
 
@@ -456,7 +456,7 @@ msgstr "Open Hoxxes Briefing while online once to keep a board available offline
 msgid "Ossuary Depths"
 msgstr "Ossuary Depths"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:32
+#: src/pages/not-found/ui/NotFoundPage.tsx:30
 msgid "Page not found"
 msgstr "Page not found"
 
@@ -468,15 +468,15 @@ msgstr "Parasites"
 msgid "Pit-Jaw Colony"
 msgstr "Pit-Jaw Colony"
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:38
+#: src/pages/weekly/ui/intel-copy.ts:38
 msgid "Plan resupply hops early. Long caves punish greedy legs."
 msgstr "Plan resupply hops early. Long caves punish greedy legs."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:52
+#: src/pages/weekly/ui/intel-copy.ts:52
 msgid "Play close and clean. No shields means no lazy mistakes."
 msgstr "Play close and clean. No shields means no lazy mistakes."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:30
+#: src/pages/weekly/ui/intel-copy.ts:30
 msgid "Prep the hold first. Clear lanes before you lock in."
 msgstr "Prep the hold first. Clear lanes before you lock in."
 
@@ -491,6 +491,11 @@ msgstr "Primary objective"
 #: src/pages/weekly/ui/WeeklyPageStates.tsx:36
 msgid "Pulling the latest deep dives now."
 msgstr "Pulling the latest deep dives now."
+
+#: src/pages/weekly/ui/DiveSlab.tsx:219
+#: src/pages/weekly/ui/DiveSlab.tsx:220
+msgid "Quick read"
+msgstr "Quick read"
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:25
 msgid "Radioactive Exclusion Zone"
@@ -530,7 +535,7 @@ msgstr "Reload the app and try again."
 msgid "Resinite Mass x{0}"
 msgstr "Resinite Mass x{0}"
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:34
+#: src/pages/weekly/ui/intel-copy.ts:34
 msgid "Respect every bite. Clean revives beat brave trades."
 msgstr "Respect every bite. Clean revives beat brave trades."
 
@@ -546,15 +551,10 @@ msgstr "Rival Presence"
 msgid "Rock and Stone, Brother!"
 msgstr "Rock and Stone, Brother!"
 
+#: src/pages/weekly/ui/BoardFooter.tsx:73
 #: src/pages/weekly/ui/weekly-slogan-copy.ts:7
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:73
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
-
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:219
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:220
-msgid "Route scan"
-msgstr "Route scan"
 
 #: src/app/AppCrashScreen.tsx:26
 msgid "Runtime fault"
@@ -600,7 +600,7 @@ msgstr "Sensors have detected Rival presence in the area!"
 msgid "Shield Disruption"
 msgstr "Shield Disruption"
 
-#: src/pages/weekly/ui/WeeklyRouteSlab.tsx:233
+#: src/pages/weekly/ui/DiveSlab.tsx:233
 msgid "Show less"
 msgstr "Show less"
 
@@ -608,7 +608,7 @@ msgstr "Show less"
 msgid "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
 msgstr "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
 
-#: src/pages/weekly/ui/WeeklyBoardFooter.tsx:88
+#: src/pages/weekly/ui/BoardFooter.tsx:88
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
 
@@ -616,7 +616,7 @@ msgstr "Source on GitHub"
 msgid "Stage"
 msgstr "Stage"
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:36
+#: src/pages/weekly/ui/intel-copy.ts:36
 msgid "Stay near the cans. Long flanks cost more than time."
 msgstr "Stay near the cans. Long flanks cost more than time."
 
@@ -632,7 +632,7 @@ msgstr "Swarmageddon"
 msgid "Swarms of Ossiran Scrabs have begun nesting throughout the cave."
 msgstr "Swarms of Ossiran Scrabs have begun nesting throughout the cave."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:54
+#: src/pages/weekly/ui/intel-copy.ts:54
 msgid "Sweep the ankles before the work. Tiny teeth stop big plans."
 msgstr "Sweep the ankles before the work. Tiny teeth stop big plans."
 
@@ -652,7 +652,7 @@ msgstr "This device is offline and has no saved weekly board."
 msgid "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 msgstr "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:29
+#: src/pages/not-found/ui/NotFoundPage.tsx:27
 msgid "This page is not available here. Head back to the weekly board."
 msgstr "This page is not available here. Head back to the weekly board."
 
@@ -676,7 +676,7 @@ msgstr "Twins"
 msgid "Update app"
 msgstr "Update app"
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:28
+#: src/pages/weekly/ui/intel-copy.ts:28
 msgid "Use the speed. Finish spread jobs before swarms stack."
 msgstr "Use the speed. Finish spread jobs before swarms stack."
 
@@ -692,11 +692,11 @@ msgstr "Warning"
 msgid "Watch out for the ceiling, there is an unusual density of Cave Leeches."
 msgstr "Watch out for the ceiling, there is an unusual density of Cave Leeches."
 
-#: src/pages/weekly/ui/weekly-route-intel-copy.ts:44
+#: src/pages/weekly/ui/intel-copy.ts:44
 msgid "Watch the floor before you plant. Bad footing breaks good holds."
 msgstr "Watch the floor before you plant. Bad footing breaks good holds."
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:30
+#: src/pages/not-found/ui/NotFoundPage.tsx:28
 msgid "Wrong tunnel"
 msgstr "Wrong tunnel"
 

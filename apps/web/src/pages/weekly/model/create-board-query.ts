@@ -12,7 +12,7 @@ import { isWeeklyExpired } from './weekly-page-state'
 // one is worth holding the UI for while the network races.
 const staleWeeklySnapshotGracePeriodMs = 1000
 
-export function createWeeklyBoardQuery(): CachedQuery<WeeklySnapshotResult> {
+export function createBoardQuery(): CachedQuery<WeeklySnapshotResult> {
   return createCachedQuery({
     source: () => [] as const,
     fetcher: (_, ctx) =>

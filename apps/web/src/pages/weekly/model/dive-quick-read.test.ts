@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { WeeklyDive, WeeklyMission } from './weekly-route-catalog'
-import { buildQuickReadChips } from './weekly-route-quick-read'
+import { buildQuickReadChips } from './dive-quick-read'
+import type { WeeklyDive, WeeklyMission } from './weekly-catalog'
 
 describe('buildQuickReadChips', () => {
   it('sorts warnings before mutators and removes duplicates', () => {
@@ -26,7 +26,7 @@ describe('buildQuickReadChips', () => {
     ])
   })
 
-  it('returns empty list when the route has no hazards', () => {
+  it('returns empty list when the dive has no mutators', () => {
     expect(buildQuickReadChips(createDiveWithCleanStages())).toHaveLength(0)
   })
 })

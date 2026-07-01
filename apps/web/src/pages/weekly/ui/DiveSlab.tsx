@@ -11,8 +11,10 @@ import { createBreakpointQuery } from '~/shared/lib/create-media-query'
 import { Eyebrow } from '~/shared/ui/eyebrow'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 import { Tooltip } from '~/shared/ui/tooltip'
-import { buildWeeklyRouteIntel } from '../model/weekly-route-intel'
-import { buildQuickReadChips, type QuickReadChip } from '../model/weekly-route-quick-read'
+import { buildQuickReadChips, type QuickReadChip } from '../model/dive-quick-read'
+import { buildIntel } from '../model/intel'
+import { getVisibleQuickReadChips } from './dive-quick-read-view'
+import { formatIntelNote } from './intel-copy'
 import { StageBlock } from './StageBlock'
 import {
   formatBiome,
@@ -23,12 +25,10 @@ import {
   formatWarningDescription,
 } from './weekly-dive-copy'
 import { BiomeKindIcon, MutatorKindIcon, WarningKindIcon } from './weekly-dive-glyphs'
-import { formatWeeklyRouteIntelNote } from './weekly-route-intel-copy'
-import { getVisibleQuickReadChips } from './weekly-route-quick-read-view'
 
 type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 
-type WeeklyRouteSlabProps = WithStylingProps<{
+type DiveSlabProps = WithStylingProps<{
   dive: WeeklyDive
   expired: boolean
   kind: 'elite' | 'normal'
@@ -37,7 +37,7 @@ type WeeklyRouteSlabProps = WithStylingProps<{
 
 const slabRecipe = cva({
   base: {
-    '--route-accent-surface': token('colors.primary.surface'),
+    '--dive-accent-surface': token('colors.primary.surface'),
     position: 'relative',
     isolation: 'isolate',
     display: 'grid',
@@ -57,7 +57,7 @@ const slabRecipe = cva({
       content: '""',
       position: 'absolute',
       inset: '0',
-      background: '[radial-gradient(circle at top right, var(--route-accent-surface) 0, transparent 65%)]',
+      background: '[radial-gradient(circle at top right, var(--dive-accent-surface) 0, transparent 65%)]',
       pointerEvents: 'none',
     },
     '& > *': {
@@ -69,7 +69,7 @@ const slabRecipe = cva({
     kind: {
       normal: {},
       elite: {
-        '--route-accent-surface': token('colors.danger.surface'),
+        '--dive-accent-surface': token('colors.danger.surface'),
         borderColor: 'danger.border',
         background: 'surface.sunken',
       },
@@ -187,16 +187,16 @@ const stageListStyles = css.raw({
   padding: '0',
 })
 
-export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
+export function DiveSlab(props: DiveSlabProps): JSX.Element {
   const i18n = useI18n()
   const [expanded, setExpanded] = createSignal(false)
   const visibleLimit = createQuickReadVisibleLimit()
 
-  const intel = createMemo(() => buildWeeklyRouteIntel(props.dive, props.kind))
+  const intel = createMemo(() => buildIntel(props.dive, props.kind))
   const chips = createMemo(() => buildQuickReadChips(props.dive))
   const visibleChips = createMemo(() => getVisibleQuickReadChips(chips(), visibleLimit(), expanded()))
 
-  const routeScanId = createUniqueId()
+  const quickReadId = createUniqueId()
 
   return (
     <article class={resolveClass(props.class, props.css, slabRecipe.raw({ kind: props.kind }))} inert={props.inert}>
@@ -212,19 +212,19 @@ export function WeeklyRouteSlab(props: WeeklyRouteSlabProps): JSX.Element {
           </p>
           {props.expired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known board`)}</p> : null}
         </div>
-        <p class={css(noteStyles)}>{formatWeeklyRouteIntelNote(i18n, intel().note)}</p>
+        <p class={css(noteStyles)}>{formatIntelNote(i18n, intel().note)}</p>
       </header>
 
       <Show when={chips().length > 0}>
-        <section class={css(metaStyles)} aria-label={i18n._(msg`Route scan`)}>
-          <p class={css(metaLabelStyles)}>{i18n._(msg`Route scan`)}</p>
-          <div class={css(chipsStyles)} id={routeScanId}>
+        <section class={css(metaStyles)} aria-label={i18n._(msg`Quick read`)}>
+          <p class={css(metaLabelStyles)}>{i18n._(msg`Quick read`)}</p>
+          <div class={css(chipsStyles)} id={quickReadId}>
             <For each={visibleChips().visible} keyed={false}>
               {(chip) => <QuickReadChipView chip={chip()} />}
             </For>
             <Show when={visibleChips().overflowCount > 0}>
               <button
-                aria-controls={routeScanId}
+                aria-controls={quickReadId}
                 aria-expanded={expanded() ? 'true' : 'false'}
                 class={css(chipRecipe.raw({ kind: 'overflow' }))}
                 type="button"

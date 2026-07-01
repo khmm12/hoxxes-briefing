@@ -2,10 +2,10 @@ import { describe, expect, it, vi } from 'vitest'
 import { flush } from 'solid-js'
 import { fireEvent } from '@solidjs/testing-library'
 import { renderWithProviders } from '~test/render'
-import type { WeeklyBoardViewState } from '../model/weekly-page-state'
+import type { BoardViewState } from '../model/weekly-page-state'
 import { WeeklyRefreshPanel } from './WeeklyRefreshPanel'
 
-const LIVE_STATE: WeeklyBoardViewState = {
+const LIVE_STATE: BoardViewState = {
   source: 'network',
   expired: false,
   online: true,

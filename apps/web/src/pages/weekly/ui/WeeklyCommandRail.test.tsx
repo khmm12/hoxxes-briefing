@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { createTestI18n, renderWithProviders } from '~test/render'
-import type { WeeklyBoardViewState } from '../model/weekly-page-state'
+import type { BoardViewState } from '../model/weekly-page-state'
 import { WeeklyCommandRail } from './WeeklyCommandRail'
 import { getWeeklySlogan } from './weekly-slogan-copy'
 
@@ -16,7 +16,7 @@ const week: Week = {
 
 const now = new Date('2026-06-02T13:24:00Z')
 
-const liveState: WeeklyBoardViewState = {
+const liveState: BoardViewState = {
   source: 'network',
   expired: false,
   online: true,

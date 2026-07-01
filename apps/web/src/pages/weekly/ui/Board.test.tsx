@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
-import type { WeeklyBoardViewState } from '../model/weekly-page-state'
-import { WeeklyBoard } from './WeeklyBoard'
+import type { BoardViewState } from '../model/weekly-page-state'
+import { Board } from './Board'
 
 const week: WeeklySnapshotResult['week'] = {
   id: 'playground-week',
@@ -67,7 +67,7 @@ const data: WeeklySnapshotResult = {
 
 const now = new Date('2026-06-02T13:24:00Z')
 
-const liveState: WeeklyBoardViewState = {
+const liveState: BoardViewState = {
   source: 'network',
   expired: false,
   online: true,
@@ -75,10 +75,10 @@ const liveState: WeeklyBoardViewState = {
   refreshFailed: false,
 }
 
-describe('WeeklyBoard', () => {
+describe('Board', () => {
   it('composes the rail, the route deck, and the footer for the current snapshot', () => {
     const { getByRole, getByText, getAllByText } = renderWithProviders(() => (
-      <WeeklyBoard now={now} state={liveState} data={data} onRefresh={() => {}} />
+      <Board now={now} state={liveState} data={data} onRefresh={() => {}} />
     ))
 
     // Rail

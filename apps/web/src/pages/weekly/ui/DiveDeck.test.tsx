@@ -3,7 +3,7 @@ import { flush } from 'solid-js'
 import { fireEvent } from '@solidjs/testing-library'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
-import { WeeklyRouteDeck } from './WeeklyRouteDeck'
+import { DiveDeck } from './DiveDeck'
 
 // Below `md`, createSwipeDeck (src/pages/weekly/lib/create-swipe-deck.ts)
 // always instantiates a real Embla Carousel against the viewport/track refs.
@@ -54,7 +54,7 @@ function matchDesktopBreakpoint(): void {
   })
 }
 
-describe('WeeklyRouteDeck · desktop layout (md and up)', () => {
+describe('DiveDeck · desktop layout (md and up)', () => {
   let restoreMatchMedia: typeof window.matchMedia
 
   beforeEach(() => {
@@ -67,7 +67,7 @@ describe('WeeklyRouteDeck · desktop layout (md and up)', () => {
   })
 
   it('renders both dive routes at once, with their switch chips', () => {
-    const { getByText, getByRole } = renderWithProviders(() => <WeeklyRouteDeck dives={DIVES} expired={false} />)
+    const { getByText, getByRole } = renderWithProviders(() => <DiveDeck dives={DIVES} expired={false} />)
 
     expect(getByText('Awful Catacomb')).toBeInTheDocument()
     expect(getByText('Natural Roof')).toBeInTheDocument()
@@ -76,13 +76,13 @@ describe('WeeklyRouteDeck · desktop layout (md and up)', () => {
   })
 
   it('marks neither slab inert once both are shown side by side', () => {
-    const { container } = renderWithProviders(() => <WeeklyRouteDeck dives={DIVES} expired={false} />)
+    const { container } = renderWithProviders(() => <DiveDeck dives={DIVES} expired={false} />)
 
     expect(container.querySelectorAll('article[inert]')).toHaveLength(0)
   })
 
   it('moves aria-current to the picked chip, even though both slabs stay visible', () => {
-    const { getByRole } = renderWithProviders(() => <WeeklyRouteDeck dives={DIVES} expired={false} />)
+    const { getByRole } = renderWithProviders(() => <DiveDeck dives={DIVES} expired={false} />)
 
     expect(getByRole('button', { name: 'Deep Dive' })).toHaveAttribute('aria-current', 'true')
 
@@ -94,16 +94,16 @@ describe('WeeklyRouteDeck · desktop layout (md and up)', () => {
   })
 })
 
-describe('WeeklyRouteDeck · mobile swipe deck (below md)', () => {
+describe('DiveDeck · mobile swipe deck (below md)', () => {
   it('starts on the normal route with the elite slab inert', () => {
-    const { container, getByRole } = renderWithProviders(() => <WeeklyRouteDeck dives={DIVES} expired={false} />)
+    const { container, getByRole } = renderWithProviders(() => <DiveDeck dives={DIVES} expired={false} />)
 
     expect(getByRole('button', { name: 'Deep Dive' })).toHaveAttribute('aria-current', 'true')
     expect(container.querySelectorAll('article[inert]')).toHaveLength(1)
   })
 
   it('switches the active route and inert slab when a switch chip is picked', () => {
-    const { container, getByRole } = renderWithProviders(() => <WeeklyRouteDeck dives={DIVES} expired={false} />)
+    const { container, getByRole } = renderWithProviders(() => <DiveDeck dives={DIVES} expired={false} />)
 
     fireEvent.click(getByRole('button', { name: 'Elite Deep Dive' }))
     flush()

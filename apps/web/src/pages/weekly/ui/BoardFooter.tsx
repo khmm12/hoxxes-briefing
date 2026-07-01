@@ -14,7 +14,7 @@ const footerStyles = css.raw({
   textAlign: 'center',
 })
 
-// Full-bleed on mobile so the hazard bands reach the screen edge, matching the
+// Full-bleed on mobile so the mutator bands reach the screen edge, matching the
 // header divider treatment; on desktop the content column already fills the board.
 const saluteRowStyles = css.raw({
   display: 'flex',
@@ -23,11 +23,11 @@ const saluteRowStyles = css.raw({
   marginInline: { base: '[calc(var(--layout-inline-padding) * -1)]', md: '0' },
 })
 
-// Decorative gold hazard-stripe band. The stripe color rides on `color` so a
+// Decorative gold mutator-stripe band. The stripe color rides on `color` so a
 // single `currentColor` gradient serves both sides; the right band mirrors it
 // via scaleX. Stop widths are measured along the gradient axis (perpendicular
 // to the 45° stripes), so they read narrower than the stripe's on-screen pitch.
-const hazardBandStyles = css.raw({
+const mutatorBandStyles = css.raw({
   flex: '1',
   height: '2',
   minWidth: '0',
@@ -63,15 +63,15 @@ const footerLinkStyles = css.raw({
   },
 })
 
-export function WeeklyBoardFooter(): JSX.Element {
+export function BoardFooter(): JSX.Element {
   const i18n = useI18n()
 
   return (
     <footer class={css(footerStyles)}>
       <div class={css(saluteRowStyles)}>
-        <span class={css(hazardBandStyles)} aria-hidden="true" />
+        <span class={css(mutatorBandStyles)} aria-hidden="true" />
         <span class={css(saluteStyles)}>{i18n._(msg`Rock and Stone!`)}</span>
-        <span class={css(hazardBandStyles, { transform: 'scaleX(-1)' })} aria-hidden="true" />
+        <span class={css(mutatorBandStyles, { transform: 'scaleX(-1)' })} aria-hidden="true" />
       </div>
       <p>
         {i18n._(msg`Made with love by`)}{' '}

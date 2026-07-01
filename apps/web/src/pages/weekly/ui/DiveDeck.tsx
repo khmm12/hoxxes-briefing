@@ -9,12 +9,12 @@ import { createLocalStorage } from '~/shared/lib/create-local-storage'
 import { createBreakpointQuery } from '~/shared/lib/create-media-query'
 import { createShrinkProgress } from '../lib/create-shrink-progress'
 import { createSwipeDeck } from '../lib/create-swipe-deck'
-import { WeeklyRouteSlab } from './WeeklyRouteSlab'
+import { DiveSlab } from './DiveSlab'
 import { formatDiveKind } from './weekly-dive-copy'
 
 type DiveKind = 'elite' | 'normal'
 
-type WeeklyRouteDeckProps = {
+type DiveDeckProps = {
   dives: WeeklySnapshotResult['dives']
   expired: boolean
 }
@@ -157,7 +157,7 @@ const trackStyles = css.raw({
   alignItems: 'stretch',
 })
 
-export function WeeklyRouteDeck(props: WeeklyRouteDeckProps): JSX.Element {
+export function DiveDeck(props: DiveDeckProps): JSX.Element {
   const i18n = useI18n()
   const isWide = createBreakpointQuery('md')
   // One slide at a time below md: gestures live, the inactive slab inert.
@@ -178,7 +178,7 @@ export function WeeklyRouteDeck(props: WeeklyRouteDeckProps): JSX.Element {
 
   return (
     <section aria-label={i18n._(msg`Deep dive mission board`)} class={css(deckStyles)} ref={setSection}>
-      <fieldset aria-label={i18n._(msg`Dive routes`)} class={css(switchStyles)}>
+      <fieldset aria-label={i18n._(msg`Deep Dives`)} class={css(switchStyles)}>
         {DIVE_KINDS.map((kind) => (
           <button
             aria-current={deck.active() === kind ? 'true' : undefined}
@@ -194,7 +194,7 @@ export function WeeklyRouteDeck(props: WeeklyRouteDeckProps): JSX.Element {
         <div class={css(trackStyles)} ref={deck.attachTrack}>
           <For each={DIVE_KINDS}>
             {(kind) => (
-              <WeeklyRouteSlab
+              <DiveSlab
                 inert={stacked() && deck.active() !== kind}
                 dive={props.dives[kind]}
                 expired={props.expired}

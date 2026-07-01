@@ -1,4 +1,4 @@
-import type { QuickReadChip } from '../model/weekly-route-quick-read'
+import type { QuickReadChip } from '../model/dive-quick-read'
 
 export type VisibleQuickReadChips = {
   overflowCount: number

@@ -4,7 +4,7 @@ import type { WeeklySnapshotResult } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
 import { WeeklyPage } from './WeeklyPage'
 
-// createWeeklyBoardQuery (model/create-weekly-board-query.ts) talks to the
+// createBoardQuery (model/create-board-query.ts) talks to the
 // network through the global `fetch` and to an on-device cache through the
 // Cache Storage API. jsdom does not implement Cache Storage, so the cache
 // layer is already a no-op here (`caches` is undefined) — only `fetch` needs

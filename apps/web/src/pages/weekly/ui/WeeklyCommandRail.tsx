@@ -3,7 +3,7 @@ import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import useI18n from '~/shared/i18n'
-import type { WeeklyBoardViewState } from '../model/weekly-page-state'
+import type { BoardViewState } from '../model/weekly-page-state'
 import { WeeklyBrandBlock } from './WeeklyBrandBlock'
 import { WeeklyRefreshPanel } from './WeeklyRefreshPanel'
 import { WeeklyTimingStrip } from './WeeklyTimingStrip'
@@ -11,7 +11,7 @@ import { getWeeklySlogan } from './weekly-slogan-copy'
 
 type WeeklyCommandRailProps = {
   now: Date
-  state: WeeklyBoardViewState
+  state: BoardViewState
   week: WeeklySnapshotResult['week']
   onRefresh: () => void
 }

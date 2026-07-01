@@ -12,7 +12,7 @@ import {
   weeklyPrimaryObjectiveCatalog,
   weeklySecondaryObjectiveCatalog,
   weeklyWarningCatalog,
-} from './weekly-route-catalog'
+} from './weekly-catalog'
 
 const primaryObjectiveKinds = [
   'DeepScan',

@@ -4,7 +4,7 @@ import {
   type PresentWeeklyMutator,
   type PresentWeeklyWarning,
   type WeeklyDive,
-} from './weekly-route-catalog'
+} from './weekly-catalog'
 
 export type QuickReadChip =
   | {

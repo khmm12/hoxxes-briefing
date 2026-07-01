@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { renderWithProviders } from '~test/render'
-import { WeeklyBoardFooter } from './WeeklyBoardFooter'
+import { BoardFooter } from './BoardFooter'
 
-describe('WeeklyBoardFooter', () => {
+describe('BoardFooter', () => {
   it('salutes and credits the author with links out to GitHub', () => {
-    const { getByText, getByRole } = renderWithProviders(() => <WeeklyBoardFooter />)
+    const { getByText, getByRole } = renderWithProviders(() => <BoardFooter />)
 
     expect(getByText('Rock and Stone!')).toBeInTheDocument()
 

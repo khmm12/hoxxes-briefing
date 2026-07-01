@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import type { CreateCachedQueryOptions } from '~/shared/lib/create-cached-query'
-import { createWeeklyBoardQuery } from './create-weekly-board-query'
+import { createBoardQuery } from './create-board-query'
 
-// `createWeeklyBoardQuery` is a thin wiring layer over `createCachedQuery`:
+// `createBoardQuery` is a thin wiring layer over `createCachedQuery`:
 // the interesting reactive/async behavior (race, grace period, staleness)
 // already lives in create-cached-query.test.ts. Here we only verify the
 // wiring is correct — fetcher hits the weekly endpoint, cache reads/writes
@@ -41,9 +41,9 @@ function createSnapshot(expiration: string): WeeklySnapshotResult {
   return { week: { expiration } } as unknown as WeeklySnapshotResult
 }
 
-describe('createWeeklyBoardQuery', () => {
+describe('createBoardQuery', () => {
   it('fetches from the weekly snapshot URL with the query signal', async () => {
-    createWeeklyBoardQuery()
+    createBoardQuery()
 
     const options = captureOptions()
     const signal = new AbortController().signal
@@ -59,7 +59,7 @@ describe('createWeeklyBoardQuery', () => {
   })
 
   it('reads and writes through the shared weekly client cache', async () => {
-    createWeeklyBoardQuery()
+    createBoardQuery()
 
     const options = captureOptions()
     const cachedValue = createSnapshot('2026-07-01T00:00:00.000Z')
@@ -73,7 +73,7 @@ describe('createWeeklyBoardQuery', () => {
   })
 
   it('treats a missing cached snapshot as undefined', async () => {
-    createWeeklyBoardQuery()
+    createBoardQuery()
 
     const options = captureOptions()
     mockReadCachedWeeklySnapshot.mockResolvedValue(null)
@@ -82,7 +82,7 @@ describe('createWeeklyBoardQuery', () => {
   })
 
   it('treats a snapshot as stale once its week has expired', async () => {
-    createWeeklyBoardQuery()
+    createBoardQuery()
 
     const options = captureOptions()
 
@@ -91,7 +91,7 @@ describe('createWeeklyBoardQuery', () => {
   })
 
   it('treats structurally equal snapshots as equal even across distinct objects', async () => {
-    createWeeklyBoardQuery()
+    createBoardQuery()
 
     const options = captureOptions()
     const a = createSnapshot('2026-07-01T00:00:00.000Z')

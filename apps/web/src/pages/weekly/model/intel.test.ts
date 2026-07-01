@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import type { WeeklyDive, WeeklyMission } from './weekly-route-catalog'
-import { buildWeeklyRouteIntel, type WeeklyRouteIntelNote } from './weekly-route-intel'
+import { buildIntel, type IntelNote } from './intel'
+import type { WeeklyDive, WeeklyMission } from './weekly-catalog'
 
-describe('buildWeeklyRouteIntel', () => {
+describe('buildIntel', () => {
   it('selects Haunted Cave over any mutator', () => {
     const dive = createDive([
       createMission({ mutator: 'BloodSugar' }),
@@ -10,7 +10,7 @@ describe('buildWeeklyRouteIntel', () => {
       createMission({ mutator: 'VolatileGuts' }),
     ])
 
-    const intel = buildWeeklyRouteIntel(dive, 'normal')
+    const intel = buildIntel(dive, 'normal')
 
     expect(intel).toEqual({
       note: 'haunted-cave',
@@ -30,7 +30,7 @@ describe('buildWeeklyRouteIntel', () => {
       createMission(),
     ])
 
-    expect(buildWeeklyRouteIntel(dive, 'normal')).toEqual({
+    expect(buildIntel(dive, 'normal')).toEqual({
       note: 'duck-and-cover-fixed',
     })
   })
@@ -48,7 +48,7 @@ describe('buildWeeklyRouteIntel', () => {
       createMission(),
     ])
 
-    expect(buildWeeklyRouteIntel(dive, 'normal')).toEqual({
+    expect(buildIntel(dive, 'normal')).toEqual({
       note: 'duck-and-cover',
     })
   })
@@ -65,7 +65,7 @@ describe('buildWeeklyRouteIntel', () => {
       createMission(),
     ])
 
-    expect(buildWeeklyRouteIntel(dive, 'normal')).toEqual({
+    expect(buildIntel(dive, 'normal')).toEqual({
       note: 'clean-normal',
     })
   })
@@ -102,24 +102,18 @@ describe('buildWeeklyRouteIntel', () => {
       createMission(),
     ])
 
-    expect(buildWeeklyRouteIntel(primaryDeepScanDive, 'normal').note).toBe('low-oxygen-long-route')
-    expect(buildWeeklyRouteIntel(secondaryDeepScanDive, 'normal').note).toBe('low-oxygen')
+    expect(buildIntel(primaryDeepScanDive, 'normal').note).toBe('low-oxygen-long-route')
+    expect(buildIntel(secondaryDeepScanDive, 'normal').note).toBe('low-oxygen')
   })
 
   it('selects explicit dangerous mutator notes when no stronger warning exists', () => {
     expect(
-      buildWeeklyRouteIntel(
-        createDive([createMission({ mutator: 'BloodSugar' }), createMission(), createMission()]),
-        'normal',
-      ),
+      buildIntel(createDive([createMission({ mutator: 'BloodSugar' }), createMission(), createMission()]), 'normal'),
     ).toMatchObject({
       note: 'blood-sugar',
     })
     expect(
-      buildWeeklyRouteIntel(
-        createDive([createMission({ mutator: 'VolatileGuts' }), createMission(), createMission()]),
-        'normal',
-      ),
+      buildIntel(createDive([createMission({ mutator: 'VolatileGuts' }), createMission(), createMission()]), 'normal'),
     ).toMatchObject({
       note: 'volatile-guts',
     })
@@ -127,27 +121,25 @@ describe('buildWeeklyRouteIntel', () => {
 
   it('keeps pressure warning notes specific instead of using one generic line', () => {
     expect(
-      buildWeeklyRouteIntel(
+      buildIntel(
         createDive([createMission({ warning: 'ScrabNestingGrounds' }), createMission(), createMission()]),
         'normal',
       ).note,
     ).toBe('scrab-nesting-grounds')
     expect(
-      buildWeeklyRouteIntel(
+      buildIntel(
         createDive([createMission({ warning: 'ExploderInfestation' }), createMission(), createMission()]),
         'normal',
       ).note,
     ).toBe('exploder-infestation')
     expect(
-      buildWeeklyRouteIntel(
-        createDive([createMission({ warning: 'Parasites' }), createMission(), createMission()]),
-        'normal',
-      ).note,
+      buildIntel(createDive([createMission({ warning: 'Parasites' }), createMission(), createMission()]), 'normal')
+        .note,
     ).toBe('parasites')
   })
 
   it('does not treat beneficial mutators as pressure notes', () => {
-    const intel = buildWeeklyRouteIntel(
+    const intel = buildIntel(
       createDive([createMission({ mutator: 'CriticalWeakness' }), createMission(), createMission()]),
       'normal',
     )
@@ -159,15 +151,12 @@ describe('buildWeeklyRouteIntel', () => {
 
   it('uses mobility mutators as favorable route guidance', () => {
     expect(
-      buildWeeklyRouteIntel(
-        createDive([createMission({ mutator: 'LowGravity' }), createMission(), createMission()]),
-        'normal',
-      ),
+      buildIntel(createDive([createMission({ mutator: 'LowGravity' }), createMission(), createMission()]), 'normal'),
     ).toEqual({
       note: 'favorable-mobility',
     })
     expect(
-      buildWeeklyRouteIntel(
+      buildIntel(
         createDive([createMission({ mutator: 'RichAtmosphere' }), createMission(), createMission()]),
         'normal',
       ),
@@ -189,13 +178,13 @@ describe('buildWeeklyRouteIntel', () => {
       createMission(),
     ])
 
-    expect(buildWeeklyRouteIntel(dive, 'normal')).toEqual({
+    expect(buildIntel(dive, 'normal')).toEqual({
       note: 'favorable-mobility',
     })
   })
 
   it('maps every remaining warning straight to its dedicated note', () => {
-    const directNotes: Record<string, WeeklyRouteIntelNote> = {
+    const directNotes: Record<string, IntelNote> = {
       CaveLeechCluster: 'cave-leech-cluster',
       EboniteOutbreak: 'ebonite-outbreak',
       EliteThreat: 'elite-threat',
@@ -215,17 +204,17 @@ describe('buildWeeklyRouteIntel', () => {
         createMission(),
       ])
 
-      expect(buildWeeklyRouteIntel(dive, 'normal').note).toBe(note)
+      expect(buildIntel(dive, 'normal').note).toBe(note)
     }
   })
 
   it('keeps elite clean fallback sharper than normal clean fallback', () => {
     const dive = createDive([createMission(), createMission(), createMission()])
 
-    expect(buildWeeklyRouteIntel(dive, 'normal')).toEqual({
+    expect(buildIntel(dive, 'normal')).toEqual({
       note: 'clean-normal',
     })
-    expect(buildWeeklyRouteIntel(dive, 'elite')).toEqual({
+    expect(buildIntel(dive, 'elite')).toEqual({
       note: 'clean-elite',
     })
   })

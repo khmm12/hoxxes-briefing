@@ -9,11 +9,11 @@ import {
   type WeeklyEffectCatalogEntry,
   type WeeklyMission,
   type WeeklyObjectiveContextTag,
-} from './weekly-route-catalog'
+} from './weekly-catalog'
 
-export type WeeklyRouteKind = 'elite' | 'normal'
+export type DiveKind = 'elite' | 'normal'
 
-export type WeeklyRouteIntelNote =
+export type IntelNote =
   | 'blood-sugar'
   | 'cave-leech-cluster'
   | 'clean-elite'
@@ -40,19 +40,19 @@ export type WeeklyRouteIntelNote =
   | 'swarmageddon'
   | 'volatile-guts'
 
-type WeeklyStageObjectiveContext = {
+type StageObjectiveContext = {
   contextTags: readonly WeeklyObjectiveContextTag[]
   primaryContextTags: readonly WeeklyObjectiveContextTag[]
 }
 
-type WeeklyRoutePriorityNote = {
-  note: WeeklyRouteIntelNote
+type PriorityNote = {
+  note: IntelNote
   priority: number
   stageIndex: number
 }
 
-export type WeeklyRouteIntel = {
-  note: WeeklyRouteIntelNote
+export type Intel = {
+  note: IntelNote
 }
 
 const fixedPositionTags = ['escort-anchor', 'fixed-position'] as const
@@ -63,45 +63,38 @@ const mutatorIntelNotes = {
   LowGravity: null,
   RichAtmosphere: null,
   VolatileGuts: 'volatile-guts',
-} satisfies Record<PresentWeeklyMutator, WeeklyRouteIntelNote | null>
+} satisfies Record<PresentWeeklyMutator, IntelNote | null>
 
-export function buildWeeklyRouteIntel(dive: WeeklyDive, kind: WeeklyRouteKind): WeeklyRouteIntel {
+export function buildIntel(dive: WeeklyDive, kind: DiveKind): Intel {
   return {
-    note: selectWeeklyRouteIntelNote(dive, kind),
+    note: selectIntelNote(dive, kind),
   }
 }
 
-function collectWeeklyPriorityNotes(dive: WeeklyDive): WeeklyRoutePriorityNote[] {
-  return dive.missions.flatMap((mission, stageIndex): WeeklyRoutePriorityNote[] => {
+function collectPriorityNotes(dive: WeeklyDive): PriorityNote[] {
+  return dive.missions.flatMap((mission, stageIndex): PriorityNote[] => {
     const stageContext = buildStageObjectiveContext(mission)
 
     return [
-      collectWeeklyWarningPriorityNote(mission.warning, stageContext, stageIndex),
-      collectWeeklyMutatorPriorityNote(mission.mutator, stageIndex),
-    ].filter((note): note is WeeklyRoutePriorityNote => note != null)
+      collectWarningPriorityNote(mission.warning, stageContext, stageIndex),
+      collectMutatorPriorityNote(mission.mutator, stageIndex),
+    ].filter((note): note is PriorityNote => note != null)
   })
 }
 
-function collectWeeklyWarningPriorityNote(
+function collectWarningPriorityNote(
   warning: PresentWeeklyWarning | null,
-  stageContext: WeeklyStageObjectiveContext,
+  stageContext: StageObjectiveContext,
   stageIndex: number,
-): WeeklyRoutePriorityNote | null {
+): PriorityNote | null {
   if (warning == null) {
     return null
   }
 
-  return buildWeeklyRoutePriorityNote(
-    selectWarningIntelNote(warning, stageContext),
-    getWarningCatalogEntry(warning),
-    stageIndex,
-  )
+  return buildPriorityNote(selectWarningIntelNote(warning, stageContext), getWarningCatalogEntry(warning), stageIndex)
 }
 
-function collectWeeklyMutatorPriorityNote(
-  mutator: PresentWeeklyMutator | null,
-  stageIndex: number,
-): WeeklyRoutePriorityNote | null {
+function collectMutatorPriorityNote(mutator: PresentWeeklyMutator | null, stageIndex: number): PriorityNote | null {
   if (mutator == null) {
     return null
   }
@@ -112,16 +105,12 @@ function collectWeeklyMutatorPriorityNote(
     return null
   }
 
-  return buildWeeklyRoutePriorityNote(note, getMutatorCatalogEntry(mutator), stageIndex)
+  return buildPriorityNote(note, getMutatorCatalogEntry(mutator), stageIndex)
 }
 
-function buildWeeklyRoutePriorityNote(
-  note: WeeklyRouteIntelNote,
-  effect: WeeklyEffectCatalogEntry,
-  stageIndex: number,
-): WeeklyRoutePriorityNote {
+function buildPriorityNote(note: IntelNote, effect: WeeklyEffectCatalogEntry, stageIndex: number): PriorityNote {
   if (effect.intelPriority == null) {
-    throw new Error(`Weekly route intel note "${note}" requires intelPriority`)
+    throw new Error(`Intel note "${note}" requires intelPriority`)
   }
 
   return {
@@ -131,7 +120,7 @@ function buildWeeklyRoutePriorityNote(
   }
 }
 
-function buildStageObjectiveContext(mission: WeeklyMission): WeeklyStageObjectiveContext {
+function buildStageObjectiveContext(mission: WeeklyMission): StageObjectiveContext {
   const primary = getPrimaryObjectiveCatalogEntry(mission.primaryObjective.kind)
   const secondary = getSecondaryObjectiveCatalogEntry(mission.secondaryObjective.kind)
 
@@ -141,8 +130,8 @@ function buildStageObjectiveContext(mission: WeeklyMission): WeeklyStageObjectiv
   }
 }
 
-function selectWeeklyRouteIntelNote(dive: WeeklyDive, kind: WeeklyRouteKind): WeeklyRouteIntelNote {
-  const priorityNote = collectWeeklyPriorityNotes(dive).sort(compareWeeklyRoutePriorityNotes)[0]
+function selectIntelNote(dive: WeeklyDive, kind: DiveKind): IntelNote {
+  const priorityNote = collectPriorityNotes(dive).sort(comparePriorityNotes)[0]
 
   if (priorityNote != null) {
     return priorityNote.note
@@ -163,10 +152,7 @@ function selectWeeklyRouteIntelNote(dive: WeeklyDive, kind: WeeklyRouteKind): We
   return kind === 'elite' ? 'clean-elite' : 'clean-normal'
 }
 
-function selectWarningIntelNote(
-  warning: PresentWeeklyWarning,
-  context: WeeklyStageObjectiveContext,
-): WeeklyRouteIntelNote {
+function selectWarningIntelNote(warning: PresentWeeklyWarning, context: StageObjectiveContext): IntelNote {
   switch (warning) {
     case 'HauntedCave':
       return 'haunted-cave'
@@ -205,7 +191,7 @@ function selectWarningIntelNote(
   return assertNever(warning)
 }
 
-function compareWeeklyRoutePriorityNotes(left: WeeklyRoutePriorityNote, right: WeeklyRoutePriorityNote): number {
+function comparePriorityNotes(left: PriorityNote, right: PriorityNote): number {
   const priorityDelta = left.priority - right.priority
 
   return priorityDelta === 0 ? left.stageIndex - right.stageIndex : priorityDelta
@@ -215,14 +201,11 @@ function hasMutator(dive: WeeklyDive, mutator: PresentWeeklyMutator): boolean {
   return dive.missions.some((mission) => mission.mutator === mutator)
 }
 
-function hasAnyContextTag(context: WeeklyStageObjectiveContext, tags: readonly WeeklyObjectiveContextTag[]): boolean {
+function hasAnyContextTag(context: StageObjectiveContext, tags: readonly WeeklyObjectiveContextTag[]): boolean {
   return tags.some((tag) => context.contextTags.includes(tag))
 }
 
-function hasPrimaryAnyContextTag(
-  context: WeeklyStageObjectiveContext,
-  tags: readonly WeeklyObjectiveContextTag[],
-): boolean {
+function hasPrimaryAnyContextTag(context: StageObjectiveContext, tags: readonly WeeklyObjectiveContextTag[]): boolean {
   return tags.some((tag) => context.primaryContextTags.includes(tag))
 }
 
@@ -231,5 +214,5 @@ function uniqueTags(tags: readonly WeeklyObjectiveContextTag[]): WeeklyObjective
 }
 
 function assertNever(value: never): never {
-  throw new Error(`Unexpected weekly route intel value: ${String(value)}`)
+  throw new Error(`Unexpected intel value: ${String(value)}`)
 }

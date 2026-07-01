@@ -3,7 +3,7 @@ import { flush } from 'solid-js'
 import { fireEvent, within } from '@solidjs/testing-library'
 import type { WeeklySnapshotResult } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
-import { WeeklyRouteSlab } from './WeeklyRouteSlab'
+import { DiveSlab } from './DiveSlab'
 
 type WeeklyDive = WeeklySnapshotResult['dives']['normal']
 
@@ -26,10 +26,10 @@ const DIVE: WeeklyDive = {
   ],
 }
 
-describe('WeeklyRouteSlab', () => {
+describe('DiveSlab', () => {
   it('renders the dive name, biome, and a stage per mission', () => {
     const { getByText, getAllByText } = renderWithProviders(() => (
-      <WeeklyRouteSlab dive={DIVE} expired={false} kind="normal" />
+      <DiveSlab dive={DIVE} expired={false} kind="normal" />
     ))
 
     expect(getByText('Awful Catacomb')).toBeInTheDocument()
@@ -37,35 +37,33 @@ describe('WeeklyRouteSlab', () => {
     expect(getAllByText(/Stage \d/)).toHaveLength(2)
   })
 
-  it('renders quick-read chips for the route’s warnings and mutators', () => {
-    const { getByRole } = renderWithProviders(() => <WeeklyRouteSlab dive={DIVE} expired={false} kind="normal" />)
-    const routeScan = within(getByRole('region', { name: 'Route scan' }))
+  it('renders quick-read chips for the dive’s warnings and mutators', () => {
+    const { getByRole } = renderWithProviders(() => <DiveSlab dive={DIVE} expired={false} kind="normal" />)
+    const quickRead = within(getByRole('region', { name: 'Quick read' }))
 
-    expect(routeScan.getByText('Regenerative Bugs')).toBeInTheDocument()
-    expect(routeScan.getByText('Low Gravity')).toBeInTheDocument()
+    expect(quickRead.getByText('Regenerative Bugs')).toBeInTheDocument()
+    expect(quickRead.getByText('Low Gravity')).toBeInTheDocument()
   })
 
-  it('omits the route scan section entirely when there are no warnings or mutators', () => {
+  it('omits the quick read section entirely when there are no warnings or mutators', () => {
     const cleanDive: WeeklyDive = {
       ...DIVE,
       missions: DIVE.missions.map((mission) => ({ ...mission, warning: null, mutator: null })),
     }
 
-    const { queryByRole } = renderWithProviders(() => (
-      <WeeklyRouteSlab dive={cleanDive} expired={false} kind="normal" />
-    ))
+    const { queryByRole } = renderWithProviders(() => <DiveSlab dive={cleanDive} expired={false} kind="normal" />)
 
-    expect(queryByRole('region', { name: 'Route scan' })).not.toBeInTheDocument()
+    expect(queryByRole('region', { name: 'Quick read' })).not.toBeInTheDocument()
   })
 
   it('flags the board as a last known board once expired', () => {
-    const { getByText } = renderWithProviders(() => <WeeklyRouteSlab dive={DIVE} expired={true} kind="normal" />)
+    const { getByText } = renderWithProviders(() => <DiveSlab dive={DIVE} expired={true} kind="normal" />)
 
     expect(getByText('Last known board')).toBeInTheDocument()
   })
 
-  it('labels the Elite route distinctly from a normal one', () => {
-    const { getByText } = renderWithProviders(() => <WeeklyRouteSlab dive={DIVE} expired={false} kind="elite" />)
+  it('labels the Elite dive distinctly from a normal one', () => {
+    const { getByText } = renderWithProviders(() => <DiveSlab dive={DIVE} expired={false} kind="elite" />)
 
     expect(getByText('Elite Deep Dive')).toBeInTheDocument()
   })
@@ -95,18 +93,18 @@ describe('WeeklyRouteSlab', () => {
       ],
     }
 
-    const { getByRole } = renderWithProviders(() => <WeeklyRouteSlab dive={dive} expired={false} kind="normal" />)
-    const routeScan = within(getByRole('region', { name: 'Route scan' }))
+    const { getByRole } = renderWithProviders(() => <DiveSlab dive={dive} expired={false} kind="normal" />)
+    const quickRead = within(getByRole('region', { name: 'Quick read' }))
 
     // Mobile breakpoint (no matchMedia match) caps the visible chips at 2,
-    // so this 6-chip route must overflow behind the toggle.
-    const toggle = routeScan.getByRole('button', { name: '+4 more' })
-    expect(routeScan.queryByText('Low Gravity')).not.toBeInTheDocument()
+    // so this 6-chip dive must overflow behind the toggle.
+    const toggle = quickRead.getByRole('button', { name: '+4 more' })
+    expect(quickRead.queryByText('Low Gravity')).not.toBeInTheDocument()
 
     fireEvent.click(toggle)
     flush()
 
-    expect(routeScan.getByRole('button', { name: 'Show less' })).toBeInTheDocument()
-    expect(routeScan.queryByText('Low Gravity')).toBeInTheDocument()
+    expect(quickRead.getByRole('button', { name: 'Show less' })).toBeInTheDocument()
+    expect(quickRead.queryByText('Low Gravity')).toBeInTheDocument()
   })
 })

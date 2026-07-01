@@ -77,7 +77,7 @@ const detailValueLineStyles = css.raw({
 })
 
 // Kind icons ride the slot scale: 24 next to primary values, 20 next to
-// secondary values and hazards — the glyph reads slightly larger than the
+// secondary values and mutators — the glyph reads slightly larger than the
 // text it labels.
 const lineIconRecipe = cva({
   base: {
@@ -119,7 +119,7 @@ const labelRecipe = cva({
       objective: {
         color: 'text.muted',
       },
-      hazard: {
+      mutator: {
         color: 'text.secondary',
       },
     },
@@ -149,7 +149,7 @@ const valueTextRecipe = cva({
   },
 })
 
-const hazardStackStyles = css.raw({
+const mutatorStackStyles = css.raw({
   display: 'grid',
   gap: '2',
   paddingBlockStart: '2',
@@ -158,7 +158,7 @@ const hazardStackStyles = css.raw({
   borderBlockStartColor: 'border.subtle',
 })
 
-const hazardRecipe = cva({
+const mutatorRecipe = cva({
   base: {
     display: 'grid',
     gap: '1',
@@ -182,7 +182,7 @@ const hazardRecipe = cva({
   },
 })
 
-const quietHazardStyles = css.raw({
+const quietMutatorStyles = css.raw({
   color: 'text.secondary',
   textStyle: 'label',
 })
@@ -215,11 +215,11 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
         />
       </div>
 
-      <div class={css(hazardStackStyles)}>
+      <div class={css(mutatorStackStyles)}>
         <Show when={props.mission.warning} keyed>
           {(warning) => (
             <Tooltip align="start" label={formatWarningDescription(i18n, warning)}>
-              <HazardLine
+              <MutatorLine
                 icon={<WarningKindIcon kind={warning} />}
                 label={i18n._(msg`Warning`)}
                 tone="warning"
@@ -232,7 +232,7 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
         <Show when={props.mission.mutator} keyed>
           {(mutator) => (
             <Tooltip align="start" label={formatMutatorDescription(i18n, mutator)}>
-              <HazardLine
+              <MutatorLine
                 icon={<MutatorKindIcon kind={mutator} />}
                 label={i18n._(msg`Mutator`)}
                 tone="mutator"
@@ -243,7 +243,7 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
         </Show>
 
         <Show when={!hasWarning() && !hasMutator()}>
-          <p class={css(quietHazardStyles)}>{i18n._(msg`No warning or mutator on this stage.`)}</p>
+          <p class={css(quietMutatorStyles)}>{i18n._(msg`No warning or mutator on this stage.`)}</p>
         </Show>
       </div>
     </li>
@@ -270,17 +270,17 @@ function ObjectiveLine(props: {
   )
 }
 
-function HazardLine(props: {
+function MutatorLine(props: {
   icon: JSX.Element
   label: string
   tone: 'mutator' | 'warning'
   value: string
 }): JSX.Element {
-  // The root is a <span> because Tooltip wraps hazard lines in its inline
+  // The root is a <span> because Tooltip wraps mutator lines in its inline
   // trigger; a <div> inside that span would be invalid HTML.
   return (
-    <span class={css(hazardRecipe.raw({ tone: props.tone }))}>
-      <span class={css(labelRecipe.raw({ tone: 'hazard' }))}>{props.label}</span>
+    <span class={css(mutatorRecipe.raw({ tone: props.tone }))}>
+      <span class={css(labelRecipe.raw({ tone: 'mutator' }))}>{props.label}</span>
       <span class={css(detailValueLineStyles)}>
         <span class={css(lineIconRecipe.raw({ tone: props.tone }))} aria-hidden="true">
           {props.icon}

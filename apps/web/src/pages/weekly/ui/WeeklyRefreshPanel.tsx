@@ -7,10 +7,10 @@ import { useI18n } from '~/shared/i18n'
 import { OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
 import { IconButton } from '~/shared/ui/icon-button'
 import { Tooltip } from '~/shared/ui/tooltip'
-import type { WeeklyBoardViewState } from '../model/weekly-page-state'
+import type { BoardViewState } from '../model/weekly-page-state'
 
 type WeeklyRefreshPanelProps = {
-  state: WeeklyBoardViewState
+  state: BoardViewState
   onRefresh: () => void
 }
 
@@ -123,21 +123,21 @@ export function WeeklyRefreshPanel(props: WeeklyRefreshPanelProps): JSX.Element 
   )
 }
 
-function resolveStatusTone(state: WeeklyBoardViewState): StatusTone {
+function resolveStatusTone(state: BoardViewState): StatusTone {
   if (state.expired) return 'danger'
   if (!state.online) return 'offline'
 
   return 'success'
 }
 
-function formatRefreshActionLabel(i18n: I18n, state: WeeklyBoardViewState): string {
+function formatRefreshActionLabel(i18n: I18n, state: BoardViewState): string {
   if (!state.online) return i18n._(msg`Offline`)
   if (state.refreshing) return i18n._(msg`Refreshing...`)
 
   return i18n._(msg`Refresh`)
 }
 
-function formatBoardStatus(i18n: I18n, state: WeeklyBoardViewState): string {
+function formatBoardStatus(i18n: I18n, state: BoardViewState): string {
   const { expired, refreshing, refreshFailed, online, source } = state
 
   if (expired) {

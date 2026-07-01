@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { QuickReadChip } from '../model/weekly-route-quick-read'
-import { getVisibleQuickReadChips } from './weekly-route-quick-read-view'
+import type { QuickReadChip } from '../model/dive-quick-read'
+import { getVisibleQuickReadChips } from './dive-quick-read-view'
 
 describe('getVisibleQuickReadChips', () => {
   it('keeps hidden chips behind an overflow count until expanded', () => {
