@@ -64,66 +64,28 @@ pub enum Dreadnought {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum DeepDivePrimaryObjective {
-    DeepScan {
-        resonance_crystals: u32,
-    },
-    EscortDuty {
-        refuels: u32,
-    },
-    MiningExpedition {
-        morkite: u32,
-    },
-    IndustrialSabotage {
-        power_stations: u32,
-    },
-    EggHunt {
-        eggs: u32,
-    },
-    PointExtraction {
-        aquarqs: u32,
-    },
-    OnSiteRefining {
-        morkite_wells: u32,
-    },
-    SalvageOperation {
-        mini_mules: u32,
-    },
-    Elimination {
-        dreadnoughts: u32,
-        dreadnought_kinds: Vec<Dreadnought>,
-    },
-    HeavyExtraction {
-        resinite_masses: u32,
-    }, // TODO: NAMING
+    DeepScan { resonance_crystals: u32 },
+    EscortDuty { refuels: u32 },
+    MiningExpedition { morkite: u32 },
+    IndustrialSabotage { power_stations: u32 },
+    EggHunt { eggs: u32 },
+    PointExtraction { aquarqs: u32 },
+    OnSiteRefining { morkite_wells: u32 },
+    SalvageOperation { mini_mules: u32 },
+    Elimination { dreadnought_kinds: Vec<Dreadnought> },
+    HeavyExtraction { resinite_masses: u32 }, // TODO: NAMING
 }
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum DeepDiveSecondaryObjective {
-    EggHunt {
-        eggs: u32,
-    },
-    DeepScan {
-        resonance_crystals: u32,
-    },
-    Blackbox {
-        black_boxes: u32,
-    },
-    Elimination {
-        dreadnoughts: u32,
-        dreadnought_kinds: Vec<Dreadnought>,
-    },
-    MiningExpedition {
-        morkite: u32,
-    },
-    OnSiteRefining {
-        morkite_wells: u32,
-    },
-    SalvageOperation {
-        mini_mules: u32,
-    },
-    HeavyExcavation {
-        resinite_masses: u32,
-    }, // TODO: NAMING
+    EggHunt { eggs: u32 },
+    DeepScan { resonance_crystals: u32 },
+    Blackbox { black_boxes: u32 },
+    Elimination { dreadnought_kinds: Vec<Dreadnought> },
+    MiningExpedition { morkite: u32 },
+    OnSiteRefining { morkite_wells: u32 },
+    SalvageOperation { mini_mules: u32 },
+    HeavyExcavation { resinite_masses: u32 }, // TODO: NAMING
 }
 
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -264,26 +226,6 @@ impl DeepDivePrimaryObjective {
             (Duration::Long, Complexity::Complex) => Self::SalvageOperation { mini_mules: 3 },
             (dur, comp) => unreachable!(
                 "unexpected salvage operation duration/complexity combination: duration={dur:?}, complexity={comp:?}",
-            ),
-        }
-    }
-
-    pub(crate) fn elimination_objective(
-        duration: Duration,
-        complexity: Complexity,
-        dreadnoughts: Vec<Dreadnought>,
-    ) -> DeepDivePrimaryObjective {
-        match (duration, complexity) {
-            (Duration::Normal, Complexity::Average) => Self::Elimination {
-                dreadnoughts: 2,
-                dreadnought_kinds: dreadnoughts,
-            },
-            (Duration::Long, Complexity::Complex) => Self::Elimination {
-                dreadnoughts: 3,
-                dreadnought_kinds: dreadnoughts,
-            },
-            (dur, comp) => unreachable!(
-                "unexpected elimination duration/complexity combination: duration={dur:?}, complexity={comp:?}",
             ),
         }
     }
