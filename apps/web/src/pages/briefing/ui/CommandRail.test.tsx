@@ -32,7 +32,7 @@ describe('CommandRail', () => {
     )
 
     expect(getByRole('heading', { name: 'Hoxxes Briefing' })).toBeInTheDocument()
-    expect(getByText(getSlogan(i18n, String(briefing.seed)))).toBeInTheDocument()
+    expect(getByText(getSlogan(i18n, briefing.seed))).toBeInTheDocument()
     expect(getByText('5d 21h')).toBeInTheDocument()
     expect(getByRole('button', { name: 'Refresh' })).toBeInTheDocument()
   })

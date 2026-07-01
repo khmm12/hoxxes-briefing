@@ -22,19 +22,19 @@ describe('getSlogan', () => {
   it('returns a known slogan in the active locale', () => {
     const i18n = createTestI18n()
 
-    expect(knownSlogans).toContain(getSlogan(i18n, 'week-1'))
+    expect(knownSlogans).toContain(getSlogan(i18n, 1))
   })
 
-  it('is deterministic for the same week id', () => {
+  it('is deterministic for the same seed', () => {
     const i18n = createTestI18n()
 
-    expect(getSlogan(i18n, 'week-42')).toBe(getSlogan(i18n, 'week-42'))
+    expect(getSlogan(i18n, 42)).toBe(getSlogan(i18n, 42))
   })
 
-  it('varies across week ids', () => {
+  it('varies across seeds', () => {
     const i18n = createTestI18n()
 
-    const slogans = new Set(Array.from({ length: 20 }, (_, index) => getSlogan(i18n, `week-${index}`)))
+    const slogans = new Set(Array.from({ length: 20 }, (_, index) => getSlogan(i18n, index)))
 
     expect(slogans.size).toBeGreaterThan(1)
   })

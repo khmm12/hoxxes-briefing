@@ -8,8 +8,16 @@ const pool: SloganPool<string> = {
 }
 
 describe('selectSlogan', () => {
-  it('selects the same slogan for the same week key', () => {
-    expect(selectSlogan(pool, '2026.17')).toBe(selectSlogan(pool, '2026.17'))
+  it('selects the same slogan for the same seed', () => {
+    expect(selectSlogan(pool, 42)).toBe(selectSlogan(pool, 42))
+  })
+
+  it('always returns a phrase from the pool, including for large seeds', () => {
+    const allPhrases = [...pool.defaultSafe, ...pool.rare, ...pool.secondary]
+
+    for (const seed of [0, 1, 7, 42, 1000, 0x7fffffff, 0xffffffff]) {
+      expect(allPhrases).toContain(selectSlogan(pool, seed))
+    }
   })
 
   it('throws when every slogan category is empty', () => {
@@ -20,7 +28,7 @@ describe('selectSlogan', () => {
           rare: [],
           secondary: [],
         },
-        '2026.17',
+        42,
       ),
     ).toThrow('slogan pool should not be empty')
   })

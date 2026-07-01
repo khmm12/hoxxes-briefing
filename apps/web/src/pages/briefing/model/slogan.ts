@@ -16,7 +16,9 @@ export const defaultSloganWeights: SloganWeights = {
   secondary: 2,
 }
 
-export function selectSlogan<T>(pool: SloganPool<T>, seed: string, weights: SloganWeights = defaultSloganWeights): T {
+const PHRASE_PRIME = 2654435761
+
+export function selectSlogan<T>(pool: SloganPool<T>, seed: number, weights: SloganWeights = defaultSloganWeights): T {
   const availableCategories = getAvailableCategories(pool)
   if (availableCategories.length === 0) throw new Error('slogan pool should not be empty')
 
@@ -24,10 +26,10 @@ export function selectSlogan<T>(pool: SloganPool<T>, seed: string, weights: Slog
     availableCategories.includes(category),
   )
   const categoryRing = weightedCategories.length > 0 ? weightedCategories : availableCategories
-  const category = categoryRing[fastHash(`${seed}:category`) % categoryRing.length]
+  const category = categoryRing[seed % categoryRing.length]
 
   const phrases = pool[category]
-  return phrases[fastHash(`${seed}:${category}:phrase`) % phrases.length]
+  return phrases[(Math.imul(seed, PHRASE_PRIME) >>> 0) % phrases.length]
 }
 
 function getAvailableCategories<T>(pool: SloganPool<T>): Array<keyof SloganPool<T>> {
@@ -38,15 +40,4 @@ function buildWeightedCategoryRing(weights: SloganWeights): Array<keyof SloganWe
   return (Object.keys(weights) as Array<keyof SloganWeights>).flatMap((category) =>
     Array.from({ length: Math.max(1, weights[category]) }, () => category),
   )
-}
-
-function fastHash(value: string): number {
-  let hash = 2166136261
-
-  for (const character of value) {
-    hash ^= character.charCodeAt(0)
-    hash = Math.imul(hash, 16777619)
-  }
-
-  return hash >>> 0
 }

@@ -22,6 +22,6 @@ const sloganPool: SloganPool<MessageDescriptor> = {
   ],
 }
 
-export function getSlogan(i18n: I18n, seed: string): string {
+export function getSlogan(i18n: I18n, seed: number): string {
   return i18n._(selectSlogan(sloganPool, seed))
 }

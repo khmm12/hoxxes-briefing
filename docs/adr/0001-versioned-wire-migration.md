@@ -30,7 +30,8 @@ old service workers have aged out.
 - Client data caching moves onto the workbox convention (versioned cache name,
   old caches cleaned up like precache), replacing the bespoke hand-rolled weekly
   cache.
-- `seed` stays on the wire and gains a client use — deterministic slogan
-  selection — replacing the client's hand-rolled `fastHash(week.id)`.
+- `seed` stays on the wire and gains a client use — it deterministically seeds
+  slogan selection, replacing the client's former hash of the now-removed
+  `week.id`.
 - The sunset is a commitment: the old endpoint must actually be removed, or it
   becomes permanent cruft.

@@ -55,7 +55,7 @@ const dividerStyles = css.raw({
 export function CommandRail(props: CommandRailProps): JSX.Element {
   const i18n = useI18n()
 
-  const slogan = createMemo(() => getSlogan(i18n, String(props.briefing.seed)))
+  const slogan = createMemo(() => getSlogan(i18n, props.briefing.seed))
 
   return (
     <header class={css(railStyles)}>
