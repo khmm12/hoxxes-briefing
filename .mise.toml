@@ -5,3 +5,17 @@ rust = { version = "stable", profile = "minimal", components = "rustfmt,clippy",
 "cargo:wasm-bindgen-cli" = { version = "0.2.120", locked = true }
 "cargo:cargo-llvm-cov" = { version = "0.8.7", locked = true }
 "npm:vercel" = "52.0.0"
+
+[tasks.pre-commit]
+description = "Re-extract the web i18n catalog when staged changes touch apps/web/"
+run = '''
+#!/bin/sh
+set -eu
+
+if ! git diff --cached --name-only | grep -q '^apps/web/'; then
+  exit 0
+fi
+
+(cd apps/web && pnpm exec lingui extract --clean)
+git add apps/web/src/shared/i18n/locales/*/messages.po
+'''
