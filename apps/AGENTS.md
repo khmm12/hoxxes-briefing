@@ -48,7 +48,7 @@ Rules in this file apply under `apps/`.
   values.
 - After changing UI strings run `pnpm exec lingui extract --clean` from
   `apps/web`.
-- The fastest way to inspect or screenshot briefing UI states (hazards, expired,
+- The fastest way to inspect or screenshot briefing UI states (mutators, expired,
   errors, loading, crash) is the dev-only playground at
   `/__playground/:scenario` under `pnpm dev:web` — it renders from fixtures in
   `apps/web/src/pages/briefing/dev/scenarios.tsx`; add a scenario there

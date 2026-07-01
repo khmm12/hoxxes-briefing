@@ -38,7 +38,7 @@ const createBriefingPayload = () => ({
   release: '2026-04-16T11:00:00.000Z',
   expiration: '2026-04-23T11:00:00.000Z',
   dives: {
-    normal: createDive('Crystal Routes'),
+    normal: createDive('Crystal Depths'),
     elite: createDive('Lethal Depths'),
   },
 })

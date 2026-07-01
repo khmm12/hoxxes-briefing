@@ -33,7 +33,7 @@ describe('buildQuickReadChips', () => {
 
 function createDive(): DeepDive {
   return {
-    name: 'Crystal Routes',
+    name: 'Crystal Depths',
     biome: 'AzureWeald',
     missions: [
       createMission({ anomaly: 'RichAtmosphere', warning: 'LowOxygen' }),
@@ -45,7 +45,7 @@ function createDive(): DeepDive {
 
 function createDiveWithCleanStages(): DeepDive {
   return {
-    name: 'Clean Routes',
+    name: 'Placid Caverns',
     biome: 'SaltPits',
     missions: [createMission(), createMission(), createMission()],
   }
@@ -53,7 +53,7 @@ function createDiveWithCleanStages(): DeepDive {
 
 function createDiveWithWarnings(): DeepDive {
   return {
-    name: 'Warning Routes',
+    name: 'Molten Warren',
     biome: 'MagmaCore',
     missions: [
       createMission({ warning: 'Swarmageddon' }),
@@ -65,7 +65,7 @@ function createDiveWithWarnings(): DeepDive {
 
 function createDiveWithAnomalies(): DeepDive {
   return {
-    name: 'Anomaly Routes',
+    name: 'Verdant Reach',
     biome: 'DenseBiozone',
     missions: [
       createMission({ anomaly: 'CriticalWeakness' }),

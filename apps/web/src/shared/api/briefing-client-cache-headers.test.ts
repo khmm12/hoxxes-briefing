@@ -20,7 +20,7 @@ const createBriefingPayload = () => ({
   expiration: '2026-04-23T11:00:00.000Z',
   dives: {
     normal: {
-      name: 'Crystal Routes',
+      name: 'Crystal Depths',
       biome: 'AzureWeald' as const,
       missions: [createMission(), createMission(), createMission()],
     },
