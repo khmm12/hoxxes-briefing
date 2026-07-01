@@ -2,8 +2,8 @@
 version: alpha
 name: Hoxxes Briefing
 description: >-
-  Industrial mission board for Hoxxes IV — weekly Deep Rock Galactic deep
-  dives. Compact, warm, rough, operational.
+  Industrial mission board for Hoxxes IV — Deep Rock Galactic Deep
+  Dives. Compact, warm, rough, operational.
 colors:
   # Primitives — carry values, referenced only by semantic tokens.
   neutral-950: "#090909"
@@ -232,7 +232,7 @@ components:
     rounded: "{rounded.md}"
     padding: 12px 16px
     backgroundColor: "{colors.surface-sunken}"
-  route-slab:
+  slab:
     rounded: "{rounded.lg}"
     padding: 16px
     backgroundColor: "{colors.surface-raised}"
@@ -265,9 +265,9 @@ fills, strokes, and text colors reference Pencil variables — never raw hex.
 
 ## Overview
 
-Product and UX intent — audience, board contents, tone, the avoid-list —
+Product and UX intent — audience, briefing contents, tone, the avoid-list —
 lives in [docs/product.md](../docs/product.md). This document fixes the
-visual language that delivers it: themed but quiet, with timing, hazards,
+visual language that delivers it: themed but quiet, with timing, mutators,
 and stage structure outranking decorative detail; every data surface has an
 explicit loading / cached / offline / error / expired treatment, and a
 visible board never disappears during refresh.
@@ -314,7 +314,7 @@ weights, or line heights.
 | `metric-sm` | — | secondary objective values, timing strip (desktop) |
 | `body-md` | — | intel notes, state bodies |
 | `body-sm` | — | secondary copy, footer, slogans |
-| `label` | — | objective/hazard labels, chips, biome line |
+| `label` | — | objective/mutator labels, chips, biome line |
 | `label-strong` | — | timing strip (mobile), chip accents, freshness notes |
 | `caption` | — | fine print |
 
@@ -346,7 +346,7 @@ Notes:
   (1) for a local nudge above sibling content inside an isolated stacking
   context — not a page layer.
 - **Canonical viewports** — mobile 390, desktop 1440 with a 1280 content
-  column. Mobile page gutter: 12 (the route slab carries its own 16 inside,
+  column. Mobile page gutter: 12 (the slab carries its own 16 inside,
   so the effective text inset stays comfortable while the gutter never
   drops below the slab corner radius).
 - **State screens** — centered column, max-width 448.
@@ -359,7 +359,7 @@ scale:
 | Level | Used for |
 |---|---|
 | `low` | small floating elements |
-| `medium` | route slabs, panels |
+| `medium` | slabs, panels |
 | `high` | tooltips, overlays |
 
 Surface steps (`surface-sunken` < `surface` < `surface-raised`) are a
@@ -370,28 +370,28 @@ undertone. The primary depth signal is shadow + border.
 
 - `rounded.sm` 4 — chips inner detail, small controls.
 - `rounded.md` 8 — stage cards, tooltips, icon buttons, dive tabs.
-- `rounded.lg` 12 — route slabs, PWA dock.
+- `rounded.lg` 12 — slabs, PWA dock.
 - `rounded.full` — buttons, pills, status dots.
 
 ## Iconography
 
 Mission glyphs (objectives, warnings, anomalies) are **vector traces of the
-in-game pictograms** (`weekly-dive-glyphs.tsx`); biome glyphs and the UI set
+in-game pictograms** (`dive-glyphs.tsx`); biome glyphs and the UI set
 are original artwork. The whole UI set is solid pictograms with knocked-out
 detail, in the same chunky language as the traces: warning-generic and
 mutator-generic are traced from the in-game placeholder icons (triangle sign
 with an exclamation, downward shield with a gear); alert is an octagon sign
 with an exclamation — same family, deliberately distinct from
 warning-generic; refresh and offline derive from Material rounded-filled
-forms; board-unavailable, not-found, spinner and the objective markers are
+forms; briefing-unavailable, not-found, spinner and the objective markers are
 original in the same style. The `.pen` file carries all of them as reusable
 `glyph/*` path components, and the component/screen mockups instantiate those
 same components — what you see in the mockups is the production iconography:
 
 - **UI** (10): refresh (`text-secondary`), spinner (`primary`, animated by
-  rotation at runtime), alert (`danger`), board-unavailable (`primary`; a
-  crossed-out board panel — the board could not be loaded; there is no
-  “empty board” state, a deep dive exists every week), offline (`info`;
+  rotation at runtime), alert (`danger`), briefing-unavailable (`primary`; a
+  crossed-out panel — the briefing could not be loaded; there is no
+  “empty briefing” state, a deep dive exists every week), offline (`info`;
   rendered `text-muted` in the status slot’s dimmed context), not-found
   (`info`), warning-generic (`danger`), mutator-generic (`primary-hover`),
   objective-primary ring (`primary`), objective-secondary ring (`info`) —
@@ -451,18 +451,18 @@ labeled variant.
   (type size unchanged).
 - **Stage block** — `rounded.md`, sunken surface, subtle border (danger on
   elite); stage index eyebrow; primary (24 px glyph + `metric`) and secondary
-  (20 px glyph + `metric-sm`) objective lines; hazard stack under a divider:
-  warning card (danger surface/border), mutator card (primary surface/border),
+  (20 px glyph + `metric-sm`) objective lines; mutator stack under a divider:
+  warning card (danger surface/border), anomaly card (primary surface/border),
   or the quiet note.
-- **Route slab** — `rounded.lg`, raised surface (sunken + danger border on
+- **Slab** — `rounded.lg`, raised surface (sunken + danger border on
   elite), `elevation.medium`, radial primary wash from the top-right corner
   (primary-surface / danger-surface); padding steps 16 → 20 (`md`) → 24
   (`lg`): at `md` the two-up board makes each slab roughly phone-width, so
   the full desktop inset only lands at `lg`; header (kind eyebrow — desktop only,
   the mobile dive switch already names the dive — dive name, biome line with
-  16 px tinted glyph + `label`, “Last known board” freshness note (expired
-  boards only — a cached board within a live week is simply valid),
-  intel note), route scan chips, three stage blocks.
+  16 px tinted glyph + `label`, “Last known briefing” freshness note (expired
+  briefings only — a cached briefing within a live week is simply valid),
+  intel note), quick read chips, three stage blocks.
 - **Command rail** — page chrome, not a card: brand block (logo, title,
   slogan), timing strip (`Jun 1 – 8 · 14:00 · 5d 21h`, gold countdown; danger
   “already ended” when expired), status slot, refresh icon button; closed by
@@ -556,13 +556,13 @@ Canonical compositions assembled from the components above:
   board + app-update dock.
 
 Every other product state is derivable from a canonical screen plus the
-documented component variants; the board itself never changes mid-week:
+documented component variants; the briefing itself never changes mid-week:
 
 - board-refreshing = live board + the rail `refreshing` variant;
 - board-refresh-failed = live board + danger flash on the refresh button;
-- board-from-cache = the live board as-is — a cached board within a live
+- board-from-cache = the live board as-is — a cached briefing within a live
   week is simply valid; only the status tooltip mentions the source. The
-  “Last known board” freshness note appears on expired boards alone.
+  “Last known briefing” freshness note appears on expired briefings alone.
 
 ## Copy pools and micro-states
 
@@ -570,18 +570,18 @@ Mockups show one sample from each text pool; the pools themselves live in
 code and are not enumerated on the canvas:
 
 - **Status tooltip** (hover/focus on the status slot) — 8 messages keyed by
-  expired × refreshing × refresh-failed × offline × cache: “Current board
-  loaded.”, “Refreshing current board now.”, “Saved board loaded.”, “Saved
-  board loaded. Refreshing now.”, “Saved board loaded. You're offline for
-  now.”, “Last known board only. This cycle already ended.”, “Last known
-  board still shown. Refreshing now.”, “Last known board still shown.
-  Refresh failed.” (`WeeklyRefreshPanel`).
-- **Overflow chip** toggles to “Show less” while the route scan is expanded
-  (`WeeklyRouteSlab`).
+  expired × refreshing × refresh-failed × offline × cache: “Current briefing
+  loaded.”, “Refreshing current briefing now.”, “Saved briefing loaded.”, “Saved
+  briefing loaded. Refreshing now.”, “Saved briefing loaded. You're offline for
+  now.”, “Last known briefing only. This cycle already ended.”, “Last known
+  briefing still shown. Refreshing now.”, “Last known briefing still shown.
+  Refresh failed.” (`RefreshPanel`).
+- **Overflow chip** toggles to “Show less” while the quick read is expanded
+  (`DiveSlab`).
 - **Countdown** shows “coming soon” after the cycle expires, until the new
-  board lands (`WeeklyTimingStrip`).
-- **Slogans** — pool of 13 (`weekly-slogan-copy`); **intel notes** — pool of
-  25 (`weekly-route-intel-copy`).
+  briefing lands (`TimingStrip`).
+- **Slogans** — pool of 13 (`slogan-copy`); **intel notes** — pool of
+  25 (`intel-copy`).
 
 ## Overflow & localization
 
@@ -589,7 +589,7 @@ Copy goes through Lingui (today a single `en` catalog); the layout must not
 bake in the length of any particular string. Rules:
 
 - Long content wraps; nothing truncates silently. The only overflow
-  affordance is explicit: the route scan “+N more” chip.
+  affordance is explicit: the quick read “+N more” chip.
 - Controls size to their content with the padding from the component specs —
   never a fixed text width. The tooltip’s 288 is a max-width.
 - Countdown and timing digits render with tabular numerals (`metric` /
