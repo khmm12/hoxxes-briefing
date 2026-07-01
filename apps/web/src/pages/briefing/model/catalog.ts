@@ -22,7 +22,7 @@ export type ObjectiveCatalogEntry = {
   contextTags: readonly ObjectiveContextTag[]
 }
 
-export type EffectCatalogEntry = {
+export type MutatorCatalogEntry = {
   intelPriority: number | null
   quickReadPriority: number
 }
@@ -31,8 +31,8 @@ type ObjectiveCatalog<Kind extends string> = {
   readonly [EntryKind in Kind]: ObjectiveCatalogEntry
 }
 
-type EffectCatalog<Kind extends string> = {
-  readonly [EntryKind in Kind]: EffectCatalogEntry
+type MutatorCatalog<Kind extends string> = {
+  readonly [EntryKind in Kind]: MutatorCatalogEntry
 }
 
 export const primaryObjectiveCatalog = {
@@ -160,7 +160,7 @@ export const warningCatalog = {
     intelPriority: 160,
     quickReadPriority: 160,
   },
-} satisfies EffectCatalog<DeepDiveWarning>
+} satisfies MutatorCatalog<DeepDiveWarning>
 
 export const anomalyCatalog = {
   BloodSugar: {
@@ -183,7 +183,7 @@ export const anomalyCatalog = {
     intelPriority: null,
     quickReadPriority: 250,
   },
-} satisfies EffectCatalog<DeepDiveAnomaly>
+} satisfies MutatorCatalog<DeepDiveAnomaly>
 
 export function getPrimaryObjectiveCatalogEntry(
   kind: PrimaryObjectiveKind,
@@ -197,27 +197,27 @@ export function getSecondaryObjectiveCatalogEntry(
   return secondaryObjectiveCatalog[kind]
 }
 
-export function getWarningCatalogEntry(warning: DeepDiveWarning): EffectCatalogEntry {
+export function getWarningCatalogEntry(warning: DeepDiveWarning): MutatorCatalogEntry {
   return warningCatalog[warning]
 }
 
-export function getAnomalyCatalogEntry(anomaly: DeepDiveAnomaly): EffectCatalogEntry {
+export function getAnomalyCatalogEntry(anomaly: DeepDiveAnomaly): MutatorCatalogEntry {
   return anomalyCatalog[anomaly]
 }
 
 export function compareWarningsForQuickRead(left: DeepDiveWarning, right: DeepDiveWarning): number {
-  return compareEffectsForQuickRead(left, warningCatalog[left], right, warningCatalog[right])
+  return compareMutatorsForQuickRead(left, warningCatalog[left], right, warningCatalog[right])
 }
 
 export function compareAnomaliesForQuickRead(left: DeepDiveAnomaly, right: DeepDiveAnomaly): number {
-  return compareEffectsForQuickRead(left, anomalyCatalog[left], right, anomalyCatalog[right])
+  return compareMutatorsForQuickRead(left, anomalyCatalog[left], right, anomalyCatalog[right])
 }
 
-function compareEffectsForQuickRead(
+function compareMutatorsForQuickRead(
   leftKind: string,
-  left: Pick<EffectCatalogEntry, 'quickReadPriority'>,
+  left: Pick<MutatorCatalogEntry, 'quickReadPriority'>,
   rightKind: string,
-  right: Pick<EffectCatalogEntry, 'quickReadPriority'>,
+  right: Pick<MutatorCatalogEntry, 'quickReadPriority'>,
 ): number {
   const priorityDelta = left.quickReadPriority - right.quickReadPriority
 

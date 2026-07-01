@@ -1,10 +1,10 @@
 import type { DeepDive, DeepDiveAnomaly, DeepDiveMission, DeepDiveWarning } from '~/shared/api'
 import {
-  type EffectCatalogEntry,
   getAnomalyCatalogEntry,
   getPrimaryObjectiveCatalogEntry,
   getSecondaryObjectiveCatalogEntry,
   getWarningCatalogEntry,
+  type MutatorCatalogEntry,
   type ObjectiveContextTag,
 } from './catalog'
 
@@ -105,14 +105,14 @@ function collectAnomalyPriorityNote(anomaly: DeepDiveAnomaly | null, stageIndex:
   return buildPriorityNote(note, getAnomalyCatalogEntry(anomaly), stageIndex)
 }
 
-function buildPriorityNote(note: IntelNote, effect: EffectCatalogEntry, stageIndex: number): PriorityNote {
-  if (effect.intelPriority == null) {
+function buildPriorityNote(note: IntelNote, mutator: MutatorCatalogEntry, stageIndex: number): PriorityNote {
+  if (mutator.intelPriority == null) {
     throw new Error(`Intel note "${note}" requires intelPriority`)
   }
 
   return {
     note,
-    priority: effect.intelPriority,
+    priority: mutator.intelPriority,
     stageIndex,
   }
 }

@@ -75,7 +75,7 @@ const typeCoverageAssertions: [
 ] = [true, true, true, true]
 
 const objectiveEntryKeys = ['contextTags']
-const effectEntryKeys = ['intelPriority', 'quickReadPriority']
+const mutatorEntryKeys = ['intelPriority', 'quickReadPriority']
 
 void typeCoverageAssertions
 
@@ -117,7 +117,7 @@ describe('domain catalog', () => {
     for (const kind of warningKinds) {
       const entry = getWarningCatalogEntry(kind)
 
-      expect(Object.keys(entry).sort()).toEqual(effectEntryKeys)
+      expect(Object.keys(entry).sort()).toEqual(mutatorEntryKeys)
       expect(entry.quickReadPriority).toBeGreaterThan(0)
       expect(entry.intelPriority).not.toBeNull()
     }
@@ -132,7 +132,7 @@ describe('domain catalog', () => {
     for (const kind of anomalyKinds) {
       const entry = getAnomalyCatalogEntry(kind)
 
-      expect(Object.keys(entry).sort()).toEqual(effectEntryKeys)
+      expect(Object.keys(entry).sort()).toEqual(mutatorEntryKeys)
       expect(entry.quickReadPriority).toBeGreaterThan(0)
     }
 
