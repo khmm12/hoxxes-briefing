@@ -290,13 +290,13 @@ fn secondary_objective_maps_blackbox() {
 #[test]
 fn secondary_objective_elimination_keeps_kinds() {
     let objective = facade::DeepDiveSecondaryObjective::Elimination {
-        dreadnought_kinds: vec![facade::Dreadnought::Dreadnought],
+        dreadnought_kinds: vec![facade::Dreadnought::Classic],
     };
 
     assert_eq!(
         wasm::DeepDiveSecondaryObjective::from(objective),
         wasm::DeepDiveSecondaryObjective::Elimination {
-            dreadnought_kinds: vec![wasm::Dreadnought::Dreadnought]
+            dreadnought_kinds: vec![wasm::Dreadnought::Classic]
         }
     );
 }

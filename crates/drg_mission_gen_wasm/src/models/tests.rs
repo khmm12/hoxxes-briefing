@@ -130,8 +130,8 @@ fn deep_dive_warning_maps_every_variant() {
 #[test]
 fn dreadnought_maps_every_variant() {
     assert_eq!(
-        Dreadnought::from(facade::Dreadnought::Dreadnought),
-        Dreadnought::Dreadnought
+        Dreadnought::from(facade::Dreadnought::Classic),
+        Dreadnought::Classic
     );
     assert_eq!(
         Dreadnought::from(facade::Dreadnought::Hiveguard),
@@ -140,5 +140,23 @@ fn dreadnought_maps_every_variant() {
     assert_eq!(
         Dreadnought::from(facade::Dreadnought::Twins),
         Dreadnought::Twins
+    );
+}
+
+#[test]
+fn dreadnought_serializes_classic_to_legacy_wire_tag() {
+    // The domain variant is `Classic`, but the wire tag stays "Dreadnought"
+    // for backward compat. This locks the `#[serde(rename)]` on the ABI enum.
+    assert_eq!(
+        serde_json::to_string(&Dreadnought::Classic).unwrap(),
+        "\"Dreadnought\""
+    );
+    assert_eq!(
+        serde_json::to_string(&Dreadnought::Hiveguard).unwrap(),
+        "\"Hiveguard\""
+    );
+    assert_eq!(
+        serde_json::to_string(&Dreadnought::Twins).unwrap(),
+        "\"Twins\""
     );
 }

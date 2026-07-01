@@ -63,7 +63,7 @@ fn duration_covers_every_upstream_variant() {
 fn dreadnought_covers_every_upstream_variant() {
     assert_eq!(
         Dreadnought::from(EDreadnought::Dreadnought),
-        Dreadnought::Dreadnought
+        Dreadnought::Classic
     );
     assert_eq!(Dreadnought::from(EDreadnought::Twins), Dreadnought::Twins);
     assert_eq!(

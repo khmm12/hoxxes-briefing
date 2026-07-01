@@ -20,11 +20,11 @@ impl TryFrom<UDeepDive> for DeepDive {
         let biome = u_deep_dive.biome.into();
         let missions = map_missions(&u_deep_dive.missions)?;
 
-        return Ok(DeepDive {
+        Ok(DeepDive {
             name,
             biome,
             missions,
-        });
+        })
     }
 }
 
@@ -105,7 +105,7 @@ fn map_secondary_objectives(
 fn map_mutators(mutators: &[EMissionMutator]) -> Result<Option<EMissionMutator>, ConverterError> {
     match mutators {
         [] => Ok(None),
-        [mutator] => Ok(Some(mutator.clone())),
+        [mutator] => Ok(Some(*mutator)),
         _ => Err(ConverterError::MutatorsCountMismatch {
             count: mutators.len(),
         }),
@@ -115,7 +115,7 @@ fn map_mutators(mutators: &[EMissionMutator]) -> Result<Option<EMissionMutator>,
 fn map_warnings(warnings: &[EMissionWarning]) -> Result<Option<EMissionWarning>, ConverterError> {
     match warnings {
         [] => Ok(None),
-        [warning] => Ok(Some(warning.clone())),
+        [warning] => Ok(Some(*warning)),
         _ => Err(ConverterError::WarningsCountMismatch {
             count: warnings.len(),
         }),
@@ -330,7 +330,7 @@ impl From<EDreadnought> for Dreadnought {
         use EDreadnought as From;
 
         match dreadnought {
-            From::Dreadnought => Dreadnought::Dreadnought,
+            From::Dreadnought => Dreadnought::Classic,
             From::Twins => Dreadnought::Twins,
             From::Hiveguard => Dreadnought::Hiveguard,
         }

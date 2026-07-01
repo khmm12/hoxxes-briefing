@@ -145,7 +145,13 @@ wasm_string_enum! {
 
 wasm_string_enum! {
     pub enum Dreadnought {
-        Dreadnought,
+        // Domain name is `Classic` (ubiquitous language, see docs/domain.md);
+        // the wire tag stays "Dreadnought" for backward compat with shipped
+        // payloads and warm client caches.
+        // TODO: align the TS contract on `Classic` and flip the wire (drop this
+        // rename) once a cache-busting deploy is acceptable.
+        #[serde(rename = "Dreadnought")]
+        Classic,
         Hiveguard,
         Twins,
     }
