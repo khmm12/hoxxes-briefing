@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { registerBriefingRoute } from './http/routes/briefing.ts'
 import { registerWeeklyRoute } from './http/routes/weekly.ts'
 import { createDirectBriefingProvider } from './infrastructure/providers/direct-briefing-provider.ts'
 import type { BriefingProvider } from './ports/briefing-provider.ts'
@@ -12,6 +13,7 @@ export function createApp(dependencies: AppDependencies) {
 
   const { briefingProvider } = dependencies
 
+  registerBriefingRoute(app, { briefingProvider })
   registerWeeklyRoute(app, { briefingProvider })
 
   return app

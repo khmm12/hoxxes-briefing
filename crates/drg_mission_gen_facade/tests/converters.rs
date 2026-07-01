@@ -176,14 +176,14 @@ fn deep_dive_propagates_conversion_error_from_any_mission_index() {
 }
 
 #[test]
-fn mission_converts_full_pipeline_with_mutator_and_warning() {
+fn mission_converts_full_pipeline_with_anomaly_and_warning() {
     let mut mission = mission_with_secondaries(vec![EObjective::OBJ_DD_AlienEggs]);
     mission.mutators = vec![drg_mission_gen_core::EMissionMutator::MMUT_BloodSugar];
     mission.warnings = vec![drg_mission_gen_core::EMissionWarning::WRN_Ghost];
 
     let result = DeepDiveMission::try_from(&mission).expect("mission should convert");
 
-    assert!(result.mutator.is_some());
+    assert!(result.anomaly.is_some());
     assert!(result.warning.is_some());
 }
 

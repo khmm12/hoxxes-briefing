@@ -121,7 +121,7 @@ fn mission_converts_all_fields_when_present() {
     let mission = facade::DeepDiveMission {
         primary_objective: facade::DeepDivePrimaryObjective::MiningExpedition { morkite: 250 },
         secondary_objective: facade::DeepDiveSecondaryObjective::Blackbox { black_boxes: 2 },
-        mutator: Some(facade::DeepDiveMutator::LowGravity),
+        anomaly: Some(facade::DeepDiveAnomaly::LowGravity),
         warning: Some(facade::DeepDiveWarning::Swarmageddon),
         complexity: facade::Complexity::Average,
         duration: facade::Duration::Normal,
@@ -137,17 +137,17 @@ fn mission_converts_all_fields_when_present() {
         converted.secondary_objective,
         wasm::DeepDiveSecondaryObjective::Blackbox { black_boxes: 2 }
     );
-    assert_eq!(converted.mutator, Some(wasm::DeepDiveMutator::LowGravity));
+    assert_eq!(converted.anomaly, Some(wasm::DeepDiveAnomaly::LowGravity));
     assert_eq!(converted.warning, Some(wasm::DeepDiveWarning::Swarmageddon));
 }
 
 #[test]
-fn mission_converts_absent_mutator_and_warning_to_none() {
+fn mission_converts_absent_anomaly_and_warning_to_none() {
     let mission = sample_mission();
 
     let converted = wasm::DeepDiveMission::from(mission);
 
-    assert_eq!(converted.mutator, None);
+    assert_eq!(converted.anomaly, None);
     assert_eq!(converted.warning, None);
 }
 
@@ -351,7 +351,7 @@ fn sample_mission() -> facade::DeepDiveMission {
             resonance_crystals: 3,
         },
         secondary_objective: facade::DeepDiveSecondaryObjective::EggHunt { eggs: 4 },
-        mutator: None,
+        anomaly: None,
         warning: None,
         complexity: facade::Complexity::Average,
         duration: facade::Duration::Short,

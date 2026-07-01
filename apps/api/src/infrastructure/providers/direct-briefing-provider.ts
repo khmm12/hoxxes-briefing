@@ -32,7 +32,7 @@ export function createDirectBriefingProvider(dependencies: DirectBriefingProvide
         generated = generateFromSeed(event.seed)
       } catch (cause) {
         throw new BriefingProviderError(
-          'WEEKLY_DATA_UNAVAILABLE',
+          'GENERATOR_UNAVAILABLE',
           'Failed to generate briefing from deep dive event',
           toErrorOptions(cause),
         )
@@ -57,7 +57,7 @@ function toErrorOptions(cause: unknown): ErrorOptions | undefined {
 function ensureGeneratedSeed(event: DeepDiveEvent, generated: GeneratedBriefing): void {
   if (event.seed !== generated.seed) {
     throw new BriefingProviderError(
-      'WEEKLY_DATA_UNAVAILABLE',
+      'GENERATOR_UNAVAILABLE',
       `Generator seed mismatch: event=${event.seed}, generated=${generated.seed}`,
     )
   }

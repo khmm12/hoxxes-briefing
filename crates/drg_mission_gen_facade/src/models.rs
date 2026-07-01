@@ -34,7 +34,7 @@ pub struct DeepDiveMissions(pub [DeepDiveMission; MISSION_COUNT]);
 pub struct DeepDiveMission {
     pub primary_objective: DeepDivePrimaryObjective,
     pub secondary_objective: DeepDiveSecondaryObjective,
-    pub mutator: Option<DeepDiveMutator>,
+    pub anomaly: Option<DeepDiveAnomaly>,
     pub warning: Option<DeepDiveWarning>,
     pub complexity: Complexity,
     pub duration: Duration,
@@ -89,7 +89,7 @@ pub enum DeepDiveSecondaryObjective {
 }
 
 #[derive(Debug, Copy, Clone, PartialEq)]
-pub enum DeepDiveMutator {
+pub enum DeepDiveAnomaly {
     VolatileGuts,
     RichAtmosphere,
     CriticalWeakness,

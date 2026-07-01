@@ -12,7 +12,7 @@ export const DEEP_DIVE_BIOMES = [
   'OssuaryDepths',
 ] as const
 
-export const DEEP_DIVE_MUTATORS = [
+export const DEEP_DIVE_ANOMALIES = [
   'BloodSugar',
   'CriticalWeakness',
   'LowGravity',
@@ -39,10 +39,10 @@ export const DEEP_DIVE_WARNINGS = [
   'Swarmageddon',
 ] as const
 
-export const DEEP_DIVE_DREADNOUGHTS = ['Dreadnought', 'Hiveguard', 'Twins'] as const
+export const DEEP_DIVE_DREADNOUGHTS = ['Classic', 'Hiveguard', 'Twins'] as const
 
 export type DeepDiveBiome = (typeof DEEP_DIVE_BIOMES)[number]
-export type DeepDiveMutator = (typeof DEEP_DIVE_MUTATORS)[number]
+export type DeepDiveAnomaly = (typeof DEEP_DIVE_ANOMALIES)[number]
 export type DeepDiveWarning = (typeof DEEP_DIVE_WARNINGS)[number]
 export type DeepDiveDreadnought = (typeof DEEP_DIVE_DREADNOUGHTS)[number]
 
@@ -67,13 +67,13 @@ export type DeepDiveSecondaryObjective = Readonly<
   | { kind: 'MiningExpedition'; morkite: number }
   | { kind: 'OnSiteRefining'; morkiteWells: number }
   | { kind: 'SalvageOperation'; miniMules: number }
-  | { kind: 'HeavyExcavation'; resiniteMasses: number }
+  | { kind: 'HeavyExtraction'; resiniteMasses: number }
 >
 
 export type DeepDiveMission = Readonly<{
   primaryObjective: DeepDivePrimaryObjective
   secondaryObjective: DeepDiveSecondaryObjective
-  mutator: DeepDiveMutator | null
+  anomaly: DeepDiveAnomaly | null
   warning: DeepDiveWarning | null
 }>
 

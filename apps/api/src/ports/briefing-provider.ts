@@ -1,6 +1,6 @@
 import type { Briefing } from '../application/models/briefing.ts'
 
-export type BriefingProviderFailureKind = 'UPSTREAM_UNAVAILABLE' | 'WEEKLY_DATA_UNAVAILABLE'
+export type BriefingProviderFailureKind = 'UPSTREAM_UNAVAILABLE' | 'GENERATOR_UNAVAILABLE'
 
 export type BriefingProvider = {
   getBriefing: () => Promise<Briefing>

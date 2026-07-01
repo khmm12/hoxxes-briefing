@@ -1,7 +1,7 @@
 import type { Context, Hono } from 'hono'
 import { getBriefing } from '../../application/get-briefing.ts'
 import type { BriefingProvider } from '../../ports/briefing-provider.ts'
-import { InvalidResponsePayloadError, toPublicErrorResponse } from '../errors.ts'
+import { InvalidResponsePayloadError, toWeeklyErrorResponse } from '../errors.ts'
 import { mapBriefingToWeeklyResponse } from '../map-briefing-to-weekly-response.ts'
 import { createWeeklyErrorCacheHeaders, createWeeklySuccessCacheHeaders } from '../weekly-cache-headers.ts'
 
@@ -23,7 +23,7 @@ export function registerWeeklyRoute(app: Hono, dependencies: WeeklyRouteDependen
         throw new InvalidResponsePayloadError('Failed to map briefing to weekly response', { cause })
       }
     } catch (error) {
-      const { status, body } = toPublicErrorResponse(error, context.req.header('x-request-id'))
+      const { status, body } = toWeeklyErrorResponse(error, context.req.header('x-request-id'))
       applyHeaders(context, createWeeklyErrorCacheHeaders())
 
       return context.json(body, status)

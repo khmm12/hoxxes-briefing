@@ -2,9 +2,9 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import {
   type Briefing,
+  DEEP_DIVE_ANOMALIES,
   DEEP_DIVE_BIOMES,
   DEEP_DIVE_DREADNOUGHTS,
-  DEEP_DIVE_MUTATORS,
   DEEP_DIVE_WARNINGS,
   type DeepDivePrimaryObjective,
   type DeepDiveSecondaryObjective,
@@ -34,7 +34,7 @@ const secondaryObjectiveKeysByKind = {
   MiningExpedition: ['kind', 'morkite'],
   OnSiteRefining: ['kind', 'morkiteWells'],
   SalvageOperation: ['kind', 'miniMules'],
-  HeavyExcavation: ['kind', 'resiniteMasses'],
+  HeavyExtraction: ['kind', 'resiniteMasses'],
 } satisfies Record<DeepDiveSecondaryObjective['kind'], string[]>
 
 const assertObjectKeys = (value: Record<string, unknown>, keys: string[]): void => {
@@ -55,6 +55,12 @@ const assertKnownObjective = (
   }
 }
 
+test('generateBriefing returns the WASM payload in the application model shape', () => {
+  const generated: GeneratedBriefing = generateBriefing(1234567890)
+
+  assertGeneratedBriefingShape(generated)
+})
+
 function assertGeneratedBriefingShape(generated: GeneratedBriefing): void {
   assertObjectKeys(generated, ['seed', 'dives'])
   assert.equal(Number.isInteger(generated.seed), true)
@@ -68,15 +74,15 @@ function assertGeneratedBriefingShape(generated: GeneratedBriefing): void {
     assert.equal(dive.missions.length, 3)
 
     for (const mission of dive.missions) {
-      assertObjectKeys(mission, ['primaryObjective', 'secondaryObjective', 'mutator', 'warning'])
+      assertObjectKeys(mission, ['primaryObjective', 'secondaryObjective', 'anomaly', 'warning'])
       assertKnownObjective(mission.primaryObjective, primaryObjectiveKeysByKind)
       assertKnownObjective(mission.secondaryObjective, secondaryObjectiveKeysByKind)
 
-      assert.notEqual(mission.mutator, undefined)
+      assert.notEqual(mission.anomaly, undefined)
       assert.notEqual(mission.warning, undefined)
 
-      if (mission.mutator !== null) {
-        assert.ok(DEEP_DIVE_MUTATORS.includes(mission.mutator))
+      if (mission.anomaly !== null) {
+        assert.ok(DEEP_DIVE_ANOMALIES.includes(mission.anomaly))
       }
       if (mission.warning !== null) {
         assert.ok(DEEP_DIVE_WARNINGS.includes(mission.warning))
@@ -84,9 +90,3 @@ function assertGeneratedBriefingShape(generated: GeneratedBriefing): void {
     }
   }
 }
-
-test('generateBriefing returns the WASM payload in the application model shape', () => {
-  const generated: GeneratedBriefing = generateBriefing(1234567890)
-
-  assertGeneratedBriefingShape(generated)
-})

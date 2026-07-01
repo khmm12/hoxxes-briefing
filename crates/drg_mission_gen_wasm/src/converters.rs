@@ -63,7 +63,7 @@ impl From<facade::DeepDiveMission> for wasm::DeepDiveMission {
         wasm::DeepDiveMission {
             primary_objective: mission.primary_objective.into(),
             secondary_objective: mission.secondary_objective.into(),
-            mutator: mission.mutator.map(Into::into),
+            anomaly: mission.anomaly.map(Into::into),
             warning: mission.warning.map(Into::into),
         }
     }

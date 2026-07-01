@@ -104,28 +104,31 @@ as the smaller secondary job — DRG has no separate "Heavy Excavation" mission.
 | Morkite xN | Collect a smaller Morkite quota while completing the primary objective. | `MiningExpedition` |
 | Morkite Well xN | Connect one well to a small Morkite Extraction Pod. This is not the full refinery mission loop. | `OnSiteRefining` |
 | Mule xN | Repair the required Mini M.U.L.E.s without the full uplink and fuel-cell finale. | `SalvageOperation` |
-| Resinite Mass xN | Extract a smaller Resinite quota, usually one mass, using Lift Rockets. | `HeavyExcavation` |
+| Resinite Mass xN | Extract a smaller Resinite quota, usually one mass, using Lift Rockets. | `HeavyExtraction` |
 
-The secondary `HeavyExcavation` enum is a non-canonical internal name: DRG has no
-"Heavy Excavation" mission, and every other objective that appears in both places
-(`DeepScan`, `EggHunt`, `Elimination`, `MiningExpedition`, `OnSiteRefining`,
-`SalvageOperation`) shares one enum key across primary and secondary. Rename
-candidate: `HeavyExtraction`.
+Both primary and secondary Resinite Mass objectives use the `HeavyExtraction`
+enum key in the domain model, matching every other objective that appears in
+both places (`DeepScan`, `EggHunt`, `Elimination`, `MiningExpedition`,
+`OnSiteRefining`, `SalvageOperation`), which share one key across primary and
+secondary. The legacy `/api/v1/weekly` wire keeps the older secondary tag
+`HeavyExcavation` for backward-compatibility; it is disposable and dropped at
+endpoint sunset (see [ADR 0001](adr/0001-versioned-wire-migration.md)).
 
 ## Dreadnought Values
 
 `Elimination` objectives name the boss variants that appear in the stage.
 
-| Name | Description | Enum (wire) |
+| Name | Description | Enum |
 | --- | --- | --- |
-| Classic | Standard Glyphid Dreadnought with armor-shell timing and direct boss pressure. | `Dreadnought` |
+| Classic | Standard Glyphid Dreadnought with armor-shell timing and direct boss pressure. | `Classic` |
 | Hiveguard | Dreadnought variant with Sentinel adds and phased vulnerability. | `Hiveguard` |
 | Twins | Paired Lacerator and Arbalest fight with split melee and ranged pressure. | `Twins` |
 
 Officially all three are Glyphid Dreadnoughts; the standard one has no
-disambiguating suffix. We name it `Classic` in our domain model (see
-[CONTEXT.md](../CONTEXT.md)); the wire tag stays `Dreadnought` for
-backward-compatibility.
+disambiguating suffix. We name it `Classic` in the domain model and on the
+`/api/v1/briefing` wire (see [CONTEXT.md](../CONTEXT.md)). The legacy
+`/api/v1/weekly` wire keeps the `Dreadnought` tag for backward-compatibility
+(disposable; see [ADR 0001](adr/0001-versioned-wire-migration.md)).
 
 ## Warnings
 
@@ -158,8 +161,10 @@ add no difficulty (no hazard bonus).
 
 Officially, **Mutator** is the umbrella term and splits into two subtypes:
 **Warnings** (harmful, above) and **Anomalies** (neutral/beneficial, below). The
-code enum for this category is named `DeepDiveMutator`/`mutator`, but it holds
-exactly the Anomalies — a misnomer for `Anomaly`. See [CONTEXT.md](../CONTEXT.md).
+domain model names this category `DeepDiveAnomaly`/`anomaly`. The legacy
+`/api/v1/weekly` wire keeps the older `mutator` field name for
+backward-compatibility (disposable; see
+[ADR 0001](adr/0001-versioned-wire-migration.md)). See [CONTEXT.md](../CONTEXT.md).
 
 | Name | Description | Enum |
 | --- | --- | --- |

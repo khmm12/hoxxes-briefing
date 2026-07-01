@@ -1,23 +1,41 @@
 import * as v1 from '@hoxxes-briefing/contracts/api/v1'
+import type { BriefingProviderFailureKind } from '../ports/briefing-provider.ts'
 import { BriefingProviderError } from '../ports/briefing-provider.ts'
 
 type PublicErrorCode = v1.ErrorResponse['code']
-type PublicErrorStatus = 429 | 500 | 502 | 503
+type PublicErrorStatus = 500 | 502 | 503
 
-const ERROR_STATUS_BY_CODE: Record<PublicErrorCode, PublicErrorStatus> = {
+// App-level failure taxonomy: clean, endpoint-agnostic reasons. Each HTTP
+// endpoint presents them as its own wire `code`/`message` (see presentations).
+type AppFailureReason = BriefingProviderFailureKind | 'INVALID_RESPONSE_PAYLOAD' | 'INTERNAL_ERROR'
+
+type WirePresentation = {
+  code: PublicErrorCode
+  message: string
+}
+
+const STATUS_BY_REASON: Record<AppFailureReason, PublicErrorStatus> = {
   UPSTREAM_UNAVAILABLE: 502,
-  WEEKLY_DATA_UNAVAILABLE: 503,
+  GENERATOR_UNAVAILABLE: 503,
   INVALID_RESPONSE_PAYLOAD: 500,
-  RATE_LIMITED: 429,
   INTERNAL_ERROR: 500,
 }
 
-const ERROR_MESSAGE_BY_CODE: Record<PublicErrorCode, string> = {
-  UPSTREAM_UNAVAILABLE: 'Upstream deep dive data is currently unavailable.',
-  WEEKLY_DATA_UNAVAILABLE: 'Weekly mission data is currently unavailable.',
-  INVALID_RESPONSE_PAYLOAD: 'The weekly response payload is invalid.',
-  RATE_LIMITED: 'Rate limit exceeded.',
-  INTERNAL_ERROR: 'Internal server error.',
+// Legacy `/api/v1/weekly` wire vocabulary. Disposable — delete with the endpoint
+// at sunset (ADR 0001).
+const WEEKLY_PRESENTATION: Record<AppFailureReason, WirePresentation> = {
+  UPSTREAM_UNAVAILABLE: { code: 'UPSTREAM_UNAVAILABLE', message: 'Upstream deep dive data is currently unavailable.' },
+  GENERATOR_UNAVAILABLE: { code: 'WEEKLY_DATA_UNAVAILABLE', message: 'Weekly mission data is currently unavailable.' },
+  INVALID_RESPONSE_PAYLOAD: { code: 'INVALID_RESPONSE_PAYLOAD', message: 'The weekly response payload is invalid.' },
+  INTERNAL_ERROR: { code: 'INTERNAL_ERROR', message: 'Internal server error.' },
+}
+
+// Clean `/api/v1/briefing` wire vocabulary (domain == wire).
+const BRIEFING_PRESENTATION: Record<AppFailureReason, WirePresentation> = {
+  UPSTREAM_UNAVAILABLE: { code: 'UPSTREAM_UNAVAILABLE', message: 'Upstream deep dive data is currently unavailable.' },
+  GENERATOR_UNAVAILABLE: { code: 'BRIEFING_DATA_UNAVAILABLE', message: 'Briefing data is currently unavailable.' },
+  INVALID_RESPONSE_PAYLOAD: { code: 'INVALID_RESPONSE_PAYLOAD', message: 'The briefing response payload is invalid.' },
+  INTERNAL_ERROR: { code: 'INTERNAL_ERROR', message: 'Internal server error.' },
 }
 
 export class InvalidResponsePayloadError extends Error {
@@ -29,20 +47,32 @@ export type PublicErrorResponse = {
   body: v1.ErrorResponse
 }
 
-export function toPublicErrorResponse(error: unknown, requestId?: string): PublicErrorResponse {
-  let code: PublicErrorCode = 'INTERNAL_ERROR'
+export function toWeeklyErrorResponse(error: unknown, requestId?: string): PublicErrorResponse {
+  return buildErrorResponse(resolveReason(error), WEEKLY_PRESENTATION, requestId)
+}
 
-  if (error instanceof BriefingProviderError) {
-    code = error.kind
-  } else if (error instanceof InvalidResponsePayloadError) {
-    code = 'INVALID_RESPONSE_PAYLOAD'
-  }
+export function toBriefingErrorResponse(error: unknown, requestId?: string): PublicErrorResponse {
+  return buildErrorResponse(resolveReason(error), BRIEFING_PRESENTATION, requestId)
+}
+
+function resolveReason(error: unknown): AppFailureReason {
+  if (error instanceof BriefingProviderError) return error.kind
+  if (error instanceof InvalidResponsePayloadError) return 'INVALID_RESPONSE_PAYLOAD'
+  return 'INTERNAL_ERROR'
+}
+
+function buildErrorResponse(
+  reason: AppFailureReason,
+  presentation: Record<AppFailureReason, WirePresentation>,
+  requestId?: string,
+): PublicErrorResponse {
+  const { code, message } = presentation[reason]
 
   return {
-    status: ERROR_STATUS_BY_CODE[code],
+    status: STATUS_BY_REASON[reason],
     body: v1.parseErrorResponse({
       code,
-      message: ERROR_MESSAGE_BY_CODE[code],
+      message,
       ...(requestId === undefined ? {} : { requestId }),
     }),
   }

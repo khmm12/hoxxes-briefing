@@ -36,26 +36,26 @@ fn biome_maps_every_variant() {
 }
 
 #[test]
-fn deep_dive_mutator_maps_every_variant() {
+fn deep_dive_anomaly_maps_every_variant() {
     assert_eq!(
-        DeepDiveMutator::from(facade::DeepDiveMutator::BloodSugar),
-        DeepDiveMutator::BloodSugar
+        DeepDiveAnomaly::from(facade::DeepDiveAnomaly::BloodSugar),
+        DeepDiveAnomaly::BloodSugar
     );
     assert_eq!(
-        DeepDiveMutator::from(facade::DeepDiveMutator::CriticalWeakness),
-        DeepDiveMutator::CriticalWeakness
+        DeepDiveAnomaly::from(facade::DeepDiveAnomaly::CriticalWeakness),
+        DeepDiveAnomaly::CriticalWeakness
     );
     assert_eq!(
-        DeepDiveMutator::from(facade::DeepDiveMutator::LowGravity),
-        DeepDiveMutator::LowGravity
+        DeepDiveAnomaly::from(facade::DeepDiveAnomaly::LowGravity),
+        DeepDiveAnomaly::LowGravity
     );
     assert_eq!(
-        DeepDiveMutator::from(facade::DeepDiveMutator::RichAtmosphere),
-        DeepDiveMutator::RichAtmosphere
+        DeepDiveAnomaly::from(facade::DeepDiveAnomaly::RichAtmosphere),
+        DeepDiveAnomaly::RichAtmosphere
     );
     assert_eq!(
-        DeepDiveMutator::from(facade::DeepDiveMutator::VolatileGuts),
-        DeepDiveMutator::VolatileGuts
+        DeepDiveAnomaly::from(facade::DeepDiveAnomaly::VolatileGuts),
+        DeepDiveAnomaly::VolatileGuts
     );
 }
 
@@ -144,12 +144,10 @@ fn dreadnought_maps_every_variant() {
 }
 
 #[test]
-fn dreadnought_serializes_classic_to_legacy_wire_tag() {
-    // The domain variant is `Classic`, but the wire tag stays "Dreadnought"
-    // for backward compat. This locks the `#[serde(rename)]` on the ABI enum.
+fn dreadnought_serializes_each_variant_by_domain_name() {
     assert_eq!(
         serde_json::to_string(&Dreadnought::Classic).unwrap(),
-        "\"Dreadnought\""
+        "\"Classic\""
     );
     assert_eq!(
         serde_json::to_string(&Dreadnought::Hiveguard).unwrap(),
@@ -162,12 +160,10 @@ fn dreadnought_serializes_classic_to_legacy_wire_tag() {
 }
 
 #[test]
-fn secondary_heavy_extraction_serializes_to_legacy_wire_tag() {
-    // Domain variant is `HeavyExtraction`, but the wire tag stays
-    // "HeavyExcavation" for backward compat. Locks the `#[serde(rename)]`.
+fn secondary_heavy_extraction_serializes_by_domain_name() {
     assert_eq!(
         serde_json::to_string(&DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses: 2 })
             .unwrap(),
-        "{\"kind\":\"HeavyExcavation\",\"resiniteMasses\":2}"
+        "{\"kind\":\"HeavyExtraction\",\"resiniteMasses\":2}"
     );
 }

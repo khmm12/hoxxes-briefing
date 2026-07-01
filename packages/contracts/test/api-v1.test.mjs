@@ -83,3 +83,74 @@ test('safeParseApiV1ErrorResponse fails when required message is omitted', () =>
 
   assert.equal(result.success, false)
 })
+
+const createBriefingMission = () => ({
+  primaryObjective: {
+    kind: 'DeepScan',
+    resonanceCrystals: 2,
+  },
+  secondaryObjective: {
+    kind: 'Blackbox',
+    blackBoxes: 1,
+  },
+  anomaly: null,
+  warning: 'RegenerativeBugs',
+})
+
+const createBriefingDive = (name) => ({
+  name,
+  biome: 'AzureWeald',
+  missions: [
+    createBriefingMission(),
+    {
+      ...createBriefingMission(),
+      anomaly: 'LowGravity',
+      warning: null,
+    },
+    createBriefingMission(),
+  ],
+})
+
+const createValidBriefingPayload = () => ({
+  seed: 1234567890,
+  release: '2026-04-16T11:00:00.000Z',
+  expiration: '2026-04-23T11:00:00.000Z',
+  dives: {
+    normal: createBriefingDive('Crystalline Corridors'),
+    elite: createBriefingDive('Lethal Depths'),
+  },
+})
+
+test('parseApiV1BriefingResponse parses a valid briefing payload', () => {
+  const parsed = v1.parseBriefingResponse(createValidBriefingPayload())
+
+  assert.equal(parsed.seed, 1234567890)
+  assert.equal(parsed.dives.normal.missions.length, 3)
+})
+
+test('safeParseApiV1BriefingResponse fails when required fields are omitted', () => {
+  const payload = createValidBriefingPayload()
+  delete payload.release
+
+  const result = v1.safeParseBriefingResponse(payload)
+
+  assert.equal(result.success, false)
+})
+
+test('safeParseApiV1BriefingResponse fails when briefing dives are invalid', () => {
+  const payload = createValidBriefingPayload()
+  payload.dives.normal.missions = [createBriefingMission()]
+
+  const result = v1.safeParseBriefingResponse(payload)
+
+  assert.equal(result.success, false)
+})
+
+test('safeParseApiV1BriefingResponse rejects legacy weekly wire vocabulary', () => {
+  const payload = createValidBriefingPayload()
+  payload.dives.normal.missions[0].secondaryObjective = { kind: 'HeavyExcavation', resiniteMasses: 1 }
+
+  const result = v1.safeParseBriefingResponse(payload)
+
+  assert.equal(result.success, false)
+})
