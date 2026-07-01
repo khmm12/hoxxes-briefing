@@ -1,6 +1,7 @@
 [tools]
 node = "24"
-rust = { version = "stable", profile = "minimal", components = "rustfmt", targets = "wasm32-unknown-unknown" }
+rust = { version = "stable", profile = "minimal", components = "rustfmt,clippy", targets = "wasm32-unknown-unknown" }
 "cargo:wasm-pack" = { version = "0.14.0", locked = true }
 "cargo:wasm-bindgen-cli" = { version = "0.2.120", locked = true }
+"cargo:cargo-llvm-cov" = { version = "0.8.7", locked = true }
 "npm:vercel" = "52.0.0"
