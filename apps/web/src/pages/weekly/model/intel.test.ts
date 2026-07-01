@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
+import type { DeepDive, DeepDiveMission } from '~/shared/api'
 import { buildIntel, type IntelNote } from './intel'
-import type { WeeklyDive, WeeklyMission } from './weekly-catalog'
 
 describe('buildIntel', () => {
-  it('selects Haunted Cave over any mutator', () => {
+  it('selects Haunted Cave over any anomaly', () => {
     const dive = createDive([
-      createMission({ mutator: 'BloodSugar' }),
+      createMission({ anomaly: 'BloodSugar' }),
       createMission({ warning: 'HauntedCave' }),
-      createMission({ mutator: 'VolatileGuts' }),
+      createMission({ anomaly: 'VolatileGuts' }),
     ])
 
     const intel = buildIntel(dive, 'normal')
@@ -39,7 +39,7 @@ describe('buildIntel', () => {
     const dive = createDive([
       createMission({
         primaryObjective: {
-          dreadnoughts: ['Dreadnought'],
+          dreadnoughts: ['Classic'],
           kind: 'Elimination',
         },
         warning: 'DuckAndCover',
@@ -57,7 +57,7 @@ describe('buildIntel', () => {
     const dive = createDive([
       createMission({
         primaryObjective: {
-          dreadnoughts: ['Dreadnought'],
+          dreadnoughts: ['Classic'],
           kind: 'Elimination',
         },
       }),
@@ -106,14 +106,14 @@ describe('buildIntel', () => {
     expect(buildIntel(secondaryDeepScanDive, 'normal').note).toBe('low-oxygen')
   })
 
-  it('selects explicit dangerous mutator notes when no stronger warning exists', () => {
+  it('selects explicit dangerous anomaly notes when no stronger warning exists', () => {
     expect(
-      buildIntel(createDive([createMission({ mutator: 'BloodSugar' }), createMission(), createMission()]), 'normal'),
+      buildIntel(createDive([createMission({ anomaly: 'BloodSugar' }), createMission(), createMission()]), 'normal'),
     ).toMatchObject({
       note: 'blood-sugar',
     })
     expect(
-      buildIntel(createDive([createMission({ mutator: 'VolatileGuts' }), createMission(), createMission()]), 'normal'),
+      buildIntel(createDive([createMission({ anomaly: 'VolatileGuts' }), createMission(), createMission()]), 'normal'),
     ).toMatchObject({
       note: 'volatile-guts',
     })
@@ -138,9 +138,9 @@ describe('buildIntel', () => {
     ).toBe('parasites')
   })
 
-  it('does not treat beneficial mutators as pressure notes', () => {
+  it('does not treat beneficial anomalies as pressure notes', () => {
     const intel = buildIntel(
-      createDive([createMission({ mutator: 'CriticalWeakness' }), createMission(), createMission()]),
+      createDive([createMission({ anomaly: 'CriticalWeakness' }), createMission(), createMission()]),
       'normal',
     )
 
@@ -149,15 +149,15 @@ describe('buildIntel', () => {
     })
   })
 
-  it('uses mobility mutators as favorable route guidance', () => {
+  it('uses mobility anomalies as favorable route guidance', () => {
     expect(
-      buildIntel(createDive([createMission({ mutator: 'LowGravity' }), createMission(), createMission()]), 'normal'),
+      buildIntel(createDive([createMission({ anomaly: 'LowGravity' }), createMission(), createMission()]), 'normal'),
     ).toEqual({
       note: 'favorable-mobility',
     })
     expect(
       buildIntel(
-        createDive([createMission({ mutator: 'RichAtmosphere' }), createMission(), createMission()]),
+        createDive([createMission({ anomaly: 'RichAtmosphere' }), createMission(), createMission()]),
         'normal',
       ),
     ).toEqual({
@@ -165,10 +165,10 @@ describe('buildIntel', () => {
     })
   })
 
-  it('keeps favorable mutator guidance ahead of fixed objective fallback', () => {
+  it('keeps favorable anomaly guidance ahead of fixed objective fallback', () => {
     const dive = createDive([
       createMission({
-        mutator: 'RichAtmosphere',
+        anomaly: 'RichAtmosphere',
         primaryObjective: {
           kind: 'EscortDuty',
           refuels: 1,
@@ -199,7 +199,7 @@ describe('buildIntel', () => {
 
     for (const [warning, note] of Object.entries(directNotes)) {
       const dive = createDive([
-        createMission({ warning: warning as WeeklyMission['warning'] }),
+        createMission({ warning: warning as DeepDiveMission['warning'] }),
         createMission(),
         createMission(),
       ])
@@ -220,7 +220,7 @@ describe('buildIntel', () => {
   })
 })
 
-function createDive(missions: [WeeklyMission, WeeklyMission, WeeklyMission]): WeeklyDive {
+function createDive(missions: [DeepDiveMission, DeepDiveMission, DeepDiveMission]): DeepDive {
   return {
     biome: 'AzureWeald',
     missions,
@@ -228,9 +228,9 @@ function createDive(missions: [WeeklyMission, WeeklyMission, WeeklyMission]): We
   }
 }
 
-function createMission(overrides: Partial<WeeklyMission> = {}): WeeklyMission {
+function createMission(overrides: Partial<DeepDiveMission> = {}): DeepDiveMission {
   return {
-    mutator: null,
+    anomaly: null,
     primaryObjective: {
       kind: 'MiningExpedition',
       morkite: 200,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { WeeklyRequestError } from '~/shared/api'
+import { BriefingRequestError } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
 import { WeeklyErrorState, WeeklyLoadingState } from './WeeklyPageStates'
 
@@ -23,7 +23,7 @@ describe('WeeklyErrorState', () => {
     const { getByRole, getByText } = renderWithProviders(() => (
       <WeeklyErrorState
         dockVisible={false}
-        error={new WeeklyRequestError('network', 'test')}
+        error={new BriefingRequestError('network', 'test')}
         online={true}
         onRetry={() => {}}
       />
@@ -37,7 +37,7 @@ describe('WeeklyErrorState', () => {
     const { getByText, queryByRole } = renderWithProviders(() => (
       <WeeklyErrorState
         dockVisible={false}
-        error={new WeeklyRequestError('network', 'test')}
+        error={new BriefingRequestError('network', 'test')}
         online={false}
         onRetry={() => {}}
       />

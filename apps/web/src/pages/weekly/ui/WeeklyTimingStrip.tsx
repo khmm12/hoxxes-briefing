@@ -3,15 +3,15 @@ import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { intervalToDuration, parseISO } from 'date-fns'
 import { css, cva } from 'styled-system/css'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { Briefing } from '~/shared/api'
 import { getDateTimeFormat, useI18n } from '~/shared/i18n'
 
-type Week = WeeklySnapshotResult['week']
+type Timing = Pick<Briefing, 'release' | 'expiration'>
 
 type WeeklyTimingStripProps = {
   now: Date
   expired: boolean
-  week: Week
+  timing: Timing
 }
 
 // Week range and countdown are one entity — a single time scale reading
@@ -58,12 +58,12 @@ export function WeeklyTimingStrip(props: WeeklyTimingStripProps): JSX.Element {
 
   return (
     <p class={css(stripStyles)}>
-      <span class={css(rangeStyles)}>{formatWeekRange(i18n, props.week)}</span>
+      <span class={css(rangeStyles)}>{formatWeekRange(i18n, props.timing)}</span>
       <span class={css(separatorStyles)} aria-hidden="true">
         ·
       </span>
       <span class={css(countdownRecipe.raw({ tone: props.expired ? 'expired' : 'live' }))}>
-        {props.expired ? i18n._(msg`already ended`) : formatRemaining(i18n, props.week.expiration, props.now)}
+        {props.expired ? i18n._(msg`already ended`) : formatRemaining(i18n, props.timing.expiration, props.now)}
       </span>
     </p>
   )
@@ -72,9 +72,9 @@ export function WeeklyTimingStrip(props: WeeklyTimingStripProps): JSX.Element {
 // Release and expiration are a fixed 7 days apart in UTC, but a DST shift
 // inside the week can desync their local times — so the single time shown
 // here is always the *end* time, and the start stays date-only.
-function formatWeekRange(i18n: I18n, week: Week): string {
-  const start = parseISO(week.release)
-  const end = parseISO(week.expiration)
+function formatWeekRange(i18n: I18n, timing: Timing): string {
+  const start = parseISO(timing.release)
+  const end = parseISO(timing.expiration)
   const days = getDateTimeFormat(i18n.locale, {
     day: 'numeric',
     month: 'short',

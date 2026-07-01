@@ -1,41 +1,35 @@
-import {
-  fetchWeeklySnapshot,
-  readCachedWeeklySnapshot,
-  type WeeklySnapshotResult,
-  weeklySnapshotUrl,
-  writeCachedWeeklySnapshot,
-} from '~/shared/api'
+import { type Briefing, briefingUrl, cacheBriefing, fetchBriefing, readCachedBriefing } from '~/shared/api'
 import { type CachedQuery, createCachedQuery } from '~/shared/lib/create-cached-query'
 import { isWeeklyExpired } from './weekly-page-state'
 
-// A fresh (non-expired) snapshot is served from cache instantly; only a stale
+// A fresh (non-expired) briefing is served from cache instantly; only a stale
 // one is worth holding the UI for while the network races.
-const staleWeeklySnapshotGracePeriodMs = 1000
+const staleBriefingGracePeriodMs = 1000
 
-export function createBoardQuery(): CachedQuery<WeeklySnapshotResult> {
+export function createBoardQuery(): CachedQuery<Briefing> {
   return createCachedQuery({
     source: () => [] as const,
     fetcher: (_, ctx) =>
-      fetchWeeklySnapshot({
-        request: weeklySnapshotUrl,
+      fetchBriefing({
+        request: briefingUrl,
         signal: ctx.signal,
       }),
     cache: {
       async get(_) {
-        const cachedSnapshot = await readCachedWeeklySnapshot(weeklySnapshotUrl)
-        if (cachedSnapshot == null) return undefined
-        return cachedSnapshot
+        const cachedBriefing = await readCachedBriefing(briefingUrl)
+        if (cachedBriefing == null) return undefined
+        return cachedBriefing
       },
-      async set(_, snapshot) {
-        await writeCachedWeeklySnapshot(snapshot, weeklySnapshotUrl)
+      async set(_, briefing) {
+        await cacheBriefing(briefing, briefingUrl)
       },
     },
     equal(l, r) {
       return Object.is(l, r) || JSON.stringify(l) === JSON.stringify(r)
     },
-    isStale(snapshot) {
-      return isWeeklyExpired(new Date(snapshot.week.expiration), new Date())
+    isStale(briefing) {
+      return isWeeklyExpired(new Date(briefing.expiration), new Date())
     },
-    timeoutMs: staleWeeklySnapshotGracePeriodMs,
+    timeoutMs: staleBriefingGracePeriodMs,
   })
 }

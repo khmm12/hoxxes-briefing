@@ -1,13 +1,12 @@
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type {
+  DeepDiveAnomaly,
+  DeepDivePrimaryObjective,
+  DeepDiveSecondaryObjective,
+  DeepDiveWarning,
+} from '~/shared/api'
 
-export type WeeklyDive = WeeklySnapshotResult['dives']['normal']
-export type WeeklyMission = WeeklyDive['missions'][number]
-export type WeeklyPrimaryObjective = WeeklyMission['primaryObjective']
-export type WeeklySecondaryObjective = WeeklyMission['secondaryObjective']
-export type PresentWeeklyWarning = NonNullable<WeeklyMission['warning']>
-export type PresentWeeklyMutator = NonNullable<WeeklyMission['mutator']>
-export type WeeklyPrimaryObjectiveKind = WeeklyPrimaryObjective['kind']
-export type WeeklySecondaryObjectiveKind = WeeklySecondaryObjective['kind']
+export type WeeklyPrimaryObjectiveKind = DeepDivePrimaryObjective['kind']
+export type WeeklySecondaryObjectiveKind = DeepDiveSecondaryObjective['kind']
 
 export type WeeklyObjectiveContextTag =
   | 'ammo-intensive'
@@ -91,7 +90,7 @@ export const weeklySecondaryObjectiveCatalog = {
   SalvageOperation: {
     contextTags: ['fixed-position', 'ranged-exposure'],
   },
-  HeavyExcavation: {
+  HeavyExtraction: {
     contextTags: ['long-travel', 'split-routing'],
   },
 } satisfies WeeklyObjectiveCatalog<WeeklySecondaryObjectiveKind>
@@ -161,9 +160,9 @@ export const weeklyWarningCatalog = {
     intelPriority: 160,
     quickReadPriority: 160,
   },
-} satisfies WeeklyEffectCatalog<PresentWeeklyWarning>
+} satisfies WeeklyEffectCatalog<DeepDiveWarning>
 
-export const weeklyMutatorCatalog = {
+export const weeklyAnomalyCatalog = {
   BloodSugar: {
     intelPriority: 210,
     quickReadPriority: 210,
@@ -184,7 +183,7 @@ export const weeklyMutatorCatalog = {
     intelPriority: null,
     quickReadPriority: 250,
   },
-} satisfies WeeklyEffectCatalog<PresentWeeklyMutator>
+} satisfies WeeklyEffectCatalog<DeepDiveAnomaly>
 
 export function getPrimaryObjectiveCatalogEntry(
   kind: WeeklyPrimaryObjectiveKind,
@@ -198,20 +197,20 @@ export function getSecondaryObjectiveCatalogEntry(
   return weeklySecondaryObjectiveCatalog[kind]
 }
 
-export function getWarningCatalogEntry(warning: PresentWeeklyWarning): WeeklyEffectCatalogEntry {
+export function getWarningCatalogEntry(warning: DeepDiveWarning): WeeklyEffectCatalogEntry {
   return weeklyWarningCatalog[warning]
 }
 
-export function getMutatorCatalogEntry(mutator: PresentWeeklyMutator): WeeklyEffectCatalogEntry {
-  return weeklyMutatorCatalog[mutator]
+export function getAnomalyCatalogEntry(anomaly: DeepDiveAnomaly): WeeklyEffectCatalogEntry {
+  return weeklyAnomalyCatalog[anomaly]
 }
 
-export function compareWeeklyWarningsForQuickRead(left: PresentWeeklyWarning, right: PresentWeeklyWarning): number {
+export function compareWeeklyWarningsForQuickRead(left: DeepDiveWarning, right: DeepDiveWarning): number {
   return compareWeeklyEffectsForQuickRead(left, weeklyWarningCatalog[left], right, weeklyWarningCatalog[right])
 }
 
-export function compareWeeklyMutatorsForQuickRead(left: PresentWeeklyMutator, right: PresentWeeklyMutator): number {
-  return compareWeeklyEffectsForQuickRead(left, weeklyMutatorCatalog[left], right, weeklyMutatorCatalog[right])
+export function compareWeeklyAnomaliesForQuickRead(left: DeepDiveAnomaly, right: DeepDiveAnomaly): number {
+  return compareWeeklyEffectsForQuickRead(left, weeklyAnomalyCatalog[left], right, weeklyAnomalyCatalog[right])
 }
 
 function compareWeeklyEffectsForQuickRead(

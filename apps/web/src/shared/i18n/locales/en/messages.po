@@ -29,7 +29,7 @@ msgstr "{minutes}m"
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
-#: src/pages/weekly/ui/DiveSlab.tsx:300
+#: src/pages/weekly/ui/DiveSlab.tsx:298
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
@@ -49,13 +49,17 @@ msgstr "Advance by cover, not courage. Call angles before holds."
 msgid "After a few seconds of not taking damage, the creatures will start recovering health."
 msgstr "After a few seconds of not taking damage, the creatures will start recovering health."
 
-#: src/pages/weekly/ui/DiveSlab.tsx:296
+#: src/pages/weekly/ui/DiveSlab.tsx:294
 msgid "All clear"
 msgstr "All clear"
 
 #: src/pages/weekly/ui/WeeklyTimingStrip.tsx:66
 msgid "already ended"
 msgstr "already ended"
+
+#: src/pages/weekly/ui/StageBlock.tsx:234
+msgid "Anomaly"
+msgstr "Anomaly"
 
 #: src/app/AppCrashScreen.tsx:28
 msgid "App crashed"
@@ -305,7 +309,7 @@ msgstr "Keep moving between cover. Open ground has teeth today."
 msgid "Keep the floor tidy. Little trouble grows fast under pressure."
 msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 
-#: src/pages/weekly/ui/DiveSlab.tsx:213
+#: src/pages/weekly/ui/DiveSlab.tsx:211
 msgid "Last known board"
 msgstr "Last known board"
 
@@ -415,10 +419,6 @@ msgstr "Move like rent is due. Mine fast, regroup faster."
 msgid "Mule x{0}"
 msgstr "Mule x{0}"
 
-#: src/pages/weekly/ui/StageBlock.tsx:237
-msgid "Mutator"
-msgstr "Mutator"
-
 #: src/pages/weekly/ui/weekly-dive-copy.ts:171
 msgid "Mysterious gravitational irregularities result in lowered overall gravity in the mission area."
 msgstr "Mysterious gravitational irregularities result in lowered overall gravity in the mission area."
@@ -431,9 +431,9 @@ msgstr "New version ready"
 msgid "No saved board"
 msgstr "No saved board"
 
-#: src/pages/weekly/ui/StageBlock.tsx:246
-msgid "No warning or mutator on this stage."
-msgstr "No warning or mutator on this stage."
+#: src/pages/weekly/ui/StageBlock.tsx:243
+msgid "No warning or anomaly on this stage."
+msgstr "No warning or anomaly on this stage."
 
 #: src/pages/weekly/ui/weekly-dive-copy.ts:95
 #: src/pages/weekly/ui/weekly-dive-copy.ts:114
@@ -484,7 +484,7 @@ msgstr "Prep the hold first. Clear lanes before you lock in."
 msgid "Prepare yourself for a tsunami of Glyphid Swarmers!"
 msgstr "Prepare yourself for a tsunami of Glyphid Swarmers!"
 
-#: src/pages/weekly/ui/StageBlock.tsx:206
+#: src/pages/weekly/ui/StageBlock.tsx:203
 msgid "Primary objective"
 msgstr "Primary objective"
 
@@ -492,8 +492,8 @@ msgstr "Primary objective"
 msgid "Pulling the latest deep dives now."
 msgstr "Pulling the latest deep dives now."
 
-#: src/pages/weekly/ui/DiveSlab.tsx:219
-#: src/pages/weekly/ui/DiveSlab.tsx:220
+#: src/pages/weekly/ui/DiveSlab.tsx:217
+#: src/pages/weekly/ui/DiveSlab.tsx:218
 msgid "Quick read"
 msgstr "Quick read"
 
@@ -588,7 +588,7 @@ msgstr "Scanners have detected several clusters of Ossiran Pit Jaws in the area.
 msgid "Scrab Nesting Grounds"
 msgstr "Scrab Nesting Grounds"
 
-#: src/pages/weekly/ui/StageBlock.tsx:213
+#: src/pages/weekly/ui/StageBlock.tsx:210
 msgid "Secondary objective"
 msgstr "Secondary objective"
 
@@ -600,7 +600,7 @@ msgstr "Sensors have detected Rival presence in the area!"
 msgid "Shield Disruption"
 msgstr "Shield Disruption"
 
-#: src/pages/weekly/ui/DiveSlab.tsx:233
+#: src/pages/weekly/ui/DiveSlab.tsx:231
 msgid "Show less"
 msgstr "Show less"
 
@@ -612,7 +612,7 @@ msgstr "Something is eating the creatures from the inside out, and will go after
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
 
-#: src/pages/weekly/ui/StageBlock.tsx:199
+#: src/pages/weekly/ui/StageBlock.tsx:196
 msgid "Stage"
 msgstr "Stage"
 
@@ -684,7 +684,7 @@ msgstr "Use the speed. Finish spread jobs before swarms stack."
 msgid "Volatile Guts"
 msgstr "Volatile Guts"
 
-#: src/pages/weekly/ui/StageBlock.tsx:224
+#: src/pages/weekly/ui/StageBlock.tsx:221
 msgid "Warning"
 msgstr "Warning"
 

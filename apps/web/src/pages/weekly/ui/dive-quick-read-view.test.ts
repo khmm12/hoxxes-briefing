@@ -7,8 +7,8 @@ describe('getVisibleQuickReadChips', () => {
     const chips: QuickReadChip[] = [
       { kind: 'warning', value: 'LowOxygen' },
       { kind: 'warning', value: 'DuckAndCover' },
-      { kind: 'mutator', value: 'VolatileGuts' },
-      { kind: 'mutator', value: 'RichAtmosphere' },
+      { kind: 'anomaly', value: 'VolatileGuts' },
+      { kind: 'anomaly', value: 'RichAtmosphere' },
     ]
 
     expect(getVisibleQuickReadChips(chips, 2, false)).toEqual({

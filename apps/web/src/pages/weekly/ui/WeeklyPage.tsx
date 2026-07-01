@@ -1,7 +1,7 @@
 import { type Accessor, createEffect, createMemo, createSignal, Errored, Loading, merge, onSettled } from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
-import { WeeklyRequestError } from '~/shared/api'
+import { BriefingRequestError } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { Meta, Title } from '~/shared/lib/document-head'
@@ -62,7 +62,7 @@ export function WeeklyPage(props: WeeklyPageProps): JSX.Element {
               <>
                 {(() => {
                   const requestError = error()
-                  if (!(requestError instanceof WeeklyRequestError)) throw requestError
+                  if (!(requestError instanceof BriefingRequestError)) throw requestError
 
                   return (
                     <WeeklyErrorState
@@ -103,7 +103,7 @@ function ReadyBoard(props: ReadyBoardProps): JSX.Element {
 }
 
 function createState(props: ReadyBoardProps & { now: Date }): BoardViewState {
-  const expiration = createMemo(() => new Date(props.query.data.week.expiration), {
+  const expiration = createMemo(() => new Date(props.query.data.expiration), {
     equals: (a, b) => a instanceof Date && b instanceof Date && a.getTime() === b.getTime(),
   })
 

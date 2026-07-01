@@ -1,7 +1,7 @@
 import { omit, Show } from 'solid-js'
 import type { JSX } from '@solidjs/web'
 import { token } from 'styled-system/tokens'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { DeepDiveAnomaly, DeepDiveBiome, DeepDiveWarning } from '~/shared/api'
 import {
   GlyphIcon,
   type IconProps,
@@ -10,16 +10,14 @@ import {
   ObjectiveSecondaryIcon,
   WarningGenericIcon,
 } from '~/shared/ui/icon'
+import type { WeeklyPrimaryObjectiveKind, WeeklySecondaryObjectiveKind } from '../model/weekly-catalog'
 
-type WeeklyDive = WeeklySnapshotResult['dives']['normal']
-type WeeklyMission = WeeklyDive['missions'][number]
-type PrimaryObjectiveKind = WeeklyMission['primaryObjective']['kind']
-type SecondaryObjectiveKind = WeeklyMission['secondaryObjective']['kind']
-type WarningKind = NonNullable<WeeklyMission['warning']>
-type MutatorKind = NonNullable<WeeklyMission['mutator']>
+type PrimaryObjectiveKind = WeeklyPrimaryObjectiveKind
+type SecondaryObjectiveKind = WeeklySecondaryObjectiveKind
+type WarningKind = DeepDiveWarning
 
 // Monochrome 24x24 glyphs vector-traced from the in-game mission, warning,
-// and mutator pictograms so the board reads at a glance for DRG players.
+// and anomaly pictograms so the board reads at a glance for DRG players.
 // Biome glyphs further below are original artwork (the game has no biome
 // pictograms), tinted with accent colors sampled from the planet map.
 
@@ -140,7 +138,7 @@ const secondaryObjectiveGlyphs: Record<SecondaryObjectiveKind, string> = {
   MiningExpedition: miningExpedition,
   OnSiteRefining: onSiteRefining,
   SalvageOperation: salvageOperation,
-  HeavyExcavation: heavyExtraction,
+  HeavyExtraction: heavyExtraction,
 }
 
 const warningGlyphs: Record<WarningKind, string> = {
@@ -162,7 +160,7 @@ const warningGlyphs: Record<WarningKind, string> = {
   ScrabNestingGrounds: scrabNestingGrounds,
 }
 
-const mutatorGlyphs: Record<MutatorKind, string> = {
+const anomalyGlyphs: Record<DeepDiveAnomaly, string> = {
   VolatileGuts: volatileGuts,
   RichAtmosphere: richAtmosphere,
   CriticalWeakness: criticalWeakness,
@@ -210,14 +208,14 @@ export function WarningKindIcon(props: WarningKindIconProps): JSX.Element {
   )
 }
 
-type MutatorKindIconProps = IconProps & { kind: MutatorKind | null }
+type AnomalyKindIconProps = IconProps & { kind: DeepDiveAnomaly | null }
 
-export function MutatorKindIcon(props: MutatorKindIconProps): JSX.Element {
+export function AnomalyKindIcon(props: AnomalyKindIconProps): JSX.Element {
   const rest = omit(props, 'kind')
 
   return (
     <Show
-      when={props.kind != null ? mutatorGlyphs[props.kind] : undefined}
+      when={props.kind != null ? anomalyGlyphs[props.kind] : undefined}
       fallback={<MutatorGenericIcon {...rest} />}
       keyed
     >
@@ -226,7 +224,7 @@ export function MutatorKindIcon(props: MutatorKindIconProps): JSX.Element {
   )
 }
 
-type BiomeKind = WeeklyDive['biome']
+type BiomeKind = DeepDiveBiome
 
 const crystallineCaverns =
   'M9.2 4.5L7.2 7.8L8.1 14.8L8.9 21.8L11.6 21.9C14.3 22.0 14.3 22.0 14.5 20.6C14.6 19.8 15.0 16.6 15.4 13.5L16.0 7.8L13.7 4.5C12.4 2.7 11.3 1.2 11.3 1.2C11.3 1.2 10.3 2.7 9.2 4.5ZM16.8 11.7C16.0 13.8 15.9 14.1 16.1 17.2C16.2 19.0 16.3 20.9 16.3 21.4C16.3 22.3 16.3 22.3 18.7 22.3C21.3 22.3 21.0 22.8 21.8 17.4L22.3 14.0L20.2 11.8C19.1 10.6 18.1 9.6 18.0 9.5C17.8 9.5 17.3 10.4 16.8 11.7ZM2.8 14.1C1.7 16.2 1.7 16.4 2.3 20.8C2.5 22.0 2.5 22.0 4.5 22.0L6.3 22.0L6.7 19.1C7.2 15.0 7.3 15.1 5.7 13.5C4.0 11.7 4.0 11.7 2.8 14.1Z'

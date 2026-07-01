@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent } from '@solidjs/testing-library'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { Briefing } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
 import { WeeklyPage } from './WeeklyPage'
 
@@ -14,13 +14,10 @@ import { WeeklyPage } from './WeeklyPage'
 // the board silently render expired once that date passes.
 const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
 
-const BOARD: WeeklySnapshotResult = {
-  week: {
-    id: 'test-week',
-    seed: 1,
-    release: new Date().toISOString(),
-    expiration: oneWeekFromNow,
-  },
+const BOARD: Briefing = {
+  seed: 1,
+  release: new Date().toISOString(),
+  expiration: oneWeekFromNow,
   dives: {
     normal: {
       name: 'Awful Catacomb',
@@ -31,19 +28,19 @@ const BOARD: WeeklySnapshotResult = {
           primaryObjective: { kind: 'EggHunt', eggs: 6 },
           secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
           warning: null,
-          mutator: null,
+          anomaly: null,
         },
         {
           primaryObjective: { kind: 'SalvageOperation', miniMules: 3 },
           secondaryObjective: { kind: 'DeepScan', resonanceCrystals: 2 },
           warning: null,
-          mutator: null,
+          anomaly: null,
         },
         {
           primaryObjective: { kind: 'MiningExpedition', morkite: 200 },
           secondaryObjective: { kind: 'Blackbox', blackBoxes: 1 },
           warning: null,
-          mutator: null,
+          anomaly: null,
         },
       ],
     },
@@ -55,19 +52,19 @@ const BOARD: WeeklySnapshotResult = {
           primaryObjective: { kind: 'DeepScan', resonanceCrystals: 5 },
           secondaryObjective: { kind: 'Blackbox', blackBoxes: 1 },
           warning: null,
-          mutator: null,
+          anomaly: null,
         },
         {
           primaryObjective: { kind: 'EscortDuty', refuels: 2 },
           secondaryObjective: { kind: 'EggHunt', eggs: 2 },
           warning: null,
-          mutator: null,
+          anomaly: null,
         },
         {
           primaryObjective: { kind: 'PointExtraction', aquarqs: 10 },
-          secondaryObjective: { kind: 'HeavyExcavation', resiniteMasses: 1 },
+          secondaryObjective: { kind: 'HeavyExtraction', resiniteMasses: 1 },
           warning: null,
-          mutator: null,
+          anomaly: null,
         },
       ],
     },

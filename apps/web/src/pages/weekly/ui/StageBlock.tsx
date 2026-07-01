@@ -2,31 +2,28 @@ import { createMemo, Show } from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { DeepDiveMission } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { Tooltip } from '~/shared/ui/tooltip'
 import {
-  formatMutator,
-  formatMutatorDescription,
+  formatAnomaly,
+  formatAnomalyDescription,
   formatPrimaryObjective,
   formatSecondaryObjective,
   formatWarning,
   formatWarningDescription,
 } from './weekly-dive-copy'
 import {
-  MutatorKindIcon,
+  AnomalyKindIcon,
   PrimaryObjectiveKindIcon,
   SecondaryObjectiveKindIcon,
   WarningKindIcon,
 } from './weekly-dive-glyphs'
 
-type WeeklyDive = WeeklySnapshotResult['dives']['normal']
-type WeeklyMission = WeeklyDive['missions'][number]
-
 type StageBlockProps = {
   index: number
   kind: 'elite' | 'normal'
-  mission: WeeklyMission
+  mission: DeepDiveMission
 }
 
 const stageBlockRecipe = cva({
@@ -77,7 +74,7 @@ const detailValueLineStyles = css.raw({
 })
 
 // Kind icons ride the slot scale: 24 next to primary values, 20 next to
-// secondary values and mutators — the glyph reads slightly larger than the
+// secondary values and modifiers — the glyph reads slightly larger than the
 // text it labels.
 const lineIconRecipe = cva({
   base: {
@@ -100,7 +97,7 @@ const lineIconRecipe = cva({
       warning: {
         color: 'danger',
       },
-      mutator: {
+      anomaly: {
         color: 'primary.hover',
       },
     },
@@ -174,7 +171,7 @@ const mutatorRecipe = cva({
         borderColor: 'danger.border',
         background: 'danger.surface',
       },
-      mutator: {
+      anomaly: {
         borderColor: 'primary.border',
         background: 'primary.surface',
       },
@@ -191,7 +188,7 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
   const i18n = useI18n()
 
   const hasWarning = createMemo(() => props.mission.warning != null)
-  const hasMutator = createMemo(() => props.mission.mutator != null)
+  const hasAnomaly = createMemo(() => props.mission.anomaly != null)
 
   return (
     <li class={css(stageBlockRecipe.raw({ kind: props.kind }))}>
@@ -229,21 +226,21 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
           )}
         </Show>
 
-        <Show when={props.mission.mutator} keyed>
-          {(mutator) => (
-            <Tooltip align="start" label={formatMutatorDescription(i18n, mutator)}>
+        <Show when={props.mission.anomaly} keyed>
+          {(anomaly) => (
+            <Tooltip align="start" label={formatAnomalyDescription(i18n, anomaly)}>
               <MutatorLine
-                icon={<MutatorKindIcon kind={mutator} />}
-                label={i18n._(msg`Mutator`)}
-                tone="mutator"
-                value={formatMutator(i18n, mutator)}
+                icon={<AnomalyKindIcon kind={anomaly} />}
+                label={i18n._(msg`Anomaly`)}
+                tone="anomaly"
+                value={formatAnomaly(i18n, anomaly)}
               />
             </Tooltip>
           )}
         </Show>
 
-        <Show when={!hasWarning() && !hasMutator()}>
-          <p class={css(quietMutatorStyles)}>{i18n._(msg`No warning or mutator on this stage.`)}</p>
+        <Show when={!hasWarning() && !hasAnomaly()}>
+          <p class={css(quietMutatorStyles)}>{i18n._(msg`No warning or anomaly on this stage.`)}</p>
         </Show>
       </div>
     </li>
@@ -273,10 +270,10 @@ function ObjectiveLine(props: {
 function MutatorLine(props: {
   icon: JSX.Element
   label: string
-  tone: 'mutator' | 'warning'
+  tone: 'anomaly' | 'warning'
   value: string
 }): JSX.Element {
-  // The root is a <span> because Tooltip wraps mutator lines in its inline
+  // The root is a <span> because Tooltip wraps modifier lines in its inline
   // trigger; a <div> inside that span would be invalid HTML.
   return (
     <span class={css(mutatorRecipe.raw({ tone: props.tone }))}>

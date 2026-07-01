@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { fetchWeeklySnapshot, weeklySnapshotUrl } from './weekly-client'
+import { briefingUrl, fetchBriefing } from './briefing-client'
 
 const createMission = () => ({
   primaryObjective: {
@@ -10,7 +10,7 @@ const createMission = () => ({
     kind: 'Blackbox' as const,
     blackBoxes: 1,
   },
-  mutator: null,
+  anomaly: null,
   warning: 'RegenerativeBugs' as const,
 })
 
@@ -20,13 +20,10 @@ const createDive = (name: string) => ({
   missions: [createMission(), createMission(), createMission()],
 })
 
-const createWeeklyPayload = () => ({
-  week: {
-    id: '2026-W17',
-    seed: 1234567890,
-    release: '2026-04-16T11:00:00.000Z',
-    expiration: '2026-04-23T11:00:00.000Z',
-  },
+const createBriefingPayload = () => ({
+  seed: 1234567890,
+  release: '2026-04-16T11:00:00.000Z',
+  expiration: '2026-04-23T11:00:00.000Z',
   dives: {
     normal: createDive('Crystal Routes'),
     elite: createDive('Lethal Depths'),
@@ -37,10 +34,10 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-describe('fetchWeeklySnapshot', () => {
-  it('uses the same-origin weekly API path by default', async () => {
+describe('fetchBriefing', () => {
+  it('uses the same-origin briefing API path by default', async () => {
     const fetchImpl = vi.fn().mockResolvedValue(
-      new Response(JSON.stringify(createWeeklyPayload()), {
+      new Response(JSON.stringify(createBriefingPayload()), {
         status: 200,
         headers: {
           'content-type': 'application/json',
@@ -48,20 +45,20 @@ describe('fetchWeeklySnapshot', () => {
       }),
     )
 
-    await fetchWeeklySnapshot({
+    await fetchBriefing({
       fetch: fetchImpl,
     })
 
     expect(fetchImpl).toHaveBeenCalledOnce()
     expect(fetchImpl).toHaveBeenCalledWith(
-      weeklySnapshotUrl,
+      briefingUrl,
       expect.objectContaining({
         headers: {
           accept: 'application/json',
         },
       }),
     )
-    expect(weeklySnapshotUrl).toBe('/api/v1/weekly')
+    expect(briefingUrl).toBe('/api/v1/briefing')
   })
 
   it('throws a typed API error for structured non-2xx responses', async () => {
@@ -82,9 +79,9 @@ describe('fetchWeeklySnapshot', () => {
     )
 
     await expect(
-      fetchWeeklySnapshot({
+      fetchBriefing({
         fetch: fetchImpl,
-        request: 'https://example.test/api/v1/weekly',
+        request: 'https://example.test/api/v1/briefing',
       }),
     ).rejects.toMatchObject({
       kind: 'api',
@@ -100,10 +97,7 @@ describe('fetchWeeklySnapshot', () => {
     const fetchImpl = vi.fn().mockResolvedValue(
       new Response(
         JSON.stringify({
-          week: {
-            id: '2026-W17',
-            seed: 1234567890,
-          },
+          seed: 1234567890,
         }),
         {
           status: 200,
@@ -115,9 +109,9 @@ describe('fetchWeeklySnapshot', () => {
     )
 
     await expect(
-      fetchWeeklySnapshot({
+      fetchBriefing({
         fetch: fetchImpl,
-        request: 'https://example.test/api/v1/weekly',
+        request: 'https://example.test/api/v1/briefing',
       }),
     ).rejects.toMatchObject({
       kind: 'invalid-payload',
@@ -135,7 +129,7 @@ describe('fetchWeeklySnapshot', () => {
       }),
     )
 
-    await expect(fetchWeeklySnapshot({ fetch: fetchImpl })).rejects.toMatchObject({
+    await expect(fetchBriefing({ fetch: fetchImpl })).rejects.toMatchObject({
       kind: 'invalid-payload',
       status: 200,
     })
@@ -151,7 +145,7 @@ describe('fetchWeeklySnapshot', () => {
       }),
     )
 
-    await expect(fetchWeeklySnapshot({ fetch: fetchImpl })).rejects.toMatchObject({
+    await expect(fetchBriefing({ fetch: fetchImpl })).rejects.toMatchObject({
       kind: 'api',
       status: 500,
       publicError: undefined,

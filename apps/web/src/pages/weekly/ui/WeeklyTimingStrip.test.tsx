@@ -1,13 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { Briefing } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
 import { WeeklyTimingStrip } from './WeeklyTimingStrip'
 
-type Week = WeeklySnapshotResult['week']
+type Timing = Pick<Briefing, 'release' | 'expiration'>
 
-const baseWeek: Week = {
-  id: 'week-1',
-  seed: 1,
+const baseTiming: Timing = {
   release: '2026-06-01T11:00:00Z',
   expiration: '2026-06-08T11:00:00Z',
 }
@@ -25,14 +23,14 @@ const DAY = 24 * HOUR
 
 describe('WeeklyTimingStrip', () => {
   it('shows the week range', () => {
-    const { container } = renderWithProviders(() => <WeeklyTimingStrip now={now} expired={false} week={baseWeek} />)
+    const { container } = renderWithProviders(() => <WeeklyTimingStrip now={now} expired={false} timing={baseTiming} />)
 
     expect(container.textContent).toMatch(/Jun.*\d.*\d/)
   })
 
   it('shows "already ended" once the board is marked expired', () => {
     const { getByText } = renderWithProviders(() => (
-      <WeeklyTimingStrip now={now} expired={true} week={{ ...baseWeek, expiration: expirationAfter(DAY) }} />
+      <WeeklyTimingStrip now={now} expired={true} timing={{ ...baseTiming, expiration: expirationAfter(DAY) }} />
     ))
 
     expect(getByText('already ended')).toBeInTheDocument()
@@ -40,7 +38,7 @@ describe('WeeklyTimingStrip', () => {
 
   it('shows "coming soon" once the deadline has actually passed, even before the board is marked expired', () => {
     const { getByText } = renderWithProviders(() => (
-      <WeeklyTimingStrip now={now} expired={false} week={{ ...baseWeek, expiration: expirationAfter(-SECOND) }} />
+      <WeeklyTimingStrip now={now} expired={false} timing={{ ...baseTiming, expiration: expirationAfter(-SECOND) }} />
     ))
 
     expect(getByText('coming soon')).toBeInTheDocument()
@@ -51,7 +49,7 @@ describe('WeeklyTimingStrip', () => {
       <WeeklyTimingStrip
         now={now}
         expired={false}
-        week={{ ...baseWeek, expiration: expirationAfter(5 * DAY + 3 * HOUR) }}
+        timing={{ ...baseTiming, expiration: expirationAfter(5 * DAY + 3 * HOUR) }}
       />
     ))
 
@@ -63,7 +61,7 @@ describe('WeeklyTimingStrip', () => {
       <WeeklyTimingStrip
         now={now}
         expired={false}
-        week={{ ...baseWeek, expiration: expirationAfter(5 * DAY + 30 * MINUTE) }}
+        timing={{ ...baseTiming, expiration: expirationAfter(5 * DAY + 30 * MINUTE) }}
       />
     ))
 
@@ -75,7 +73,7 @@ describe('WeeklyTimingStrip', () => {
       <WeeklyTimingStrip
         now={now}
         expired={false}
-        week={{ ...baseWeek, expiration: expirationAfter(5 * DAY + 20 * SECOND) }}
+        timing={{ ...baseTiming, expiration: expirationAfter(5 * DAY + 20 * SECOND) }}
       />
     ))
 
@@ -87,7 +85,7 @@ describe('WeeklyTimingStrip', () => {
       <WeeklyTimingStrip
         now={now}
         expired={false}
-        week={{ ...baseWeek, expiration: expirationAfter(3 * HOUR + 15 * MINUTE) }}
+        timing={{ ...baseTiming, expiration: expirationAfter(3 * HOUR + 15 * MINUTE) }}
       />
     ))
 
@@ -99,7 +97,7 @@ describe('WeeklyTimingStrip', () => {
       <WeeklyTimingStrip
         now={now}
         expired={false}
-        week={{ ...baseWeek, expiration: expirationAfter(3 * HOUR + 10 * SECOND) }}
+        timing={{ ...baseTiming, expiration: expirationAfter(3 * HOUR + 10 * SECOND) }}
       />
     ))
 
@@ -111,7 +109,7 @@ describe('WeeklyTimingStrip', () => {
       <WeeklyTimingStrip
         now={now}
         expired={false}
-        week={{ ...baseWeek, expiration: expirationAfter(5 * MINUTE + 30 * SECOND) }}
+        timing={{ ...baseTiming, expiration: expirationAfter(5 * MINUTE + 30 * SECOND) }}
       />
     ))
 

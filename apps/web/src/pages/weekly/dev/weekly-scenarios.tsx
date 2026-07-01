@@ -1,6 +1,6 @@
 import type { JSX } from '@solidjs/web'
-import type { WeeklySnapshotResult } from '~/shared/api'
-import { WeeklyRequestError } from '~/shared/api'
+import type { Briefing } from '~/shared/api'
+import { BriefingRequestError } from '~/shared/api'
 import { AppLayout } from '~/shared/ui/layout'
 import { PwaNotice } from '~/widgets/pwa-notice'
 import type { BoardViewState } from '../model/weekly-page-state'
@@ -16,15 +16,10 @@ export type WeeklyScenario = {
 // A fixed clock keeps countdowns and screenshots deterministic.
 const NOW = new Date('2026-06-02T13:24:00Z')
 
-const WEEK: WeeklySnapshotResult['week'] = {
-  id: 'playground-week',
+const BOARD: Briefing = {
   seed: 0xc0ffee,
   release: '2026-06-01T11:00:00Z',
   expiration: '2026-06-08T11:00:00Z',
-}
-
-const BOARD: WeeklySnapshotResult = {
-  week: WEEK,
   dives: {
     normal: {
       name: 'Awful Catacomb',
@@ -34,19 +29,19 @@ const BOARD: WeeklySnapshotResult = {
           primaryObjective: { kind: 'EggHunt', eggs: 6 },
           secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
           warning: 'RegenerativeBugs',
-          mutator: null,
+          anomaly: null,
         },
         {
           primaryObjective: { kind: 'SalvageOperation', miniMules: 3 },
           secondaryObjective: { kind: 'DeepScan', resonanceCrystals: 2 },
           warning: null,
-          mutator: null,
+          anomaly: null,
         },
         {
           primaryObjective: { kind: 'MiningExpedition', morkite: 200 },
           secondaryObjective: { kind: 'Blackbox', blackBoxes: 1 },
           warning: 'PitJawColony',
-          mutator: null,
+          anomaly: null,
         },
       ],
     },
@@ -58,29 +53,29 @@ const BOARD: WeeklySnapshotResult = {
           primaryObjective: { kind: 'EscortDuty', refuels: 2 },
           secondaryObjective: { kind: 'EggHunt', eggs: 2 },
           warning: 'LethalEnemies',
-          mutator: null,
+          anomaly: null,
         },
         {
           primaryObjective: { kind: 'DeepScan', resonanceCrystals: 5 },
           secondaryObjective: { kind: 'Blackbox', blackBoxes: 1 },
           warning: null,
-          mutator: null,
+          anomaly: null,
         },
         {
           primaryObjective: { kind: 'PointExtraction', aquarqs: 10 },
-          secondaryObjective: { kind: 'HeavyExcavation', resiniteMasses: 1 },
+          secondaryObjective: { kind: 'HeavyExtraction', resiniteMasses: 1 },
           warning: 'DuckAndCover',
-          mutator: null,
+          anomaly: null,
         },
       ],
     },
   },
 }
 
-// Every mutator combination the board layout must survive: warning + mutator
-// on one stage, mutator only, an Elimination objective, and enough quick-read
+// Every mutator combination the board layout must survive: warning + anomaly
+// on one stage, anomaly only, an Elimination objective, and enough quick-read
 // chips to trigger the overflow control.
-const MUTATOR_BOARD: WeeklySnapshotResult = {
+const MUTATOR_BOARD: Briefing = {
   ...BOARD,
   dives: {
     ...BOARD.dives,
@@ -88,22 +83,22 @@ const MUTATOR_BOARD: WeeklySnapshotResult = {
       ...BOARD.dives.normal,
       missions: [
         {
-          primaryObjective: { kind: 'Elimination', dreadnoughts: ['Dreadnought', 'Hiveguard', 'Twins'] },
+          primaryObjective: { kind: 'Elimination', dreadnoughts: ['Classic', 'Hiveguard', 'Twins'] },
           secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
           warning: 'MacteraPlague',
-          mutator: 'LowGravity',
+          anomaly: 'LowGravity',
         },
         {
           primaryObjective: { kind: 'SalvageOperation', miniMules: 3 },
           secondaryObjective: { kind: 'DeepScan', resonanceCrystals: 2 },
           warning: null,
-          mutator: 'VolatileGuts',
+          anomaly: 'VolatileGuts',
         },
         {
           primaryObjective: { kind: 'MiningExpedition', morkite: 200 },
           secondaryObjective: { kind: 'Blackbox', blackBoxes: 1 },
           warning: 'ExploderInfestation',
-          mutator: 'RichAtmosphere',
+          anomaly: 'RichAtmosphere',
         },
       ],
     },
@@ -118,7 +113,7 @@ const LIVE_STATE: BoardViewState = {
   refreshFailed: false,
 }
 
-function boardScenario(id: string, title: string, data: WeeklySnapshotResult, state: Partial<BoardViewState>) {
+function boardScenario(id: string, title: string, data: Briefing, state: Partial<BoardViewState>) {
   return {
     id,
     title,
@@ -130,7 +125,7 @@ function boardScenario(id: string, title: string, data: WeeklySnapshotResult, st
   }
 }
 
-function errorScenario(id: string, title: string, error: WeeklyRequestError, online = true) {
+function errorScenario(id: string, title: string, error: BriefingRequestError, online = true) {
   return {
     id,
     title,
@@ -170,9 +165,9 @@ export const weeklyScenarios: WeeklyScenario[] = [
     title: 'Loading · offline',
     render: () => <WeeklyLoadingState dockVisible={false} online={false} />,
   },
-  errorScenario('error-network', 'Error · network', new WeeklyRequestError('network', 'playground')),
-  errorScenario('error-api', 'Error · API', new WeeklyRequestError('api', 'playground')),
-  errorScenario('error-offline', 'Error · offline, no cache', new WeeklyRequestError('network', 'playground'), false),
+  errorScenario('error-network', 'Error · network', new BriefingRequestError('network', 'playground')),
+  errorScenario('error-api', 'Error · API', new BriefingRequestError('api', 'playground')),
+  errorScenario('error-offline', 'Error · offline, no cache', new BriefingRequestError('network', 'playground'), false),
   {
     id: 'crash',
     title: 'Crash (real boundary)',

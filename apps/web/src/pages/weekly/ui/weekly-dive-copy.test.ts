@@ -1,21 +1,23 @@
 import { describe, expect, it } from 'vitest'
 import type { I18n } from '@lingui/core'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type {
+  DeepDiveAnomaly,
+  DeepDiveBiome,
+  DeepDivePrimaryObjective,
+  DeepDiveSecondaryObjective,
+  DeepDiveWarning,
+} from '~/shared/api'
 import { createTestI18n } from '~test/render'
 import {
+  formatAnomaly,
+  formatAnomalyDescription,
   formatBiome,
   formatDiveKind,
-  formatMutator,
-  formatMutatorDescription,
   formatPrimaryObjective,
   formatSecondaryObjective,
   formatWarning,
   formatWarningDescription,
 } from './weekly-dive-copy'
-
-type WeeklyDive = WeeklySnapshotResult['dives']['normal']
-type PrimaryObjective = WeeklyDive['missions'][number]['primaryObjective']
-type SecondaryObjective = WeeklyDive['missions'][number]['secondaryObjective']
 
 const i18n: I18n = createTestI18n()
 
@@ -30,7 +32,7 @@ describe('formatDiveKind', () => {
 })
 
 describe('formatBiome', () => {
-  const cases: Array<[WeeklyDive['biome'], string]> = [
+  const cases: Array<[DeepDiveBiome, string]> = [
     ['CrystallineCaverns', 'Crystalline Caverns'],
     ['FungusBogs', 'Fungus Bogs'],
     ['MagmaCore', 'Magma Core'],
@@ -50,7 +52,7 @@ describe('formatBiome', () => {
 })
 
 describe('formatPrimaryObjective', () => {
-  const cases: Array<[PrimaryObjective, string]> = [
+  const cases: Array<[DeepDivePrimaryObjective, string]> = [
     [{ kind: 'DeepScan', resonanceCrystals: 3 }, 'Crystal Scan x3'],
     [{ kind: 'EscortDuty', refuels: 2 }, 'Escort Duty'],
     [{ kind: 'MiningExpedition', morkite: 150 }, 'Morkite x150'],
@@ -67,9 +69,9 @@ describe('formatPrimaryObjective', () => {
   })
 
   it('lists every dreadnought variant for Elimination', () => {
-    const objective: PrimaryObjective = {
+    const objective: DeepDivePrimaryObjective = {
       kind: 'Elimination',
-      dreadnoughts: ['Dreadnought', 'Hiveguard', 'Twins'],
+      dreadnoughts: ['Classic', 'Hiveguard', 'Twins'],
     }
 
     expect(formatPrimaryObjective(i18n, objective)).toBe('Dreadnought x3 (Classic + Hiveguard + Twins)')
@@ -77,14 +79,14 @@ describe('formatPrimaryObjective', () => {
 })
 
 describe('formatSecondaryObjective', () => {
-  const cases: Array<[SecondaryObjective, string]> = [
+  const cases: Array<[DeepDiveSecondaryObjective, string]> = [
     [{ kind: 'EggHunt', eggs: 2 }, 'Egg x2'],
     [{ kind: 'DeepScan', resonanceCrystals: 5 }, 'Crystal Scan x5'],
     [{ kind: 'Blackbox', blackBoxes: 1 }, 'Black Box'],
     [{ kind: 'MiningExpedition', morkite: 150 }, 'Morkite x150'],
     [{ kind: 'OnSiteRefining', morkiteWells: 1 }, 'Morkite Well x1'],
     [{ kind: 'SalvageOperation', miniMules: 3 }, 'Mule x3'],
-    [{ kind: 'HeavyExcavation', resiniteMasses: 1 }, 'Resinite Mass x1'],
+    [{ kind: 'HeavyExtraction', resiniteMasses: 1 }, 'Resinite Mass x1'],
   ]
 
   it.each(cases)('formats $kind', (objective, expected) => {
@@ -92,21 +94,21 @@ describe('formatSecondaryObjective', () => {
   })
 
   it('lists every dreadnought variant for Elimination', () => {
-    const objective: SecondaryObjective = {
+    const objective: DeepDiveSecondaryObjective = {
       kind: 'Elimination',
-      dreadnoughts: ['Dreadnought'],
+      dreadnoughts: ['Classic'],
     }
 
     expect(formatSecondaryObjective(i18n, objective)).toBe('Dreadnought x1 (Classic)')
   })
 })
 
-describe('formatMutator', () => {
-  it('returns None for no mutator', () => {
-    expect(formatMutator(i18n, null)).toBe('None')
+describe('formatAnomaly', () => {
+  it('returns None for no anomaly', () => {
+    expect(formatAnomaly(i18n, null)).toBe('None')
   })
 
-  const cases: Array<[NonNullable<WeeklyDive['missions'][number]['mutator']>, string]> = [
+  const cases: Array<[DeepDiveAnomaly, string]> = [
     ['VolatileGuts', 'Volatile Guts'],
     ['RichAtmosphere', 'Rich Atmosphere'],
     ['CriticalWeakness', 'Critical Weakness'],
@@ -114,8 +116,8 @@ describe('formatMutator', () => {
     ['LowGravity', 'Low Gravity'],
   ]
 
-  it.each(cases)('formats %s', (mutator, expected) => {
-    expect(formatMutator(i18n, mutator)).toBe(expected)
+  it.each(cases)('formats %s', (anomaly, expected) => {
+    expect(formatAnomaly(i18n, anomaly)).toBe(expected)
   })
 })
 
@@ -124,7 +126,7 @@ describe('formatWarning', () => {
     expect(formatWarning(i18n, null)).toBe('None')
   })
 
-  const cases: Array<[NonNullable<WeeklyDive['missions'][number]['warning']>, string]> = [
+  const cases: Array<[DeepDiveWarning, string]> = [
     ['RegenerativeBugs', 'Regenerative Bugs'],
     ['EliteThreat', 'Elite Threat'],
     ['MacteraPlague', 'Mactera Plague'],
@@ -148,8 +150,8 @@ describe('formatWarning', () => {
   })
 })
 
-describe('formatMutatorDescription', () => {
-  const mutators: Array<NonNullable<WeeklyDive['missions'][number]['mutator']>> = [
+describe('formatAnomalyDescription', () => {
+  const anomalies: DeepDiveAnomaly[] = [
     'VolatileGuts',
     'RichAtmosphere',
     'CriticalWeakness',
@@ -157,19 +159,19 @@ describe('formatMutatorDescription', () => {
     'LowGravity',
   ]
 
-  it.each(mutators)('returns flavor text for %s', (mutator) => {
-    expect(formatMutatorDescription(i18n, mutator)).toBeTruthy()
+  it.each(anomalies)('returns flavor text for %s', (anomaly) => {
+    expect(formatAnomalyDescription(i18n, anomaly)).toBeTruthy()
   })
 
-  it('gives every mutator its own flavor text', () => {
-    const texts = mutators.map((mutator) => formatMutatorDescription(i18n, mutator))
+  it('gives every anomaly its own flavor text', () => {
+    const texts = anomalies.map((anomaly) => formatAnomalyDescription(i18n, anomaly))
 
-    expect(new Set(texts).size).toBe(mutators.length)
+    expect(new Set(texts).size).toBe(anomalies.length)
   })
 })
 
 describe('formatWarningDescription', () => {
-  const warnings: Array<NonNullable<WeeklyDive['missions'][number]['warning']>> = [
+  const warnings: DeepDiveWarning[] = [
     'RegenerativeBugs',
     'EliteThreat',
     'MacteraPlague',

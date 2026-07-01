@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { fetchWeeklySnapshot } from '~/shared/api'
+import { fetchBriefing } from '~/shared/api'
 
 const createMission = () => ({
   primaryObjective: {
@@ -10,17 +10,14 @@ const createMission = () => ({
     kind: 'Blackbox' as const,
     blackBoxes: 1,
   },
-  mutator: null,
+  anomaly: null,
   warning: 'RegenerativeBugs' as const,
 })
 
-const createWeeklyPayload = () => ({
-  week: {
-    id: '2026-W17',
-    seed: 1234567890,
-    release: '2026-04-16T11:00:00.000Z',
-    expiration: '2026-04-23T11:00:00.000Z',
-  },
+const createBriefingPayload = () => ({
+  seed: 1234567890,
+  release: '2026-04-16T11:00:00.000Z',
+  expiration: '2026-04-23T11:00:00.000Z',
   dives: {
     normal: {
       name: 'Crystal Routes',
@@ -35,10 +32,10 @@ const createWeeklyPayload = () => ({
   },
 })
 
-describe('fetchWeeklySnapshot cache headers', () => {
+describe('fetchBriefing cache headers', () => {
   it('does not expose service worker cache headers as payload source hints', async () => {
     const fetchImpl = vi.fn().mockResolvedValue(
-      new Response(JSON.stringify(createWeeklyPayload()), {
+      new Response(JSON.stringify(createBriefingPayload()), {
         status: 200,
         headers: {
           'content-type': 'application/json',
@@ -47,12 +44,12 @@ describe('fetchWeeklySnapshot cache headers', () => {
       }),
     )
 
-    const result = await fetchWeeklySnapshot({
+    const result = await fetchBriefing({
       fetch: fetchImpl,
-      request: 'https://example.test/api/v1/weekly',
+      request: 'https://example.test/api/v1/briefing',
     })
 
-    expect(result.week.id).toBe('2026-W17')
+    expect(result.seed).toBe(1234567890)
     expect('source' in result).toBe(false)
     expect(fetchImpl).toHaveBeenCalledOnce()
   })

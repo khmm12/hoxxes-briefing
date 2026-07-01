@@ -1,19 +1,19 @@
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import type { WeeklySnapshotResult } from '~/shared/api'
-
-type WeeklyDive = WeeklySnapshotResult['dives']['normal']
-type WeeklyMission = WeeklyDive['missions'][number]
-type PrimaryObjective = WeeklyMission['primaryObjective']
-type SecondaryObjective = WeeklyMission['secondaryObjective']
-type WeeklyWarning = NonNullable<WeeklyMission['warning']>
-type WeeklyMutator = NonNullable<WeeklyMission['mutator']>
+import type {
+  DeepDiveAnomaly,
+  DeepDiveBiome,
+  DeepDiveDreadnought,
+  DeepDivePrimaryObjective,
+  DeepDiveSecondaryObjective,
+  DeepDiveWarning,
+} from '~/shared/api'
 
 export function formatDiveKind(i18n: I18n, kind: 'normal' | 'elite'): string {
   return kind === 'elite' ? i18n._(msg`Elite Deep Dive`) : i18n._(msg`Deep Dive`)
 }
 
-export function formatBiome(i18n: I18n, biome: WeeklyDive['biome']): string {
+export function formatBiome(i18n: I18n, biome: DeepDiveBiome): string {
   switch (biome) {
     case 'CrystallineCaverns':
       return i18n._(msg`Crystalline Caverns`)
@@ -40,7 +40,7 @@ export function formatBiome(i18n: I18n, biome: WeeklyDive['biome']): string {
   }
 }
 
-export function formatPrimaryObjective(i18n: I18n, objective: PrimaryObjective): string {
+export function formatPrimaryObjective(i18n: I18n, objective: DeepDivePrimaryObjective): string {
   switch (objective.kind) {
     case 'DeepScan':
       return i18n._(msg`Crystal Scan x${objective.resonanceCrystals}`)
@@ -67,7 +67,7 @@ export function formatPrimaryObjective(i18n: I18n, objective: PrimaryObjective):
   }
 }
 
-export function formatSecondaryObjective(i18n: I18n, objective: SecondaryObjective): string {
+export function formatSecondaryObjective(i18n: I18n, objective: DeepDiveSecondaryObjective): string {
   switch (objective.kind) {
     case 'EggHunt':
       return i18n._(msg`Egg x${objective.eggs}`)
@@ -85,17 +85,17 @@ export function formatSecondaryObjective(i18n: I18n, objective: SecondaryObjecti
       return i18n._(msg`Morkite Well x${objective.morkiteWells}`)
     case 'SalvageOperation':
       return i18n._(msg`Mule x${objective.miniMules}`)
-    case 'HeavyExcavation':
+    case 'HeavyExtraction':
       return i18n._(msg`Resinite Mass x${objective.resiniteMasses}`)
   }
 }
 
-export function formatMutator(i18n: I18n, mutator: WeeklyMission['mutator']): string {
-  if (mutator == null) {
+export function formatAnomaly(i18n: I18n, anomaly: DeepDiveAnomaly | null): string {
+  if (anomaly == null) {
     return i18n._(msg`None`)
   }
 
-  switch (mutator) {
+  switch (anomaly) {
     case 'VolatileGuts':
       return i18n._(msg`Volatile Guts`)
     case 'RichAtmosphere':
@@ -109,7 +109,7 @@ export function formatMutator(i18n: I18n, mutator: WeeklyMission['mutator']): st
   }
 }
 
-export function formatWarning(i18n: I18n, warning: WeeklyMission['warning']): string {
+export function formatWarning(i18n: I18n, warning: DeepDiveWarning | null): string {
   if (warning == null) {
     return i18n._(msg`None`)
   }
@@ -150,9 +150,9 @@ export function formatWarning(i18n: I18n, warning: WeeklyMission['warning']): st
   }
 }
 
-// Official in-game flavor texts for warnings and mutators.
-export function formatMutatorDescription(i18n: I18n, mutator: WeeklyMutator): string {
-  switch (mutator) {
+// Official in-game flavor texts for warnings and anomalies.
+export function formatAnomalyDescription(i18n: I18n, anomaly: DeepDiveAnomaly): string {
+  switch (anomaly) {
     case 'VolatileGuts':
       return i18n._(
         msg`The odd composition of local food sources means all enemies violently combust upon death, causing area damage.`,
@@ -172,7 +172,7 @@ export function formatMutatorDescription(i18n: I18n, mutator: WeeklyMutator): st
   }
 }
 
-export function formatWarningDescription(i18n: I18n, warning: WeeklyWarning): string {
+export function formatWarningDescription(i18n: I18n, warning: DeepDiveWarning): string {
   switch (warning) {
     case 'RegenerativeBugs':
       return i18n._(msg`After a few seconds of not taking damage, the creatures will start recovering health.`)
@@ -219,13 +219,13 @@ export function formatWarningDescription(i18n: I18n, warning: WeeklyWarning): st
   }
 }
 
-function formatDreadnoughtList(i18n: I18n, dreadnoughts: ReadonlyArray<'Dreadnought' | 'Hiveguard' | 'Twins'>): string {
+function formatDreadnoughtList(i18n: I18n, dreadnoughts: ReadonlyArray<DeepDiveDreadnought>): string {
   return dreadnoughts.map((dreadnought) => formatDreadnought(i18n, dreadnought)).join(' + ')
 }
 
-function formatDreadnought(i18n: I18n, dreadnought: 'Dreadnought' | 'Hiveguard' | 'Twins'): string {
+function formatDreadnought(i18n: I18n, dreadnought: DeepDiveDreadnought): string {
   switch (dreadnought) {
-    case 'Dreadnought':
+    case 'Classic':
       return i18n._(msg`Classic`)
     case 'Hiveguard':
       return i18n._(msg`Hiveguard`)

@@ -1,13 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { flush } from 'solid-js'
 import { fireEvent, within } from '@solidjs/testing-library'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { DeepDive } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
 import { DiveSlab } from './DiveSlab'
 
-type WeeklyDive = WeeklySnapshotResult['dives']['normal']
-
-const DIVE: WeeklyDive = {
+const DIVE: DeepDive = {
   name: 'Awful Catacomb',
   biome: 'FungusBogs',
   missions: [
@@ -15,13 +13,13 @@ const DIVE: WeeklyDive = {
       primaryObjective: { kind: 'EggHunt', eggs: 6 },
       secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
       warning: 'RegenerativeBugs',
-      mutator: null,
+      anomaly: null,
     },
     {
       primaryObjective: { kind: 'SalvageOperation', miniMules: 3 },
       secondaryObjective: { kind: 'DeepScan', resonanceCrystals: 2 },
       warning: null,
-      mutator: 'LowGravity',
+      anomaly: 'LowGravity',
     },
   ],
 }
@@ -37,7 +35,7 @@ describe('DiveSlab', () => {
     expect(getAllByText(/Stage \d/)).toHaveLength(2)
   })
 
-  it('renders quick-read chips for the dive’s warnings and mutators', () => {
+  it('renders quick-read chips for the dive’s warnings and anomalies', () => {
     const { getByRole } = renderWithProviders(() => <DiveSlab dive={DIVE} expired={false} kind="normal" />)
     const quickRead = within(getByRole('region', { name: 'Quick read' }))
 
@@ -45,10 +43,10 @@ describe('DiveSlab', () => {
     expect(quickRead.getByText('Low Gravity')).toBeInTheDocument()
   })
 
-  it('omits the quick read section entirely when there are no warnings or mutators', () => {
-    const cleanDive: WeeklyDive = {
+  it('omits the quick read section entirely when there are no warnings or anomalies', () => {
+    const cleanDive: DeepDive = {
       ...DIVE,
-      missions: DIVE.missions.map((mission) => ({ ...mission, warning: null, mutator: null })),
+      missions: DIVE.missions.map((mission) => ({ ...mission, warning: null, anomaly: null })),
     }
 
     const { queryByRole } = renderWithProviders(() => <DiveSlab dive={cleanDive} expired={false} kind="normal" />)
@@ -69,26 +67,26 @@ describe('DiveSlab', () => {
   })
 
   it('collapses overflow chips behind a toggle and expands them on click', () => {
-    const dive: WeeklyDive = {
+    const dive: DeepDive = {
       ...DIVE,
       missions: [
         {
           primaryObjective: { kind: 'EggHunt', eggs: 6 },
           secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
           warning: 'RegenerativeBugs',
-          mutator: 'LowGravity',
+          anomaly: 'LowGravity',
         },
         {
           primaryObjective: { kind: 'SalvageOperation', miniMules: 3 },
           secondaryObjective: { kind: 'DeepScan', resonanceCrystals: 2 },
           warning: 'MacteraPlague',
-          mutator: 'VolatileGuts',
+          anomaly: 'VolatileGuts',
         },
         {
           primaryObjective: { kind: 'MiningExpedition', morkite: 200 },
           secondaryObjective: { kind: 'Blackbox', blackBoxes: 1 },
           warning: 'ExploderInfestation',
-          mutator: 'RichAtmosphere',
+          anomaly: 'RichAtmosphere',
         },
       ],
     }

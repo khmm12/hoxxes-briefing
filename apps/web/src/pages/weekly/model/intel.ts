@@ -1,13 +1,10 @@
+import type { DeepDive, DeepDiveAnomaly, DeepDiveMission, DeepDiveWarning } from '~/shared/api'
 import {
-  getMutatorCatalogEntry,
+  getAnomalyCatalogEntry,
   getPrimaryObjectiveCatalogEntry,
   getSecondaryObjectiveCatalogEntry,
   getWarningCatalogEntry,
-  type PresentWeeklyMutator,
-  type PresentWeeklyWarning,
-  type WeeklyDive,
   type WeeklyEffectCatalogEntry,
-  type WeeklyMission,
   type WeeklyObjectiveContextTag,
 } from './weekly-catalog'
 
@@ -57,33 +54,33 @@ export type Intel = {
 
 const fixedPositionTags = ['escort-anchor', 'fixed-position'] as const
 const longRouteTags = ['long-travel', 'oxygen-risk', 'vertical-search'] as const
-const mutatorIntelNotes = {
+const anomalyIntelNotes = {
   BloodSugar: 'blood-sugar',
   CriticalWeakness: null,
   LowGravity: null,
   RichAtmosphere: null,
   VolatileGuts: 'volatile-guts',
-} satisfies Record<PresentWeeklyMutator, IntelNote | null>
+} satisfies Record<DeepDiveAnomaly, IntelNote | null>
 
-export function buildIntel(dive: WeeklyDive, kind: DiveKind): Intel {
+export function buildIntel(dive: DeepDive, kind: DiveKind): Intel {
   return {
     note: selectIntelNote(dive, kind),
   }
 }
 
-function collectPriorityNotes(dive: WeeklyDive): PriorityNote[] {
+function collectPriorityNotes(dive: DeepDive): PriorityNote[] {
   return dive.missions.flatMap((mission, stageIndex): PriorityNote[] => {
     const stageContext = buildStageObjectiveContext(mission)
 
     return [
       collectWarningPriorityNote(mission.warning, stageContext, stageIndex),
-      collectMutatorPriorityNote(mission.mutator, stageIndex),
+      collectAnomalyPriorityNote(mission.anomaly, stageIndex),
     ].filter((note): note is PriorityNote => note != null)
   })
 }
 
 function collectWarningPriorityNote(
-  warning: PresentWeeklyWarning | null,
+  warning: DeepDiveWarning | null,
   stageContext: StageObjectiveContext,
   stageIndex: number,
 ): PriorityNote | null {
@@ -94,18 +91,18 @@ function collectWarningPriorityNote(
   return buildPriorityNote(selectWarningIntelNote(warning, stageContext), getWarningCatalogEntry(warning), stageIndex)
 }
 
-function collectMutatorPriorityNote(mutator: PresentWeeklyMutator | null, stageIndex: number): PriorityNote | null {
-  if (mutator == null) {
+function collectAnomalyPriorityNote(anomaly: DeepDiveAnomaly | null, stageIndex: number): PriorityNote | null {
+  if (anomaly == null) {
     return null
   }
 
-  const note = mutatorIntelNotes[mutator]
+  const note = anomalyIntelNotes[anomaly]
 
   if (note == null) {
     return null
   }
 
-  return buildPriorityNote(note, getMutatorCatalogEntry(mutator), stageIndex)
+  return buildPriorityNote(note, getAnomalyCatalogEntry(anomaly), stageIndex)
 }
 
 function buildPriorityNote(note: IntelNote, effect: WeeklyEffectCatalogEntry, stageIndex: number): PriorityNote {
@@ -120,7 +117,7 @@ function buildPriorityNote(note: IntelNote, effect: WeeklyEffectCatalogEntry, st
   }
 }
 
-function buildStageObjectiveContext(mission: WeeklyMission): StageObjectiveContext {
+function buildStageObjectiveContext(mission: DeepDiveMission): StageObjectiveContext {
   const primary = getPrimaryObjectiveCatalogEntry(mission.primaryObjective.kind)
   const secondary = getSecondaryObjectiveCatalogEntry(mission.secondaryObjective.kind)
 
@@ -130,18 +127,18 @@ function buildStageObjectiveContext(mission: WeeklyMission): StageObjectiveConte
   }
 }
 
-function selectIntelNote(dive: WeeklyDive, kind: DiveKind): IntelNote {
+function selectIntelNote(dive: DeepDive, kind: DiveKind): IntelNote {
   const priorityNote = collectPriorityNotes(dive).sort(comparePriorityNotes)[0]
 
   if (priorityNote != null) {
     return priorityNote.note
   }
 
-  if (hasMutator(dive, 'CriticalWeakness')) {
+  if (hasAnomaly(dive, 'CriticalWeakness')) {
     return 'favorable-critical-weakness'
   }
 
-  if (hasMutator(dive, 'LowGravity') || hasMutator(dive, 'RichAtmosphere')) {
+  if (hasAnomaly(dive, 'LowGravity') || hasAnomaly(dive, 'RichAtmosphere')) {
     return 'favorable-mobility'
   }
 
@@ -152,7 +149,7 @@ function selectIntelNote(dive: WeeklyDive, kind: DiveKind): IntelNote {
   return kind === 'elite' ? 'clean-elite' : 'clean-normal'
 }
 
-function selectWarningIntelNote(warning: PresentWeeklyWarning, context: StageObjectiveContext): IntelNote {
+function selectWarningIntelNote(warning: DeepDiveWarning, context: StageObjectiveContext): IntelNote {
   switch (warning) {
     case 'HauntedCave':
       return 'haunted-cave'
@@ -197,8 +194,8 @@ function comparePriorityNotes(left: PriorityNote, right: PriorityNote): number {
   return priorityDelta === 0 ? left.stageIndex - right.stageIndex : priorityDelta
 }
 
-function hasMutator(dive: WeeklyDive, mutator: PresentWeeklyMutator): boolean {
-  return dive.missions.some((mission) => mission.mutator === mutator)
+function hasAnomaly(dive: DeepDive, anomaly: DeepDiveAnomaly): boolean {
+  return dive.missions.some((mission) => mission.anomaly === anomaly)
 }
 
 function hasAnyContextTag(context: StageObjectiveContext, tags: readonly WeeklyObjectiveContextTag[]): boolean {

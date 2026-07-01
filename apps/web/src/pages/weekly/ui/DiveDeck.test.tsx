@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { flush } from 'solid-js'
 import { fireEvent } from '@solidjs/testing-library'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { Briefing, DeepDive } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
 import { DiveDeck } from './DiveDeck'
 
@@ -14,9 +14,7 @@ import { DiveDeck } from './DiveDeck'
 // settle physics still need real layout (getBoundingClientRect, scroll
 // width) jsdom does not provide, and are out of reach here.
 
-type WeeklyDive = WeeklySnapshotResult['dives']['normal']
-
-function dive(name: string): WeeklyDive {
+function dive(name: string): DeepDive {
   return {
     name,
     biome: 'FungusBogs',
@@ -25,13 +23,13 @@ function dive(name: string): WeeklyDive {
         primaryObjective: { kind: 'EggHunt', eggs: 6 },
         secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
         warning: null,
-        mutator: null,
+        anomaly: null,
       },
     ],
   }
 }
 
-const DIVES: WeeklySnapshotResult['dives'] = {
+const DIVES: Briefing['dives'] = {
   normal: dive('Awful Catacomb'),
   elite: dive('Natural Roof'),
 }

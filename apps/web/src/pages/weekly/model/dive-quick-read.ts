@@ -1,31 +1,26 @@
-import {
-  compareWeeklyMutatorsForQuickRead,
-  compareWeeklyWarningsForQuickRead,
-  type PresentWeeklyMutator,
-  type PresentWeeklyWarning,
-  type WeeklyDive,
-} from './weekly-catalog'
+import type { DeepDive, DeepDiveAnomaly, DeepDiveWarning } from '~/shared/api'
+import { compareWeeklyAnomaliesForQuickRead, compareWeeklyWarningsForQuickRead } from './weekly-catalog'
 
 export type QuickReadChip =
   | {
-      kind: 'mutator'
-      value: PresentWeeklyMutator
+      kind: 'anomaly'
+      value: DeepDiveAnomaly
     }
   | {
       kind: 'warning'
-      value: PresentWeeklyWarning
+      value: DeepDiveWarning
     }
 
-export function buildQuickReadChips(dive: WeeklyDive): QuickReadChip[] {
+export function buildQuickReadChips(dive: DeepDive): QuickReadChip[] {
   const warnings = uniquePresent(dive.missions.map((mission) => mission.warning)).sort(
     compareWeeklyWarningsForQuickRead,
   )
-  const mutators = uniquePresent(dive.missions.map((mission) => mission.mutator)).sort(
-    compareWeeklyMutatorsForQuickRead,
+  const anomalies = uniquePresent(dive.missions.map((mission) => mission.anomaly)).sort(
+    compareWeeklyAnomaliesForQuickRead,
   )
   const chips: QuickReadChip[] = [
     ...warnings.map((warning) => ({ kind: 'warning' as const, value: warning })),
-    ...mutators.map((mutator) => ({ kind: 'mutator' as const, value: mutator })),
+    ...anomalies.map((anomaly) => ({ kind: 'anomaly' as const, value: anomaly })),
   ]
 
   return chips

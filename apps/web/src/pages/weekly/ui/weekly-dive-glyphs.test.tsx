@@ -1,21 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { render } from '@solidjs/testing-library'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { DeepDiveAnomaly, DeepDiveBiome, DeepDiveWarning } from '~/shared/api'
+import type { WeeklyPrimaryObjectiveKind, WeeklySecondaryObjectiveKind } from '../model/weekly-catalog'
 import {
+  AnomalyKindIcon,
   BiomeKindIcon,
-  MutatorKindIcon,
   PrimaryObjectiveKindIcon,
   SecondaryObjectiveKindIcon,
   WarningKindIcon,
 } from './weekly-dive-glyphs'
-
-type WeeklyDive = WeeklySnapshotResult['dives']['normal']
-type WeeklyMission = WeeklyDive['missions'][number]
-type PrimaryObjectiveKind = WeeklyMission['primaryObjective']['kind']
-type SecondaryObjectiveKind = WeeklyMission['secondaryObjective']['kind']
-type WarningKind = NonNullable<WeeklyMission['warning']>
-type MutatorKind = NonNullable<WeeklyMission['mutator']>
-type BiomeKind = WeeklyDive['biome']
 
 function renderedGlyphPath(ui: () => ReturnType<typeof PrimaryObjectiveKindIcon>): string {
   const { container } = render(ui)
@@ -26,7 +19,7 @@ function renderedGlyphPath(ui: () => ReturnType<typeof PrimaryObjectiveKindIcon>
 }
 
 describe('PrimaryObjectiveKindIcon', () => {
-  const kinds: PrimaryObjectiveKind[] = [
+  const kinds: WeeklyPrimaryObjectiveKind[] = [
     'DeepScan',
     'EscortDuty',
     'MiningExpedition',
@@ -51,7 +44,7 @@ describe('PrimaryObjectiveKindIcon', () => {
 })
 
 describe('SecondaryObjectiveKindIcon', () => {
-  const kinds: SecondaryObjectiveKind[] = [
+  const kinds: WeeklySecondaryObjectiveKind[] = [
     'EggHunt',
     'DeepScan',
     'Blackbox',
@@ -59,7 +52,7 @@ describe('SecondaryObjectiveKindIcon', () => {
     'MiningExpedition',
     'OnSiteRefining',
     'SalvageOperation',
-    'HeavyExcavation',
+    'HeavyExtraction',
   ]
 
   it.each(kinds)('renders a glyph path for %s', (kind) => {
@@ -74,7 +67,7 @@ describe('SecondaryObjectiveKindIcon', () => {
 })
 
 describe('WarningKindIcon', () => {
-  const kinds: WarningKind[] = [
+  const kinds: DeepDiveWarning[] = [
     'RegenerativeBugs',
     'EliteThreat',
     'MacteraPlague',
@@ -112,22 +105,22 @@ describe('WarningKindIcon', () => {
   })
 })
 
-describe('MutatorKindIcon', () => {
-  const kinds: MutatorKind[] = ['VolatileGuts', 'RichAtmosphere', 'CriticalWeakness', 'BloodSugar', 'LowGravity']
+describe('AnomalyKindIcon', () => {
+  const kinds: DeepDiveAnomaly[] = ['VolatileGuts', 'RichAtmosphere', 'CriticalWeakness', 'BloodSugar', 'LowGravity']
 
   it.each(kinds)('renders a glyph path for %s', (kind) => {
-    expect(renderedGlyphPath(() => <MutatorKindIcon kind={kind} />)).not.toBe('')
+    expect(renderedGlyphPath(() => <AnomalyKindIcon kind={kind} />)).not.toBe('')
   })
 
   it('renders a different path per kind', () => {
-    const paths = kinds.map((kind) => renderedGlyphPath(() => <MutatorKindIcon kind={kind} />))
+    const paths = kinds.map((kind) => renderedGlyphPath(() => <AnomalyKindIcon kind={kind} />))
 
     expect(new Set(paths).size).toBe(kinds.length)
   })
 
-  it('falls back to the generic mutator glyph when there is no mutator', () => {
-    const fallbackPath = renderedGlyphPath(() => <MutatorKindIcon kind={null} />)
-    const knownPath = renderedGlyphPath(() => <MutatorKindIcon kind="LowGravity" />)
+  it('falls back to the generic anomaly glyph when there is no anomaly', () => {
+    const fallbackPath = renderedGlyphPath(() => <AnomalyKindIcon kind={null} />)
+    const knownPath = renderedGlyphPath(() => <AnomalyKindIcon kind="LowGravity" />)
 
     expect(fallbackPath).not.toBe('')
     expect(fallbackPath).not.toBe(knownPath)
@@ -135,7 +128,7 @@ describe('MutatorKindIcon', () => {
 })
 
 describe('BiomeKindIcon', () => {
-  const kinds: BiomeKind[] = [
+  const kinds: DeepDiveBiome[] = [
     'CrystallineCaverns',
     'FungusBogs',
     'MagmaCore',

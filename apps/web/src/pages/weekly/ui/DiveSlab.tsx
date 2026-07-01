@@ -5,7 +5,7 @@ import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import { token } from 'styled-system/tokens'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { DeepDive } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { createBreakpointQuery } from '~/shared/lib/create-media-query'
 import { Eyebrow } from '~/shared/ui/eyebrow'
@@ -17,19 +17,17 @@ import { getVisibleQuickReadChips } from './dive-quick-read-view'
 import { formatIntelNote } from './intel-copy'
 import { StageBlock } from './StageBlock'
 import {
+  formatAnomaly,
+  formatAnomalyDescription,
   formatBiome,
   formatDiveKind,
-  formatMutator,
-  formatMutatorDescription,
   formatWarning,
   formatWarningDescription,
 } from './weekly-dive-copy'
-import { BiomeKindIcon, MutatorKindIcon, WarningKindIcon } from './weekly-dive-glyphs'
-
-type WeeklyDive = WeeklySnapshotResult['dives']['normal']
+import { AnomalyKindIcon, BiomeKindIcon, WarningKindIcon } from './weekly-dive-glyphs'
 
 type DiveSlabProps = WithStylingProps<{
-  dive: WeeklyDive
+  dive: DeepDive
   expired: boolean
   kind: 'elite' | 'normal'
   inert?: boolean
@@ -157,7 +155,7 @@ const chipRecipe = cva({
       warning: {
         borderColor: 'danger.border',
       },
-      mutator: {
+      anomaly: {
         borderColor: 'primary.border',
       },
       overflow: {
@@ -251,7 +249,7 @@ const chipWarningIconStyles = css.raw({
   fontSize: '[token(sizes.icon.16)]',
 })
 
-const chipMutatorIconStyles = css.raw({
+const chipAnomalyIconStyles = css.raw({
   color: 'primary.hover',
   fontSize: '[token(sizes.icon.16)]',
 })
@@ -270,7 +268,7 @@ function QuickReadChipView(props: { chip: QuickReadChip }): JSX.Element {
         {props.chip.kind === 'warning' ? (
           <WarningKindIcon css={chipWarningIconStyles} kind={props.chip.value} />
         ) : (
-          <MutatorKindIcon css={chipMutatorIconStyles} kind={props.chip.value} />
+          <AnomalyKindIcon css={chipAnomalyIconStyles} kind={props.chip.value} />
         )}
         {formatQuickReadChip(i18n, props.chip)}
       </span>
@@ -281,7 +279,7 @@ function QuickReadChipView(props: { chip: QuickReadChip }): JSX.Element {
 function formatQuickReadChipDescription(i18n: I18n, chip: QuickReadChip): string {
   return chip.kind === 'warning'
     ? formatWarningDescription(i18n, chip.value)
-    : formatMutatorDescription(i18n, chip.value)
+    : formatAnomalyDescription(i18n, chip.value)
 }
 
 function formatQuickReadChip(i18n: I18n, chip: QuickReadChip): string {
@@ -289,8 +287,8 @@ function formatQuickReadChip(i18n: I18n, chip: QuickReadChip): string {
     return formatWarning(i18n, chip.value)
   }
 
-  if (chip.kind === 'mutator') {
-    return formatMutator(i18n, chip.value)
+  if (chip.kind === 'anomaly') {
+    return formatAnomaly(i18n, chip.value)
   }
 
   return i18n._(msg`All clear`)

@@ -1,8 +1,8 @@
 import { createMemo } from 'solid-js'
 import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
-import type { WeeklySnapshotResult } from '~/shared/api'
-import useI18n from '~/shared/i18n'
+import type { Briefing } from '~/shared/api'
+import { useI18n } from '~/shared/i18n'
 import type { BoardViewState } from '../model/weekly-page-state'
 import { WeeklyBrandBlock } from './WeeklyBrandBlock'
 import { WeeklyRefreshPanel } from './WeeklyRefreshPanel'
@@ -12,7 +12,7 @@ import { getWeeklySlogan } from './weekly-slogan-copy'
 type WeeklyCommandRailProps = {
   now: Date
   state: BoardViewState
-  week: WeeklySnapshotResult['week']
+  briefing: Briefing
   onRefresh: () => void
 }
 
@@ -55,14 +55,14 @@ const dividerStyles = css.raw({
 export function WeeklyCommandRail(props: WeeklyCommandRailProps): JSX.Element {
   const i18n = useI18n()
 
-  const slogan = createMemo(() => getWeeklySlogan(i18n, props.week.id))
+  const slogan = createMemo(() => getWeeklySlogan(i18n, String(props.briefing.seed)))
 
   return (
     <header class={css(railStyles)}>
       <div class={css(contentStyles)}>
         <WeeklyBrandBlock slogan={slogan()} />
         <div class={css(metaRowStyles)}>
-          <WeeklyTimingStrip now={props.now} expired={props.state.expired} week={props.week} />
+          <WeeklyTimingStrip now={props.now} expired={props.state.expired} timing={props.briefing} />
           <WeeklyRefreshPanel state={props.state} onRefresh={props.onRefresh} />
         </div>
       </div>

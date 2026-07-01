@@ -1,14 +1,13 @@
 import { describe, expect, it } from 'vitest'
+import type { DeepDiveAnomaly, DeepDiveWarning } from '~/shared/api'
 import {
-  getMutatorCatalogEntry,
+  getAnomalyCatalogEntry,
   getPrimaryObjectiveCatalogEntry,
   getSecondaryObjectiveCatalogEntry,
   getWarningCatalogEntry,
-  type PresentWeeklyMutator,
-  type PresentWeeklyWarning,
   type WeeklyPrimaryObjectiveKind,
   type WeeklySecondaryObjectiveKind,
-  weeklyMutatorCatalog,
+  weeklyAnomalyCatalog,
   weeklyPrimaryObjectiveCatalog,
   weeklySecondaryObjectiveCatalog,
   weeklyWarningCatalog,
@@ -35,7 +34,7 @@ const secondaryObjectiveKinds = [
   'MiningExpedition',
   'OnSiteRefining',
   'SalvageOperation',
-  'HeavyExcavation',
+  'HeavyExtraction',
 ] as const satisfies readonly WeeklySecondaryObjectiveKind[]
 
 const warningKinds = [
@@ -55,15 +54,15 @@ const warningKinds = [
   'ScrabNestingGrounds',
   'Parasites',
   'Swarmageddon',
-] as const satisfies readonly PresentWeeklyWarning[]
+] as const satisfies readonly DeepDiveWarning[]
 
-const mutatorKinds = [
+const anomalyKinds = [
   'BloodSugar',
   'VolatileGuts',
   'CriticalWeakness',
   'LowGravity',
   'RichAtmosphere',
-] as const satisfies readonly PresentWeeklyMutator[]
+] as const satisfies readonly DeepDiveAnomaly[]
 
 type Expect<T extends true> = T
 type Equal<Left, Right> = [Left] extends [Right] ? ([Right] extends [Left] ? true : false) : false
@@ -71,8 +70,8 @@ type Equal<Left, Right> = [Left] extends [Right] ? ([Right] extends [Left] ? tru
 const typeCoverageAssertions: [
   Expect<Equal<WeeklyPrimaryObjectiveKind, (typeof primaryObjectiveKinds)[number]>>,
   Expect<Equal<WeeklySecondaryObjectiveKind, (typeof secondaryObjectiveKinds)[number]>>,
-  Expect<Equal<PresentWeeklyWarning, (typeof warningKinds)[number]>>,
-  Expect<Equal<PresentWeeklyMutator, (typeof mutatorKinds)[number]>>,
+  Expect<Equal<DeepDiveWarning, (typeof warningKinds)[number]>>,
+  Expect<Equal<DeepDiveAnomaly, (typeof anomalyKinds)[number]>>,
 ] = [true, true, true, true]
 
 const objectiveEntryKeys = ['contextTags']
@@ -111,7 +110,7 @@ describe('weekly domain catalog', () => {
     expect(weeklyPrimaryObjectiveCatalog.OnSiteRefining.contextTags).toContain('long-travel')
     expect(weeklySecondaryObjectiveCatalog.OnSiteRefining.contextTags).not.toContain('long-travel')
     expect(weeklyPrimaryObjectiveCatalog.HeavyExtraction).toBeDefined()
-    expect(weeklySecondaryObjectiveCatalog.HeavyExcavation).toBeDefined()
+    expect(weeklySecondaryObjectiveCatalog.HeavyExtraction).toBeDefined()
   })
 
   it('covers every current warning with priority-only entries', () => {
@@ -131,20 +130,20 @@ describe('weekly domain catalog', () => {
     )
   })
 
-  it('covers every current mutator with priority-only entries', () => {
-    expect(Object.keys(weeklyMutatorCatalog)).toEqual([...mutatorKinds])
+  it('covers every current anomaly with priority-only entries', () => {
+    expect(Object.keys(weeklyAnomalyCatalog)).toEqual([...anomalyKinds])
 
-    for (const kind of mutatorKinds) {
-      const entry = getMutatorCatalogEntry(kind)
+    for (const kind of anomalyKinds) {
+      const entry = getAnomalyCatalogEntry(kind)
 
       expect(Object.keys(entry).sort()).toEqual(effectEntryKeys)
       expect(entry.quickReadPriority).toBeGreaterThan(0)
     }
 
-    expect(weeklyMutatorCatalog.BloodSugar.intelPriority).toBe(210)
-    expect(weeklyMutatorCatalog.VolatileGuts.intelPriority).toBe(220)
-    expect(weeklyMutatorCatalog.CriticalWeakness.intelPriority).toBeNull()
-    expect(weeklyMutatorCatalog.LowGravity.intelPriority).toBeNull()
-    expect(weeklyMutatorCatalog.RichAtmosphere.intelPriority).toBeNull()
+    expect(weeklyAnomalyCatalog.BloodSugar.intelPriority).toBe(210)
+    expect(weeklyAnomalyCatalog.VolatileGuts.intelPriority).toBe(220)
+    expect(weeklyAnomalyCatalog.CriticalWeakness.intelPriority).toBeNull()
+    expect(weeklyAnomalyCatalog.LowGravity.intelPriority).toBeNull()
+    expect(weeklyAnomalyCatalog.RichAtmosphere.intelPriority).toBeNull()
   })
 })

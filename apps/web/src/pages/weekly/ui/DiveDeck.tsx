@@ -3,7 +3,7 @@ import { msg } from '@lingui/core/macro'
 import { For, type JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import * as v from 'valibot'
-import type { WeeklySnapshotResult } from '~/shared/api'
+import type { Briefing } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { createLocalStorage } from '~/shared/lib/create-local-storage'
 import { createBreakpointQuery } from '~/shared/lib/create-media-query'
@@ -15,7 +15,7 @@ import { formatDiveKind } from './weekly-dive-copy'
 type DiveKind = 'elite' | 'normal'
 
 type DiveDeckProps = {
-  dives: WeeklySnapshotResult['dives']
+  dives: Briefing['dives']
   expired: boolean
 }
 

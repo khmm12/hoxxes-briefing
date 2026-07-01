@@ -22,7 +22,7 @@ vi.mock('virtual:pwa-register/solid', () => ({
 // Stub the routed page: App.test is about App's own wiring (providers, router,
 // error boundary, PWA dock), not WeeklyPage internals — those have their own
 // suite. The stub also lets the crash path throw a *real* runtime error
-// (not a WeeklyRequestError, which WeeklyPage's own boundary would swallow)
+// (not a BriefingRequestError, which WeeklyPage's own boundary would swallow)
 // so it bubbles to App's AppErrorBoundary, exactly like a genuine crash.
 const pageControl = { crash: false }
 

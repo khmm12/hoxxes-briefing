@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { weeklySnapshotUrl } from './weekly-client'
+import { briefingUrl } from './briefing-client'
 import {
-  clearCachedWeeklySnapshot,
-  clearStaleWeeklySnapshotCache,
-  readCachedWeeklySnapshot,
-  writeCachedWeeklySnapshot,
-} from './weekly-client-cache'
+  cacheBriefing,
+  clearCachedBriefing,
+  clearStaleBriefingCache,
+  readCachedBriefing,
+} from './briefing-client-cache'
 
 type FakeCache = {
   initialResponse?: Response
@@ -23,7 +23,7 @@ const createMission = () => ({
     kind: 'Blackbox' as const,
     blackBoxes: 1,
   },
-  mutator: null,
+  anomaly: null,
   warning: 'RegenerativeBugs' as const,
 })
 
@@ -33,13 +33,10 @@ const createDive = (name: string) => ({
   missions: [createMission(), createMission(), createMission()],
 })
 
-const createWeeklyPayload = () => ({
-  week: {
-    id: '2026-W17',
-    seed: 1234567890,
-    release: '2026-04-16T11:00:00.000Z',
-    expiration: '2026-04-23T11:00:00.000Z',
-  },
+const createBriefingPayload = () => ({
+  seed: 1234567890,
+  release: '2026-04-16T11:00:00.000Z',
+  expiration: '2026-04-23T11:00:00.000Z',
   dives: {
     normal: createDive('Crystal Routes'),
     elite: createDive('Lethal Depths'),
@@ -51,33 +48,33 @@ afterEach(() => {
   vi.unstubAllGlobals()
 })
 
-describe('weekly cache helpers', () => {
-  it('write/read/delete cache helpers persist and clear a schema-versioned snapshot', async () => {
+describe('briefing cache helpers', () => {
+  it('cache/read/delete helpers persist and clear a schema-versioned briefing', async () => {
     const fakeCache = createFakeCache()
     vi.stubGlobal('caches', {
       open: vi.fn(async () => fakeCache),
     })
 
-    const payload = createWeeklyPayload()
-    await writeCachedWeeklySnapshot(payload)
+    const payload = createBriefingPayload()
+    await cacheBriefing(payload)
 
     expect(fakeCache.put).toHaveBeenCalledOnce()
     const [request, response] = fakeCache.put.mock.calls[0]
-    expect(request).toBe('/api/v1/weekly')
+    expect(request).toBe('/api/v1/briefing')
 
     const raw = await response.clone().json()
     expect(raw.schemaVersion).toBe(1)
-    expect(raw.payload.week.id).toBe('2026-W17')
+    expect(raw.payload.seed).toBe(1234567890)
 
-    const readResult = await readCachedWeeklySnapshot()
+    const readResult = await readCachedBriefing()
     expect(readResult).toBeDefined()
-    expect(readResult?.week.id).toBe('2026-W17')
+    expect(readResult?.seed).toBe(1234567890)
 
-    await clearCachedWeeklySnapshot()
-    expect(fakeCache.delete).toHaveBeenCalledWith('/api/v1/weekly')
+    await clearCachedBriefing()
+    expect(fakeCache.delete).toHaveBeenCalledWith('/api/v1/briefing')
   })
 
-  it('delete helper clears only the weekly snapshot key', async () => {
+  it('delete helper clears only the briefing key', async () => {
     const deleteMock = vi.fn(async () => undefined)
     const fakeCache = createFakeCache({ delete: deleteMock })
 
@@ -85,10 +82,10 @@ describe('weekly cache helpers', () => {
       open: vi.fn(async () => fakeCache),
     })
 
-    await clearCachedWeeklySnapshot('https://example.test/api/v1/weekly?source=ui')
+    await clearCachedBriefing('https://example.test/api/v1/briefing?source=ui')
 
     expect(deleteMock).toHaveBeenCalledOnce()
-    expect(deleteMock).toHaveBeenCalledWith('/api/v1/weekly?source=ui')
+    expect(deleteMock).toHaveBeenCalledWith('/api/v1/briefing?source=ui')
   })
 
   it('drops and clears a cached entry whose payload no longer matches the schema', async () => {
@@ -104,10 +101,10 @@ describe('weekly cache helpers', () => {
       open: vi.fn(async () => fakeCache),
     })
 
-    const result = await readCachedWeeklySnapshot()
+    const result = await readCachedBriefing()
 
     expect(result).toBeNull()
-    expect(deleteMock).toHaveBeenCalledWith('/api/v1/weekly')
+    expect(deleteMock).toHaveBeenCalledWith('/api/v1/briefing')
   })
 
   it('falls back to the default cache key when the request URL cannot be parsed', async () => {
@@ -118,34 +115,41 @@ describe('weekly cache helpers', () => {
       open: vi.fn(async () => fakeCache),
     })
 
-    await clearCachedWeeklySnapshot('http://')
+    await clearCachedBriefing('http://')
 
-    expect(deleteMock).toHaveBeenCalledWith(weeklySnapshotUrl)
+    expect(deleteMock).toHaveBeenCalledWith(briefingUrl)
   })
 })
 
-describe('clearStaleWeeklySnapshotCache', () => {
+describe('clearStaleBriefingCache', () => {
   it('resolves without touching CacheStorage when it is unavailable', async () => {
     // jsdom defines no `caches`; the guard must short-circuit instead of
     // dereferencing the missing global.
-    await expect(clearStaleWeeklySnapshotCache()).resolves.toBeUndefined()
+    await expect(clearStaleBriefingCache()).resolves.toBeUndefined()
   })
 
-  it('evicts superseded weekly cache versions and keeps the live one', async () => {
+  it('evicts superseded briefing versions and the retired legacy weekly cache, keeping the live one', async () => {
     const deleteMock = vi.fn(async () => true)
     vi.stubGlobal('caches', {
       keys: vi.fn(async () => [
-        'hoxxes-briefing-weekly-cache-v0',
+        // Retired data cache from the pre-briefing client — always dropped.
         'hoxxes-briefing-weekly-cache-v1',
+        // Superseded briefing schema version — dropped.
+        'hoxxes-briefing-data-cache-v0',
+        // The live briefing cache — kept.
+        'hoxxes-briefing-data-cache-v1',
         'unrelated-cache',
       ]),
       delete: deleteMock,
     })
 
-    await clearStaleWeeklySnapshotCache()
+    await clearStaleBriefingCache()
 
-    expect(deleteMock).toHaveBeenCalledTimes(1)
-    expect(deleteMock).toHaveBeenCalledWith('hoxxes-briefing-weekly-cache-v0')
+    expect(deleteMock).toHaveBeenCalledTimes(2)
+    expect(deleteMock).toHaveBeenCalledWith('hoxxes-briefing-weekly-cache-v1')
+    expect(deleteMock).toHaveBeenCalledWith('hoxxes-briefing-data-cache-v0')
+    expect(deleteMock).not.toHaveBeenCalledWith('hoxxes-briefing-data-cache-v1')
+    expect(deleteMock).not.toHaveBeenCalledWith('unrelated-cache')
   })
 })
 

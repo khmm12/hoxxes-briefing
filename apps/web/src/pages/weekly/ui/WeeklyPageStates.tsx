@@ -3,7 +3,7 @@ import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
-import type { WeeklyRequestError } from '~/shared/api'
+import type { BriefingRequestError } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
 import { BoardUnavailableIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
@@ -19,7 +19,7 @@ type WeeklyLoadingStateProps = {
 // Request failures only; runtime faults rethrow to the app-level boundary.
 type WeeklyErrorStateProps = {
   dockVisible: boolean
-  error: WeeklyRequestError
+  error: BriefingRequestError
   online: boolean
   onRetry: () => void
 }
@@ -89,7 +89,7 @@ const loadingScreenStyles = css.raw({
 
 // A request can fail without the network being at fault (API error, bad
 // payload) — do not blame the user's connection in that case.
-function formatBoardUnavailableBody(i18n: I18n, error: WeeklyRequestError): string {
+function formatBoardUnavailableBody(i18n: I18n, error: BriefingRequestError): string {
   if (error.kind === 'network') return i18n._(msg`Try again once the connection settles.`)
 
   return i18n._(msg`Mission Control is having trouble on its end. Try again in a moment.`)

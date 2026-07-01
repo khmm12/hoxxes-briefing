@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
+import type { DeepDive, DeepDiveMission } from '~/shared/api'
 import { buildQuickReadChips } from './dive-quick-read'
-import type { WeeklyDive, WeeklyMission } from './weekly-catalog'
 
 describe('buildQuickReadChips', () => {
-  it('sorts warnings before mutators and removes duplicates', () => {
+  it('sorts warnings before anomalies and removes duplicates', () => {
     const chips = buildQuickReadChips(createDive())
 
-    expect(chips.map((chip) => chip.kind)).toEqual(['warning', 'warning', 'mutator', 'mutator'])
+    expect(chips.map((chip) => chip.kind)).toEqual(['warning', 'warning', 'anomaly', 'anomaly'])
     expect(chips.map((chip) => chip.value)).toEqual(['LowOxygen', 'DuckAndCover', 'VolatileGuts', 'RichAtmosphere'])
   })
 
@@ -18,32 +18,32 @@ describe('buildQuickReadChips', () => {
     ])
   })
 
-  it('sorts mixed mutators before beneficial mutators', () => {
-    expect(buildQuickReadChips(createDiveWithMutators()).map((chip) => chip.value)).toEqual([
+  it('sorts mixed anomalies before beneficial anomalies', () => {
+    expect(buildQuickReadChips(createDiveWithAnomalies()).map((chip) => chip.value)).toEqual([
       'BloodSugar',
       'VolatileGuts',
       'CriticalWeakness',
     ])
   })
 
-  it('returns empty list when the dive has no mutators', () => {
+  it('returns empty list when the dive has no anomalies', () => {
     expect(buildQuickReadChips(createDiveWithCleanStages())).toHaveLength(0)
   })
 })
 
-function createDive(): WeeklyDive {
+function createDive(): DeepDive {
   return {
     name: 'Crystal Routes',
     biome: 'AzureWeald',
     missions: [
-      createMission({ mutator: 'RichAtmosphere', warning: 'LowOxygen' }),
-      createMission({ mutator: 'VolatileGuts', warning: 'DuckAndCover' }),
-      createMission({ mutator: 'RichAtmosphere', warning: null }),
+      createMission({ anomaly: 'RichAtmosphere', warning: 'LowOxygen' }),
+      createMission({ anomaly: 'VolatileGuts', warning: 'DuckAndCover' }),
+      createMission({ anomaly: 'RichAtmosphere', warning: null }),
     ],
   }
 }
 
-function createDiveWithCleanStages(): WeeklyDive {
+function createDiveWithCleanStages(): DeepDive {
   return {
     name: 'Clean Routes',
     biome: 'SaltPits',
@@ -51,7 +51,7 @@ function createDiveWithCleanStages(): WeeklyDive {
   }
 }
 
-function createDiveWithWarnings(): WeeklyDive {
+function createDiveWithWarnings(): DeepDive {
   return {
     name: 'Warning Routes',
     biome: 'MagmaCore',
@@ -63,19 +63,19 @@ function createDiveWithWarnings(): WeeklyDive {
   }
 }
 
-function createDiveWithMutators(): WeeklyDive {
+function createDiveWithAnomalies(): DeepDive {
   return {
-    name: 'Mutator Routes',
+    name: 'Anomaly Routes',
     biome: 'DenseBiozone',
     missions: [
-      createMission({ mutator: 'CriticalWeakness' }),
-      createMission({ mutator: 'BloodSugar' }),
-      createMission({ mutator: 'VolatileGuts' }),
+      createMission({ anomaly: 'CriticalWeakness' }),
+      createMission({ anomaly: 'BloodSugar' }),
+      createMission({ anomaly: 'VolatileGuts' }),
     ],
   }
 }
 
-function createMission(overrides: Partial<Pick<WeeklyMission, 'mutator' | 'warning'>> = {}): WeeklyMission {
+function createMission(overrides: Partial<Pick<DeepDiveMission, 'anomaly' | 'warning'>> = {}): DeepDiveMission {
   return {
     primaryObjective: {
       kind: 'DeepScan',
@@ -85,7 +85,7 @@ function createMission(overrides: Partial<Pick<WeeklyMission, 'mutator' | 'warni
       blackBoxes: 1,
       kind: 'Blackbox',
     },
-    mutator: null,
+    anomaly: null,
     warning: null,
     ...overrides,
   }
