@@ -57,7 +57,7 @@ pub enum Biome {
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum Dreadnought {
-    Dreadnought,
+    Classic,
     Hiveguard,
     Twins,
 }

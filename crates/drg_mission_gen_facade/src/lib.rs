@@ -11,11 +11,11 @@ pub fn deep_dives_from_seed(seed: Seed) -> Result<DeepDiveResult, ConverterError
     let (u_normal, u_elite) = gen_deep_dive_pair(seed.as_u32());
     let (normal, elite) = (u_normal.try_into()?, u_elite.try_into()?);
 
-    return Ok(DeepDiveResult {
+    Ok(DeepDiveResult {
         normal,
         elite,
         seed,
-    });
+    })
 }
 
 impl DeepDiveResult {

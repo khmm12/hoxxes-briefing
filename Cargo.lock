@@ -215,6 +215,7 @@ dependencies = [
  "drg_mission_gen_facade",
  "serde",
  "serde-wasm-bindgen",
+ "serde_json",
  "tsify",
  "wasm-bindgen",
  "wee_alloc",
