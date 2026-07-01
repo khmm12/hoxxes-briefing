@@ -21,7 +21,7 @@ type DiveDeckProps = {
 
 const DIVE_KINDS = ['normal', 'elite'] as const satisfies readonly DiveKind[]
 
-const DIVE_KIND_STORAGE_KEY = 'weekly-dive-kind'
+const DIVE_KIND_STORAGE_KEY = 'dive-kind'
 const diveKindSchema = /* @__PURE__ */ v.picklist(DIVE_KINDS)
 
 const deckStyles = css.raw({
