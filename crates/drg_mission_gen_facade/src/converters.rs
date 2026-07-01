@@ -336,3 +336,6 @@ impl From<EDreadnought> for Dreadnought {
         }
     }
 }
+
+#[cfg(test)]
+mod tests;

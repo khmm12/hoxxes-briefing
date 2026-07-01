@@ -152,3 +152,6 @@ wasm_string_enum! {
 
     from drg_mission_gen_facade::Dreadnought
 }
+
+#[cfg(test)]
+mod tests;

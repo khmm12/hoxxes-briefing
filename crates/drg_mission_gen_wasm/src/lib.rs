@@ -26,3 +26,6 @@ fn generate_payload(seed: u32) -> Result<WeeklyDeepDives, ConverterError> {
         .map(From::from)
         .map_err(ConverterError::from)
 }
+
+#[cfg(test)]
+mod tests;

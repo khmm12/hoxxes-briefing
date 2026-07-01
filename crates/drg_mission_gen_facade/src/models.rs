@@ -247,3 +247,6 @@ impl DeepDivePrimaryObjective {
         }
     }
 }
+
+#[cfg(test)]
+mod tests;

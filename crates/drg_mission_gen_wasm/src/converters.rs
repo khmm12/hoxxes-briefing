@@ -140,3 +140,6 @@ impl From<facade::DeepDiveSecondaryObjective> for wasm::DeepDiveSecondaryObjecti
         }
     }
 }
+
+#[cfg(test)]
+mod tests;
