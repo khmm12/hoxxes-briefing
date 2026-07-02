@@ -94,7 +94,7 @@ fn deep_dive_result_converts_seed_and_both_dives() {
         elite,
     };
 
-    let converted = wasm::WeeklyDeepDives::from(result);
+    let converted = wasm::GeneratedBriefing::from(result);
 
     assert_eq!(converted.seed, 42);
     assert_eq!(converted.dives.normal.name, "Normal Dive");

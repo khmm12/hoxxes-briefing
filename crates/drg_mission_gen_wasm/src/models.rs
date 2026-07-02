@@ -12,7 +12,7 @@ pub struct ConverterError {
 
 #[derive(Debug, Clone, PartialEq, ::serde::Serialize, ::tsify::Tsify)]
 #[serde(rename_all = "camelCase")]
-pub struct WeeklyDeepDives {
+pub struct GeneratedBriefing {
     pub seed: u32,
     pub dives: DeepDives,
 }

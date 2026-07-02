@@ -18,7 +18,7 @@ export interface DeepDives {
     elite: DeepDive;
 }
 
-export interface WeeklyDeepDives {
+export interface GeneratedBriefing {
     seed: number;
     dives: DeepDives;
 }
@@ -52,4 +52,4 @@ export class ConverterError {
     readonly type: string;
 }
 
-export function generate(seed: number): WeeklyDeepDives;
+export function generate(seed: number): GeneratedBriefing;

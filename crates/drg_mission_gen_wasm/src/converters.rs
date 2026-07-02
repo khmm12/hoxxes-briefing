@@ -36,9 +36,9 @@ impl From<facade::ConverterError> for wasm::ConverterError {
     }
 }
 
-impl From<facade::DeepDiveResult> for wasm::WeeklyDeepDives {
+impl From<facade::DeepDiveResult> for wasm::GeneratedBriefing {
     fn from(result: facade::DeepDiveResult) -> Self {
-        wasm::WeeklyDeepDives {
+        wasm::GeneratedBriefing {
             seed: result.seed.as_u32(),
             dives: wasm::DeepDives {
                 normal: result.normal.into(),
