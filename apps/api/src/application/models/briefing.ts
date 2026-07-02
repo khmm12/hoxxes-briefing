@@ -41,9 +41,9 @@ export const DEEP_DIVE_WARNINGS = [
 
 export const DEEP_DIVE_DREADNOUGHTS = ['Classic', 'Hiveguard', 'Twins'] as const
 
-export type DeepDiveBiome = (typeof DEEP_DIVE_BIOMES)[number]
-export type DeepDiveAnomaly = (typeof DEEP_DIVE_ANOMALIES)[number]
-export type DeepDiveWarning = (typeof DEEP_DIVE_WARNINGS)[number]
+type DeepDiveBiome = (typeof DEEP_DIVE_BIOMES)[number]
+type DeepDiveAnomaly = (typeof DEEP_DIVE_ANOMALIES)[number]
+type DeepDiveWarning = (typeof DEEP_DIVE_WARNINGS)[number]
 export type DeepDiveDreadnought = (typeof DEEP_DIVE_DREADNOUGHTS)[number]
 
 export type DeepDivePrimaryObjective = Readonly<

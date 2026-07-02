@@ -1,6 +1,7 @@
 {
 	"extends": "../../tsconfig/node-build.json",
 	"compilerOptions": {
+		"types": ["node", "@total-typescript/ts-reset"],
 		"outDir": "dist",
 		"rootDir": "src"
 	},

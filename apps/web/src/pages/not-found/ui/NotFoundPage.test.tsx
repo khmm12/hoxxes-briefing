@@ -7,11 +7,11 @@ import { NotFoundPage } from './NotFoundPage'
 
 // NotFoundPage uses <A>, which needs router context — a MemoryRouter wired to a
 // single root route stands in for the real app shell.
-function renderNotFoundPage(dockVisible: boolean) {
+function renderNotFoundPage() {
   return render(() => (
     <I18nProvider i18n={createTestI18n()}>
       <MemoryRouter root={(props) => <>{props.children}</>}>
-        <Route path="/" component={() => <NotFoundPage dockVisible={dockVisible} />} />
+        <Route path="/" component={() => <NotFoundPage />} />
       </MemoryRouter>
     </I18nProvider>
   ))
@@ -19,7 +19,7 @@ function renderNotFoundPage(dockVisible: boolean) {
 
 describe('NotFoundPage', () => {
   it('renders the not-found copy and a link back to the briefing', () => {
-    const { getByText, getByRole } = renderNotFoundPage(false)
+    const { getByText, getByRole } = renderNotFoundPage()
 
     expect(getByText('Page not found')).toBeInTheDocument()
     expect(getByText('This page is not available here. Head back to the briefing.')).toBeInTheDocument()
@@ -30,7 +30,7 @@ describe('NotFoundPage', () => {
   })
 
   it('sets the document title', () => {
-    renderNotFoundPage(false)
+    renderNotFoundPage()
 
     expect(document.title).toBe('Hoxxes Briefing | Not Found')
   })

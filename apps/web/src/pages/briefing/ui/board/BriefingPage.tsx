@@ -15,7 +15,6 @@ import { BriefingRequestError } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { Meta, Title } from '~/shared/lib/document-head'
-import { AppLayout } from '~/shared/ui/layout'
 import { type BriefingViewState, isBriefingExpired } from '../../model/briefing-page-state'
 import { createBriefingQuery } from '../../model/create-briefing-query'
 import { Board } from './Board'
@@ -24,12 +23,10 @@ import { BriefingErrorState, BriefingLoadingState, BriefingOutdatedState } from 
 type BriefingQuery = ReturnType<typeof createBriefingQuery>
 
 type BriefingPageProps = {
-  dockVisible: boolean
   onUpdateApp: () => void
 }
 
 type ReadyBoardProps = {
-  dockVisible: boolean
   online: boolean
   query: BriefingQuery
   onRefresh: () => void
@@ -56,10 +53,7 @@ export function BriefingPage(props: BriefingPageProps): JSX.Element {
         )}
       />
 
-      <Loading
-        on={retryVersion()}
-        fallback={<BriefingLoadingState dockVisible={props.dockVisible} online={online()} />}
-      >
+      <Loading on={retryVersion()} fallback={<BriefingLoadingState online={online()} />}>
         <Errored
           fallback={(error, reset) => {
             createEffect(error, (v) => console.error('ErrorBoundary', v))
@@ -82,24 +76,16 @@ export function BriefingPage(props: BriefingPageProps): JSX.Element {
                   // Only an app update fixes an outdated contract — retrying
                   // would just hit the same wall.
                   if (requestError.kind === 'outdated') {
-                    return <BriefingOutdatedState dockVisible={props.dockVisible} onUpdateApp={props.onUpdateApp} />
+                    return <BriefingOutdatedState onUpdateApp={props.onUpdateApp} />
                   }
 
-                  return (
-                    <BriefingErrorState
-                      dockVisible={props.dockVisible}
-                      error={requestError}
-                      online={online()}
-                      onRetry={handleRetry}
-                    />
-                  )
+                  return <BriefingErrorState error={requestError} online={online()} onRetry={handleRetry} />
                 })()}
               </>
             )
           }}
         >
           <ReadyBoard
-            dockVisible={props.dockVisible}
             online={online()}
             query={briefingQuery}
             onRefresh={handleRefresh}
@@ -125,19 +111,14 @@ function ReadyBoard(props: ReadyBoardProps): JSX.Element {
   // A refresh rejected with `outdated` is not a transient failure: the cached
   // board may be correct-for-its-revision, but every next fetch hits the same
   // wall, so the wall replaces the board instead of a "refresh failed" hint.
-  const outdated = createMemo(() => {
+  const outdated = () => {
     const refreshError = props.query.lastRefreshError
     return refreshError instanceof BriefingRequestError && refreshError.kind === 'outdated'
-  })
+  }
 
   return (
-    <Show
-      when={!outdated()}
-      fallback={<BriefingOutdatedState dockVisible={props.dockVisible} onUpdateApp={props.onUpdateApp} />}
-    >
-      <AppLayout dockVisible={props.dockVisible}>
-        <Board now={now()} state={state} data={props.query.data} onRefresh={props.onRefresh} />
-      </AppLayout>
+    <Show when={!outdated()} fallback={<BriefingOutdatedState onUpdateApp={props.onUpdateApp} />}>
+      <Board now={now()} state={state} data={props.query.data} onRefresh={props.onRefresh} />
     </Show>
   )
 }

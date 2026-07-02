@@ -37,7 +37,7 @@ msgstr "+{overflowCount} more"
 msgid "100% destructible environments, 0% job security."
 msgstr "100% destructible environments, 0% job security."
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:107
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:98
 msgid "A new version is available"
 msgstr "A new version is available"
 
@@ -69,11 +69,11 @@ msgstr "All clear"
 msgid "already ended"
 msgstr "already ended"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:229
+#: src/pages/briefing/ui/dive/StageBlock.tsx:228
 msgid "Anomaly"
 msgstr "Anomaly"
 
-#: src/app/shell/AppCrashScreen.tsx:28
+#: src/app/shell/AppCrashScreen.tsx:27
 msgid "App crashed"
 msgstr "App crashed"
 
@@ -98,7 +98,7 @@ msgstr "Black Box"
 msgid "Blood Sugar"
 msgstr "Blood Sugar"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:74
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:68
 msgid "Briefing unavailable"
 msgstr "Briefing unavailable"
 
@@ -126,11 +126,11 @@ msgstr "Call weakpoints and burn big targets early."
 msgid "Cave Leech Cluster"
 msgstr "Cave Leech Cluster"
 
-#: src/pages/briefing/ui/board/BriefingPage.tsx:55
+#: src/pages/briefing/ui/board/BriefingPage.tsx:52
 msgid "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive with stages, objectives, mutators, and reset timing."
 msgstr "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive with stages, objectives, mutators, and reset timing."
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:41
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:37
 msgid "Checking the briefing"
 msgstr "Checking the briefing"
 
@@ -154,7 +154,7 @@ msgstr "Clear the cleanup. Small leftovers ruin brave revives."
 msgid "coming soon"
 msgstr "coming soon"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:76
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:70
 msgid "Could not load the briefing"
 msgstr "Could not load the briefing"
 
@@ -294,7 +294,7 @@ msgstr "Fungus Bogs"
 msgid "Glacial Strata"
 msgstr "Glacial Strata"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:24
+#: src/pages/not-found/ui/NotFoundPage.tsx:19
 msgid "Go to the briefing"
 msgstr "Go to the briefing"
 
@@ -322,11 +322,11 @@ msgstr "Hollow Bough"
 msgid "Hoxxes Briefing · Rock and Stone!"
 msgstr "Hoxxes Briefing · Rock and Stone!"
 
-#: src/pages/briefing/ui/board/BriefingPage.tsx:51
+#: src/pages/briefing/ui/board/BriefingPage.tsx:48
 msgid "Hoxxes Briefing | DRG Deep Dive Overview"
 msgstr "Hoxxes Briefing | DRG Deep Dive Overview"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:20
+#: src/pages/not-found/ui/NotFoundPage.tsx:15
 msgid "Hoxxes Briefing | Not Found"
 msgstr "Hoxxes Briefing | Not Found"
 
@@ -422,7 +422,7 @@ msgstr "Locked and loaded!"
 msgid "Long live the Dwarves!"
 msgstr "Long live the Dwarves!"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:37
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:33
 msgid "Looking for deep dives on your device."
 msgstr "Looking for deep dives on your device."
 
@@ -466,7 +466,7 @@ msgstr "Mind the sugar route. A dry stretch kills momentum."
 msgid "Mind your spacing. Dead bugs can still ruin the formation."
 msgstr "Mind your spacing. Dead bugs can still ruin the formation."
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:43
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:39
 msgid "Mining Morkite"
 msgstr "Mining Morkite"
 
@@ -474,7 +474,7 @@ msgstr "Mining Morkite"
 msgid "Mission Control has not verified this briefing yet. Dive details may change."
 msgstr "Mission Control has not verified this briefing yet. Dive details may change."
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:125
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:115
 msgid "Mission Control is having trouble on its end. Try again in a moment."
 msgstr "Mission Control is having trouble on its end. Try again in a moment."
 
@@ -512,11 +512,11 @@ msgstr "Mysterious gravitational irregularities result in lowered overall gravit
 msgid "New version ready"
 msgstr "New version ready"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:62
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:56
 msgid "No saved briefing"
 msgstr "No saved briefing"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:238
+#: src/pages/briefing/ui/dive/StageBlock.tsx:237
 msgid "No warning or anomaly on this stage."
 msgstr "No warning or anomaly on this stage."
 
@@ -533,11 +533,11 @@ msgstr "None can stand before us!"
 msgid "Offline"
 msgstr "Offline"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:59
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:53
 msgid "Offline cache miss"
 msgstr "Offline cache miss"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:61
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:55
 msgid "Open Hoxxes Briefing while online once to keep it available offline."
 msgstr "Open Hoxxes Briefing while online once to keep it available offline."
 
@@ -545,7 +545,7 @@ msgstr "Open Hoxxes Briefing while online once to keep it available offline."
 msgid "Ossuary Depths"
 msgstr "Ossuary Depths"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:30
+#: src/pages/not-found/ui/NotFoundPage.tsx:25
 msgid "Page not found"
 msgstr "Page not found"
 
@@ -573,11 +573,11 @@ msgstr "Prep the hold first. Clear lanes before you lock in."
 msgid "Prepare yourself for a tsunami of Glyphid Swarmers!"
 msgstr "Prepare yourself for a tsunami of Glyphid Swarmers!"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:198
+#: src/pages/briefing/ui/dive/StageBlock.tsx:197
 msgid "Primary objective"
 msgstr "Primary objective"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:36
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:32
 msgid "Pulling the latest deep dives now."
 msgstr "Pulling the latest deep dives now."
 
@@ -601,7 +601,7 @@ msgstr "Refreshing..."
 msgid "Regenerative Bugs"
 msgstr "Regenerative Bugs"
 
-#: src/app/shell/AppCrashScreen.tsx:22
+#: src/app/shell/AppCrashScreen.tsx:21
 msgid "Reload app"
 msgstr "Reload app"
 
@@ -609,7 +609,7 @@ msgstr "Reload app"
 msgid "Reload for the latest app version."
 msgstr "Reload for the latest app version."
 
-#: src/app/shell/AppCrashScreen.tsx:25
+#: src/app/shell/AppCrashScreen.tsx:24
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
 
@@ -657,7 +657,7 @@ msgstr "Rock solid!"
 msgid "Rundown"
 msgstr "Rundown"
 
-#: src/app/shell/AppCrashScreen.tsx:26
+#: src/app/shell/AppCrashScreen.tsx:25
 msgid "Runtime fault"
 msgstr "Runtime fault"
 
@@ -689,7 +689,7 @@ msgstr "Scanners have detected several clusters of Ossiran Pit Jaws in the area.
 msgid "Scrab Nesting Grounds"
 msgstr "Scrab Nesting Grounds"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:205
+#: src/pages/briefing/ui/dive/StageBlock.tsx:204
 msgid "Secondary objective"
 msgstr "Secondary objective"
 
@@ -721,7 +721,7 @@ msgstr "Something is eating the creatures from the inside out, and will go after
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:191
+#: src/pages/briefing/ui/dive/StageBlock.tsx:190
 msgid "Stage"
 msgstr "Stage"
 
@@ -757,7 +757,7 @@ msgstr "The odd composition of local food sources means all enemies violently co
 msgid "The truth is out there. So's the gold."
 msgstr "The truth is out there. So's the gold."
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:58
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:52
 msgid "This device is offline and has no saved briefing."
 msgstr "This device is offline and has no saved briefing."
 
@@ -765,11 +765,11 @@ msgstr "This device is offline and has no saved briefing."
 msgid "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 msgstr "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:27
+#: src/pages/not-found/ui/NotFoundPage.tsx:22
 msgid "This page is not available here. Head back to the briefing."
 msgstr "This page is not available here. Head back to the briefing."
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:104
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:95
 msgid "This version of the app can no longer read the briefing. Update to keep diving."
 msgstr "This version of the app can no longer read the briefing. Update to keep diving."
 
@@ -777,11 +777,11 @@ msgstr "This version of the app can no longer read the briefing. Update to keep 
 msgid "Toxins in the atmosphere drains your health, but crystalize the blood of Hoxxes Wildlife into Red Sugar. Kill to survive!"
 msgstr "Toxins in the atmosphere drains your health, but crystalize the blood of Hoxxes Wildlife into Red Sugar. Kill to survive!"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:70
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:64
 msgid "Try again"
 msgstr "Try again"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:123
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:113
 msgid "Try again once the connection settles."
 msgstr "Try again once the connection settles."
 
@@ -797,12 +797,12 @@ msgstr "Unverified — Mission Control has not confirmed this briefing yet, deta
 msgid "Unverified briefing"
 msgstr "Unverified briefing"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:101
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:92
 #: src/widgets/pwa-notice/ui/PwaNotice.tsx:66
 msgid "Update app"
 msgstr "Update app"
 
-#: src/pages/briefing/ui/board/BriefingPageStates.tsx:105
+#: src/pages/briefing/ui/board/BriefingPageStates.tsx:96
 msgid "Update required"
 msgstr "Update required"
 
@@ -814,7 +814,7 @@ msgstr "Use the speed. Finish spread jobs before swarms stack."
 msgid "Volatile Guts"
 msgstr "Volatile Guts"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:216
+#: src/pages/briefing/ui/dive/StageBlock.tsx:215
 msgid "Warning"
 msgstr "Warning"
 
@@ -830,7 +830,7 @@ msgstr "Watch the floor before you plant. Bad footing breaks good holds."
 msgid "We are unbreakable!"
 msgstr "We are unbreakable!"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:28
+#: src/pages/not-found/ui/NotFoundPage.tsx:23
 msgid "Wrong tunnel"
 msgstr "Wrong tunnel"
 

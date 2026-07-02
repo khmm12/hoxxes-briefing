@@ -5,14 +5,15 @@
 	"sideEffects": false,
 	"scripts": {
 		"build": "tsc -p tsconfig.build.json",
-		"typecheck": "tsc -p tsconfig.json --noEmit",
-		"test": "node --conditions=development --test --experimental-strip-types test/api-v1.test.mjs"
+		"typecheck": "tsc -p tsconfig.json --noEmit && tsc -p test/tsconfig.json --noEmit",
+		"test": "node --conditions=development --test --experimental-strip-types test/*.test.{ts,js}"
 	},
 	"dependencies": {
 		"valibot": "^1.4.2"
 	},
 	"devDependencies": {
-		"typescript": "^6.0.3"
+		"typescript": "^6.0.3",
+		"@types/node": "^24.13.2"
 	},
 	"exports": {
 		".": {

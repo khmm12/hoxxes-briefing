@@ -2,7 +2,7 @@ import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import type { SystemStyleObject, WithCss } from 'styled-system/types'
 
-export type StylingClass = JSX.HTMLAttributes<HTMLElement>['class']
+type StylingClass = JSX.HTMLAttributes<HTMLElement>['class']
 
 export type StylingProps = {
   class?: StylingClass

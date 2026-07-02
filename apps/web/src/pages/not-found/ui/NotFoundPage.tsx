@@ -5,18 +5,13 @@ import { useI18n } from '~/shared/i18n'
 import { Title } from '~/shared/lib/document-head'
 import { ActionControl } from '~/shared/ui/action-button'
 import { NotFoundIcon } from '~/shared/ui/icon'
-import { AppLayout } from '~/shared/ui/layout'
 import { StateScreen } from '~/shared/ui/state-screen'
 
-type NotFoundPageProps = {
-  dockVisible: boolean
-}
-
-export function NotFoundPage(props: NotFoundPageProps): JSX.Element {
+export function NotFoundPage(): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <AppLayout dockVisible={props.dockVisible}>
+    <>
       <Title>{i18n._(msg`Hoxxes Briefing | Not Found`)}</Title>
       <StateScreen
         action={
@@ -30,6 +25,6 @@ export function NotFoundPage(props: NotFoundPageProps): JSX.Element {
         title={i18n._(msg`Page not found`)}
         tone="info"
       />
-    </AppLayout>
+    </>
   )
 }

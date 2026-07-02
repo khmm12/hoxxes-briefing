@@ -18,7 +18,7 @@ export type ObjectiveContextTag =
   | 'split-routing'
   | 'vertical-search'
 
-export type ObjectiveCatalogEntry = {
+type ObjectiveCatalogEntry = {
   contextTags: readonly ObjectiveContextTag[]
 }
 

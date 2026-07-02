@@ -1,4 +1,4 @@
-import { createMemo, Show } from 'solid-js'
+import { Show } from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
@@ -182,8 +182,7 @@ const quietMutatorStyles = css.raw({
 export function StageBlock(props: StageBlockProps): JSX.Element {
   const i18n = useI18n()
 
-  const hasWarning = createMemo(() => props.mission.warning != null)
-  const hasAnomaly = createMemo(() => props.mission.anomaly != null)
+  const hasNoMutator = () => props.mission.warning == null && props.mission.anomaly == null
 
   return (
     <li class={css(stageBlockRecipe.raw({ kind: props.kind }))}>
@@ -234,7 +233,7 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
           )}
         </Show>
 
-        <Show when={!hasWarning() && !hasAnomaly()}>
+        <Show when={hasNoMutator()}>
           <p class={css(quietMutatorStyles)}>{i18n._(msg`No warning or anomaly on this stage.`)}</p>
         </Show>
       </div>

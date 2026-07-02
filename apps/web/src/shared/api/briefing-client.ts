@@ -3,7 +3,6 @@ import * as v1 from '@hoxxes-briefing/contracts/api/v1'
 // The app's typed view of the briefing wire. The page consumes these domain
 // types by name instead of indexing structurally off `Briefing`.
 export type {
-  BriefingConfidence,
   DeepDive,
   DeepDiveAnomaly,
   DeepDiveBiome,
@@ -16,7 +15,7 @@ export type {
 
 export const briefingUrl = '/api/v1/briefing'
 
-export type FetchBriefingOptions = {
+type FetchBriefingOptions = {
   fetch?: typeof fetch
   request?: RequestInfo | URL
   signal?: AbortSignal

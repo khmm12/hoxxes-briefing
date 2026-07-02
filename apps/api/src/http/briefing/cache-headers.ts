@@ -5,8 +5,8 @@ const BRIEFING_CDN_CACHE_SAFETY_MARGIN_SECONDS = 60
 const BRIEFING_CDN_STALE_WHILE_REVALIDATE_SECONDS = 60
 const BRIEFING_CACHE_TAG = 'briefing,briefing-v1'
 
-export const briefingBrowserCacheControl = 'public, max-age=0, must-revalidate'
-export const briefingNoStoreCacheControl = 'no-store'
+const briefingBrowserCacheControl = 'public, max-age=0, must-revalidate'
+const briefingNoStoreCacheControl = 'no-store'
 
 export type BriefingCacheHeaders = Record<string, string>
 

@@ -4,7 +4,7 @@ export enum Locale {
 
 export const defaultLocale = Locale.English
 
-export const supportedLocales = [Locale.English] as const
+const supportedLocales = [Locale.English] as const
 export type SupportedLocale = (typeof supportedLocales)[number]
 
 export function resolveLocale(candidates: readonly string[]): SupportedLocale {
