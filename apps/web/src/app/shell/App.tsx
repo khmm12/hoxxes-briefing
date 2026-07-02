@@ -2,10 +2,10 @@ import { createEffect, Errored, Loading, lazy, Show } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { Route, Router } from '@solidjs/router'
 import type { JSX } from '@solidjs/web'
+import { createPwaController } from '~/app/pwa'
 import { AppCrashScreen } from '~/app/shell/AppCrashScreen'
-import { I18nProvider } from '~/shared/i18n'
-import { createPwaNoticeState } from '~/app/pwa'
 import { BriefingPage } from '~/pages/briefing'
+import { I18nProvider } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { PwaNotice } from '~/widgets/pwa-notice'
 import '../styles/global.css'
@@ -24,8 +24,8 @@ type AppProps = {
 
 export function App(props: AppProps): JSX.Element {
   const online = createOnlineStatus()
-  const pwaNotice = createPwaNoticeState()
-  const pwaDockVisible = (): boolean => online() && pwaNotice.notice() != null
+  const pwa = createPwaController()
+  const pwaDockVisible = (): boolean => online() && pwa.notice() != null
 
   return (
     <I18nProvider i18n={props.i18n}>
@@ -38,7 +38,7 @@ export function App(props: AppProps): JSX.Element {
           // waiting service worker when an update is available, so a crash
           // fixed by a fresh deploy is actually recoverable.
           const recover = (): void => {
-            if (pwaNotice.notice() != null) void pwaNotice.reloadForUpdate()
+            if (pwa.notice() != null) void pwa.reloadForUpdate()
             else window.location.reload()
           }
 
@@ -49,7 +49,7 @@ export function App(props: AppProps): JSX.Element {
           <Route
             path="/"
             component={() => (
-              <BriefingPage dockVisible={pwaDockVisible()} onUpdateApp={() => void pwaNotice.reloadForOutdated()} />
+              <BriefingPage dockVisible={pwaDockVisible()} onUpdateApp={() => void pwa.reloadForOutdated()} />
             )}
           />
           {PlaygroundPage != null ? <Route path="/__playground/:scenario?" component={PlaygroundPage} /> : null}
@@ -58,7 +58,7 @@ export function App(props: AppProps): JSX.Element {
       </Errored>
 
       <Show when={pwaDockVisible()}>
-        <PwaNotice onReload={pwaNotice.reloadForUpdate} />
+        <PwaNotice onReload={pwa.reloadForUpdate} />
       </Show>
     </I18nProvider>
   )

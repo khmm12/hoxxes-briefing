@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { createRoot, createSignal, flush } from 'solid-js'
-import { createPwaNoticeState } from './create-pwa-notice-state'
+import { createPwaController } from './create-pwa-controller'
 
 const [needRefresh, setNeedRefresh] = createSignal(false)
 const [offlineReady, setOfflineReady] = createSignal(false)
@@ -39,7 +39,7 @@ function stubLocationReload() {
   return reload
 }
 
-describe('createPwaNoticeState', () => {
+describe('createPwaController', () => {
   afterEach(() => {
     setNeedRefresh(false)
     setOfflineReady(false)
@@ -51,7 +51,7 @@ describe('createPwaNoticeState', () => {
 
   it('has no notice until a refresh is needed', () => {
     createRoot((dispose) => {
-      const state = createPwaNoticeState()
+      const state = createPwaController()
 
       expect(state.notice()).toBeNull()
 
@@ -60,9 +60,9 @@ describe('createPwaNoticeState', () => {
   })
 
   it('surfaces a dismissible notice once a refresh is needed', () => {
-    let state: ReturnType<typeof createPwaNoticeState> | undefined
+    let state: ReturnType<typeof createPwaController> | undefined
     const dispose = createRoot((dispose) => {
-      state = createPwaNoticeState()
+      state = createPwaController()
       return dispose
     })
 
@@ -79,7 +79,7 @@ describe('createPwaNoticeState', () => {
 
   it('reloadForUpdate hands off to updateServiceWorker', async () => {
     await createRoot(async (dispose) => {
-      const state = createPwaNoticeState()
+      const state = createPwaController()
 
       await state.reloadForUpdate()
 
@@ -93,7 +93,7 @@ describe('createPwaNoticeState', () => {
     const reloadSpy = stubLocationReload()
 
     await createRoot(async (dispose) => {
-      const state = createPwaNoticeState()
+      const state = createPwaController()
 
       await state.reloadForOutdated()
 
@@ -113,7 +113,7 @@ describe('createPwaNoticeState', () => {
     registrationUpdate.mockRejectedValue(new Error('offline'))
 
     await createRoot(async (dispose) => {
-      const state = createPwaNoticeState()
+      const state = createPwaController()
 
       await state.reloadForOutdated()
 
@@ -126,9 +126,9 @@ describe('createPwaNoticeState', () => {
   })
 
   it('dismissInstallHint clears both offlineReady and needRefresh', () => {
-    let state: ReturnType<typeof createPwaNoticeState> | undefined
+    let state: ReturnType<typeof createPwaController> | undefined
     const dispose = createRoot((dispose) => {
-      state = createPwaNoticeState()
+      state = createPwaController()
       return dispose
     })
 

@@ -5,7 +5,7 @@ type PwaNoticeState = {
   dismissible: boolean
 }
 
-export function createPwaNoticeState() {
+export function createPwaController() {
   let registration: ServiceWorkerRegistration | undefined
 
   const {
