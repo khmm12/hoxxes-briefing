@@ -90,3 +90,12 @@ Long-running commands may be used only when needed for manual verification:
   *features* — never a surprising *gap* in existing behavior (e.g. an app-rendered
   asset silently left out of the offline cache). Make the expected case work by
   default and call out any deliberate exception.
+- Strict contracts, strict types: wire data crosses a closed valibot contract
+  (`packages/contracts`) — closed enums/variants, no freeform `string` for a
+  bounded domain. Both ends parse and reject the unknown, so the client only ever
+  holds known members. Lean on that: key logic on the contract's types
+  exhaustively (`Record<Member, …>`, `switch` with a `never` check) and let the
+  compiler force new members to be handled instead of adding runtime fallbacks for
+  states the contract makes impossible. New domain values are a contract change
+  (picklist + revision bump, see [ADR 0002](docs/adr/0002-contract-revision-negotiation.md)),
+  caught at build time.

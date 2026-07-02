@@ -43,7 +43,7 @@ export function formatBiome(i18n: I18n, biome: DeepDiveBiome): string {
 export function formatPrimaryObjective(i18n: I18n, objective: DeepDivePrimaryObjective): string {
   switch (objective.kind) {
     case 'DeepScan':
-      return i18n._(msg`Crystal Scan x${objective.resonanceCrystals}`)
+      return i18n._(msg`Deep Scan x${objective.resonanceCrystals}`)
     case 'EscortDuty':
       return i18n._(msg`Escort Duty`)
     case 'MiningExpedition':
@@ -72,7 +72,7 @@ export function formatSecondaryObjective(i18n: I18n, objective: DeepDiveSecondar
     case 'EggHunt':
       return i18n._(msg`Egg x${objective.eggs}`)
     case 'DeepScan':
-      return i18n._(msg`Crystal Scan x${objective.resonanceCrystals}`)
+      return i18n._(msg`Deep Scan x${objective.resonanceCrystals}`)
     case 'Blackbox':
       return i18n._(msg`Black Box`)
     case 'Elimination':

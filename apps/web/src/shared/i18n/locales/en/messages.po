@@ -146,15 +146,13 @@ msgstr "coming soon"
 msgid "Could not load the briefing"
 msgstr "Could not load the briefing"
 
+#: src/pages/briefing/ui/ShareButton.tsx:78
+msgid "Couldn't copy the Deep Dives — try again."
+msgstr "Couldn't copy the Deep Dives — try again."
+
 #: src/pages/briefing/ui/dive-copy.ts:104
 msgid "Critical Weakness"
 msgstr "Critical Weakness"
-
-#. placeholder {0}: objective.resonanceCrystals
-#: src/pages/briefing/ui/dive-copy.ts:46
-#: src/pages/briefing/ui/dive-copy.ts:75
-msgid "Crystal Scan x{0}"
-msgstr "Crystal Scan x{0}"
 
 #: src/pages/briefing/ui/dive-copy.ts:19
 msgid "Crystalline Caverns"
@@ -180,9 +178,20 @@ msgstr "Deep Dive"
 msgid "Deep dive mission board"
 msgstr "Deep dive mission board"
 
+#: src/pages/briefing/lib/build-share-text.ts:94
 #: src/pages/briefing/ui/DiveDeck.tsx:181
 msgid "Deep Dives"
 msgstr "Deep Dives"
+
+#: src/pages/briefing/ui/ShareButton.tsx:74
+msgid "Deep Dives copied to clipboard."
+msgstr "Deep Dives copied to clipboard."
+
+#. placeholder {0}: objective.resonanceCrystals
+#: src/pages/briefing/ui/dive-copy.ts:46
+#: src/pages/briefing/ui/dive-copy.ts:75
+msgid "Deep Scan x{0}"
+msgstr "Deep Scan x{0}"
 
 #: src/pages/briefing/ui/dive-copy.ts:27
 msgid "Dense Biozone"
@@ -268,6 +277,10 @@ msgstr "Hiveguard"
 #: src/pages/briefing/ui/dive-copy.ts:37
 msgid "Hollow Bough"
 msgstr "Hollow Bough"
+
+#: src/pages/briefing/lib/build-share-text.ts:85
+msgid "Hoxxes Briefing · Rock and Stone!"
+msgstr "Hoxxes Briefing · Rock and Stone!"
 
 #: src/pages/briefing/ui/BriefingPage.tsx:51
 msgid "Hoxxes Briefing | DRG Deep Dive Overview"
@@ -604,6 +617,14 @@ msgstr "Secondary objective"
 msgid "Sensors have detected Rival presence in the area!"
 msgstr "Sensors have detected Rival presence in the area!"
 
+#: src/pages/briefing/ui/ShareButton.tsx:57
+msgid "Share Deep Dives"
+msgstr "Share Deep Dives"
+
+#: src/pages/briefing/ui/ShareButton.tsx:80
+msgid "Sharing is not available on this device."
+msgstr "Sharing is not available on this device."
+
 #: src/pages/briefing/ui/dive-copy.ts:139
 msgid "Shield Disruption"
 msgstr "Shield Disruption"
@@ -683,6 +704,10 @@ msgstr "Try again once the connection settles."
 #: src/pages/briefing/ui/dive-copy.ts:233
 msgid "Twins"
 msgstr "Twins"
+
+#: src/pages/briefing/lib/build-share-text.ts:98
+msgid "Unverified — Mission Control has not confirmed this briefing yet, details may change."
+msgstr "Unverified — Mission Control has not confirmed this briefing yet, details may change."
 
 #: src/pages/briefing/ui/ConfidenceNotice.tsx:50
 msgid "Unverified briefing"

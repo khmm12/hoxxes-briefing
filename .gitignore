@@ -35,3 +35,6 @@ Thumbs.db
 styled-system
 styled-system-studio
 .vercel
+
+# Local scratch space (uncommitted)
+.scratchpad/

@@ -71,6 +71,10 @@ const objectivePrimary =
 const objectiveSecondary =
   'M12 2.6l9.4 9.4-9.4 9.4-9.4-9.4z m0 2.3l7.1 7.1-7.1 7.1-7.1-7.1z m0 4l3.1 3.1-3.1 3.1-3.1-3.1z'
 
+// An export arrow rising out of an open-top tray: the share/send-out action.
+const share =
+  'M12 2.6 L17.2 7.8 L13.5 7.8 L13.5 16.5 L10.5 16.5 L10.5 7.8 L6.8 7.8 Z M4.6 11 L6.8 11 L6.8 20.8 L4.6 20.8 Z M17.2 11 L19.4 11 L19.4 20.8 L17.2 20.8 Z M4.6 18.6 L19.4 18.6 L19.4 20.8 L4.6 20.8 Z'
+
 export function RefreshIcon(props: IconProps): JSX.Element {
   return <GlyphIcon d={refresh} {...props} />
 }
@@ -105,4 +109,8 @@ export function ObjectivePrimaryIcon(props: IconProps): JSX.Element {
 
 export function ObjectiveSecondaryIcon(props: IconProps): JSX.Element {
   return <GlyphIcon d={objectiveSecondary} fillRule="evenodd" {...props} />
+}
+
+export function ShareIcon(props: IconProps): JSX.Element {
+  return <GlyphIcon d={share} {...props} />
 }

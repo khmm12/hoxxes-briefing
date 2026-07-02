@@ -6307,6 +6307,43 @@
                       "fontWeight": "600"
                     }
                   ]
+                },
+                {
+                  "type": "frame",
+                  "id": "L02Wi",
+                  "name": "share",
+                  "width": 136,
+                  "fill": "$surface",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$border-subtle",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    12,
+                    8
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "id": "a5NAcT",
+                      "type": "ref",
+                      "ref": "UpxTZ",
+                      "name": "glyph/ui-share",
+                      "width": 24,
+                      "height": 24
+                    },
+                    {
+                      "type": "text",
+                      "id": "K83GW",
+                      "name": "Role",
+                      "fill": "$text-secondary",
+                      "content": "share",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-xs",
+                      "fontWeight": "600"
+                    }
+                  ]
                 }
               ]
             }
@@ -17707,6 +17744,28 @@
                           ]
                         },
                         {
+                          "type": "frame",
+                          "id": "rYFRl",
+                          "name": "Share Btn",
+                          "width": 32,
+                          "height": 32,
+                          "cornerRadius": "$radius-md",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "IxahP",
+                              "type": "ref",
+                              "ref": "UpxTZ",
+                              "name": "Share Icon",
+                              "width": 16,
+                              "height": 16,
+                              "fill": "$text-secondary",
+                              "stroke": "$text-secondary"
+                            }
+                          ]
+                        },
+                        {
                           "id": "kgfJb",
                           "type": "ref",
                           "ref": "wZAiz",
@@ -18592,6 +18651,27 @@
           ]
         }
       ]
+    },
+    {
+      "type": "path",
+      "id": "UpxTZ",
+      "x": 160,
+      "y": 12,
+      "name": "glyph/ui-share",
+      "reusable": true,
+      "geometry": "M12 2.6l5.2 5.2-3.7 0 0 8.7-3 0 0-8.7-3.7 0z m-7.4 8.4l2.2 0 0 9.8-2.2 0z m12.6 0l2.2 0 0 9.8-2.2 0z m-12.6 7.6l14.8 0 0 2.2-14.8 0z",
+      "viewBox": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "fill": "$text-secondary",
+      "width": 24,
+      "height": 24,
+      "stroke": "#00000000",
+      "strokeLinejoin": "round",
+      "strokeLinecap": "round"
     }
   ],
   "variables": {

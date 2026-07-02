@@ -10,6 +10,7 @@ import {
   ObjectiveSecondaryIcon,
   OfflineIcon,
   RefreshIcon,
+  ShareIcon,
   WarningGenericIcon,
 } from '~/shared/ui/icon'
 
@@ -56,6 +57,7 @@ describe('glyph icon set', () => {
     MutatorGenericIcon,
     ObjectivePrimaryIcon,
     ObjectiveSecondaryIcon,
+    ShareIcon,
   ]
 
   it.each(icons.map((Icon) => [Icon.name, Icon] as const))('%s renders a single glyph path', (_name, Icon) => {
