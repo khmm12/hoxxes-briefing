@@ -158,19 +158,10 @@ importers:
       vitest:
         specifier: ^4.1.9
         version: 4.1.9(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(happy-dom@20.10.6)(jsdom@29.1.1)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(terser@5.48.0))
-      workbox-cacheable-response:
-        specifier: ^7.4.1
-        version: 7.4.1
-      workbox-expiration:
-        specifier: ^7.4.1
-        version: 7.4.1
       workbox-precaching:
         specifier: ^7.4.1
         version: 7.4.1
       workbox-routing:
-        specifier: ^7.4.1
-        version: 7.4.1
-      workbox-strategies:
         specifier: ^7.4.1
         version: 7.4.1
       workbox-window:
