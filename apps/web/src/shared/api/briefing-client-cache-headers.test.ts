@@ -16,6 +16,7 @@ const createMission = () => ({
 
 const createBriefingPayload = () => ({
   seed: 1234567890,
+  confidence: 'verified',
   release: '2026-04-16T11:00:00.000Z',
   expiration: '2026-04-23T11:00:00.000Z',
   dives: {

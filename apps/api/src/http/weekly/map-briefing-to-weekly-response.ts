@@ -1,4 +1,3 @@
-import * as v1 from '@hoxxes-briefing/contracts/api/v1'
 import type {
   Briefing,
   DeepDive,
@@ -6,8 +5,9 @@ import type {
   DeepDiveMission,
   DeepDivePrimaryObjective,
   DeepDiveSecondaryObjective,
-} from '../application/models/briefing.ts'
-import { getIsoWeekId } from '../shared/get-iso-week-id.ts'
+} from '../../application/models/briefing.ts'
+import { getIsoWeekId } from '../../shared/get-iso-week-id.ts'
+import { parseWeeklyResponse, type WeeklyResponse } from './wire.ts'
 
 // CLEANUP(stage-4): this entire anti-corruption layer deletes with the legacy wire.
 // Anti-corruption layer: projects the clean Briefing domain onto the legacy
@@ -15,8 +15,8 @@ import { getIsoWeekId } from '../shared/get-iso-week-id.ts'
 // domain renames (`anomaly`→`mutator`, `Classic`→`Dreadnought`, secondary
 // `HeavyExtraction`→`HeavyExcavation`). Disposable: delete together with the
 // `/api/v1/weekly` endpoint at sunset (ADR 0001).
-export function mapBriefingToWeeklyResponse(briefing: Briefing): v1.WeeklyResponse {
-  return v1.parseWeeklyResponse({
+export function mapBriefingToWeeklyResponse(briefing: Briefing): WeeklyResponse {
+  return parseWeeklyResponse({
     week: {
       id: getIsoWeekId(briefing.expiration),
       seed: briefing.seed,

@@ -6,7 +6,7 @@ import { css } from 'styled-system/css'
 import type { BriefingRequestError } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
-import { BriefingUnavailableIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
+import { AlertIcon, BriefingUnavailableIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
 import { AppLayout } from '~/shared/ui/layout'
 import { Spinner } from '~/shared/ui/spinner'
 import { StateScreen } from '~/shared/ui/state-screen'
@@ -77,6 +77,36 @@ export function BriefingErrorState(props: BriefingErrorStateProps): JSX.Element 
           tone="primary"
         />
       </Show>
+    </AppLayout>
+  )
+}
+
+type BriefingOutdatedStateProps = {
+  dockVisible: boolean
+  onUpdateApp: () => void
+}
+
+// The update wall (ADR 0002): this bundle can no longer read the deployed
+// contract — 410 CONTRACT_RETIRED or a payload from a newer revision. The
+// fixed bundle is already live (SPA and API deploy atomically), so the only
+// action is updating, never retrying.
+export function BriefingOutdatedState(props: BriefingOutdatedStateProps): JSX.Element {
+  const i18n = useI18n()
+
+  return (
+    <AppLayout dockVisible={props.dockVisible}>
+      <StateScreen
+        action={
+          <ActionControl component="button" leadingIcon={<RefreshIcon />} onClick={props.onUpdateApp} type="button">
+            {i18n._(msg`Update app`)}
+          </ActionControl>
+        }
+        body={i18n._(msg`This version of the app can no longer read the briefing. Update to keep diving.`)}
+        eyebrow={i18n._(msg`Update required`)}
+        indicator={<AlertIcon />}
+        title={i18n._(msg`A new version is available`)}
+        tone="primary"
+      />
     </AppLayout>
   )
 }

@@ -1,4 +1,14 @@
-import { type Accessor, createEffect, createMemo, createSignal, Errored, Loading, merge, onSettled } from 'solid-js'
+import {
+  type Accessor,
+  createEffect,
+  createMemo,
+  createSignal,
+  Errored,
+  Loading,
+  merge,
+  onSettled,
+  Show,
+} from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { BriefingRequestError } from '~/shared/api'
@@ -9,12 +19,13 @@ import { AppLayout } from '~/shared/ui/layout'
 import { type BriefingViewState, isBriefingExpired } from '../model/briefing-page-state'
 import { createBriefingQuery } from '../model/create-briefing-query'
 import { Board } from './Board'
-import { BriefingErrorState, BriefingLoadingState } from './BriefingPageStates'
+import { BriefingErrorState, BriefingLoadingState, BriefingOutdatedState } from './BriefingPageStates'
 
 type BriefingQuery = ReturnType<typeof createBriefingQuery>
 
 type BriefingPageProps = {
   dockVisible: boolean
+  onUpdateApp: () => void
 }
 
 type ReadyBoardProps = {
@@ -22,6 +33,7 @@ type ReadyBoardProps = {
   online: boolean
   query: BriefingQuery
   onRefresh: () => void
+  onUpdateApp: () => void
 }
 
 export function BriefingPage(props: BriefingPageProps): JSX.Element {
@@ -67,6 +79,12 @@ export function BriefingPage(props: BriefingPageProps): JSX.Element {
                   const requestError = error()
                   if (!(requestError instanceof BriefingRequestError)) throw requestError
 
+                  // Only an app update fixes an outdated contract — retrying
+                  // would just hit the same wall.
+                  if (requestError.kind === 'outdated') {
+                    return <BriefingOutdatedState dockVisible={props.dockVisible} onUpdateApp={props.onUpdateApp} />
+                  }
+
                   return (
                     <BriefingErrorState
                       dockVisible={props.dockVisible}
@@ -85,6 +103,7 @@ export function BriefingPage(props: BriefingPageProps): JSX.Element {
             online={online()}
             query={briefingQuery}
             onRefresh={handleRefresh}
+            onUpdateApp={props.onUpdateApp}
           />
         </Errored>
       </Loading>
@@ -103,10 +122,23 @@ function ReadyBoard(props: ReadyBoardProps): JSX.Element {
     }),
   )
 
+  // A refresh rejected with `outdated` is not a transient failure: the cached
+  // board may be correct-for-its-revision, but every next fetch hits the same
+  // wall, so the wall replaces the board instead of a "refresh failed" hint.
+  const outdated = createMemo(() => {
+    const refreshError = props.query.lastRefreshError
+    return refreshError instanceof BriefingRequestError && refreshError.kind === 'outdated'
+  })
+
   return (
-    <AppLayout dockVisible={props.dockVisible}>
-      <Board now={now()} state={state} data={props.query.data} onRefresh={props.onRefresh} />
-    </AppLayout>
+    <Show
+      when={!outdated()}
+      fallback={<BriefingOutdatedState dockVisible={props.dockVisible} onUpdateApp={props.onUpdateApp} />}
+    >
+      <AppLayout dockVisible={props.dockVisible}>
+        <Board now={now()} state={state} data={props.query.data} onRefresh={props.onRefresh} />
+      </AppLayout>
+    </Show>
   )
 }
 

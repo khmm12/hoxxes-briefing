@@ -2,9 +2,10 @@
 import type { Context, Hono } from 'hono'
 import { getBriefing } from '../../application/get-briefing.ts'
 import type { BriefingProvider } from '../../ports/briefing-provider.ts'
-import { InvalidResponsePayloadError, toWeeklyErrorResponse } from '../errors.ts'
-import { mapBriefingToWeeklyResponse } from '../map-briefing-to-weekly-response.ts'
-import { createWeeklyErrorCacheHeaders, createWeeklySuccessCacheHeaders } from '../weekly-cache-headers.ts'
+import { InvalidResponsePayloadError } from '../errors.ts'
+import { createWeeklyErrorCacheHeaders, createWeeklySuccessCacheHeaders } from './cache-headers.ts'
+import { toWeeklyErrorResponse } from './errors.ts'
+import { mapBriefingToWeeklyResponse } from './map-briefing-to-weekly-response.ts'
 
 export type WeeklyRouteDependencies = {
   briefingProvider: BriefingProvider

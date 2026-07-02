@@ -1,4 +1,11 @@
-import { type Briefing, briefingUrl, cacheBriefing, fetchBriefing, readCachedBriefing } from '~/shared/api'
+import {
+  type Briefing,
+  BriefingRequestError,
+  briefingUrl,
+  cacheBriefing,
+  fetchBriefing,
+  readCachedBriefing,
+} from '~/shared/api'
 import { type CachedQuery, createCachedQuery } from '~/shared/lib/create-cached-query'
 import { isBriefingExpired } from './briefing-page-state'
 
@@ -29,6 +36,11 @@ export function createBriefingQuery(): CachedQuery<Briefing> {
     },
     isStale(briefing) {
       return isBriefingExpired(new Date(briefing.expiration), new Date())
+    },
+    // ADR 0002: `outdated` must reach the update wall even over a warm cache —
+    // a retired bundle showing a cached board with no wall is fail-open.
+    isFatal(error) {
+      return error instanceof BriefingRequestError && error.kind === 'outdated'
     },
     timeoutMs: staleBriefingGracePeriodMs,
   })

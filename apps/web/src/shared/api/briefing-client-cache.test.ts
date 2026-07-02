@@ -1,11 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { CONTRACT_REV } from '@hoxxes-briefing/contracts'
 import { briefingUrl } from './briefing-client'
-import {
-  cacheBriefing,
-  clearCachedBriefing,
-  clearStaleBriefingCache,
-  readCachedBriefing,
-} from './briefing-client-cache'
+import { cacheBriefing, clearCachedBriefing, readCachedBriefing } from './briefing-client-cache'
 
 type FakeCache = {
   initialResponse?: Response
@@ -35,6 +31,7 @@ const createDive = (name: string) => ({
 
 const createBriefingPayload = () => ({
   seed: 1234567890,
+  confidence: 'verified' as const,
   release: '2026-04-16T11:00:00.000Z',
   expiration: '2026-04-23T11:00:00.000Z',
   dives: {
@@ -64,6 +61,7 @@ describe('briefing cache helpers', () => {
 
     const raw = await response.clone().json()
     expect(raw.schemaVersion).toBe(1)
+    expect(raw.contractRev).toBe(CONTRACT_REV)
     expect(raw.payload.seed).toBe(1234567890)
 
     const readResult = await readCachedBriefing()
@@ -72,6 +70,25 @@ describe('briefing cache helpers', () => {
 
     await clearCachedBriefing()
     expect(fakeCache.delete).toHaveBeenCalledWith('/api/v1/briefing')
+  })
+
+  it('drops a cached briefing written under a different contract revision', async () => {
+    const staleEnvelope = JSON.stringify({
+      schemaVersion: 1,
+      contractRev: CONTRACT_REV + 1,
+      payload: createBriefingPayload(),
+    })
+    const fakeCache = createFakeCache({
+      initialResponse: new Response(staleEnvelope, { headers: { 'content-type': 'application/json' } }),
+    })
+    vi.stubGlobal('caches', {
+      open: vi.fn(async () => fakeCache),
+    })
+
+    const readResult = await readCachedBriefing()
+
+    expect(readResult).toBeNull()
+    expect(fakeCache.delete).toHaveBeenCalledWith(briefingUrl)
   })
 
   it('delete helper clears only the briefing key', async () => {
@@ -118,38 +135,6 @@ describe('briefing cache helpers', () => {
     await clearCachedBriefing('http://')
 
     expect(deleteMock).toHaveBeenCalledWith(briefingUrl)
-  })
-})
-
-describe('clearStaleBriefingCache', () => {
-  it('resolves without touching CacheStorage when it is unavailable', async () => {
-    // jsdom defines no `caches`; the guard must short-circuit instead of
-    // dereferencing the missing global.
-    await expect(clearStaleBriefingCache()).resolves.toBeUndefined()
-  })
-
-  it('evicts superseded briefing versions and the retired legacy weekly cache, keeping the live one', async () => {
-    const deleteMock = vi.fn(async () => true)
-    vi.stubGlobal('caches', {
-      keys: vi.fn(async () => [
-        // Retired data cache from the pre-briefing client — always dropped.
-        'hoxxes-briefing-weekly-cache-v1',
-        // Superseded briefing schema version — dropped.
-        'hoxxes-briefing-data-cache-v0',
-        // The live briefing cache — kept.
-        'hoxxes-briefing-data-cache-v1',
-        'unrelated-cache',
-      ]),
-      delete: deleteMock,
-    })
-
-    await clearStaleBriefingCache()
-
-    expect(deleteMock).toHaveBeenCalledTimes(2)
-    expect(deleteMock).toHaveBeenCalledWith('hoxxes-briefing-weekly-cache-v1')
-    expect(deleteMock).toHaveBeenCalledWith('hoxxes-briefing-data-cache-v0')
-    expect(deleteMock).not.toHaveBeenCalledWith('hoxxes-briefing-data-cache-v1')
-    expect(deleteMock).not.toHaveBeenCalledWith('unrelated-cache')
   })
 })
 

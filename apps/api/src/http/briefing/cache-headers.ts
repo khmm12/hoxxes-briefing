@@ -1,4 +1,5 @@
 import { differenceInSeconds } from 'date-fns/differenceInSeconds'
+import { VERCEL_CACHE_TAG_HEADER, VERCEL_CDN_CACHE_CONTROL_HEADER } from '../cdn-cache.ts'
 
 const BRIEFING_CDN_CACHE_SAFETY_MARGIN_SECONDS = 60
 const BRIEFING_CDN_STALE_WHILE_REVALIDATE_SECONDS = 60
@@ -14,8 +15,8 @@ export function createBriefingSuccessCacheHeaders(expiration: string, now: Date 
 
   return {
     'Cache-Control': briefingBrowserCacheControl,
-    'Vercel-Cache-Tag': BRIEFING_CACHE_TAG,
-    'Vercel-CDN-Cache-Control':
+    [VERCEL_CACHE_TAG_HEADER]: BRIEFING_CACHE_TAG,
+    [VERCEL_CDN_CACHE_CONTROL_HEADER]:
       ttlSeconds > 0
         ? [
             'public',

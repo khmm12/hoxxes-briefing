@@ -1,27 +1,52 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { createRoot, createSignal, flush } from 'solid-js'
 import { createPwaNoticeState } from './create-pwa-notice-state'
 
 const [needRefresh, setNeedRefresh] = createSignal(false)
 const [offlineReady, setOfflineReady] = createSignal(false)
 const updateServiceWorker = vi.fn(async () => {})
+const registrationUpdate = vi.fn(async () => {})
 
 // vite-plugin-pwa's dev stub for this virtual module returns dead signals
 // (no setter wired to a real worker), so the state machine can't be driven
 // through it. Mock it with signals the test controls instead.
 vi.mock('virtual:pwa-register/solid', () => ({
-  useRegisterSW: () => ({
-    needRefresh: [needRefresh, setNeedRefresh],
-    offlineReady: [offlineReady, setOfflineReady],
-    updateServiceWorker,
-  }),
+  useRegisterSW: (options?: { onRegisteredSW?: (url: string, registration: unknown) => void }) => {
+    options?.onRegisteredSW?.('/sw.js', { update: registrationUpdate })
+
+    return {
+      needRefresh: [needRefresh, setNeedRefresh],
+      offlineReady: [offlineReady, setOfflineReady],
+      updateServiceWorker,
+    }
+  },
 }))
+
+// jsdom marks `window.location` unforgeable, so `vi.spyOn(location, 'reload')`
+// throws — swap the whole object for the test and restore it after.
+function stubLocationReload() {
+  const originalLocation = window.location
+  const reload = vi.fn()
+
+  Object.defineProperty(window, 'location', {
+    configurable: true,
+    value: { ...originalLocation, reload },
+  })
+  onTestFinished(() => {
+    Object.defineProperty(window, 'location', { configurable: true, value: originalLocation })
+  })
+
+  return reload
+}
 
 describe('createPwaNoticeState', () => {
   afterEach(() => {
     setNeedRefresh(false)
     setOfflineReady(false)
     updateServiceWorker.mockClear()
+    registrationUpdate.mockClear()
+    registrationUpdate.mockImplementation(async () => {})
+    vi.restoreAllMocks()
   })
 
   it('has no notice until a refresh is needed', () => {
@@ -59,6 +84,42 @@ describe('createPwaNoticeState', () => {
       await state.reloadForUpdate()
 
       expect(updateServiceWorker).toHaveBeenCalledWith(true)
+
+      dispose()
+    })
+  })
+
+  it('reloadForOutdated checks for a fresh worker, updates, and always ends in a reload', async () => {
+    const reloadSpy = stubLocationReload()
+
+    await createRoot(async (dispose) => {
+      const state = createPwaNoticeState()
+
+      await state.reloadForOutdated()
+
+      expect(registrationUpdate).toHaveBeenCalledOnce()
+      expect(updateServiceWorker).toHaveBeenCalledWith(true)
+      // updateServiceWorker resolves without reloading when nothing is
+      // waiting — the wall must still end in a reload.
+      expect(reloadSpy).toHaveBeenCalledOnce()
+
+      dispose()
+    })
+  })
+
+  it('reloadForOutdated still reloads when the update check fails', async () => {
+    const reloadSpy = stubLocationReload()
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    registrationUpdate.mockRejectedValue(new Error('offline'))
+
+    await createRoot(async (dispose) => {
+      const state = createPwaNoticeState()
+
+      await state.reloadForOutdated()
+
+      expect(updateServiceWorker).toHaveBeenCalledWith(true)
+      expect(reloadSpy).toHaveBeenCalledOnce()
+      expect(warnSpy).toHaveBeenCalledOnce()
 
       dispose()
     })

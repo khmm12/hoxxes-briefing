@@ -33,6 +33,10 @@ msgstr "{seconds}s"
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
+#: src/pages/briefing/ui/BriefingPageStates.tsx:107
+msgid "A new version is available"
+msgstr "A new version is available"
+
 #: src/pages/briefing/ui/dive-copy.ts:201
 msgid "A slow, but invulnerable and deadly creature has been detected in this area. It will relentlessly chase you, throughout the mission. Do not let it get close."
 msgstr "A slow, but invulnerable and deadly creature has been detected in this area. It will relentlessly chase you, throughout the mission. Do not let it get close."
@@ -110,7 +114,7 @@ msgstr "Call weakpoints and burn big targets early."
 msgid "Cave Leech Cluster"
 msgstr "Cave Leech Cluster"
 
-#: src/pages/briefing/ui/BriefingPage.tsx:43
+#: src/pages/briefing/ui/BriefingPage.tsx:55
 msgid "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive with stages, objectives, mutators, and reset timing."
 msgstr "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive with stages, objectives, mutators, and reset timing."
 
@@ -265,7 +269,7 @@ msgstr "Hiveguard"
 msgid "Hollow Bough"
 msgstr "Hollow Bough"
 
-#: src/pages/briefing/ui/BriefingPage.tsx:39
+#: src/pages/briefing/ui/BriefingPage.tsx:51
 msgid "Hoxxes Briefing | DRG Deep Dive Overview"
 msgstr "Hoxxes Briefing | DRG Deep Dive Overview"
 
@@ -389,7 +393,11 @@ msgstr "Mind your spacing. Dead bugs can still ruin the formation."
 msgid "Mining Morkite"
 msgstr "Mining Morkite"
 
-#: src/pages/briefing/ui/BriefingPageStates.tsx:95
+#: src/pages/briefing/ui/ConfidenceNotice.tsx:52
+msgid "Mission Control has not verified this briefing yet. Dive details may change."
+msgstr "Mission Control has not verified this briefing yet. Dive details may change."
+
+#: src/pages/briefing/ui/BriefingPageStates.tsx:125
 msgid "Mission Control is having trouble on its end. Try again in a moment."
 msgstr "Mission Control is having trouble on its end. Try again in a moment."
 
@@ -656,6 +664,10 @@ msgstr "This mission site suffers from a massive Ebonite infestation. Rock and S
 msgid "This page is not available here. Head back to the briefing."
 msgstr "This page is not available here. Head back to the briefing."
 
+#: src/pages/briefing/ui/BriefingPageStates.tsx:104
+msgid "This version of the app can no longer read the briefing. Update to keep diving."
+msgstr "This version of the app can no longer read the briefing. Update to keep diving."
+
 #: src/pages/briefing/ui/dive-copy.ts:168
 msgid "Toxins in the atmosphere drains your health, but crystalize the blood of Hoxxes Wildlife into Red Sugar. Kill to survive!"
 msgstr "Toxins in the atmosphere drains your health, but crystalize the blood of Hoxxes Wildlife into Red Sugar. Kill to survive!"
@@ -664,7 +676,7 @@ msgstr "Toxins in the atmosphere drains your health, but crystalize the blood of
 msgid "Try again"
 msgstr "Try again"
 
-#: src/pages/briefing/ui/BriefingPageStates.tsx:93
+#: src/pages/briefing/ui/BriefingPageStates.tsx:123
 msgid "Try again once the connection settles."
 msgstr "Try again once the connection settles."
 
@@ -672,9 +684,18 @@ msgstr "Try again once the connection settles."
 msgid "Twins"
 msgstr "Twins"
 
+#: src/pages/briefing/ui/ConfidenceNotice.tsx:50
+msgid "Unverified briefing"
+msgstr "Unverified briefing"
+
+#: src/pages/briefing/ui/BriefingPageStates.tsx:101
 #: src/widgets/pwa-notice/ui/PwaNotice.tsx:66
 msgid "Update app"
 msgstr "Update app"
+
+#: src/pages/briefing/ui/BriefingPageStates.tsx:105
+msgid "Update required"
+msgstr "Update required"
 
 #: src/pages/briefing/ui/intel-copy.ts:28
 msgid "Use the speed. Finish spread jobs before swarms stack."

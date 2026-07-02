@@ -152,9 +152,14 @@ const deepDiveSchema = /* @__PURE__ */ v.pipe(
   v.readonly(),
 )
 
+// Stamped at the HTTP boundary from a server env flag; `unverified` marks the
+// season gap where the generator produces plausible-but-untrusted briefings.
+const briefingConfidenceSchema = /* @__PURE__ */ v.picklist(['verified', 'unverified'] as const)
+
 export const briefingResponseSchema = /* @__PURE__ */ v.pipe(
   v.object({
     seed: briefingSeedSchema,
+    confidence: briefingConfidenceSchema,
     release: isoTimestampSchema,
     expiration: isoTimestampSchema,
     dives: v.object({
@@ -165,6 +170,7 @@ export const briefingResponseSchema = /* @__PURE__ */ v.pipe(
   v.readonly(),
 )
 
+export type BriefingConfidence = v.InferOutput<typeof briefingConfidenceSchema>
 export type DeepDiveBiome = v.InferOutput<typeof deepDiveBiomeSchema>
 export type DeepDiveAnomaly = v.InferOutput<typeof deepDiveAnomalySchema>
 export type DeepDiveWarning = v.InferOutput<typeof deepDiveWarningSchema>

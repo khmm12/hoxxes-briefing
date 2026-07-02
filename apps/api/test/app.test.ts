@@ -2,8 +2,9 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import * as v1 from '@hoxxes-briefing/contracts/api/v1'
-import { createApp } from '../src/app.ts'
+import { createApp, readBriefingConfidence } from '../src/app.ts'
 import type { Briefing } from '../src/application/models/briefing.ts'
+import { parseWeeklyErrorResponse, parseWeeklyResponse } from '../src/http/weekly/wire.ts'
 import { type BriefingProvider, BriefingProviderError } from '../src/ports/briefing-provider.ts'
 
 // A briefing that exercises every clean→legacy remap the `/api/v1/weekly` ACL
@@ -79,8 +80,10 @@ const createProvider = (implementation: BriefingProvider['getBriefing']): Briefi
   }
 }
 
-const createAppWith = (implementation: BriefingProvider['getBriefing']) =>
-  createApp({ briefingProvider: createProvider(implementation) })
+const createAppWith = (
+  implementation: BriefingProvider['getBriefing'],
+  confidence: v1.BriefingConfidence = 'verified',
+) => createApp({ briefingProvider: createProvider(implementation), confidence })
 
 test('GET /api/v1/weekly returns the legacy weekly contract payload', async () => {
   const app = createAppWith(async () => createBriefing())
@@ -94,7 +97,7 @@ test('GET /api/v1/weekly returns the legacy weekly contract payload', async () =
   assert.notEqual(rawPayload, null)
   assert.equal(Object.hasOwn(rawPayload as Record<string, unknown>, 'freshness'), false)
 
-  const payload = v1.parseWeeklyResponse(rawPayload)
+  const payload = parseWeeklyResponse(rawPayload)
   assert.equal(payload.week.id, '2026-W17')
   assert.equal(payload.week.seed, 1234567890)
   assert.equal(payload.dives.normal.name, 'Crystalline Corridors')
@@ -123,6 +126,7 @@ test('GET /api/v1/briefing returns the clean briefing contract payload', async (
 
   const payload = v1.parseBriefingResponse(rawPayload)
   assert.equal(payload.seed, 1234567890)
+  assert.equal(payload.confidence, 'verified')
   assert.equal(payload.release, '2026-04-16T11:00:00.000Z')
   assert.equal(payload.expiration, '2026-04-23T11:00:00.000Z')
   assert.equal(payload.dives.normal.name, 'Crystalline Corridors')
@@ -173,7 +177,7 @@ test('GET /api/v1/weekly maps an upstream failure to the shared error contract',
   assert.equal(response.status, 502)
   assert.equal(response.headers.get('cache-control'), 'no-store')
 
-  const payload = v1.parseErrorResponse(await response.json())
+  const payload = parseWeeklyErrorResponse(await response.json())
   assert.equal(payload.code, 'UPSTREAM_UNAVAILABLE')
   assert.equal(payload.requestId, 'req-123')
 })
@@ -201,7 +205,7 @@ test('GET /api/v1/weekly presents a generator failure with the legacy wire code'
   const response = await app.request('/api/v1/weekly')
 
   assert.equal(response.status, 503)
-  const payload = v1.parseErrorResponse(await response.json())
+  const payload = parseWeeklyErrorResponse(await response.json())
   assert.equal(payload.code, 'WEEKLY_DATA_UNAVAILABLE')
 })
 
@@ -223,7 +227,7 @@ test('GET /api/v1/weekly rejects an invalid payload before it reaches the wire',
   const response = await app.request('/api/v1/weekly')
 
   assert.equal(response.status, 500)
-  const payload = v1.parseErrorResponse(await response.json())
+  const payload = parseWeeklyErrorResponse(await response.json())
   assert.equal(payload.code, 'INVALID_RESPONSE_PAYLOAD')
 })
 
@@ -235,6 +239,44 @@ test('GET /api/v1/briefing rejects an invalid payload before it reaches the wire
   assert.equal(response.status, 500)
   const payload = v1.parseErrorResponse(await response.json())
   assert.equal(payload.code, 'INVALID_RESPONSE_PAYLOAD')
+})
+
+test('GET /api/v1/briefing echoes the current contract revision', async () => {
+  const app = createAppWith(async () => createBriefing())
+
+  const response = await app.request('/api/v1/briefing', {
+    headers: { [v1.BRIEFING_CONTRACT_HEADER]: String(v1.CONTRACT_REV) },
+  })
+
+  assert.equal(response.status, 200)
+  assert.equal(response.headers.get(v1.BRIEFING_CONTRACT_HEADER), String(v1.CONTRACT_REV))
+})
+
+test('GET /api/v1/briefing serves the current shape to header-less clients', async () => {
+  const app = createAppWith(async () => createBriefing())
+
+  const response = await app.request('/api/v1/briefing')
+
+  assert.equal(response.status, 200)
+  assert.equal(response.headers.get(v1.BRIEFING_CONTRACT_HEADER), String(v1.CONTRACT_REV))
+  v1.parseBriefingResponse(await response.json())
+})
+
+test('GET /api/v1/briefing stamps confidence from the composition-root flag', async () => {
+  const app = createAppWith(async () => createBriefing(), 'unverified')
+
+  const response = await app.request('/api/v1/briefing')
+
+  assert.equal(response.status, 200)
+  const payload = v1.parseBriefingResponse(await response.json())
+  assert.equal(payload.confidence, 'unverified')
+})
+
+test('readBriefingConfidence defaults to verified and rejects unknown values', () => {
+  assert.equal(readBriefingConfidence(undefined), 'verified')
+  assert.equal(readBriefingConfidence('verified'), 'verified')
+  assert.equal(readBriefingConfidence('unverified'), 'unverified')
+  assert.throws(() => readBriefingConfidence('unverfied'))
 })
 
 function invalidBriefing(): Briefing {

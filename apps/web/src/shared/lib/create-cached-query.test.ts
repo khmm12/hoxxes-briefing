@@ -102,6 +102,91 @@ describe('streamCachedQuery', () => {
     expect(cache.set).toHaveBeenCalledWith(key, freshValue)
   })
 
+  it('surfaces a fatal fetch error as a failed refresh instead of hiding it behind the cache', async () => {
+    const key = ['weekly'] as const
+    const cachedValue = { weekId: '2026-W17' }
+    const fatalError = new Error('outdated')
+    const networkRequest = createDeferred<typeof cachedValue>()
+    const cache = {
+      get: vi.fn().mockResolvedValue(cachedValue),
+      set: vi.fn().mockResolvedValue(undefined),
+    }
+
+    const iterator = streamCachedQuery({
+      cache,
+      fetcher: vi.fn(() => networkRequest.promise),
+      isFatal: (error) => error === fatalError,
+      isStale: () => false,
+      key,
+      signal: new AbortController().signal,
+      timeoutMs: 150,
+    })
+
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: false,
+      value: { refresh: { status: 'refreshing' }, source: 'cache', value: cachedValue },
+    })
+
+    networkRequest.reject(fatalError)
+
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: false,
+      value: { refresh: { status: 'failed', error: fatalError }, source: 'cache', value: cachedValue },
+    })
+  })
+
+  it('still hides a non-fatal fetch error behind a served cached value', async () => {
+    const key = ['weekly'] as const
+    const cachedValue = { weekId: '2026-W17' }
+    const networkRequest = createDeferred<typeof cachedValue>()
+    const cache = {
+      get: vi.fn().mockResolvedValue(cachedValue),
+      set: vi.fn().mockResolvedValue(undefined),
+    }
+
+    const iterator = streamCachedQuery({
+      cache,
+      fetcher: vi.fn(() => networkRequest.promise),
+      isFatal: () => false,
+      isStale: () => false,
+      key,
+      signal: new AbortController().signal,
+      timeoutMs: 150,
+    })
+
+    await iterator.next()
+    networkRequest.reject(new Error('offline'))
+
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: false,
+      value: { refresh: { status: 'ok' }, source: 'cache', value: cachedValue },
+    })
+  })
+
+  it('serves a fetched value even when persisting it to cache fails', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const key = ['weekly'] as const
+    const networkValue = { weekId: '2026-W18' }
+    const cache = {
+      get: vi.fn().mockResolvedValue(undefined),
+      set: vi.fn().mockRejectedValue(new Error('quota exceeded')),
+    }
+
+    const iterator = streamCachedQuery({
+      cache,
+      fetcher: vi.fn().mockResolvedValue(networkValue),
+      key,
+      signal: new AbortController().signal,
+      timeoutMs: 150,
+    })
+
+    await expect(iterator.next()).resolves.toMatchObject({
+      done: false,
+      value: { refresh: { status: 'ok' }, source: 'network', value: networkValue },
+    })
+    expect(warnSpy).toHaveBeenCalledOnce()
+  })
+
   it('serves a fresh cached value immediately and revalidates in the background', async () => {
     vi.useFakeTimers()
 

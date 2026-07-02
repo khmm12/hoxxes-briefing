@@ -46,7 +46,12 @@ export function App(props: AppProps): JSX.Element {
         }}
       >
         <Router root={(props) => <Loading>{props.children}</Loading>}>
-          <Route path="/" component={() => <BriefingPage dockVisible={pwaDockVisible()} />} />
+          <Route
+            path="/"
+            component={() => (
+              <BriefingPage dockVisible={pwaDockVisible()} onUpdateApp={() => void pwaNotice.reloadForOutdated()} />
+            )}
+          />
           {PlaygroundPage != null ? <Route path="/__playground/:scenario?" component={PlaygroundPage} /> : null}
           <Route path="*404" component={() => <NotFoundPage dockVisible={pwaDockVisible()} />} />
         </Router>

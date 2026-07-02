@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { BRIEFING_CONTRACT_HEADER, CONTRACT_REV } from '@hoxxes-briefing/contracts'
 import { briefingUrl, fetchBriefing } from './briefing-client'
 
 const createMission = () => ({
@@ -22,6 +23,7 @@ const createDive = (name: string) => ({
 
 const createBriefingPayload = () => ({
   seed: 1234567890,
+  confidence: 'verified',
   release: '2026-04-16T11:00:00.000Z',
   expiration: '2026-04-23T11:00:00.000Z',
   dives: {
@@ -55,10 +57,109 @@ describe('fetchBriefing', () => {
       expect.objectContaining({
         headers: {
           accept: 'application/json',
+          [BRIEFING_CONTRACT_HEADER]: String(CONTRACT_REV),
         },
       }),
     )
     expect(briefingUrl).toBe('/api/v1/briefing')
+  })
+
+  it('throws an outdated error on 410 CONTRACT_RETIRED', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ code: 'CONTRACT_RETIRED', message: 'This app version is no longer supported.' }), {
+        status: 410,
+        headers: { 'content-type': 'application/json' },
+      }),
+    )
+
+    await expect(fetchBriefing({ fetch: fetchImpl })).rejects.toMatchObject({
+      kind: 'outdated',
+      status: 410,
+      publicError: { code: 'CONTRACT_RETIRED' },
+    })
+    expect(fetchImpl).toHaveBeenCalledOnce()
+  })
+
+  it('treats a bare 410 without a CONTRACT_RETIRED body as a plain API error', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ unexpected: true }), {
+        status: 410,
+        headers: { 'content-type': 'application/json' },
+      }),
+    )
+
+    await expect(fetchBriefing({ fetch: fetchImpl })).rejects.toMatchObject({
+      kind: 'api',
+      status: 410,
+    })
+  })
+
+  it('throws an outdated error when an unparseable payload comes from a newer revision', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ seed: 'not-a-briefing' }), {
+        status: 200,
+        headers: {
+          'content-type': 'application/json',
+          [BRIEFING_CONTRACT_HEADER]: String(CONTRACT_REV + 1),
+        },
+      }),
+    )
+
+    await expect(fetchBriefing({ fetch: fetchImpl })).rejects.toMatchObject({
+      kind: 'outdated',
+      status: 200,
+    })
+    expect(fetchImpl).toHaveBeenCalledOnce()
+  })
+
+  it('quietly retries once when an unparseable payload comes from a server behind the client', async () => {
+    const stalePayload = new Response(JSON.stringify({ seed: 'stale-cdn-window' }), {
+      status: 200,
+      headers: { 'content-type': 'application/json' },
+    })
+    const freshPayload = new Response(JSON.stringify(createBriefingPayload()), {
+      status: 200,
+      headers: { 'content-type': 'application/json' },
+    })
+    const fetchImpl = vi.fn().mockResolvedValueOnce(stalePayload).mockResolvedValueOnce(freshPayload)
+
+    const briefing = await fetchBriefing({ fetch: fetchImpl })
+
+    expect(briefing.seed).toBe(1234567890)
+    expect(fetchImpl).toHaveBeenCalledTimes(2)
+  })
+
+  it('reports a plain invalid-payload error when the quiet retry fails too', async () => {
+    const createStaleResponse = () =>
+      new Response(JSON.stringify({ seed: 'stale-cdn-window' }), {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+      })
+    const fetchImpl = vi.fn().mockImplementation(async () => createStaleResponse())
+
+    await expect(fetchBriefing({ fetch: fetchImpl })).rejects.toMatchObject({
+      kind: 'invalid-payload',
+      status: 200,
+    })
+    expect(fetchImpl).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not retry an unparseable payload from the same revision', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ seed: 'broken-on-our-end' }), {
+        status: 200,
+        headers: {
+          'content-type': 'application/json',
+          [BRIEFING_CONTRACT_HEADER]: String(CONTRACT_REV),
+        },
+      }),
+    )
+
+    await expect(fetchBriefing({ fetch: fetchImpl })).rejects.toMatchObject({
+      kind: 'invalid-payload',
+      status: 200,
+    })
+    expect(fetchImpl).toHaveBeenCalledOnce()
   })
 
   it('throws a typed API error for structured non-2xx responses', async () => {
@@ -98,6 +199,7 @@ describe('fetchBriefing', () => {
       new Response(
         JSON.stringify({
           seed: 1234567890,
+          confidence: 'verified',
         }),
         {
           status: 200,

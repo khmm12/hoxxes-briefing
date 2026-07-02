@@ -16,6 +16,7 @@ const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOStrin
 
 const BRIEFING: Briefing = {
   seed: 1,
+  confidence: 'verified',
   release: new Date().toISOString(),
   expiration: oneWeekFromNow,
   dives: {
@@ -76,7 +77,7 @@ function jsonResponse(body: unknown, status = 200): Response {
 }
 
 function renderBriefingPage(dockVisible: boolean) {
-  return renderWithProviders(() => <BriefingPage dockVisible={dockVisible} />)
+  return renderWithProviders(() => <BriefingPage dockVisible={dockVisible} onUpdateApp={() => {}} />)
 }
 
 describe('BriefingPage', () => {
@@ -118,5 +119,53 @@ describe('BriefingPage', () => {
 
     expect(await findByText('Awful Catacomb')).toBeInTheDocument()
     expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('shows the update wall on 410 CONTRACT_RETIRED and wires the update action', async () => {
+    globalThis.fetch = vi.fn(async () =>
+      jsonResponse({ code: 'CONTRACT_RETIRED', message: 'This app version is no longer supported.' }, 410),
+    )
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    const onUpdateApp = vi.fn()
+
+    const { findByText, findByRole } = renderWithProviders(() => (
+      <BriefingPage dockVisible={false} onUpdateApp={onUpdateApp} />
+    ))
+
+    expect(await findByText('A new version is available')).toBeInTheDocument()
+
+    fireEvent.click(await findByRole('button', { name: 'Update app' }))
+    expect(onUpdateApp).toHaveBeenCalledOnce()
+  })
+
+  it('replaces a loaded board with the update wall when a refresh returns CONTRACT_RETIRED', async () => {
+    const fetchMock = vi.fn(async () => jsonResponse(BRIEFING))
+    globalThis.fetch = fetchMock
+    const onUpdateApp = vi.fn()
+
+    const { findByText, findByRole } = renderWithProviders(() => (
+      <BriefingPage dockVisible={false} onUpdateApp={onUpdateApp} />
+    ))
+
+    expect(await findByText('Awful Catacomb')).toBeInTheDocument()
+
+    fetchMock.mockImplementation(async () =>
+      jsonResponse({ code: 'CONTRACT_RETIRED', message: 'This app version is no longer supported.' }, 410),
+    )
+    fireEvent.click(await findByRole('button', { name: 'Refresh' }))
+
+    expect(await findByText('A new version is available')).toBeInTheDocument()
+
+    fireEvent.click(await findByRole('button', { name: 'Update app' }))
+    expect(onUpdateApp).toHaveBeenCalledOnce()
+  })
+
+  it('renders the unverified-briefing advisory over normal data', async () => {
+    globalThis.fetch = vi.fn(async () => jsonResponse({ ...BRIEFING, confidence: 'unverified' }))
+
+    const { findByText } = renderBriefingPage(false)
+
+    expect(await findByText('Awful Catacomb')).toBeInTheDocument()
+    expect(await findByText('Unverified briefing')).toBeInTheDocument()
   })
 })

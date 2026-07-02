@@ -6,6 +6,7 @@ import { Board } from './Board'
 
 const data: Briefing = {
   seed: 0xc0ffee,
+  confidence: 'verified',
   release: '2026-06-01T11:00:00Z',
   expiration: '2026-06-08T11:00:00Z',
   dives: {

@@ -1,4 +1,6 @@
 // CLEANUP(stage-4): the legacy /api/v1/weekly wire schema — delete with the endpoint.
+// Moved out of packages/contracts (ADR 0002 made contracts current-only); the
+// legacy wire lives next to its anti-corruption layer until sunset (ADR 0001).
 import * as v from 'valibot'
 
 const isoTimestampSchema = /* @__PURE__ */ v.pipe(v.string(), v.isoTimestamp())
@@ -184,3 +186,27 @@ export type DeepDiveSecondaryObjective = v.InferOutput<typeof deepDiveSecondaryO
 export type DeepDiveMission = v.InferOutput<typeof deepDiveMissionSchema>
 export type DeepDive = v.InferOutput<typeof deepDiveSchema>
 export type WeeklyResponse = v.InferOutput<typeof weeklyResponseSchema>
+
+// The legacy wire error vocabulary, absorbed from contracts with the schema.
+const weeklyErrorCodeSchema = /* @__PURE__ */ v.picklist([
+  'UPSTREAM_UNAVAILABLE',
+  'WEEKLY_DATA_UNAVAILABLE',
+  'INVALID_RESPONSE_PAYLOAD',
+  'INTERNAL_ERROR',
+] as const)
+
+export const weeklyErrorResponseSchema = /* @__PURE__ */ v.pipe(
+  v.object({
+    code: weeklyErrorCodeSchema,
+    message: v.pipe(v.string(), v.minLength(1)),
+    requestId: v.optional(v.string()),
+  }),
+  v.readonly(),
+)
+
+export type WeeklyErrorResponse = v.InferOutput<typeof weeklyErrorResponseSchema>
+
+export const parseWeeklyResponse = (input: unknown): WeeklyResponse => v.parse(weeklyResponseSchema, input)
+
+export const parseWeeklyErrorResponse = (input: unknown): WeeklyErrorResponse =>
+  v.parse(weeklyErrorResponseSchema, input)

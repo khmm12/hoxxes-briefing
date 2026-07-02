@@ -30,6 +30,14 @@ vercel promote <preview-url>
 Do not deploy directly to production unless the preview path is broken and the
 production change has been verified locally.
 
+## Environment
+
+`BRIEFING_CONFIDENCE` (Vercel env var, optional): `verified` (default when
+unset) or `unverified`. Set to `unverified` during a season gap to stamp the
+briefing response and put clients behind the advisory banner (see
+[contract runbook](contract-runbook.md)); any other value fails the function
+loudly at startup.
+
 ## API CDN Cache
 
 `GET /api/v1/briefing` is cached at the Vercel CDN edge until shortly before the

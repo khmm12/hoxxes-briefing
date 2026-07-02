@@ -5,7 +5,7 @@ import { AppLayout } from '~/shared/ui/layout'
 import { PwaNotice } from '~/widgets/pwa-notice'
 import type { BriefingViewState } from '../model/briefing-page-state'
 import { Board } from '../ui/Board'
-import { BriefingErrorState, BriefingLoadingState } from '../ui/BriefingPageStates'
+import { BriefingErrorState, BriefingLoadingState, BriefingOutdatedState } from '../ui/BriefingPageStates'
 
 export type Scenario = {
   id: string
@@ -18,6 +18,7 @@ const NOW = new Date('2026-06-02T13:24:00Z')
 
 const BRIEFING: Briefing = {
   seed: 0xc0ffee,
+  confidence: 'verified',
   release: '2026-06-01T11:00:00Z',
   expiration: '2026-06-08T11:00:00Z',
   dives: {
@@ -143,6 +144,7 @@ export const scenarios: Scenario[] = [
   boardScenario('board-refreshing', 'Board · refreshing', BRIEFING, { refreshing: true }),
   boardScenario('board-offline', 'Board · offline', BRIEFING, { online: false, source: 'cache' }),
   boardScenario('board-cache', 'Board · from cache', BRIEFING, { source: 'cache' }),
+  boardScenario('board-unverified', 'Board · unverified intel', { ...BRIEFING, confidence: 'unverified' }, {}),
   {
     id: 'board-update-dock',
     title: 'Board · app update',
@@ -168,6 +170,11 @@ export const scenarios: Scenario[] = [
   errorScenario('error-network', 'Error · network', new BriefingRequestError('network', 'playground')),
   errorScenario('error-api', 'Error · API', new BriefingRequestError('api', 'playground')),
   errorScenario('error-offline', 'Error · offline, no cache', new BriefingRequestError('network', 'playground'), false),
+  {
+    id: 'outdated',
+    title: 'Outdated · update wall',
+    render: () => <BriefingOutdatedState dockVisible={false} onUpdateApp={() => {}} />,
+  },
   {
     id: 'crash',
     title: 'Crash (real boundary)',

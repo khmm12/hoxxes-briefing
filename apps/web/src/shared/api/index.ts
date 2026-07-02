@@ -1,5 +1,6 @@
 export {
   type Briefing,
+  type BriefingConfidence,
   BriefingRequestError,
   briefingUrl,
   type DeepDive,
@@ -16,6 +17,6 @@ export {
 export {
   cacheBriefing,
   clearCachedBriefing,
-  clearStaleBriefingCache,
   readCachedBriefing,
 } from './briefing-client-cache'
+export { clearStaleDataCaches } from './data-cache'
