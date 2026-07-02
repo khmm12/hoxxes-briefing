@@ -1,8 +1,8 @@
-# weekly-board-experience Specification
+# board-experience Specification
 
 ## Purpose
 
-Defines the visible behavior of the Hoxxes Briefing weekly board.
+Defines the visible behavior of the Hoxxes Briefing board.
 
 ## Requirements
 
@@ -10,9 +10,9 @@ Defines the visible behavior of the Hoxxes Briefing weekly board.
 
 The app SHALL make the current Deep Dive and Elite Deep Dive readable as the primary screen.
 
-#### Scenario: Weekly data is available
+#### Scenario: Briefing is available
 
-- **WHEN** the current weekly data is available
+- **WHEN** the current briefing is available
 - **THEN** the board shows reset timing, freshness, and the `Hoxxes Briefing` brand
 - **AND** both Deep Dives show name, biome, three stages, primary objective, secondary objective, warning, and anomaly (mutator)
 
@@ -21,9 +21,9 @@ The app SHALL make the current Deep Dive and Elite Deep Dive readable as the pri
 - **WHEN** both Deep Dives are rendered
 - **THEN** the normal Deep Dive exposes the same structure as Elite Deep Dive and is not visually demoted
 
-### Requirement: Responsive Scanability
+### Requirement: Responsive Readability
 
-The weekly board SHALL stay compact and readable on desktop and mobile.
+The board SHALL stay compact and readable on desktop and mobile.
 
 #### Scenario: Desktop comparison
 
@@ -33,30 +33,30 @@ The weekly board SHALL stay compact and readable on desktop and mobile.
 #### Scenario: Mobile reading
 
 - **WHEN** the viewport is narrow
-- **THEN** timing, freshness, route identity, and stage details remain readable without excessive chrome before the board
+- **THEN** timing, freshness, dive identity, and stage details remain readable without excessive chrome before the board
 
 ### Requirement: Freshness And Empty States
 
-The app SHALL distinguish live, refreshing, cached, stale, offline, failed, loading, and not-found states without hiding useful board data.
+The app SHALL distinguish live, refreshing, cached, stale, offline, failed, loading, and not-found states without hiding useful briefing data.
 
 #### Scenario: Background refresh
 
 - **WHEN** a board is visible and refresh is in progress
 - **THEN** the board remains visible and only freshness copy or refresh controls change
 
-#### Scenario: Cached or stale board
+#### Scenario: Cached or stale briefing
 
-- **WHEN** cached weekly data is shown
-- **THEN** the UI makes its freshness clear, including expired-week semantics when applicable
+- **WHEN** cached briefing data is shown
+- **THEN** the UI makes its freshness clear, including expired-briefing semantics when applicable
 
-#### Scenario: No board is available
+#### Scenario: No briefing is available
 
-- **WHEN** loading, offline-empty, fetch-failed, runtime-error, or not-found state has no usable board
+- **WHEN** loading, offline-empty, fetch-failed, runtime-error, or not-found state has no usable briefing
 - **THEN** the app shows a focused state screen with an appropriate recovery action when one exists
 
 ### Requirement: App Update Surface
 
-The app SHALL show PWA update availability separately from weekly data freshness.
+The app SHALL show PWA update availability separately from briefing freshness.
 
 #### Scenario: Update available online
 
@@ -70,7 +70,7 @@ The app SHALL show PWA update availability separately from weekly data freshness
 
 ### Requirement: User-Facing Copy
 
-All user-facing weekly board, state, timing, refresh, and update copy SHALL be localized and written in product language.
+All user-facing board, state, timing, refresh, and update copy SHALL be localized and written in product language.
 
 #### Scenario: New copy is added
 

@@ -1,8 +1,8 @@
-# weekly-ui-system Specification
+# web-ui-system Specification
 
 ## Purpose
 
-Defines durable web UI implementation boundaries for the weekly board.
+Defines durable web UI implementation boundaries for the Hoxxes Briefing board.
 
 ## Requirements
 
@@ -22,17 +22,17 @@ The web app SHALL express reusable visual decisions through Panda CSS.
 
 ### Requirement: Web Component Boundaries
 
-The web app SHALL keep shared primitives separate from weekly product composition.
+The web app SHALL keep shared primitives separate from briefing product composition.
 
 #### Scenario: Shared primitive
 
 - **WHEN** UI is reusable infrastructure such as layout, action, icon, state shell, surface, or dock behavior
 - **THEN** it may live in `shared/ui`
 
-#### Scenario: Weekly composition
+#### Scenario: Briefing composition
 
-- **WHEN** UI renders Deep Dive meaning, stage data, route intel, or weekly copy
-- **THEN** it stays in the weekly page slice
+- **WHEN** UI renders Deep Dive meaning, stage data, dive intel, or briefing copy
+- **THEN** it stays in the briefing page slice
 
 ### Requirement: Typography And Icons
 
@@ -40,7 +40,7 @@ The UI system SHALL keep typography and icons predictable across board states.
 
 #### Scenario: Board typography
 
-- **WHEN** the weekly board renders
+- **WHEN** the board renders
 - **THEN** display roles use the configured display font and dense labels remain readable on mobile
 
 #### Scenario: Generic icon
@@ -68,5 +68,5 @@ User-visible UI changes SHALL be verified at the scope of their risk.
 
 #### Scenario: Web UI behavior changes
 
-- **WHEN** layout, state screens, offline behavior, route intel, or PWA update UI changes
+- **WHEN** layout, state screens, offline behavior, dive intel, or PWA update UI changes
 - **THEN** focused tests and a production web build cover the changed path
