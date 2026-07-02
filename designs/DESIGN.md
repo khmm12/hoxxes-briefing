@@ -437,7 +437,7 @@ labeled variant.
   (borderless tinted surface + glyph, `motion.feedback`; while a flash is
   held, the hover border takes the outcome tone instead of `border-subtle`),
   disabled.
-- **Quick-read chip** — pill, `label` text; kinds: `warning` (danger border +
+- **Rundown chip** — pill, `label` text; kinds: `warning` (danger border +
   warning glyph), `mutator` (primary border + anomaly glyph), `quiet`
   (subtle border), `overflow` (“+N more”, strong border, primary-hover text).
 - **Eyebrow** — `eyebrow` role; tones `primary | danger | info`.
@@ -462,7 +462,7 @@ labeled variant.
   the mobile dive switch already names the dive — dive name, biome line with
   16 px tinted glyph + `label`, “Last known briefing” freshness note (expired
   briefings only — a cached briefing within a live week is simply valid),
-  intel note), quick read chips, three stage blocks.
+  intel note), rundown chips, three stage blocks.
 - **Command rail** — page chrome, not a card: brand block (logo, title,
   slogan), timing strip (`Jun 1 – 8 · 14:00 · 5d 21h`, gold countdown; danger
   “already ended” when expired), status slot, refresh icon button; closed by
@@ -576,7 +576,7 @@ code and are not enumerated on the canvas:
   now.”, “Last known briefing only. This cycle already ended.”, “Last known
   briefing still shown. Refreshing now.”, “Last known briefing still shown.
   Refresh failed.” (`RefreshPanel`).
-- **Overflow chip** toggles to “Show less” while the quick read is expanded
+- **Overflow chip** toggles to “Show less” while the rundown is expanded
   (`DiveSlab`).
 - **Countdown** shows “coming soon” after the cycle expires, until the new
   briefing lands (`TimingStrip`).
@@ -589,7 +589,7 @@ Copy goes through Lingui (today a single `en` catalog); the layout must not
 bake in the length of any particular string. Rules:
 
 - Long content wraps; nothing truncates silently. The only overflow
-  affordance is explicit: the quick read “+N more” chip.
+  affordance is explicit: the rundown “+N more” chip.
 - Controls size to their content with the padding from the component specs —
   never a fixed text width. The tooltip’s 288 is a max-width.
 - Countdown and timing digits render with tabular numerals (`metric` /

@@ -35,15 +35,15 @@ describe('DiveSlab', () => {
     expect(getAllByText(/Stage \d/)).toHaveLength(2)
   })
 
-  it('renders quick-read chips for the dive’s warnings and anomalies', () => {
+  it('renders rundown chips for the dive’s warnings and anomalies', () => {
     const { getByRole } = renderWithProviders(() => <DiveSlab dive={DIVE} expired={false} kind="normal" />)
-    const quickRead = within(getByRole('region', { name: 'Quick read' }))
+    const rundown = within(getByRole('region', { name: 'Rundown' }))
 
-    expect(quickRead.getByText('Regenerative Bugs')).toBeInTheDocument()
-    expect(quickRead.getByText('Low Gravity')).toBeInTheDocument()
+    expect(rundown.getByText('Regenerative Bugs')).toBeInTheDocument()
+    expect(rundown.getByText('Low Gravity')).toBeInTheDocument()
   })
 
-  it('omits the quick read section entirely when there are no warnings or anomalies', () => {
+  it('omits the rundown section entirely when there are no warnings or anomalies', () => {
     const cleanDive: DeepDive = {
       ...DIVE,
       missions: DIVE.missions.map((mission) => ({ ...mission, warning: null, anomaly: null })),
@@ -51,7 +51,7 @@ describe('DiveSlab', () => {
 
     const { queryByRole } = renderWithProviders(() => <DiveSlab dive={cleanDive} expired={false} kind="normal" />)
 
-    expect(queryByRole('region', { name: 'Quick read' })).not.toBeInTheDocument()
+    expect(queryByRole('region', { name: 'Rundown' })).not.toBeInTheDocument()
   })
 
   it('flags the briefing as last known once expired', () => {
@@ -92,17 +92,17 @@ describe('DiveSlab', () => {
     }
 
     const { getByRole } = renderWithProviders(() => <DiveSlab dive={dive} expired={false} kind="normal" />)
-    const quickRead = within(getByRole('region', { name: 'Quick read' }))
+    const rundown = within(getByRole('region', { name: 'Rundown' }))
 
     // Mobile breakpoint (no matchMedia match) caps the visible chips at 2,
     // so this 6-chip dive must overflow behind the toggle.
-    const toggle = quickRead.getByRole('button', { name: '+4 more' })
-    expect(quickRead.queryByText('Low Gravity')).not.toBeInTheDocument()
+    const toggle = rundown.getByRole('button', { name: '+4 more' })
+    expect(rundown.queryByText('Low Gravity')).not.toBeInTheDocument()
 
     fireEvent.click(toggle)
     flush()
 
-    expect(quickRead.getByRole('button', { name: 'Show less' })).toBeInTheDocument()
-    expect(quickRead.queryByText('Low Gravity')).toBeInTheDocument()
+    expect(rundown.getByRole('button', { name: 'Show less' })).toBeInTheDocument()
+    expect(rundown.queryByText('Low Gravity')).toBeInTheDocument()
   })
 })

@@ -75,7 +75,7 @@ const typeCoverageAssertions: [
 ] = [true, true, true, true]
 
 const objectiveEntryKeys = ['contextTags']
-const mutatorEntryKeys = ['intelPriority', 'quickReadPriority']
+const mutatorEntryKeys = ['intelPriority', 'rundownPriority']
 
 void typeCoverageAssertions
 
@@ -118,12 +118,12 @@ describe('domain catalog', () => {
       const entry = getWarningCatalogEntry(kind)
 
       expect(Object.keys(entry).sort()).toEqual(mutatorEntryKeys)
-      expect(entry.quickReadPriority).toBeGreaterThan(0)
+      expect(entry.rundownPriority).toBeGreaterThan(0)
       expect(entry.intelPriority).not.toBeNull()
     }
 
     expect(warningCatalog.HauntedCave.intelPriority).toBe(10)
-    expect(warningCatalog.LowOxygen.quickReadPriority).toBeLessThan(warningCatalog.DuckAndCover.quickReadPriority)
+    expect(warningCatalog.LowOxygen.rundownPriority).toBeLessThan(warningCatalog.DuckAndCover.rundownPriority)
   })
 
   it('covers every current anomaly with priority-only entries', () => {
@@ -133,7 +133,7 @@ describe('domain catalog', () => {
       const entry = getAnomalyCatalogEntry(kind)
 
       expect(Object.keys(entry).sort()).toEqual(mutatorEntryKeys)
-      expect(entry.quickReadPriority).toBeGreaterThan(0)
+      expect(entry.rundownPriority).toBeGreaterThan(0)
     }
 
     expect(anomalyCatalog.BloodSugar.intelPriority).toBe(210)

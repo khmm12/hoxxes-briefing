@@ -1,22 +1,22 @@
 import { describe, expect, it } from 'vitest'
-import type { QuickReadChip } from '../model/dive-quick-read'
-import { getVisibleQuickReadChips } from './dive-quick-read-view'
+import type { RundownChip } from '../model/dive-rundown'
+import { getVisibleRundownChips } from './dive-rundown-view'
 
-describe('getVisibleQuickReadChips', () => {
+describe('getVisibleRundownChips', () => {
   it('keeps hidden chips behind an overflow count until expanded', () => {
-    const chips: QuickReadChip[] = [
+    const chips: RundownChip[] = [
       { kind: 'warning', value: 'LowOxygen' },
       { kind: 'warning', value: 'DuckAndCover' },
       { kind: 'anomaly', value: 'VolatileGuts' },
       { kind: 'anomaly', value: 'RichAtmosphere' },
     ]
 
-    expect(getVisibleQuickReadChips(chips, 2, false)).toEqual({
+    expect(getVisibleRundownChips(chips, 2, false)).toEqual({
       overflowCount: 2,
       visible: chips.slice(0, 2),
     })
 
-    expect(getVisibleQuickReadChips(chips, 2, true)).toEqual({
+    expect(getVisibleRundownChips(chips, 2, true)).toEqual({
       overflowCount: 2,
       visible: chips,
     })

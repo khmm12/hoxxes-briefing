@@ -24,7 +24,7 @@ export type ObjectiveCatalogEntry = {
 
 export type MutatorCatalogEntry = {
   intelPriority: number | null
-  quickReadPriority: number
+  rundownPriority: number
 }
 
 type ObjectiveCatalog<Kind extends string> = {
@@ -98,90 +98,90 @@ export const secondaryObjectiveCatalog = {
 export const warningCatalog = {
   HauntedCave: {
     intelPriority: 10,
-    quickReadPriority: 10,
+    rundownPriority: 10,
   },
   DuckAndCover: {
     intelPriority: 30,
-    quickReadPriority: 30,
+    rundownPriority: 30,
   },
   LowOxygen: {
     intelPriority: 20,
-    quickReadPriority: 20,
+    rundownPriority: 20,
   },
   ShieldDisruption: {
     intelPriority: 40,
-    quickReadPriority: 40,
+    rundownPriority: 40,
   },
   EliteThreat: {
     intelPriority: 50,
-    quickReadPriority: 50,
+    rundownPriority: 50,
   },
   LethalEnemies: {
     intelPriority: 60,
-    quickReadPriority: 60,
+    rundownPriority: 60,
   },
   MacteraPlague: {
     intelPriority: 70,
-    quickReadPriority: 70,
+    rundownPriority: 70,
   },
   RivalPresence: {
     intelPriority: 80,
-    quickReadPriority: 80,
+    rundownPriority: 80,
   },
   CaveLeechCluster: {
     intelPriority: 90,
-    quickReadPriority: 90,
+    rundownPriority: 90,
   },
   ExploderInfestation: {
     intelPriority: 100,
-    quickReadPriority: 100,
+    rundownPriority: 100,
   },
   RegenerativeBugs: {
     intelPriority: 110,
-    quickReadPriority: 110,
+    rundownPriority: 110,
   },
   EboniteOutbreak: {
     intelPriority: 120,
-    quickReadPriority: 120,
+    rundownPriority: 120,
   },
   PitJawColony: {
     intelPriority: 130,
-    quickReadPriority: 130,
+    rundownPriority: 130,
   },
   ScrabNestingGrounds: {
     intelPriority: 140,
-    quickReadPriority: 140,
+    rundownPriority: 140,
   },
   Parasites: {
     intelPriority: 150,
-    quickReadPriority: 150,
+    rundownPriority: 150,
   },
   Swarmageddon: {
     intelPriority: 160,
-    quickReadPriority: 160,
+    rundownPriority: 160,
   },
 } satisfies MutatorCatalog<DeepDiveWarning>
 
 export const anomalyCatalog = {
   BloodSugar: {
     intelPriority: 210,
-    quickReadPriority: 210,
+    rundownPriority: 210,
   },
   VolatileGuts: {
     intelPriority: 220,
-    quickReadPriority: 220,
+    rundownPriority: 220,
   },
   CriticalWeakness: {
     intelPriority: null,
-    quickReadPriority: 230,
+    rundownPriority: 230,
   },
   LowGravity: {
     intelPriority: null,
-    quickReadPriority: 240,
+    rundownPriority: 240,
   },
   RichAtmosphere: {
     intelPriority: null,
-    quickReadPriority: 250,
+    rundownPriority: 250,
   },
 } satisfies MutatorCatalog<DeepDiveAnomaly>
 
@@ -205,21 +205,21 @@ export function getAnomalyCatalogEntry(anomaly: DeepDiveAnomaly): MutatorCatalog
   return anomalyCatalog[anomaly]
 }
 
-export function compareWarningsForQuickRead(left: DeepDiveWarning, right: DeepDiveWarning): number {
-  return compareMutatorsForQuickRead(left, warningCatalog[left], right, warningCatalog[right])
+export function compareWarningsForRundown(left: DeepDiveWarning, right: DeepDiveWarning): number {
+  return compareMutatorsForRundown(left, warningCatalog[left], right, warningCatalog[right])
 }
 
-export function compareAnomaliesForQuickRead(left: DeepDiveAnomaly, right: DeepDiveAnomaly): number {
-  return compareMutatorsForQuickRead(left, anomalyCatalog[left], right, anomalyCatalog[right])
+export function compareAnomaliesForRundown(left: DeepDiveAnomaly, right: DeepDiveAnomaly): number {
+  return compareMutatorsForRundown(left, anomalyCatalog[left], right, anomalyCatalog[right])
 }
 
-function compareMutatorsForQuickRead(
+function compareMutatorsForRundown(
   leftKind: string,
-  left: Pick<MutatorCatalogEntry, 'quickReadPriority'>,
+  left: Pick<MutatorCatalogEntry, 'rundownPriority'>,
   rightKind: string,
-  right: Pick<MutatorCatalogEntry, 'quickReadPriority'>,
+  right: Pick<MutatorCatalogEntry, 'rundownPriority'>,
 ): number {
-  const priorityDelta = left.quickReadPriority - right.quickReadPriority
+  const priorityDelta = left.rundownPriority - right.rundownPriority
 
   return priorityDelta === 0 ? leftKind.localeCompare(rightKind) : priorityDelta
 }

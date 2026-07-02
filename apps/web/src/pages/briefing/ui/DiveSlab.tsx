@@ -11,7 +11,7 @@ import { createBreakpointQuery } from '~/shared/lib/create-media-query'
 import { Eyebrow } from '~/shared/ui/eyebrow'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 import { Tooltip } from '~/shared/ui/tooltip'
-import { buildQuickReadChips, type QuickReadChip } from '../model/dive-quick-read'
+import { buildRundownChips, type RundownChip } from '../model/dive-rundown'
 import { buildIntel } from '../model/intel'
 import {
   formatAnomaly,
@@ -22,7 +22,7 @@ import {
   formatWarningDescription,
 } from './dive-copy'
 import { AnomalyKindIcon, BiomeKindIcon, WarningKindIcon } from './dive-glyphs'
-import { getVisibleQuickReadChips } from './dive-quick-read-view'
+import { getVisibleRundownChips } from './dive-rundown-view'
 import { formatIntelNote } from './intel-copy'
 import { StageBlock } from './StageBlock'
 
@@ -188,13 +188,13 @@ const stageListStyles = css.raw({
 export function DiveSlab(props: DiveSlabProps): JSX.Element {
   const i18n = useI18n()
   const [expanded, setExpanded] = createSignal(false)
-  const visibleLimit = createQuickReadVisibleLimit()
+  const visibleLimit = createRundownVisibleLimit()
 
   const intel = createMemo(() => buildIntel(props.dive, props.kind))
-  const chips = createMemo(() => buildQuickReadChips(props.dive))
-  const visibleChips = createMemo(() => getVisibleQuickReadChips(chips(), visibleLimit(), expanded()))
+  const chips = createMemo(() => buildRundownChips(props.dive))
+  const visibleChips = createMemo(() => getVisibleRundownChips(chips(), visibleLimit(), expanded()))
 
-  const quickReadId = createUniqueId()
+  const rundownId = createUniqueId()
 
   return (
     <article class={resolveClass(props.class, props.css, slabRecipe.raw({ kind: props.kind }))} inert={props.inert}>
@@ -214,15 +214,15 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
       </header>
 
       <Show when={chips().length > 0}>
-        <section class={css(metaStyles)} aria-label={i18n._(msg`Quick read`)}>
-          <p class={css(metaLabelStyles)}>{i18n._(msg`Quick read`)}</p>
-          <div class={css(chipsStyles)} id={quickReadId}>
+        <section class={css(metaStyles)} aria-label={i18n._(msg`Rundown`)}>
+          <p class={css(metaLabelStyles)}>{i18n._(msg`Rundown`)}</p>
+          <div class={css(chipsStyles)} id={rundownId}>
             <For each={visibleChips().visible} keyed={false}>
-              {(chip) => <QuickReadChipView chip={chip()} />}
+              {(chip) => <RundownChipView chip={chip()} />}
             </For>
             <Show when={visibleChips().overflowCount > 0}>
               <button
-                aria-controls={quickReadId}
+                aria-controls={rundownId}
                 aria-expanded={expanded() ? 'true' : 'false'}
                 class={css(chipRecipe.raw({ kind: 'overflow' }))}
                 type="button"
@@ -259,30 +259,30 @@ const chipTooltipStyles = css.raw({
   borderRadius: 'full',
 })
 
-function QuickReadChipView(props: { chip: QuickReadChip }): JSX.Element {
+function RundownChipView(props: { chip: RundownChip }): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <Tooltip align="center" css={chipTooltipStyles} label={formatQuickReadChipDescription(i18n, props.chip)}>
+    <Tooltip align="center" css={chipTooltipStyles} label={formatRundownChipDescription(i18n, props.chip)}>
       <span class={css(chipRecipe.raw({ kind: props.chip.kind }))}>
         {props.chip.kind === 'warning' ? (
           <WarningKindIcon css={chipWarningIconStyles} kind={props.chip.value} />
         ) : (
           <AnomalyKindIcon css={chipAnomalyIconStyles} kind={props.chip.value} />
         )}
-        {formatQuickReadChip(i18n, props.chip)}
+        {formatRundownChip(i18n, props.chip)}
       </span>
     </Tooltip>
   )
 }
 
-function formatQuickReadChipDescription(i18n: I18n, chip: QuickReadChip): string {
+function formatRundownChipDescription(i18n: I18n, chip: RundownChip): string {
   return chip.kind === 'warning'
     ? formatWarningDescription(i18n, chip.value)
     : formatAnomalyDescription(i18n, chip.value)
 }
 
-function formatQuickReadChip(i18n: I18n, chip: QuickReadChip): string {
+function formatRundownChip(i18n: I18n, chip: RundownChip): string {
   if (chip.kind === 'warning') {
     return formatWarning(i18n, chip.value)
   }
@@ -298,7 +298,7 @@ function formatOverflowChip(i18n: I18n, overflowCount: number): string {
   return i18n._(msg`+${overflowCount} more`)
 }
 
-function createQuickReadVisibleLimit(): Accessor<number> {
+function createRundownVisibleLimit(): Accessor<number> {
   const isWide = createBreakpointQuery('md')
   return () => (isWide() ? 3 : 2)
 }

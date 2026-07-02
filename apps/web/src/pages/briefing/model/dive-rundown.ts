@@ -1,7 +1,7 @@
 import type { DeepDive, DeepDiveAnomaly, DeepDiveWarning } from '~/shared/api'
-import { compareAnomaliesForQuickRead, compareWarningsForQuickRead } from './catalog'
+import { compareAnomaliesForRundown, compareWarningsForRundown } from './catalog'
 
-export type QuickReadChip =
+export type RundownChip =
   | {
       kind: 'anomaly'
       value: DeepDiveAnomaly
@@ -11,10 +11,10 @@ export type QuickReadChip =
       value: DeepDiveWarning
     }
 
-export function buildQuickReadChips(dive: DeepDive): QuickReadChip[] {
-  const warnings = uniquePresent(dive.missions.map((mission) => mission.warning)).sort(compareWarningsForQuickRead)
-  const anomalies = uniquePresent(dive.missions.map((mission) => mission.anomaly)).sort(compareAnomaliesForQuickRead)
-  const chips: QuickReadChip[] = [
+export function buildRundownChips(dive: DeepDive): RundownChip[] {
+  const warnings = uniquePresent(dive.missions.map((mission) => mission.warning)).sort(compareWarningsForRundown)
+  const anomalies = uniquePresent(dive.missions.map((mission) => mission.anomaly)).sort(compareAnomaliesForRundown)
+  const chips: RundownChip[] = [
     ...warnings.map((warning) => ({ kind: 'warning' as const, value: warning })),
     ...anomalies.map((anomaly) => ({ kind: 'anomaly' as const, value: anomaly })),
   ]

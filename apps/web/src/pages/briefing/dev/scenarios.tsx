@@ -73,7 +73,7 @@ const BRIEFING: Briefing = {
 }
 
 // Every mutator combination the board layout must survive: warning + anomaly
-// on one stage, anomaly only, an Elimination objective, and enough quick-read
+// on one stage, anomaly only, an Elimination objective, and enough rundown
 // chips to trigger the overflow control.
 const MUTATOR_BRIEFING: Briefing = {
   ...BRIEFING,

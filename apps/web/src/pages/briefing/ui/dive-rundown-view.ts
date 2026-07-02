@@ -1,15 +1,15 @@
-import type { QuickReadChip } from '../model/dive-quick-read'
+import type { RundownChip } from '../model/dive-rundown'
 
-export type VisibleQuickReadChips = {
+export type VisibleRundownChips = {
   overflowCount: number
-  visible: QuickReadChip[]
+  visible: RundownChip[]
 }
 
-export function getVisibleQuickReadChips(
-  chips: readonly QuickReadChip[],
+export function getVisibleRundownChips(
+  chips: readonly RundownChip[],
   visibleLimit: number,
   expanded: boolean,
-): VisibleQuickReadChips {
+): VisibleRundownChips {
   const normalizedLimit = Math.max(0, visibleLimit)
   const overflowCount = Math.max(0, chips.length - normalizedLimit)
 

@@ -197,6 +197,7 @@ _Avoid_: Route slab.
 The short strategic guidance note for a Deep Dive.
 _Avoid_: Route intel (drop "route").
 
-**Quick read**:
-The compressed chip summary of a Deep Dive's mutators and warnings.
-_Avoid_: Scan, route scan.
+**Rundown**:
+The compressed chip summary of a Deep Dive's mutators (warnings and
+anomalies), read at a glance without opening the stages.
+_Avoid_: Quick read, scan, route scan.

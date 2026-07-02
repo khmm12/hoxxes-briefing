@@ -492,11 +492,6 @@ msgstr "Primary objective"
 msgid "Pulling the latest deep dives now."
 msgstr "Pulling the latest deep dives now."
 
-#: src/pages/briefing/ui/DiveSlab.tsx:217
-#: src/pages/briefing/ui/DiveSlab.tsx:218
-msgid "Quick read"
-msgstr "Quick read"
-
 #: src/pages/briefing/ui/dive-copy.ts:25
 msgid "Radioactive Exclusion Zone"
 msgstr "Radioactive Exclusion Zone"
@@ -555,6 +550,11 @@ msgstr "Rock and Stone, Brother!"
 #: src/pages/briefing/ui/slogan-copy.ts:7
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
+
+#: src/pages/briefing/ui/DiveSlab.tsx:217
+#: src/pages/briefing/ui/DiveSlab.tsx:218
+msgid "Rundown"
+msgstr "Rundown"
 
 #: src/app/AppCrashScreen.tsx:26
 msgid "Runtime fault"
