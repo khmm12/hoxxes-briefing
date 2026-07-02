@@ -11,7 +11,7 @@ objectives, warnings, anomalies (mutators), and reset timing.
 This is the game reference catalogue. For the team's ubiquitous language —
 canonical terms, deliberate deviations, and terms to avoid — see
 [CONTEXT.md](../CONTEXT.md). Where an app label diverges from the official noun
-(e.g. "Crystal Scan" vs. Resonance Crystal), CONTEXT.md is the arbiter.
+(e.g. "Mule" vs. Mini M.U.L.E.), CONTEXT.md is the arbiter.
 
 ## Deep Dives
 
@@ -71,9 +71,8 @@ objective is also mandatory, but it is usually a smaller job folded into that
 stage.
 
 Some names can appear in both places and still mean different things. A primary
-Crystal Scan is the full Deep Scan mission with scanners, the Drillevator, the
-geode, and the upward extraction. A secondary Crystal Scan is only the shorter
-scan task. A primary On-site Refining stage is the full refinery and pipeline
+Deep Scan is the full mission with scanners, the Drillevator, the geode, and the
+upward extraction. A secondary Deep Scan is only the shorter scan task. A primary On-site Refining stage is the full refinery and pipeline
 mission. A secondary Morkite Well is a short one-well hookup. Resinite Mass
 extraction is Heavy Extraction whether it appears as the full primary mission or
 as the smaller secondary job — DRG has no separate "Heavy Excavation" mission.
@@ -82,7 +81,7 @@ as the smaller secondary job — DRG has no separate "Heavy Excavation" mission.
 
 | Name | Description | Enum |
 | --- | --- | --- |
-| Crystal Scan xN | Find resonance crystals, connect scanners, ride and defend the Drillevator, collect Morkite Seeds in the geode, then extract upward. | `DeepScan` |
+| Deep Scan xN | Find resonance crystals, connect scanners, ride and defend the Drillevator, collect Morkite Seeds in the geode, then extract upward. | `DeepScan` |
 | Escort Duty | Escort and repair the Drilldozer, handle a Deep Dive refuel stop, defend the Heartstone fight, recover the core, then extract. | `EscortDuty` |
 | Morkite xN | Traverse a linear cave, mine the Morkite quota, deposit it, and return through the cave to extract. | `MiningExpedition` |
 | Industrial Sabotage | Hack two power stations, drop the force field, defeat the Caretaker boss, recover the Data Rack, then extract. | `IndustrialSabotage` |
@@ -98,7 +97,7 @@ as the smaller secondary job — DRG has no separate "Heavy Excavation" mission.
 | Name | Description | Enum |
 | --- | --- | --- |
 | Egg xN | Collect a smaller required egg quota. It can still add enemy pressure to the primary objective. | `EggHunt` |
-| Crystal Scan xN | Perform the shortened scan requirement only; it does not include the Drillevator or Morkite Seed geode flow. | `DeepScan` |
+| Deep Scan xN | Perform the shortened scan requirement only; it does not include the Drillevator or Morkite Seed geode flow. | `DeepScan` |
 | Black Box | Find, repair, and recover one Black Box by staying inside its active radius. It behaves like a compact holdout. | `Blackbox` |
 | Dreadnought xN | Kill the smaller listed dreadnought quota, normally one boss, inside another stage structure. | `Elimination` |
 | Morkite xN | Collect a smaller Morkite quota while completing the primary objective. | `MiningExpedition` |

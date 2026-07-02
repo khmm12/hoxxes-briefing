@@ -53,7 +53,7 @@ describe('formatBiome', () => {
 
 describe('formatPrimaryObjective', () => {
   const cases: Array<[DeepDivePrimaryObjective, string]> = [
-    [{ kind: 'DeepScan', resonanceCrystals: 3 }, 'Crystal Scan x3'],
+    [{ kind: 'DeepScan', resonanceCrystals: 3 }, 'Deep Scan x3'],
     [{ kind: 'EscortDuty', refuels: 2 }, 'Escort Duty'],
     [{ kind: 'MiningExpedition', morkite: 150 }, 'Morkite x150'],
     [{ kind: 'IndustrialSabotage', powerStations: 1 }, 'Industrial Sabotage'],
@@ -81,7 +81,7 @@ describe('formatPrimaryObjective', () => {
 describe('formatSecondaryObjective', () => {
   const cases: Array<[DeepDiveSecondaryObjective, string]> = [
     [{ kind: 'EggHunt', eggs: 2 }, 'Egg x2'],
-    [{ kind: 'DeepScan', resonanceCrystals: 5 }, 'Crystal Scan x5'],
+    [{ kind: 'DeepScan', resonanceCrystals: 5 }, 'Deep Scan x5'],
     [{ kind: 'Blackbox', blackBoxes: 1 }, 'Black Box'],
     [{ kind: 'MiningExpedition', morkite: 150 }, 'Morkite x150'],
     [{ kind: 'OnSiteRefining', morkiteWells: 1 }, 'Morkite Well x1'],

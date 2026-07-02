@@ -22,8 +22,9 @@ aggregate the API serves and the page the reader opens (`pages/briefing`, per
 FSD). "Briefing" is likewise the canonical qualifier for whatever derives from
 that data — the query that fetches it, the view-state that drives its screen.
 _Avoid_: Weekly (that's cadence, and DRG already uses "Weekly" for Assignments),
-Snapshot, Rotation, Current Deep Dives; naming the data, query, or view-state
-"board".
+Snapshot (not the Briefing data, nor its shared/exported text rendering —
+sharing the Briefing is a verb, it produces no separately-named noun), Rotation,
+Current Deep Dives; naming the data, query, or view-state "board".
 
 **Reset**:
 The cadence event that replaces the current Briefing with a new one (Thursdays,
@@ -79,10 +80,16 @@ Canonical objective nouns. Where a short label is common but incomplete, the
 full official noun is the canonical term and the short form is acceptable only
 as a compact label.
 
+**Deep Scan**:
+The scan objective — connect scanners to Resonance Crystals, ride the
+Drillevator, then extract. The objective's canonical label is the task noun
+"Deep Scan" (the in-game HUD counts "Deep Scans 2/3"), not the object it
+targets — the one objective we label by task rather than by its object.
+_Avoid_: **Crystal Scan** — not a DRG term; the game says "Deep Scan".
+
 **Resonance Crystal**:
-The object of a Deep Scan mission — the crystals you scan. The *task* is "Deep
-Scan"; the *object* is Resonance Crystal.
-_Avoid_: **Crystal Scan** — not a DRG term.
+The object a Deep Scan targets — the crystals you scan. The *task* is Deep Scan;
+the *object* is Resonance Crystal.
 
 **Morkite** / **Aquarq**:
 Objects of a Mining Expedition and a Point Extraction. Official, use as-is.

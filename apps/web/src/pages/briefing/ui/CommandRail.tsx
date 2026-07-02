@@ -6,6 +6,7 @@ import { useI18n } from '~/shared/i18n'
 import type { BriefingViewState } from '../model/briefing-page-state'
 import { BrandBlock } from './BrandBlock'
 import { RefreshPanel } from './RefreshPanel'
+import { ShareButton } from './ShareButton'
 import { getSlogan } from './slogan-copy'
 import { TimingStrip } from './TimingStrip'
 
@@ -44,6 +45,14 @@ const metaRowStyles = css.raw({
   minWidth: '0',
 })
 
+// Share and refresh sit together as the rail's control cluster, right of the
+// timing readout.
+const controlsStyles = css.raw({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2',
+})
+
 // Closes the rail with a full-width stroke: full-bleed across the mobile
 // page gutters, back to the content column on desktop.
 const dividerStyles = css.raw({
@@ -63,7 +72,10 @@ export function CommandRail(props: CommandRailProps): JSX.Element {
         <BrandBlock slogan={slogan()} />
         <div class={css(metaRowStyles)}>
           <TimingStrip now={props.now} expired={props.state.expired} timing={props.briefing} />
-          <RefreshPanel state={props.state} onRefresh={props.onRefresh} />
+          <div class={css(controlsStyles)}>
+            <ShareButton briefing={props.briefing} />
+            <RefreshPanel state={props.state} onRefresh={props.onRefresh} />
+          </div>
         </div>
       </div>
       <div class={css(dividerStyles)} aria-hidden="true" />
