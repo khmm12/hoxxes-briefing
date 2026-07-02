@@ -110,6 +110,10 @@ msgstr "Bring armor-cracking focus. Machines do not care about swagger."
 msgid "Brotherhood. Danger. Profit."
 msgstr "Brotherhood. Danger. Profit."
 
+#: src/pages/briefing/ui/board/BoardFooter.tsx:143
+msgid "Buy me a Blackout Stout"
+msgstr "Buy me a Blackout Stout"
+
 #: src/pages/briefing/ui/board/slogan-copy.ts:18
 msgid "By the Beard!"
 msgstr "By the Beard!"
@@ -438,7 +442,7 @@ msgstr "Low Oxygen"
 msgid "Mactera Plague"
 msgstr "Mactera Plague"
 
-#: src/pages/briefing/ui/board/BoardFooter.tsx:77
+#: src/pages/briefing/ui/board/BoardFooter.tsx:120
 msgid "Made with love by"
 msgstr "Made with love by"
 
@@ -643,7 +647,7 @@ msgstr "Rock and Stone to the Bone!"
 msgid "Rock and Stone, Brother!"
 msgstr "Rock and Stone, Brother!"
 
-#: src/pages/briefing/ui/board/BoardFooter.tsx:73
+#: src/pages/briefing/ui/board/BoardFooter.tsx:116
 #: src/pages/briefing/ui/board/slogan-copy.ts:7
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
@@ -717,7 +721,7 @@ msgstr "Show less"
 msgid "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
 msgstr "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
 
-#: src/pages/briefing/ui/board/BoardFooter.tsx:88
+#: src/pages/briefing/ui/board/BoardFooter.tsx:133
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
 

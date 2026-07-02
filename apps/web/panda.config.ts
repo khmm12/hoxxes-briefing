@@ -48,6 +48,35 @@ const keyframes = defineKeyframes({
       opacity: 1,
     },
   },
+  // A big, sustained "cheers" on the beer glyph after the tip link is clicked:
+  // it leaps and swells over and over across the whole play, rocking side to
+  // side, then finally settles — clink, for Rock and Stone. Paired with the
+  // spark fountain below. Held still under reduced motion.
+  cheers: {
+    '0%, 100%': { transform: 'scale(1) translateY(0) rotate(0deg)' },
+    '4%': { transform: 'scale(1.6) translateY(-0.5rem) rotate(-12deg)' },
+    '12%': { transform: 'scale(1.4) translateY(0) rotate(10deg)' },
+    '20%': { transform: 'scale(1.52) translateY(-0.45rem) rotate(-10deg)' },
+    '28%': { transform: 'scale(1.36) translateY(0) rotate(8deg)' },
+    '38%': { transform: 'scale(1.5) translateY(-0.45rem) rotate(-10deg)' },
+    '46%': { transform: 'scale(1.34) translateY(0) rotate(7deg)' },
+    '56%': { transform: 'scale(1.48) translateY(-0.4rem) rotate(-9deg)' },
+    '64%': { transform: 'scale(1.32) translateY(0) rotate(6deg)' },
+    '74%': { transform: 'scale(1.42) translateY(-0.3rem) rotate(-7deg)' },
+    '82%': { transform: 'scale(1.24) rotate(4deg)' },
+    '90%': { transform: 'scale(1.12) rotate(-2deg)' },
+    '96%': { transform: 'scale(1.03) rotate(1deg)' },
+  },
+  // Each gold spark flies out from the mug and fades. Direction rides on the
+  // per-particle --tx / --ty custom properties set at the call site.
+  cheersSpark: {
+    '0%': { opacity: '0', transform: 'translate(-50%, -50%) scale(0.3)' },
+    '25%': { opacity: '1' },
+    '100%': {
+      opacity: '0',
+      transform: 'translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1)',
+    },
+  },
 })
 
 // The 13 typography roles from DESIGN.md. Uppercase comes from the roles via
@@ -253,6 +282,30 @@ const animationStyles = defineAnimationStyles({
       animationTimingFunction: 'feedback',
     },
   },
+  cheers: {
+    value: {
+      animationName: 'cheers',
+      animationDuration: 'celebrate',
+      animationTimingFunction: 'celebrate',
+      // Decoration, not status: reduced motion holds the glyph still.
+      '@media (prefers-reduced-motion: reduce)': {
+        animationName: 'none',
+      },
+    },
+  },
+  cheersSpark: {
+    value: {
+      animationName: 'cheersSpark',
+      animationDuration: 'feedback',
+      animationTimingFunction: 'exit',
+      // Keeps fountaining for the whole play; each particle is staggered by an
+      // inline animation-delay at the call site.
+      animationIterationCount: 'infinite',
+      '@media (prefers-reduced-motion: reduce)': {
+        animationName: 'none',
+      },
+    },
+  },
 })
 
 // Tailwind-compatible base-4 scale: key × 0.25rem.
@@ -407,6 +460,7 @@ export default defineConfig({
           300: { value: '300ms' },
           500: { value: '500ms' },
           900: { value: '900ms' },
+          3500: { value: '3500ms' },
         },
         // Material 3 curves: standard for within-screen state changes,
         // decelerate for entrances, accelerate for exits, linear for
@@ -428,6 +482,7 @@ export default defineConfig({
         opacity: {
           full: { value: 1 },
           disabled: { value: 0.56 },
+          transparent: { value: 0 },
         },
       },
       semanticTokens: {
@@ -496,6 +551,7 @@ export default defineConfig({
           exit: { value: '{durations.200}' },
           feedback: { value: '{durations.900}' },
           spin: { value: '{durations.900}' },
+          celebrate: { value: '{durations.3500}' },
         },
         easings: {
           press: { value: '{easings.standard}' },
@@ -504,6 +560,7 @@ export default defineConfig({
           exit: { value: '{easings.accelerate}' },
           feedback: { value: '{easings.standard}' },
           spin: { value: '{easings.linear}' },
+          celebrate: { value: '{easings.standard}' },
         },
       },
       textStyles,
