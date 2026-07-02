@@ -1,3 +1,7 @@
+---
+status: accepted, amended by ADR-0002
+---
+
 # Migrate the wire contract behind a parallel endpoint, not an in-place break
 
 The Deep Dive naming rework (see [CONTEXT.md](../../CONTEXT.md)) renames the wire
@@ -38,3 +42,17 @@ old service workers have aged out.
   comment — grep for it to find the full delete list (endpoint entrypoint, route,
   ACL, weekly cache headers + `weekly-v1` tag, `schema/weekly`, the
   `WEEKLY_DATA_UNAVAILABLE` code, and the client's legacy cache eviction).
+
+## Amended by ADR-0002
+
+The decision itself stands — the weekly → briefing migration ran exactly as
+described, and the sunset commitment remains. Two things changed after the
+fact:
+
+- The parallel-endpoint pattern is **not** the general policy for future wire
+  breaks; those go through the contract revision header instead
+  ([ADR 0002](0002-contract-revision-negotiation.md)). This ADR describes a
+  one-off migration that predates the revision system.
+- `schema/weekly` and the `WEEKLY_DATA_UNAVAILABLE` code move out of
+  `packages/contracts` into `apps/api` next to the ACL (contracts stays
+  current-only), so their `CLEANUP(stage-4)` deletion happens there.

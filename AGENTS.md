@@ -17,6 +17,9 @@ clarity, and launch readiness over speculative features.
 - Deep Rock Galactic reference catalogue: [docs/domain.md](docs/domain.md)
 - Web UI implementation rules: [apps/web/docs/conventions.md](apps/web/docs/conventions.md)
 - Deployment shape: [docs/deployment.md](docs/deployment.md)
+- Wire contract changes (revision bumps, seasons, retirement):
+  [docs/contract-runbook.md](docs/contract-runbook.md), mechanism in
+  [ADR 0002](docs/adr/0002-contract-revision-negotiation.md)
 - Behavioral specs: `openspec/specs/` (OpenSpec). Consult before changing
   covered behavior. The workflow is under evaluation — do not add new specs
   unless explicitly asked.
