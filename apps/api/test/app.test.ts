@@ -1,3 +1,4 @@
+// CLEANUP(stage-4): the /api/v1/weekly test cases and the legacy-remap fixture delete with the weekly wire.
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import * as v1 from '@hoxxes-briefing/contracts/api/v1'

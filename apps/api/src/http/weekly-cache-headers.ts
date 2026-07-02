@@ -1,3 +1,4 @@
+// CLEANUP(stage-4): CDN cache headers and the weekly-v1 tag for the legacy /api/v1/weekly wire.
 import { differenceInSeconds } from 'date-fns/differenceInSeconds'
 
 const WEEKLY_CDN_CACHE_SAFETY_MARGIN_SECONDS = 60

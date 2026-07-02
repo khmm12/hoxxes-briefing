@@ -21,8 +21,8 @@ const STATUS_BY_REASON: Record<AppFailureReason, PublicErrorStatus> = {
   INTERNAL_ERROR: 500,
 }
 
-// Legacy `/api/v1/weekly` wire vocabulary. Disposable — delete with the endpoint
-// at sunset (ADR 0001).
+// CLEANUP(stage-4): legacy `/api/v1/weekly` wire vocabulary. Disposable — delete
+// with the endpoint at sunset (ADR 0001); also drop `toWeeklyErrorResponse` below.
 const WEEKLY_PRESENTATION: Record<AppFailureReason, WirePresentation> = {
   UPSTREAM_UNAVAILABLE: { code: 'UPSTREAM_UNAVAILABLE', message: 'Upstream deep dive data is currently unavailable.' },
   GENERATOR_UNAVAILABLE: { code: 'WEEKLY_DATA_UNAVAILABLE', message: 'Weekly mission data is currently unavailable.' },

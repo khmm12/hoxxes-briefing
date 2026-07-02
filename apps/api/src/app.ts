@@ -14,6 +14,7 @@ export function createApp(dependencies: AppDependencies) {
   const { briefingProvider } = dependencies
 
   registerBriefingRoute(app, { briefingProvider })
+  // CLEANUP(stage-4): drop the legacy /api/v1/weekly route and its import above.
   registerWeeklyRoute(app, { briefingProvider })
 
   return app

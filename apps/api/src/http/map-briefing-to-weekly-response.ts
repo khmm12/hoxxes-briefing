@@ -9,6 +9,7 @@ import type {
 } from '../application/models/briefing.ts'
 import { getIsoWeekId } from '../shared/get-iso-week-id.ts'
 
+// CLEANUP(stage-4): this entire anti-corruption layer deletes with the legacy wire.
 // Anti-corruption layer: projects the clean Briefing domain onto the legacy
 // `/api/v1/weekly` wire shape — re-nests the `week` envelope, and reverses the
 // domain renames (`anomaly`→`mutator`, `Classic`→`Dreadnought`, secondary

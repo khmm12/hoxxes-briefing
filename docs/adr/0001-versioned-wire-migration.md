@@ -34,4 +34,7 @@ old service workers have aged out.
   slogan selection, replacing the client's former hash of the now-removed
   `week.id`.
 - The sunset is a commitment: the old endpoint must actually be removed, or it
-  becomes permanent cruft.
+  becomes permanent cruft. Every removal site is tagged with a `CLEANUP(stage-4)`
+  comment — grep for it to find the full delete list (endpoint entrypoint, route,
+  ACL, weekly cache headers + `weekly-v1` tag, `schema/weekly`, the
+  `WEEKLY_DATA_UNAVAILABLE` code, and the client's legacy cache eviction).

@@ -1,3 +1,4 @@
+// CLEANUP(stage-4): the legacy /api/v1/weekly wire schema — delete with the endpoint.
 import * as v from 'valibot'
 
 const isoTimestampSchema = /* @__PURE__ */ v.pipe(v.string(), v.isoTimestamp())

@@ -1,3 +1,4 @@
+// CLEANUP(stage-4): covers weekly-cache-headers.ts — deletes with the legacy wire.
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { createWeeklySuccessCacheHeaders, weeklyBrowserCacheControl } from './weekly-cache-headers.ts'

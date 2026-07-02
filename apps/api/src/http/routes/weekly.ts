@@ -1,3 +1,4 @@
+// CLEANUP(stage-4): the legacy /api/v1/weekly route — delete with the weekly wire.
 import type { Context, Hono } from 'hono'
 import { getBriefing } from '../../application/get-briefing.ts'
 import type { BriefingProvider } from '../../ports/briefing-provider.ts'

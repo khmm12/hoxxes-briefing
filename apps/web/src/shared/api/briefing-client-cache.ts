@@ -6,9 +6,11 @@ const briefingCacheSchemaVersion = 1
 const briefingCachePrefix = 'hoxxes-briefing-data-cache-v'
 const briefingCacheName = `${briefingCachePrefix}${briefingCacheSchemaVersion}`
 
-// The pre-briefing client cached the legacy `/api/v1/weekly` payload under its
-// own prefix. Migrated clients never read it again, so the activation sweep
-// drops it alongside stale briefing caches (see `clearStaleBriefingCache`).
+// CLEANUP(stage-4): one-time eviction of retired `/api/v1/weekly` cache residue.
+// This is cleanup, not migration — the payload is the incompatible legacy wire
+// shape, so we evict it and never read it; a migrated client just refetches the
+// briefing. The activation sweep drops it alongside stale briefing caches (see
+// `clearStaleBriefingCache`); remove this once legacy clients have cycled.
 const legacyWeeklyCachePrefix = 'hoxxes-briefing-weekly-cache-v'
 
 const briefingCacheEnvelopeSchema = /* @__PURE__ */ v.object({
