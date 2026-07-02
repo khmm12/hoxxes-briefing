@@ -33,6 +33,10 @@ msgstr "{seconds}s"
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
+#: src/pages/briefing/ui/board/slogan-copy.ts:42
+msgid "100% destructible environments, 0% job security."
+msgstr "100% destructible environments, 0% job security."
+
 #: src/pages/briefing/ui/board/BriefingPageStates.tsx:107
 msgid "A new version is available"
 msgstr "A new version is available"
@@ -48,6 +52,10 @@ msgstr "A special mix of gasses in the air makes both Dwarves and aliens faster.
 #: src/pages/briefing/ui/dive/intel-copy.ts:18
 msgid "Advance by cover, not courage. Call angles before holds."
 msgstr "Advance by cover, not courage. Call angles before holds."
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:32
+msgid "Afraid of the dark? No need, you got me!"
+msgstr "Afraid of the dark? No need, you got me!"
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:178
 msgid "After a few seconds of not taking damage, the creatures will start recovering health."
@@ -98,9 +106,13 @@ msgstr "Briefing unavailable"
 msgid "Bring armor-cracking focus. Machines do not care about swagger."
 msgstr "Bring armor-cracking focus. Machines do not care about swagger."
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:11
+#: src/pages/briefing/ui/board/slogan-copy.ts:37
 msgid "Brotherhood. Danger. Profit."
 msgstr "Brotherhood. Danger. Profit."
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:18
+msgid "By the Beard!"
+msgstr "By the Beard!"
 
 #: src/pages/briefing/ui/dive/intel-copy.ts:22
 msgid "Call big targets early. Hero trades make bad stories."
@@ -162,11 +174,11 @@ msgstr "Crystalline Caverns"
 msgid "Current briefing loaded."
 msgstr "Current briefing loaded."
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:12
+#: src/pages/briefing/ui/board/slogan-copy.ts:38
 msgid "Danger. Darkness. Dwarves."
 msgstr "Danger. Darkness. Dwarves."
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:15
+#: src/pages/briefing/ui/board/slogan-copy.ts:25
 msgid "Darkness, here I come!"
 msgstr "Darkness, here I come!"
 
@@ -197,6 +209,14 @@ msgstr "Deep Scan x{0}"
 msgid "Dense Biozone"
 msgstr "Dense Biozone"
 
+#: src/pages/briefing/ui/board/slogan-copy.ts:12
+msgid "Did I hear a Rock and Stone?"
+msgstr "Did I hear a Rock and Stone?"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:29
+msgid "Digging's my middle name!"
+msgstr "Digging's my middle name!"
+
 #. placeholder {0}: objective.dreadnoughts.length
 #. placeholder {1}: formatDreadnoughtList(i18n, objective.dreadnoughts)
 #: src/pages/briefing/ui/dive/dive-copy.ts:63
@@ -204,9 +224,17 @@ msgstr "Dense Biozone"
 msgid "Dreadnought x{0} ({1})"
 msgstr "Dreadnought x{0} ({1})"
 
+#: src/pages/briefing/ui/board/slogan-copy.ts:39
+msgid "Drop Pod will leave with or without you!"
+msgstr "Drop Pod will leave with or without you!"
+
 #: src/pages/briefing/ui/dive/dive-copy.ts:127
 msgid "Duck and Cover"
 msgstr "Duck and Cover"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:41
+msgid "Dwarves are assets. Assets are expendable."
+msgstr "Dwarves are assets. Assets are expendable."
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:125
 msgid "Ebonite Outbreak"
@@ -242,13 +270,21 @@ msgstr "Eyes up, miners. Greed before scanning gets expensive."
 msgid "Finish what you start. Half-cleared fights drain the whole dive."
 msgstr "Finish what you start. Half-cleared fights drain the whole dive."
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:7
+#: src/pages/briefing/ui/board/slogan-copy.ts:19
 msgid "For Karl!"
 msgstr "For Karl!"
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:189
 msgid "For reasons unknown, there are far more ranged enemies of all classes at this mission site. Seek cover!"
 msgstr "For reasons unknown, there are far more ranged enemies of all classes at this mission site. Seek cover!"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:11
+msgid "For Rock and Stone!"
+msgstr "For Rock and Stone!"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:26
+msgid "Fortune and glory!"
+msgstr "Fortune and glory!"
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:21
 msgid "Fungus Bogs"
@@ -261,6 +297,10 @@ msgstr "Glacial Strata"
 #: src/pages/not-found/ui/NotFoundPage.tsx:24
 msgid "Go to the briefing"
 msgstr "Go to the briefing"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:43
+msgid "Gold! ... I mean, for science!"
+msgstr "Gold! ... I mean, for science!"
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:135
 msgid "Haunted Cave"
@@ -290,11 +330,23 @@ msgstr "Hoxxes Briefing | DRG Deep Dive Overview"
 msgid "Hoxxes Briefing | Not Found"
 msgstr "Hoxxes Briefing | Not Found"
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:16
+#: src/pages/briefing/ui/board/slogan-copy.ts:24
 msgid "I eat rock for breakfast!"
 msgstr "I eat rock for breakfast!"
 
+#: src/pages/briefing/ui/board/slogan-copy.ts:23
+msgid "I was born ready!"
+msgstr "I was born ready!"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:30
+msgid "If it ain't drillable, it's probably flammable."
+msgstr "If it ain't drillable, it's probably flammable."
+
 #: src/pages/briefing/ui/board/slogan-copy.ts:14
+msgid "If you don't Rock and Stone, you ain't comin' home!"
+msgstr "If you don't Rock and Stone, you ain't comin' home!"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:13
 msgid "If you Rock and Stone, you're never alone."
 msgstr "If you Rock and Stone, you're never alone."
 
@@ -302,11 +354,11 @@ msgstr "If you Rock and Stone, you're never alone."
 msgid "Industrial Sabotage"
 msgstr "Industrial Sabotage"
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:18
+#: src/pages/briefing/ui/board/slogan-copy.ts:28
 msgid "Just show me where to shoot!"
 msgstr "Just show me where to shoot!"
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:8
+#: src/pages/briefing/ui/board/slogan-copy.ts:20
 msgid "Karl Would Be Proud!"
 msgstr "Karl Would Be Proud!"
 
@@ -346,11 +398,15 @@ msgstr "Last known briefing still shown. Refreshing now."
 msgid "Leave brawling room. Cramped teams run out of options fast."
 msgstr "Leave brawling room. Cramped teams run out of options fast."
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:13
+#: src/pages/briefing/ui/board/slogan-copy.ts:36
 msgid "Leave no dwarf behind."
 msgstr "Leave no dwarf behind."
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:17
+#: src/pages/briefing/ui/board/slogan-copy.ts:33
+msgid "Let there be light!"
+msgstr "Let there be light!"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:34
 msgid "Let's play this smart for once, huh?"
 msgstr "Let's play this smart for once, huh?"
 
@@ -358,9 +414,13 @@ msgstr "Let's play this smart for once, huh?"
 msgid "Lethal Enemies"
 msgstr "Lethal Enemies"
 
-#: src/pages/briefing/ui/board/slogan-copy.ts:10
+#: src/pages/briefing/ui/board/slogan-copy.ts:22
 msgid "Locked and loaded!"
 msgstr "Locked and loaded!"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:27
+msgid "Long live the Dwarves!"
+msgstr "Long live the Dwarves!"
 
 #: src/pages/briefing/ui/board/BriefingPageStates.tsx:37
 msgid "Looking for deep dives on your device."
@@ -389,6 +449,10 @@ msgstr "Magma Core"
 #: src/pages/briefing/ui/dive/dive-copy.ts:206
 msgid "Magnetic interference is causing all shields to malfunction."
 msgstr "Magnetic interference is causing all shields to malfunction."
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:40
+msgid "Management will not be happy."
+msgstr "Management will not be happy."
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:204
 msgid "Melee damage from all enemies hurts a lot more than usual."
@@ -460,6 +524,10 @@ msgstr "No warning or anomaly on this stage."
 #: src/pages/briefing/ui/dive/dive-copy.ts:114
 msgid "None"
 msgstr "None"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:17
+msgid "None can stand before us!"
+msgstr "None can stand before us!"
 
 #: src/pages/briefing/ui/board/RefreshPanel.tsx:134
 msgid "Offline"
@@ -563,14 +631,26 @@ msgstr "Rich Atmosphere"
 msgid "Rival Presence"
 msgstr "Rival Presence"
 
+#: src/pages/briefing/ui/board/slogan-copy.ts:10
+msgid "Rock and Stone forever!"
+msgstr "Rock and Stone forever!"
+
 #: src/pages/briefing/ui/board/slogan-copy.ts:9
+msgid "Rock and Stone to the Bone!"
+msgstr "Rock and Stone to the Bone!"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:8
 msgid "Rock and Stone, Brother!"
 msgstr "Rock and Stone, Brother!"
 
 #: src/pages/briefing/ui/board/BoardFooter.tsx:73
-#: src/pages/briefing/ui/board/slogan-copy.ts:6
+#: src/pages/briefing/ui/board/slogan-copy.ts:7
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:15
+msgid "Rock solid!"
+msgstr "Rock solid!"
 
 #: src/pages/briefing/ui/dive/DiveSlab.tsx:217
 #: src/pages/briefing/ui/dive/DiveSlab.tsx:218
@@ -673,6 +753,10 @@ msgstr "The mission area has particularly low concentrations of breathable air. 
 msgid "The odd composition of local food sources means all enemies violently combust upon death, causing area damage."
 msgstr "The odd composition of local food sources means all enemies violently combust upon death, causing area damage."
 
+#: src/pages/briefing/ui/board/slogan-copy.ts:31
+msgid "The truth is out there. So's the gold."
+msgstr "The truth is out there. So's the gold."
+
 #: src/pages/briefing/ui/board/BriefingPageStates.tsx:58
 msgid "This device is offline and has no saved briefing."
 msgstr "This device is offline and has no saved briefing."
@@ -741,6 +825,10 @@ msgstr "Watch out for the ceiling, there is an unusual density of Cave Leeches."
 #: src/pages/briefing/ui/dive/intel-copy.ts:44
 msgid "Watch the floor before you plant. Bad footing breaks good holds."
 msgstr "Watch the floor before you plant. Bad footing breaks good holds."
+
+#: src/pages/briefing/ui/board/slogan-copy.ts:16
+msgid "We are unbreakable!"
+msgstr "We are unbreakable!"
 
 #: src/pages/not-found/ui/NotFoundPage.tsx:28
 msgid "Wrong tunnel"
