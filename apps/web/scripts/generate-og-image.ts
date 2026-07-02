@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { promisify } from 'node:util'
 import { Resvg } from '@resvg/resvg-js'
 import satori from 'satori'
+import { renderBareLogo } from '../assets/icons/emblem.ts'
 
 const execFileAsync = promisify(execFile)
 
@@ -47,18 +48,16 @@ const domainSuffix = '.vercel.app'
 
 const scriptDir = dirname(fileURLToPath(import.meta.url))
 const publicDir = resolve(scriptDir, '../public')
-const emblemPath = resolve(scriptDir, '../src/pages/briefing/ui/brand/brand-logo.svg')
 const outputPath = resolve(publicDir, 'og-image.png')
 
 await assertOxipng()
 
-const [rajdhaniBold, plexMedium, emblemSvg] = await Promise.all([
+const [rajdhaniBold, plexMedium] = await Promise.all([
   loadFontsourceFont('@fontsource/rajdhani/files/rajdhani-latin-700-normal.woff'),
   loadFontsourceFont('@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff'),
-  readFile(emblemPath, 'utf8'),
 ])
 
-const emblemSrc = svgDataUri(emblemSvg)
+const emblemSrc = svgDataUri(renderBareLogo())
 const svg = await satori(renderOpenGraphImage(emblemSrc) as Parameters<typeof satori>[0], {
   width,
   height,
