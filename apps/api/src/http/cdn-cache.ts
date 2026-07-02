@@ -4,7 +4,7 @@
 // strip covers it.
 export const VERCEL_CDN_CACHE_CONTROL_HEADER = 'vercel-cdn-cache-control'
 export const VERCEL_CACHE_TAG_HEADER = 'vercel-cache-tag'
-export const CDN_CACHE_CONTROL_HEADER = 'cdn-cache-control'
+const CDN_CACHE_CONTROL_HEADER = 'cdn-cache-control'
 
 const CDN_CACHE_HEADERS = [VERCEL_CDN_CACHE_CONTROL_HEADER, VERCEL_CACHE_TAG_HEADER, CDN_CACHE_CONTROL_HEADER]
 

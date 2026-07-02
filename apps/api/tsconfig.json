@@ -1,4 +1,7 @@
 {
 	"extends": "../../tsconfig/node-runtime.json",
+	"compilerOptions": {
+		"types": ["node", "@total-typescript/ts-reset"]
+	},
 	"include": ["src", "test"]
 }

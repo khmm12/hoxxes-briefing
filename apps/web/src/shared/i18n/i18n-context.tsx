@@ -7,9 +7,9 @@ type LinguiProviderProps = {
   i18n: I18n
 }
 
-export type I18nContextValue = { i18n: I18n }
+type I18nContextValue = { i18n: I18n }
 
-export const I18nContext = createContext<I18nContextValue>()
+const I18nContext = /* @__PURE__ */ createContext<I18nContextValue>()
 
 export function I18nProvider(props: LinguiProviderProps): JSX.Element {
   const i18n = createI18n(() => props.i18n)

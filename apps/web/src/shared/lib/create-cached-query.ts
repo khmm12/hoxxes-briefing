@@ -1,6 +1,6 @@
 import { createMemo, isPending, onCleanup, refresh as refreshComputation } from 'solid-js'
 
-export type CachedQueryCache<K, T> = {
+type CachedQueryCache<K, T> = {
   get: (key: K) => Promise<T | undefined> | T | undefined
   set: (key: K, value: T) => Promise<void> | void
 }

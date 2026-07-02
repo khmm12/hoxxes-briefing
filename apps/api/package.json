@@ -26,6 +26,7 @@
 	},
 	"types": "./src/app.ts",
 	"devDependencies": {
+		"@total-typescript/ts-reset": "^0.6.1",
 		"@types/node": "^24.13.2",
 		"typescript": "^6.0.3"
 	}
