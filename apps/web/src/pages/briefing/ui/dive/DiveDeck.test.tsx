@@ -3,31 +3,17 @@ import { flush } from 'solid-js'
 import { fireEvent } from '@solidjs/testing-library'
 import type { Briefing, DeepDive } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
+import { setViewportWidth, VIEWPORT_WIDTH } from '~test/viewport'
 import { DiveDeck } from './DiveDeck'
 
 // Below `md`, createSwipeDeck (src/pages/briefing/lib/create-swipe-deck.ts)
 // always instantiates a real Embla Carousel against the viewport/track refs.
-// The global ResizeObserver/IntersectionObserver stubs (vitest.setup.ts) let
-// it mount without crashing, and the chip-driven `pick()` path works because
-// it sets `active` directly rather than waiting on a real measured scroll —
-// so the activation state below is covered. The actual swipe gesture and
-// settle physics still need real layout (getBoundingClientRect, scroll
-// width) jsdom does not provide, and are out of reach here.
-
-function dive(name: string): DeepDive {
-  return {
-    name,
-    biome: 'FungusBogs',
-    missions: [
-      {
-        primaryObjective: { kind: 'EggHunt', eggs: 6 },
-        secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
-        warning: null,
-        anomaly: null,
-      },
-    ],
-  }
-}
+// happy-dom supplies ResizeObserver/IntersectionObserver so it mounts without
+// crashing, and the chip-driven `pick()` path works because it sets `active`
+// directly rather than waiting on a real measured scroll — so the activation
+// state below is covered. The actual swipe gesture and settle physics still
+// need real layout (getBoundingClientRect, scroll width) happy-dom does not
+// provide, and are out of reach here.
 
 const DIVES: Briefing['dives'] = {
   normal: dive('Awful Catacomb'),
@@ -41,27 +27,12 @@ afterEach(() => {
   localStorage.clear()
 })
 
-// `md` and up renders both slides in a static grid with no carousel (see the
-// note above), so forcing the breakpoint match keeps this file off Embla
-// entirely.
-function matchDesktopBreakpoint(): void {
-  const realMatchMedia = window.matchMedia
-  window.matchMedia = (query: string): MediaQueryList => ({
-    ...realMatchMedia(query),
-    matches: query.includes('min-width'),
-  })
-}
-
 describe('DiveDeck · desktop layout (md and up)', () => {
-  let restoreMatchMedia: typeof window.matchMedia
-
+  // `md` and up renders both slides in a static grid with no carousel (see the
+  // note above), so a desktop-width viewport keeps this file off Embla entirely.
+  // The global mobile default (vitest.setup.ts) resets before the next test.
   beforeEach(() => {
-    restoreMatchMedia = window.matchMedia
-    matchDesktopBreakpoint()
-  })
-
-  afterEach(() => {
-    window.matchMedia = restoreMatchMedia
+    setViewportWidth(VIEWPORT_WIDTH.desktop)
   })
 
   it('renders both dives at once, with their switch chips', () => {
@@ -93,6 +64,12 @@ describe('DiveDeck · desktop layout (md and up)', () => {
 })
 
 describe('DiveDeck · mobile swipe deck (below md)', () => {
+  // Below `md` the deck is a real Embla carousel; state the breakpoint here
+  // rather than leaning on the suite-wide mobile default.
+  beforeEach(() => {
+    setViewportWidth(VIEWPORT_WIDTH.mobile)
+  })
+
   it('starts on the normal dive with the elite slab inert', () => {
     const { container, getByRole } = renderWithProviders(() => <DiveDeck dives={DIVES} expired={false} />)
 
@@ -114,3 +91,18 @@ describe('DiveDeck · mobile swipe deck (below md)', () => {
     expect(inertArticles[0]).toHaveTextContent('Awful Catacomb')
   })
 })
+
+function dive(name: string): DeepDive {
+  return {
+    name,
+    biome: 'FungusBogs',
+    missions: [
+      {
+        primaryObjective: { kind: 'EggHunt', eggs: 6 },
+        secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
+        warning: null,
+        anomaly: null,
+      },
+    ],
+  }
+}

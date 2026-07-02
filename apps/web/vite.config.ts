@@ -73,7 +73,7 @@ export function createWebViteConfig(): ViteUserConfig {
       },
     },
     test: {
-      environment: 'jsdom',
+      environment: 'happy-dom',
       setupFiles: ['./vitest.setup.ts'],
       include: ['*.test.{ts,tsx}', 'src/**/*.test.{ts,tsx}'],
       coverage: {
