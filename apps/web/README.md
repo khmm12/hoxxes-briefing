@@ -1,6 +1,6 @@
 # Hoxxes Briefing Web
 
-This package owns the public Solid SPA, weekly board UI, PWA shell, and browser
+This package owns the public Solid SPA, briefing UI, PWA shell, and browser
 data fetching.
 
 ## Commands

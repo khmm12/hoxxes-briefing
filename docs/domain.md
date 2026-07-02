@@ -5,7 +5,7 @@ working for the Deep Rock Galactic corporation on Hoxxes IV. Players descend
 into dangerous procedural caves, mine resources, complete mission objectives,
 fight alien bugs and machines, then extract.
 
-This reference covers the weekly Deep Dive rotation: Deep Dives, stages, biomes,
+This reference covers Deep Dive content: Deep Dives, stages, biomes,
 objectives, warnings, anomalies (mutators), and reset timing.
 
 This is the game reference catalogue. For the team's ubiquitous language —
@@ -15,8 +15,8 @@ canonical terms, deliberate deviations, and terms to avoid — see
 
 ## Deep Dives
 
-A Deep Dive is a fixed weekly sequence of three pre-seeded missions played
-back-to-back. Every player sees the same Deep Dive for the week. Health, ammo,
+A Deep Dive is a fixed sequence of three pre-seeded missions played
+back-to-back. Every player sees the same Deep Dive until reset. Health, ammo,
 gold, and nitra carry across the three stages, so early mistakes can matter
 later.
 
@@ -31,18 +31,18 @@ Deep Rock Galactic has two Deep Dives each week:
 
 | Deep Dive | Meaning |
 | --- | --- |
-| Deep Dive | The normal weekly Deep Dive. Its stages are Hazard 3, 3.5, and 3.5. |
-| Elite Deep Dive | A separate harder weekly Deep Dive. Its stages are Hazard 4.5, 5, and 5.5. |
+| Deep Dive | The normal Deep Dive. Its stages are Hazard 3, 3.5, and 3.5. |
+| Elite Deep Dive | A separate harder Deep Dive. Its stages are Hazard 4.5, 5, and 5.5. |
 
-## Weekly Rotation
+## Reset
 
 Deep Dives reset once a week. When the reset happens, the normal Deep Dive and
 Elite Deep Dive both receive new names, biomes, stages, objectives, warnings,
 and anomalies (mutators).
 
-The timer matters because the whole board changes at once. Before reset, players
+The timer matters because both Deep Dives change at once. Before reset, players
 are looking at the same fixed Deep Dives. After reset, the previous Deep Dives
-are gone and the new weekly pair becomes the current one.
+are gone and the new pair becomes the current one.
 
 ## Biomes
 
