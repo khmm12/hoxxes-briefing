@@ -2,7 +2,12 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import * as v1 from '@hoxxes-briefing/contracts/api/v1'
 
-const createMission = () => ({
+// The happy-path fixtures are typed against the contract, so a wire-shape
+// change that the fixtures no longer satisfy fails typecheck here before it
+// ever reaches a runtime assertion. Negative cases below deliberately step
+// outside the types (omitting or corrupting fields) and lean on `safeParse`,
+// whose input is `unknown`, to prove the schema rejects them at runtime.
+const createMission = (): v1.DeepDiveMission => ({
   primaryObjective: {
     kind: 'DeepScan',
     resonanceCrystals: 2,
@@ -15,7 +20,7 @@ const createMission = () => ({
   warning: 'RegenerativeBugs',
 })
 
-const createDive = (name) => ({
+const createDive = (name: string): v1.DeepDive => ({
   name,
   biome: 'AzureWeald',
   missions: [
@@ -29,7 +34,7 @@ const createDive = (name) => ({
   ],
 })
 
-const createValidBriefingPayload = () => ({
+const createValidBriefingPayload = (): v1.BriefingResponse => ({
   seed: 1234567890,
   confidence: 'verified',
   release: '2026-04-16T11:00:00.000Z',
@@ -55,37 +60,40 @@ test('parseBriefingResponse parses a valid briefing payload', () => {
 })
 
 test('safeParseBriefingResponse fails when confidence is omitted', () => {
-  const payload = createValidBriefingPayload()
-  delete payload.confidence
+  const { confidence: _confidence, ...withoutConfidence } = createValidBriefingPayload()
 
-  const result = v1.safeParseBriefingResponse(payload)
+  const result = v1.safeParseBriefingResponse(withoutConfidence)
 
   assert.equal(result.success, false)
 })
 
 test('safeParseBriefingResponse fails for an unknown confidence value', () => {
-  const payload = createValidBriefingPayload()
-  payload.confidence = 'probably'
-
-  const result = v1.safeParseBriefingResponse(payload)
+  const result = v1.safeParseBriefingResponse({
+    ...createValidBriefingPayload(),
+    confidence: 'probably',
+  })
 
   assert.equal(result.success, false)
 })
 
 test('safeParseBriefingResponse fails when required fields are omitted', () => {
-  const payload = createValidBriefingPayload()
-  delete payload.release
+  const { release: _release, ...withoutRelease } = createValidBriefingPayload()
 
-  const result = v1.safeParseBriefingResponse(payload)
+  const result = v1.safeParseBriefingResponse(withoutRelease)
 
   assert.equal(result.success, false)
 })
 
-test('safeParseBriefingResponse fails when dives are invalid', () => {
+test('safeParseBriefingResponse fails when a dive carries the wrong mission count', () => {
   const payload = createValidBriefingPayload()
-  payload.dives.normal.missions = [createMission()]
 
-  const result = v1.safeParseBriefingResponse(payload)
+  const result = v1.safeParseBriefingResponse({
+    ...payload,
+    dives: {
+      ...payload.dives,
+      normal: { ...payload.dives.normal, missions: [createMission()] },
+    },
+  })
 
   assert.equal(result.success, false)
 })
