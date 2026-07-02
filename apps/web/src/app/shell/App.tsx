@@ -2,13 +2,13 @@ import { createEffect, Errored, Loading, lazy, Show } from 'solid-js'
 import type { I18n } from '@lingui/core'
 import { Route, Router } from '@solidjs/router'
 import type { JSX } from '@solidjs/web'
-import { AppCrashScreen } from '~/app/AppCrashScreen'
-import { I18nProvider } from '~/app/providers'
+import { AppCrashScreen } from '~/app/shell/AppCrashScreen'
+import { I18nProvider } from '~/shared/i18n'
 import { createPwaNoticeState } from '~/app/pwa'
 import { BriefingPage } from '~/pages/briefing'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { PwaNotice } from '~/widgets/pwa-notice'
-import './styles.css'
+import '../styles/global.css'
 
 const NotFoundPage = lazy(() => import('~/pages/not-found').then((module) => ({ default: module.NotFoundPage })))
 

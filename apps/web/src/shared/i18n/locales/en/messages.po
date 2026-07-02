@@ -65,7 +65,7 @@ msgstr "already ended"
 msgid "Anomaly"
 msgstr "Anomaly"
 
-#: src/app/AppCrashScreen.tsx:28
+#: src/app/shell/AppCrashScreen.tsx:28
 msgid "App crashed"
 msgstr "App crashed"
 
@@ -533,7 +533,7 @@ msgstr "Refreshing..."
 msgid "Regenerative Bugs"
 msgstr "Regenerative Bugs"
 
-#: src/app/AppCrashScreen.tsx:22
+#: src/app/shell/AppCrashScreen.tsx:22
 msgid "Reload app"
 msgstr "Reload app"
 
@@ -541,7 +541,7 @@ msgstr "Reload app"
 msgid "Reload for the latest app version."
 msgstr "Reload for the latest app version."
 
-#: src/app/AppCrashScreen.tsx:25
+#: src/app/shell/AppCrashScreen.tsx:25
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
 
@@ -577,7 +577,7 @@ msgstr "Rock and Stone!"
 msgid "Rundown"
 msgstr "Rundown"
 
-#: src/app/AppCrashScreen.tsx:26
+#: src/app/shell/AppCrashScreen.tsx:26
 msgid "Runtime fault"
 msgstr "Runtime fault"
 
