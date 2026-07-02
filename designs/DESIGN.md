@@ -477,6 +477,11 @@ labeled variant.
   max-width 288, `label` text.
 - **PWA notice** — bottom dock card: `rounded.lg`, subtle border, info
   eyebrow, title/body, secondary action.
+- **Confidence notice** — advisory strip between the rail and the deck when
+  the briefing is unverified (ADR 0002 `confidence` flag): `rounded.md`,
+  info surface + border triad, 20 px alert glyph in `info`, info eyebrow
+  (`UNVERIFIED BRIEFING`) over a `body-sm` `text-secondary` line.
+  Non-blocking — the board below stays fully live.
 - **Footer** — board sign-off, flat on the page background (no card chrome),
   centered: an uppercase gold display salute (`ROCK AND STONE!`) flanked by
   thin angled gold hazard-stripe bands that extend full-bleed to the screen
@@ -550,7 +555,8 @@ Behaviors and rules:
 
 Canonical compositions assembled from the components above:
 
-- Desktop 1440: board live, board expired, loading.
+- Desktop 1440: board live, board expired, board unverified (live board +
+  confidence notice), loading.
 - Mobile 390: board live, board scrolled (shrunk sticky dive switch),
   board offline (cached), error (network), not found,
   board + app-update dock.

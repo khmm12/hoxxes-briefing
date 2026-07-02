@@ -1,5 +1,5 @@
 {
-  "version": "2.13",
+  "version": "2.14",
   "children": [
     {
       "type": "frame",
@@ -5663,6 +5663,63 @@
                   "type": "ref",
                   "ref": "GMrtZ",
                   "name": "PWA/desktop"
+                },
+                {
+                  "type": "frame",
+                  "id": "F8sQro",
+                  "name": "Confidence Notice",
+                  "reusable": true,
+                  "width": 720,
+                  "fill": "$info-surface",
+                  "cornerRadius": "$radius-md",
+                  "stroke": "$info-border",
+                  "strokeWidth": 1,
+                  "gap": 12,
+                  "padding": [
+                    12,
+                    16
+                  ],
+                  "children": [
+                    {
+                      "id": "EFwJZ",
+                      "type": "ref",
+                      "ref": "IIBNw",
+                      "name": "Notice Icon",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "$info"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "au07z",
+                      "name": "Notice Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "id": "xTFc1",
+                          "type": "ref",
+                          "ref": "WNdRs",
+                          "name": "Notice Eyebrow",
+                          "content": "UNVERIFIED BRIEFING",
+                          "fill": "$info"
+                        },
+                        {
+                          "type": "text",
+                          "id": "O885k",
+                          "name": "Notice Body",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Mission Control has not verified this briefing yet. Dive details may change.",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
@@ -17783,6 +17840,758 @@
           }
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "Bl4jJ",
+      "x": 0,
+      "y": 8720,
+      "name": "Screen · Desktop · Board (unverified)",
+      "clip": true,
+      "width": 1440,
+      "fill": "$bg",
+      "layout": "vertical",
+      "gap": 24,
+      "padding": [
+        16,
+        0,
+        48,
+        0
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "xP7XW",
+          "name": "Content",
+          "width": 1280,
+          "layout": "vertical",
+          "gap": 16,
+          "children": [
+            {
+              "id": "y8qTa9",
+              "type": "ref",
+              "ref": "GHscb",
+              "name": "Rail"
+            },
+            {
+              "id": "G7OFqr",
+              "type": "ref",
+              "ref": "F8sQro",
+              "name": "Confidence Notice",
+              "width": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "wxnRF",
+              "name": "Dive Deck",
+              "width": "fill_container",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "S4GdF",
+                  "name": "Slab Normal",
+                  "width": "fill_container",
+                  "fill": [
+                    "$surface-raised",
+                    {
+                      "type": "gradient",
+                      "gradientType": "radial",
+                      "enabled": true,
+                      "rotation": 0,
+                      "size": {
+                        "width": 4.4,
+                        "height": 4.2
+                      },
+                      "colors": [
+                        {
+                          "color": "$primary-surface",
+                          "position": 0
+                        },
+                        {
+                          "color": "#00000000",
+                          "position": 0.65
+                        }
+                      ],
+                      "center": {
+                        "x": 1,
+                        "y": 0
+                      }
+                    }
+                  ],
+                  "cornerRadius": "$radius-lg",
+                  "stroke": "$primary-border",
+                  "strokeWidth": 1,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#0000003d",
+                    "offset": {
+                      "x": 0,
+                      "y": 8
+                    },
+                    "blur": 24
+                  },
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "O5Irr",
+                      "name": "Slab Header",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "id": "LrJbI",
+                          "type": "ref",
+                          "ref": "WNdRs",
+                          "name": "Kind",
+                          "content": "DEEP DIVE",
+                          "fill": "$primary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "CRDLA",
+                          "name": "Dive Name",
+                          "fill": "$text-primary",
+                          "content": "AWFUL CATACOMB",
+                          "fontFamily": "$font-display",
+                          "fontSize": "$text-2xl",
+                          "fontWeight": "700",
+                          "letterSpacing": 0.96
+                        },
+                        {
+                          "type": "frame",
+                          "id": "OTeoC",
+                          "name": "Biome",
+                          "gap": 6,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "wkrSC",
+                              "type": "ref",
+                              "ref": "s4U0cf",
+                              "name": "Biome Icon",
+                              "width": 16,
+                              "height": 16,
+                              "fill": "$biome-fungus-bogs"
+                            },
+                            {
+                              "type": "text",
+                              "id": "D6TVt",
+                              "name": "Biome Name",
+                              "fill": "$text-muted",
+                              "content": "Fungus Bogs",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-sm",
+                              "fontWeight": "500",
+                              "letterSpacing": 0.28
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "LhwK8",
+                          "x": 0,
+                          "y": 0,
+                          "name": "Freshness",
+                          "enabled": false,
+                          "fill": "$danger",
+                          "content": "Last known briefing",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "mX76Q",
+                          "name": "Intel Note",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Finish what you start. Half-cleared fights drain the whole dive.",
+                          "lineHeight": 1.55,
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "vUZrn",
+                      "name": "Rundown",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "exNcj",
+                          "name": "Rundown Label",
+                          "fill": "$text-muted",
+                          "content": "Rundown",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "500",
+                          "letterSpacing": 0.28
+                        },
+                        {
+                          "type": "frame",
+                          "id": "k4A1GW",
+                          "name": "Chips",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "id": "dEh6z",
+                              "type": "ref",
+                              "ref": "bMvJA",
+                              "name": "Chip Regenerative Bugs",
+                              "stroke": "$danger-border",
+                              "descendants": {
+                                "U4bQh": {
+                                  "content": "Regenerative Bugs"
+                                }
+                              }
+                            },
+                            {
+                              "id": "JLrcl",
+                              "type": "ref",
+                              "ref": "bMvJA",
+                              "name": "Chip Pit-Jaw Colony",
+                              "stroke": "$danger-border",
+                              "descendants": {
+                                "COYnl": {
+                                  "id": "tWta7",
+                                  "type": "ref",
+                                  "ref": "LkjTw",
+                                  "name": "Chip Icon",
+                                  "width": 16,
+                                  "height": 16,
+                                  "fill": "$danger"
+                                },
+                                "U4bQh": {
+                                  "content": "Pit-Jaw Colony"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FyFg8",
+                      "name": "Stages",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "id": "n7GXFG",
+                          "type": "ref",
+                          "ref": "wIAoB",
+                          "name": "N1",
+                          "width": "fill_container",
+                          "descendants": {
+                            "tPSFp": {
+                              "enabled": false
+                            }
+                          }
+                        },
+                        {
+                          "id": "Qi8fD",
+                          "type": "ref",
+                          "ref": "wIAoB",
+                          "name": "N2",
+                          "width": "fill_container",
+                          "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 2"
+                            },
+                            "M9AH0": {
+                              "id": "RxzHl",
+                              "type": "ref",
+                              "ref": "rPnog",
+                              "name": "PO Icon",
+                              "width": 24,
+                              "height": 24,
+                              "fill": "$primary"
+                            },
+                            "q4wn9": {
+                              "content": "Mule x3"
+                            },
+                            "eKiZe": {
+                              "id": "MHX53",
+                              "type": "ref",
+                              "ref": "knGhm",
+                              "name": "SO Icon",
+                              "width": 20,
+                              "height": 20,
+                              "fill": "$info"
+                            },
+                            "x3Y2O": {
+                              "content": "Crystal Scan x2"
+                            },
+                            "nxUS5": {
+                              "enabled": false
+                            },
+                            "tPSFp": {
+                              "enabled": false
+                            },
+                            "ZTRRh": {
+                              "enabled": true
+                            }
+                          }
+                        },
+                        {
+                          "id": "ouW7p",
+                          "type": "ref",
+                          "ref": "wIAoB",
+                          "name": "N3",
+                          "width": "fill_container",
+                          "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 3"
+                            },
+                            "M9AH0": {
+                              "id": "wz5W7",
+                              "type": "ref",
+                              "ref": "sS4xm",
+                              "name": "PO Icon",
+                              "width": 24,
+                              "height": 24,
+                              "fill": "$primary"
+                            },
+                            "q4wn9": {
+                              "content": "Morkite x200"
+                            },
+                            "eKiZe": {
+                              "id": "D2WYs",
+                              "type": "ref",
+                              "ref": "cX423",
+                              "name": "SO Icon",
+                              "width": 20,
+                              "height": 20,
+                              "fill": "$info"
+                            },
+                            "x3Y2O": {
+                              "content": "Black Box"
+                            },
+                            "y3aYtZ": {
+                              "id": "UdN0n",
+                              "type": "ref",
+                              "ref": "LkjTw",
+                              "name": "Warn Icon",
+                              "width": 20,
+                              "height": 20,
+                              "fill": "$danger"
+                            },
+                            "ty4uf": {
+                              "content": "Pit-Jaw Colony"
+                            },
+                            "tPSFp": {
+                              "enabled": false
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "n3oEgR",
+                  "name": "Slab Elite",
+                  "width": "fill_container",
+                  "fill": [
+                    "$surface-sunken",
+                    {
+                      "type": "gradient",
+                      "gradientType": "radial",
+                      "enabled": true,
+                      "rotation": 0,
+                      "size": {
+                        "width": 4.4,
+                        "height": 4.2
+                      },
+                      "colors": [
+                        {
+                          "color": "$danger-surface",
+                          "position": 0
+                        },
+                        {
+                          "color": "#00000000",
+                          "position": 0.65
+                        }
+                      ],
+                      "center": {
+                        "x": 1,
+                        "y": 0
+                      }
+                    }
+                  ],
+                  "cornerRadius": "$radius-lg",
+                  "stroke": "$danger-border",
+                  "strokeWidth": 1,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#0000003d",
+                    "offset": {
+                      "x": 0,
+                      "y": 8
+                    },
+                    "blur": 24
+                  },
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "S3cF7",
+                      "name": "Slab Header",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "id": "U7fBF",
+                          "type": "ref",
+                          "ref": "WNdRs",
+                          "name": "Kind",
+                          "content": "ELITE DEEP DIVE",
+                          "fill": "$danger"
+                        },
+                        {
+                          "type": "text",
+                          "id": "PATC0",
+                          "name": "Dive Name",
+                          "fill": "$text-primary",
+                          "content": "NATURAL ROOF",
+                          "fontFamily": "$font-display",
+                          "fontSize": "$text-2xl",
+                          "fontWeight": "700",
+                          "letterSpacing": 0.96
+                        },
+                        {
+                          "type": "frame",
+                          "id": "bgh1H",
+                          "name": "Biome",
+                          "gap": 6,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "prH9C",
+                              "type": "ref",
+                              "ref": "cTTH1",
+                              "name": "Biome Icon",
+                              "width": 16,
+                              "height": 16,
+                              "fill": "$biome-azure-weald"
+                            },
+                            {
+                              "type": "text",
+                              "id": "m7v86",
+                              "name": "Biome Name",
+                              "fill": "$text-muted",
+                              "content": "Azure Weald",
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-sm",
+                              "fontWeight": "500",
+                              "letterSpacing": 0.28
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "aAj53",
+                          "x": 0,
+                          "y": 0,
+                          "name": "Freshness",
+                          "enabled": false,
+                          "fill": "$danger",
+                          "content": "Last known briefing",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "IKrh2",
+                          "name": "Intel Note",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Keep moving between cover. Open ground has teeth today.",
+                          "lineHeight": 1.55,
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "cYxbg",
+                      "name": "Rundown",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "y8JH1U",
+                          "name": "Rundown Label",
+                          "fill": "$text-muted",
+                          "content": "Rundown",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "500",
+                          "letterSpacing": 0.28
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iRNKL",
+                          "name": "Chips",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "id": "kXsGT",
+                              "type": "ref",
+                              "ref": "bMvJA",
+                              "name": "Chip Lethal Enemies",
+                              "stroke": "$danger-border",
+                              "descendants": {
+                                "COYnl": {
+                                  "id": "r16VAc",
+                                  "type": "ref",
+                                  "ref": "Dw5rw",
+                                  "name": "Chip Icon",
+                                  "width": 16,
+                                  "height": 16,
+                                  "fill": "$danger"
+                                },
+                                "U4bQh": {
+                                  "content": "Lethal Enemies"
+                                }
+                              }
+                            },
+                            {
+                              "id": "MreCD",
+                              "type": "ref",
+                              "ref": "bMvJA",
+                              "name": "Chip Duck and Cover",
+                              "stroke": "$danger-border",
+                              "descendants": {
+                                "COYnl": {
+                                  "id": "e2VTCx",
+                                  "type": "ref",
+                                  "ref": "GaEe4",
+                                  "name": "Chip Icon",
+                                  "width": 16,
+                                  "height": 16,
+                                  "fill": "$danger"
+                                },
+                                "U4bQh": {
+                                  "content": "Duck and Cover"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "HzESR",
+                      "name": "Stages",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 12,
+                      "children": [
+                        {
+                          "id": "gO2w8",
+                          "type": "ref",
+                          "ref": "wIAoB",
+                          "name": "E1",
+                          "width": "fill_container",
+                          "stroke": "$danger-border",
+                          "descendants": {
+                            "M9AH0": {
+                              "id": "roblz",
+                              "type": "ref",
+                              "ref": "QwE6O",
+                              "name": "PO Icon",
+                              "width": 24,
+                              "height": 24,
+                              "fill": "$primary"
+                            },
+                            "q4wn9": {
+                              "content": "Escort Duty"
+                            },
+                            "eKiZe": {
+                              "id": "ztouR",
+                              "type": "ref",
+                              "ref": "L4Ggp",
+                              "name": "SO Icon",
+                              "width": 20,
+                              "height": 20,
+                              "fill": "$info"
+                            },
+                            "x3Y2O": {
+                              "content": "Egg x2"
+                            },
+                            "y3aYtZ": {
+                              "id": "IdQ0V",
+                              "type": "ref",
+                              "ref": "Dw5rw",
+                              "name": "Warn Icon",
+                              "width": 20,
+                              "height": 20,
+                              "fill": "$danger"
+                            },
+                            "ty4uf": {
+                              "content": "Lethal Enemies"
+                            },
+                            "tPSFp": {
+                              "enabled": false
+                            }
+                          }
+                        },
+                        {
+                          "id": "Pbc7R",
+                          "type": "ref",
+                          "ref": "wIAoB",
+                          "name": "E2",
+                          "width": "fill_container",
+                          "stroke": "$danger-border",
+                          "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 2"
+                            },
+                            "M9AH0": {
+                              "id": "A3s10",
+                              "type": "ref",
+                              "ref": "knGhm",
+                              "name": "PO Icon",
+                              "width": 24,
+                              "height": 24,
+                              "fill": "$primary"
+                            },
+                            "q4wn9": {
+                              "content": "Crystal Scan x5"
+                            },
+                            "eKiZe": {
+                              "id": "etjSR",
+                              "type": "ref",
+                              "ref": "cX423",
+                              "name": "SO Icon",
+                              "width": 20,
+                              "height": 20,
+                              "fill": "$info"
+                            },
+                            "x3Y2O": {
+                              "content": "Black Box"
+                            },
+                            "nxUS5": {
+                              "enabled": false
+                            },
+                            "tPSFp": {
+                              "enabled": false
+                            },
+                            "ZTRRh": {
+                              "enabled": true
+                            }
+                          }
+                        },
+                        {
+                          "id": "KCjfM",
+                          "type": "ref",
+                          "ref": "wIAoB",
+                          "name": "E3",
+                          "width": "fill_container",
+                          "stroke": "$danger-border",
+                          "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 3"
+                            },
+                            "M9AH0": {
+                              "id": "aD3Ol",
+                              "type": "ref",
+                              "ref": "uWYnF",
+                              "name": "PO Icon",
+                              "width": 24,
+                              "height": 24,
+                              "fill": "$primary"
+                            },
+                            "q4wn9": {
+                              "content": "Aquarq x10"
+                            },
+                            "eKiZe": {
+                              "id": "Bkmin",
+                              "type": "ref",
+                              "ref": "jZvus",
+                              "name": "SO Icon",
+                              "width": 20,
+                              "height": 20,
+                              "fill": "$info"
+                            },
+                            "x3Y2O": {
+                              "content": "Resistive Mass x3"
+                            },
+                            "y3aYtZ": {
+                              "id": "Uz03Q",
+                              "type": "ref",
+                              "ref": "GaEe4",
+                              "name": "Warn Icon",
+                              "width": 20,
+                              "height": 20,
+                              "fill": "$danger"
+                            },
+                            "ty4uf": {
+                              "content": "Duck and Cover"
+                            },
+                            "tPSFp": {
+                              "enabled": false
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ahCRY",
+              "name": "Footer Wrap",
+              "width": "fill_container",
+              "padding": [
+                16,
+                0,
+                0,
+                0
+              ],
+              "justifyContent": "center",
+              "children": [
+                {
+                  "id": "cRjdk",
+                  "type": "ref",
+                  "ref": "Y1XJVH",
+                  "name": "Footer"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "variables": {
@@ -18118,5 +18927,6 @@
       "type": "number",
       "value": 28
     }
-  }
+  },
+  "fileToken": "54dcd204-75f6-47a2-9920-9ca765809aba"
 }
