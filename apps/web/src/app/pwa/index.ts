@@ -1,1 +1,1 @@
-export { createPwaNoticeState } from './create-pwa-notice-state'
+export { createPwaController } from './create-pwa-controller'

@@ -6,7 +6,7 @@ import { createTestI18n } from '~test/render'
 import { App } from './App'
 
 // App owns the PWA wiring through this virtual module; drive it with signals
-// the test controls, the way create-pwa-notice-state.test.ts does.
+// the test controls, the way create-pwa-controller.test.ts does.
 const [needRefresh, setNeedRefresh] = createSignal(false)
 const [offlineReady, setOfflineReady] = createSignal(false)
 const updateServiceWorker = vi.fn(async () => {})

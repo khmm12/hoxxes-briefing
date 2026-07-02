@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { render } from '@solidjs/testing-library'
 import type { DeepDiveAnomaly, DeepDiveBiome, DeepDiveWarning } from '~/shared/api'
-import type { PrimaryObjectiveKind, SecondaryObjectiveKind } from '../model/catalog'
+import type { PrimaryObjectiveKind, SecondaryObjectiveKind } from '../../model/catalog'
 import {
   AnomalyKindIcon,
   BiomeKindIcon,

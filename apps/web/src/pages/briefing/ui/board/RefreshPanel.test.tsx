@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { flush } from 'solid-js'
 import { fireEvent } from '@solidjs/testing-library'
 import { renderWithProviders } from '~test/render'
-import type { BriefingViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../../model/briefing-page-state'
 import { RefreshPanel } from './RefreshPanel'
 
 const LIVE_STATE: BriefingViewState = {

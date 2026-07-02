@@ -86,7 +86,7 @@ export function createWebViteConfig(): ViteUserConfig {
         // (and shared/ui/styling/index.ts holds real logic), so that glob would
         // drop the very files these tests cover. Pure re-export barrels stay in
         // and read ~100% once a test imports through them.
-        exclude: ['src/**/*.d.ts', 'src/main.tsx', 'src/app/sw.ts', 'src/**/dev/**'],
+        exclude: ['src/**/*.d.ts', 'src/app/entry.tsx', 'src/app/sw.ts', 'src/**/dev/**'],
       },
     },
   }

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { I18n } from '@lingui/core'
 import { createTestI18n } from '~test/render'
-import type { IntelNote } from '../model/intel'
+import type { IntelNote } from '../../model/intel'
 import { formatIntelNote } from './intel-copy'
 
 const i18n: I18n = createTestI18n()

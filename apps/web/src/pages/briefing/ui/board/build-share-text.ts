@@ -10,7 +10,7 @@ import type {
 } from '~/shared/api'
 import { canonicalUrl } from '~/shared/config'
 import { getDateTimeFormat } from '~/shared/i18n'
-import { buildIntel, type DiveKind } from '../model/intel'
+import { buildIntel, type DiveKind } from '../../model/intel'
 import {
   formatAnomaly,
   formatBiome,
@@ -18,8 +18,8 @@ import {
   formatPrimaryObjective,
   formatSecondaryObjective,
   formatWarning,
-} from '../ui/dive-copy'
-import { formatIntelNote } from '../ui/intel-copy'
+} from '../dive/dive-copy'
+import { formatIntelNote } from '../dive/intel-copy'
 
 /**
  * Renders the current Briefing as a self-contained, paste-anywhere text block.

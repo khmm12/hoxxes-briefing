@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { fireEvent } from '@solidjs/testing-library'
-import { AppCrashScreen } from '~/app/AppCrashScreen'
+import { AppCrashScreen } from '~/app/shell/AppCrashScreen'
 import { renderWithProviders } from '~test/render'
 
 describe('AppCrashScreen', () => {

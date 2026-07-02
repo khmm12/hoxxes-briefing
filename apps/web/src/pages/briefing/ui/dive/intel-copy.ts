@@ -1,6 +1,6 @@
 import type { I18n } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import type { IntelNote } from '../model/intel'
+import type { IntelNote } from '../../model/intel'
 
 export function formatIntelNote(i18n: I18n, note: IntelNote): string {
   switch (note) {

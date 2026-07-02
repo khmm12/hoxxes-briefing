@@ -1,1 +1,1 @@
-export { BriefingPage } from './ui/BriefingPage'
+export { BriefingPage } from './ui/board/BriefingPage'

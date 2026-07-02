@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { Briefing } from '~/shared/api'
 import { createTestI18n, renderWithProviders } from '~test/render'
-import type { BriefingViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../../model/briefing-page-state'
 import { CommandRail } from './CommandRail'
 import { getSlogan } from './slogan-copy'
 

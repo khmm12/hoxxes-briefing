@@ -7,7 +7,7 @@
 // path is public/favicon.ico (crawler fallback — cannot be hashed).
 //
 // What it writes:
-//   - src/pages/briefing/ui/brand-logo.svg  — the in-app logo (Vite-imported asset)
+//   - src/pages/briefing/ui/brand/brand-logo.svg  — the in-app logo (Vite-imported asset)
 //   - assets/icons/{apple-touch-icon,icon-192,icon-512,icon-maskable-512}.png
 //   - assets/icons/splash/apple-splash-*.png  — 38 iOS launch screens
 //   - assets/icons/favicon.svg            — the live SVG favicon (rounded tile)
@@ -46,7 +46,7 @@ await assertOxipng()
 const written: string[] = []
 
 // In-app brand logo: an SVG on disk because BrandLogo.tsx imports it as a URL asset.
-await writeFile(resolve(webRoot, 'src/pages/briefing/ui/brand-logo.svg'), SVG_HEADER + renderBareLogo())
+await writeFile(resolve(webRoot, 'src/pages/briefing/ui/brand/brand-logo.svg'), SVG_HEADER + renderBareLogo())
 
 // Install icons from the full-bleed mark (app icon at 0.86; maskable tighter at 0.72 so the
 // emblem clears Android's safe circle). Transparent never shows — the gold plate fills the square.
