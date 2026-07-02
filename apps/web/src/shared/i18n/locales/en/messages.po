@@ -178,7 +178,7 @@ msgstr "Deep Dive"
 msgid "Deep dive mission board"
 msgstr "Deep dive mission board"
 
-#: src/pages/briefing/lib/build-share-text.ts:94
+#: src/pages/briefing/ui/build-share-text.ts:94
 #: src/pages/briefing/ui/DiveDeck.tsx:181
 msgid "Deep Dives"
 msgstr "Deep Dives"
@@ -278,7 +278,7 @@ msgstr "Hiveguard"
 msgid "Hollow Bough"
 msgstr "Hollow Bough"
 
-#: src/pages/briefing/lib/build-share-text.ts:85
+#: src/pages/briefing/ui/build-share-text.ts:85
 msgid "Hoxxes Briefing · Rock and Stone!"
 msgstr "Hoxxes Briefing · Rock and Stone!"
 
@@ -705,7 +705,7 @@ msgstr "Try again once the connection settles."
 msgid "Twins"
 msgstr "Twins"
 
-#: src/pages/briefing/lib/build-share-text.ts:98
+#: src/pages/briefing/ui/build-share-text.ts:98
 msgid "Unverified — Mission Control has not confirmed this briefing yet, details may change."
 msgstr "Unverified — Mission Control has not confirmed this briefing yet, details may change."
 

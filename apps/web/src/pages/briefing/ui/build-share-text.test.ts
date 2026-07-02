@@ -12,7 +12,7 @@ import { canonicalUrl } from '~/shared/config'
 import { getDateTimeFormat } from '~/shared/i18n'
 import { createTestI18n } from '~test/render'
 import { buildIntel } from '../model/intel'
-import { formatIntelNote } from '../ui/intel-copy'
+import { formatIntelNote } from './intel-copy'
 import { buildShareText } from './build-share-text'
 
 const i18n: I18n = createTestI18n()

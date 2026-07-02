@@ -8,7 +8,7 @@ import { useI18n } from '~/shared/i18n'
 import { type ShareOutcome, shareOrCopy } from '~/shared/lib/share-or-copy'
 import { ShareIcon } from '~/shared/ui/icon'
 import { IconButton } from '~/shared/ui/icon-button'
-import { buildShareText } from '../lib/build-share-text'
+import { buildShareText } from './build-share-text'
 
 type ShareButtonProps = {
   briefing: Briefing

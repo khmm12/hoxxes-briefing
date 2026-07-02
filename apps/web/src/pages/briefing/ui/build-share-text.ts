@@ -18,8 +18,8 @@ import {
   formatPrimaryObjective,
   formatSecondaryObjective,
   formatWarning,
-} from '../ui/dive-copy'
-import { formatIntelNote } from '../ui/intel-copy'
+} from './dive-copy'
+import { formatIntelNote } from './intel-copy'
 
 /**
  * Renders the current Briefing as a self-contained, paste-anywhere text block.

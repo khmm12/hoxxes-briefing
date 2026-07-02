@@ -1,6 +1,6 @@
 import type { I18n, MessageDescriptor } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import { type SloganPool, selectSlogan } from '../model/slogan'
+import { type SloganPool, selectSlogan } from '../lib/slogan'
 
 const sloganPool: SloganPool<MessageDescriptor> = [
   msg`Rock and Stone!`,
