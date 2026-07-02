@@ -9,7 +9,6 @@
 		"types": [
 			"vite/client",
 			"vite-plugin-pwa/solid",
-			"@testing-library/jest-dom",
 			"@total-typescript/ts-reset"
 		],
 		"paths": {
@@ -20,12 +19,11 @@
 		"composite": true,
 		"tsBuildInfoFile": "../../node_modules/.tmp/apps-web.tsconfig.app.tsbuildinfo"
 	},
-	"include": [
-		"src/**/*.ts",
-		"src/**/*.tsx",
-		"src/**/*.d.ts",
-		"test/**/*.ts",
-		"test/**/*.tsx"
-	],
-	"exclude": ["src/app/sw.ts", "styled-system"]
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"],
+	"exclude": [
+		"src/**/*.test.ts",
+		"src/**/*.test.tsx",
+		"src/app/sw.ts",
+		"styled-system"
+	]
 }

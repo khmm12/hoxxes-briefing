@@ -1,0 +1,22 @@
+{
+	"extends": "./tsconfig.app.json",
+	"compilerOptions": {
+		"composite": true,
+		"types": [
+			"vite/client",
+			"vite-plugin-pwa/solid",
+			"@testing-library/jest-dom",
+			"@total-typescript/ts-reset"
+		],
+		"tsBuildInfoFile": "../../node_modules/.tmp/apps-web.tsconfig.test.tsbuildinfo"
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"src/**/*.d.ts",
+		"test/**/*.ts",
+		"test/**/*.tsx",
+		"vitest.setup.ts"
+	],
+	"exclude": ["src/app/sw.ts", "styled-system"]
+}

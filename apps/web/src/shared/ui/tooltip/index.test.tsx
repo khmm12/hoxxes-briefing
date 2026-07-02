@@ -25,8 +25,8 @@ function setPointerHover(isHover: boolean): void {
 }
 
 afterEach(() => {
-  // vitest.setup.ts installs the default (always-mouse) matchMedia stub fresh
-  // per module load, not per test — restore it so other suites see the baseline.
+  // Each case reassigns window.matchMedia to force a hover/touch device; restore
+  // the mouse baseline so a later test in this file starts from hover-capable.
   setPointerHover(true)
 })
 

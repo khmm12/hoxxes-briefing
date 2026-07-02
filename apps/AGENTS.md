@@ -39,9 +39,14 @@ Rules in this file apply under `apps/`.
   WebKit — verify in real Safari via safaridriver (`sudo safaridriver --enable`
   once, then WebDriver on :4444). Focusing a tooltip trigger opens it without
   hover synthesis.
-- Module layout: exported component first, private helpers below it. Variables
-  holding DOM elements use a `$` prefix (`$trigger`, `$panel`); keep
-  geometry/style computation pure and apply styles in a separate step.
+- Module layout: the essence first, support below. Exported component/API up
+  top, non-trivial private helpers under it — a reader must see what the module
+  does before scrolling through helper definitions. Module-level constants and
+  types may sit above (they are context, not toil); one-line helpers may too.
+  The same order applies to tests: the `describe`/`it` cases come first, fixtures
+  and helpers below them. Variables holding DOM elements use a `$` prefix
+  (`$trigger`, `$panel`); keep geometry/style computation pure and apply styles
+  in a separate step.
 - Panda style values resolve against the token category declared for each
   property (sizes, colors, radii, …); `[...]` is the raw as-is escape hatch.
   Styles are extracted statically — keep style objects literal, no computed

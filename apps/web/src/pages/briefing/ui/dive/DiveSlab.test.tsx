@@ -1,8 +1,9 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { flush } from 'solid-js'
 import { fireEvent, within } from '@solidjs/testing-library'
 import type { DeepDive } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
+import { setViewportWidth, VIEWPORT_WIDTH } from '~test/viewport'
 import { DiveSlab } from './DiveSlab'
 
 const DIVE: DeepDive = {
@@ -25,6 +26,12 @@ const DIVE: DeepDive = {
 }
 
 describe('DiveSlab', () => {
+  // The rundown caps visible chips at the mobile breakpoint; pin the viewport so
+  // the overflow-toggle case below is deterministic.
+  beforeEach(() => {
+    setViewportWidth(VIEWPORT_WIDTH.mobile)
+  })
+
   it('renders the dive name, biome, and a stage per mission', () => {
     const { getByText, getAllByText } = renderWithProviders(() => (
       <DiveSlab dive={DIVE} expired={false} kind="normal" />
@@ -94,8 +101,8 @@ describe('DiveSlab', () => {
     const { getByRole } = renderWithProviders(() => <DiveSlab dive={dive} expired={false} kind="normal" />)
     const rundown = within(getByRole('region', { name: 'Rundown' }))
 
-    // Mobile breakpoint (no matchMedia match) caps the visible chips at 2,
-    // so this 6-chip dive must overflow behind the toggle.
+    // At the mobile viewport the rundown caps visible chips at 2, so this
+    // 6-chip dive must overflow behind the toggle.
     const toggle = rundown.getByRole('button', { name: '+4 more' })
     expect(rundown.queryByText('Low Gravity')).not.toBeInTheDocument()
 
