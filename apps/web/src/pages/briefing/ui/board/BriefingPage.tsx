@@ -125,10 +125,10 @@ function ReadyBoard(props: ReadyBoardProps): JSX.Element {
   // A refresh rejected with `outdated` is not a transient failure: the cached
   // board may be correct-for-its-revision, but every next fetch hits the same
   // wall, so the wall replaces the board instead of a "refresh failed" hint.
-  const outdated = createMemo(() => {
+  const outdated = () => {
     const refreshError = props.query.lastRefreshError
     return refreshError instanceof BriefingRequestError && refreshError.kind === 'outdated'
-  })
+  }
 
   return (
     <Show
