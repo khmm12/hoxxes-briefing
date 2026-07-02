@@ -10,7 +10,7 @@ import {
   ObjectiveSecondaryIcon,
   WarningGenericIcon,
 } from '~/shared/ui/icon'
-import type { PrimaryObjectiveKind, SecondaryObjectiveKind } from '../model/catalog'
+import type { PrimaryObjectiveKind, SecondaryObjectiveKind } from '../../model/catalog'
 
 type WarningKind = DeepDiveWarning
 

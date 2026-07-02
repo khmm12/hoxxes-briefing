@@ -2,11 +2,11 @@ import { Show } from 'solid-js'
 import type { JSX } from '@solidjs/web'
 import { css } from 'styled-system/css'
 import type { Briefing } from '~/shared/api'
-import type { BriefingViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../../model/briefing-page-state'
+import { DiveDeck } from '../dive/DiveDeck'
 import { BoardFooter } from './BoardFooter'
 import { CommandRail } from './CommandRail'
 import { ConfidenceNotice } from './ConfidenceNotice'
-import { DiveDeck } from './DiveDeck'
 
 type BoardProps = {
   now: Date

@@ -11,8 +11,8 @@ import { createBreakpointQuery } from '~/shared/lib/create-media-query'
 import { Eyebrow } from '~/shared/ui/eyebrow'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 import { Tooltip } from '~/shared/ui/tooltip'
-import { buildRundownChips, type RundownChip } from '../model/dive-rundown'
-import { buildIntel } from '../model/intel'
+import { buildRundownChips, type RundownChip } from '../../model/dive-rundown'
+import { buildIntel } from '../../model/intel'
 import {
   formatAnomaly,
   formatAnomalyDescription,

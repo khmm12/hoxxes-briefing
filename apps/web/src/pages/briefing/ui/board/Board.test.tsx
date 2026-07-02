@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { Briefing } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
-import type { BriefingViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../../model/briefing-page-state'
 import { Board } from './Board'
 
 const data: Briefing = {

@@ -47,7 +47,7 @@ const domainSuffix = '.vercel.app'
 
 const scriptDir = dirname(fileURLToPath(import.meta.url))
 const publicDir = resolve(scriptDir, '../public')
-const emblemPath = resolve(scriptDir, '../src/pages/briefing/ui/brand-logo.svg')
+const emblemPath = resolve(scriptDir, '../src/pages/briefing/ui/brand/brand-logo.svg')
 const outputPath = resolve(publicDir, 'og-image.png')
 
 await assertOxipng()

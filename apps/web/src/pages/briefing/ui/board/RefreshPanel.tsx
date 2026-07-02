@@ -7,7 +7,7 @@ import { useI18n } from '~/shared/i18n'
 import { OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
 import { IconButton } from '~/shared/ui/icon-button'
 import { Tooltip } from '~/shared/ui/tooltip'
-import type { BriefingViewState } from '../model/briefing-page-state'
+import type { BriefingViewState } from '../../model/briefing-page-state'
 
 type RefreshPanelProps = {
   state: BriefingViewState

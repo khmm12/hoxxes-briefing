@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { RundownChip } from '../model/dive-rundown'
+import type { RundownChip } from '../../model/dive-rundown'
 import { getVisibleRundownChips } from './dive-rundown-view'
 
 describe('getVisibleRundownChips', () => {

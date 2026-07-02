@@ -1,4 +1,4 @@
-import type { RundownChip } from '../model/dive-rundown'
+import type { RundownChip } from '../../model/dive-rundown'
 
 export type VisibleRundownChips = {
   overflowCount: number

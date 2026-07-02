@@ -4,8 +4,8 @@ import { BriefingRequestError } from '~/shared/api'
 import { AppLayout } from '~/shared/ui/layout'
 import { PwaNotice } from '~/widgets/pwa-notice'
 import type { BriefingViewState } from '../model/briefing-page-state'
-import { Board } from '../ui/Board'
-import { BriefingErrorState, BriefingLoadingState, BriefingOutdatedState } from '../ui/BriefingPageStates'
+import { Board } from '../ui/board/Board'
+import { BriefingErrorState, BriefingLoadingState, BriefingOutdatedState } from '../ui/board/BriefingPageStates'
 
 export type Scenario = {
   id: string
