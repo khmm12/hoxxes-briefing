@@ -7,18 +7,15 @@ import type { BriefingRequestError } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { ActionControl } from '~/shared/ui/action-button'
 import { AlertIcon, BriefingUnavailableIcon, OfflineIcon, RefreshIcon } from '~/shared/ui/icon'
-import { AppLayout } from '~/shared/ui/layout'
 import { Spinner } from '~/shared/ui/spinner'
 import { StateScreen } from '~/shared/ui/state-screen'
 
 type BriefingLoadingStateProps = {
-  dockVisible: boolean
   online: boolean
 }
 
 // Request failures only; runtime faults rethrow to the app-level boundary.
 type BriefingErrorStateProps = {
-  dockVisible: boolean
   error: BriefingRequestError
   online: boolean
   onRetry: () => void
@@ -28,21 +25,19 @@ export function BriefingLoadingState(props: BriefingLoadingStateProps): JSX.Elem
   const i18n = useI18n()
 
   return (
-    <AppLayout dockVisible={props.dockVisible}>
-      <StateScreen
-        css={loadingScreenStyles}
-        body={
-          props.online
-            ? i18n._(msg`Pulling the latest deep dives now.`)
-            : i18n._(msg`Looking for deep dives on your device.`)
-        }
-        bodyTone="muted"
-        busy
-        eyebrow={i18n._(msg`Checking the briefing`)}
-        indicator={<Spinner />}
-        title={i18n._(msg`Mining Morkite`)}
-      />
-    </AppLayout>
+    <StateScreen
+      css={loadingScreenStyles}
+      body={
+        props.online
+          ? i18n._(msg`Pulling the latest deep dives now.`)
+          : i18n._(msg`Looking for deep dives on your device.`)
+      }
+      bodyTone="muted"
+      busy
+      eyebrow={i18n._(msg`Checking the briefing`)}
+      indicator={<Spinner />}
+      title={i18n._(msg`Mining Morkite`)}
+    />
   )
 }
 
@@ -50,39 +45,36 @@ export function BriefingErrorState(props: BriefingErrorStateProps): JSX.Element 
   const i18n = useI18n()
 
   return (
-    <AppLayout dockVisible={props.dockVisible}>
-      <Show
-        when={props.online}
-        fallback={
-          <StateScreen
-            body={i18n._(msg`This device is offline and has no saved briefing.`)}
-            eyebrow={i18n._(msg`Offline cache miss`)}
-            indicator={<OfflineIcon />}
-            passiveStatus={i18n._(msg`Open Hoxxes Briefing while online once to keep it available offline.`)}
-            title={i18n._(msg`No saved briefing`)}
-            tone="info"
-          />
-        }
-      >
+    <Show
+      when={props.online}
+      fallback={
         <StateScreen
-          action={
-            <ActionControl component="button" leadingIcon={<RefreshIcon />} onClick={props.onRetry} type="button">
-              {i18n._(msg`Try again`)}
-            </ActionControl>
-          }
-          body={formatBriefingUnavailableBody(i18n, props.error)}
-          eyebrow={i18n._(msg`Briefing unavailable`)}
-          indicator={<BriefingUnavailableIcon />}
-          title={i18n._(msg`Could not load the briefing`)}
-          tone="primary"
+          body={i18n._(msg`This device is offline and has no saved briefing.`)}
+          eyebrow={i18n._(msg`Offline cache miss`)}
+          indicator={<OfflineIcon />}
+          passiveStatus={i18n._(msg`Open Hoxxes Briefing while online once to keep it available offline.`)}
+          title={i18n._(msg`No saved briefing`)}
+          tone="info"
         />
-      </Show>
-    </AppLayout>
+      }
+    >
+      <StateScreen
+        action={
+          <ActionControl component="button" leadingIcon={<RefreshIcon />} onClick={props.onRetry} type="button">
+            {i18n._(msg`Try again`)}
+          </ActionControl>
+        }
+        body={formatBriefingUnavailableBody(i18n, props.error)}
+        eyebrow={i18n._(msg`Briefing unavailable`)}
+        indicator={<BriefingUnavailableIcon />}
+        title={i18n._(msg`Could not load the briefing`)}
+        tone="primary"
+      />
+    </Show>
   )
 }
 
 type BriefingOutdatedStateProps = {
-  dockVisible: boolean
   onUpdateApp: () => void
 }
 
@@ -94,20 +86,18 @@ export function BriefingOutdatedState(props: BriefingOutdatedStateProps): JSX.El
   const i18n = useI18n()
 
   return (
-    <AppLayout dockVisible={props.dockVisible}>
-      <StateScreen
-        action={
-          <ActionControl component="button" leadingIcon={<RefreshIcon />} onClick={props.onUpdateApp} type="button">
-            {i18n._(msg`Update app`)}
-          </ActionControl>
-        }
-        body={i18n._(msg`This version of the app can no longer read the briefing. Update to keep diving.`)}
-        eyebrow={i18n._(msg`Update required`)}
-        indicator={<AlertIcon />}
-        title={i18n._(msg`A new version is available`)}
-        tone="primary"
-      />
-    </AppLayout>
+    <StateScreen
+      action={
+        <ActionControl component="button" leadingIcon={<RefreshIcon />} onClick={props.onUpdateApp} type="button">
+          {i18n._(msg`Update app`)}
+        </ActionControl>
+      }
+      body={i18n._(msg`This version of the app can no longer read the briefing. Update to keep diving.`)}
+      eyebrow={i18n._(msg`Update required`)}
+      indicator={<AlertIcon />}
+      title={i18n._(msg`A new version is available`)}
+      tone="primary"
+    />
   )
 }
 

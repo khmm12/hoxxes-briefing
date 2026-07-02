@@ -76,8 +76,8 @@ function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } })
 }
 
-function renderBriefingPage(dockVisible: boolean) {
-  return renderWithProviders(() => <BriefingPage dockVisible={dockVisible} onUpdateApp={() => {}} />)
+function renderBriefingPage() {
+  return renderWithProviders(() => <BriefingPage onUpdateApp={() => {}} />)
 }
 
 describe('BriefingPage', () => {
@@ -95,7 +95,7 @@ describe('BriefingPage', () => {
   it('sets the document title immediately, then loads the briefing', async () => {
     globalThis.fetch = vi.fn(async () => jsonResponse(BRIEFING))
 
-    const { findByText } = renderBriefingPage(false)
+    const { findByText } = renderBriefingPage()
 
     expect(document.title).toBe('Hoxxes Briefing | DRG Deep Dive Overview')
     expect(await findByText('Awful Catacomb')).toBeInTheDocument()
@@ -110,7 +110,7 @@ describe('BriefingPage', () => {
     // run stays quiet, but still assert it actually fired.
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
-    const { findByText, findByRole } = renderBriefingPage(false)
+    const { findByText, findByRole } = renderBriefingPage()
 
     expect(await findByText('Could not load the briefing')).toBeInTheDocument()
     expect(errorSpy).toHaveBeenCalledWith('ErrorBoundary', expect.anything())
@@ -128,9 +128,7 @@ describe('BriefingPage', () => {
     vi.spyOn(console, 'error').mockImplementation(() => {})
     const onUpdateApp = vi.fn()
 
-    const { findByText, findByRole } = renderWithProviders(() => (
-      <BriefingPage dockVisible={false} onUpdateApp={onUpdateApp} />
-    ))
+    const { findByText, findByRole } = renderWithProviders(() => <BriefingPage onUpdateApp={onUpdateApp} />)
 
     expect(await findByText('A new version is available')).toBeInTheDocument()
 
@@ -143,9 +141,7 @@ describe('BriefingPage', () => {
     globalThis.fetch = fetchMock
     const onUpdateApp = vi.fn()
 
-    const { findByText, findByRole } = renderWithProviders(() => (
-      <BriefingPage dockVisible={false} onUpdateApp={onUpdateApp} />
-    ))
+    const { findByText, findByRole } = renderWithProviders(() => <BriefingPage onUpdateApp={onUpdateApp} />)
 
     expect(await findByText('Awful Catacomb')).toBeInTheDocument()
 
@@ -163,7 +159,7 @@ describe('BriefingPage', () => {
   it('renders the unverified-briefing advisory over normal data', async () => {
     globalThis.fetch = vi.fn(async () => jsonResponse({ ...BRIEFING, confidence: 'unverified' }))
 
-    const { findByText } = renderBriefingPage(false)
+    const { findByText } = renderBriefingPage()
 
     expect(await findByText('Awful Catacomb')).toBeInTheDocument()
     expect(await findByText('Unverified briefing')).toBeInTheDocument()

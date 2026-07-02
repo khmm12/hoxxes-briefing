@@ -1,7 +1,6 @@
 import type { JSX } from '@solidjs/web'
 import type { Briefing } from '~/shared/api'
 import { BriefingRequestError } from '~/shared/api'
-import { AppLayout } from '~/shared/ui/layout'
 import { PwaNotice } from '~/widgets/pwa-notice'
 import type { BriefingViewState } from '../model/briefing-page-state'
 import { Board } from '../ui/board/Board'
@@ -118,11 +117,7 @@ function boardScenario(id: string, title: string, data: Briefing, state: Partial
   return {
     id,
     title,
-    render: (): JSX.Element => (
-      <AppLayout>
-        <Board now={NOW} state={{ ...LIVE_STATE, ...state }} data={data} onRefresh={() => {}} />
-      </AppLayout>
-    ),
+    render: (): JSX.Element => <Board now={NOW} state={{ ...LIVE_STATE, ...state }} data={data} onRefresh={() => {}} />,
   }
 }
 
@@ -130,9 +125,7 @@ function errorScenario(id: string, title: string, error: BriefingRequestError, o
   return {
     id,
     title,
-    render: (): JSX.Element => (
-      <BriefingErrorState dockVisible={false} error={error} online={online} onRetry={() => {}} />
-    ),
+    render: (): JSX.Element => <BriefingErrorState error={error} online={online} onRetry={() => {}} />,
   }
 }
 
@@ -150,9 +143,7 @@ export const scenarios: Scenario[] = [
     title: 'Board · app update',
     render: (): JSX.Element => (
       <>
-        <AppLayout dockVisible>
-          <Board now={NOW} state={LIVE_STATE} data={BRIEFING} onRefresh={() => {}} />
-        </AppLayout>
+        <Board now={NOW} state={LIVE_STATE} data={BRIEFING} onRefresh={() => {}} />
         <PwaNotice onReload={() => {}} />
       </>
     ),
@@ -160,12 +151,12 @@ export const scenarios: Scenario[] = [
   {
     id: 'loading',
     title: 'Loading',
-    render: () => <BriefingLoadingState dockVisible={false} online={true} />,
+    render: () => <BriefingLoadingState online={true} />,
   },
   {
     id: 'loading-offline',
     title: 'Loading · offline',
-    render: () => <BriefingLoadingState dockVisible={false} online={false} />,
+    render: () => <BriefingLoadingState online={false} />,
   },
   errorScenario('error-network', 'Error · network', new BriefingRequestError('network', 'playground')),
   errorScenario('error-api', 'Error · API', new BriefingRequestError('api', 'playground')),
@@ -173,7 +164,7 @@ export const scenarios: Scenario[] = [
   {
     id: 'outdated',
     title: 'Outdated · update wall',
-    render: () => <BriefingOutdatedState dockVisible={false} onUpdateApp={() => {}} />,
+    render: () => <BriefingOutdatedState onUpdateApp={() => {}} />,
   },
   {
     id: 'crash',

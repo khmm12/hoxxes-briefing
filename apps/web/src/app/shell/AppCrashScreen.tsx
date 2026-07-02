@@ -7,7 +7,6 @@ import { AppLayout } from '~/shared/ui/layout'
 import { StateScreen } from '~/shared/ui/state-screen'
 
 type AppCrashScreenProps = {
-  dockVisible: boolean
   onRecover: () => void
 }
 
@@ -15,7 +14,7 @@ export function AppCrashScreen(props: AppCrashScreenProps): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <AppLayout dockVisible={props.dockVisible}>
+    <AppLayout>
       <StateScreen
         action={
           <ActionControl component="button" tone="primary" type="button" onClick={() => props.onRecover()}>

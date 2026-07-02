@@ -27,16 +27,14 @@ vi.mock('virtual:pwa-register/solid', () => ({
 const pageControl = { crash: false }
 
 vi.mock('~/pages/briefing', () => ({
-  BriefingPage: (props: { dockVisible: boolean }): JSX.Element => {
+  BriefingPage: (): JSX.Element => {
     if (pageControl.crash) throw new Error('runtime fault')
-    return <div data-testid="briefing-page">dock:{String(props.dockVisible)}</div>
+    return <div data-testid="briefing-page">briefing</div>
   },
 }))
 
 vi.mock('~/pages/not-found', () => ({
-  NotFoundPage: (props: { dockVisible: boolean }): JSX.Element => (
-    <div data-testid="not-found-page">dock:{String(props.dockVisible)}</div>
-  ),
+  NotFoundPage: (): JSX.Element => <div data-testid="not-found-page">not found</div>,
 }))
 
 function setOnline(online: boolean): void {
@@ -93,10 +91,11 @@ describe('App', () => {
     updateServiceWorker.mockClear()
   })
 
-  it('renders the briefing route with the dock hidden until an update is pending', () => {
-    const { getByTestId, queryByText } = render(() => <App i18n={createTestI18n()} />)
+  it('renders the briefing route inside the app layout with no update dock yet', () => {
+    const { container, getByTestId, queryByText } = render(() => <App i18n={createTestI18n()} />)
 
-    expect(getByTestId('briefing-page')).toHaveTextContent('dock:false')
+    expect(getByTestId('briefing-page')).toBeInTheDocument()
+    expect(container.querySelector('main')).not.toBeNull()
     expect(queryByText('New version ready')).toBeNull()
   })
 
@@ -110,24 +109,22 @@ describe('App', () => {
   })
 
   it('shows the update dock once a refresh is needed while online', () => {
-    const { getByTestId, getByText } = render(() => <App i18n={createTestI18n()} />)
+    const { getByText } = render(() => <App i18n={createTestI18n()} />)
 
     setNeedRefresh(true)
     flush()
 
     expect(getByText('New version ready')).toBeInTheDocument()
-    expect(getByTestId('briefing-page')).toHaveTextContent('dock:true')
   })
 
   it('hides the dock again when the app goes offline', () => {
-    const { getByTestId, queryByText } = render(() => <App i18n={createTestI18n()} />)
+    const { queryByText } = render(() => <App i18n={createTestI18n()} />)
 
     setNeedRefresh(true)
     flush()
     setOnline(false)
 
     expect(queryByText('New version ready')).toBeNull()
-    expect(getByTestId('briefing-page')).toHaveTextContent('dock:false')
   })
 
   it('hands the update button off to the service worker', () => {

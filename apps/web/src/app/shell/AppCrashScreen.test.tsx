@@ -5,9 +5,7 @@ import { renderWithProviders } from '~test/render'
 
 describe('AppCrashScreen', () => {
   it('renders the crash copy', () => {
-    const { getByText, getByRole } = renderWithProviders(() => (
-      <AppCrashScreen dockVisible={false} onRecover={vi.fn()} />
-    ))
+    const { getByText, getByRole } = renderWithProviders(() => <AppCrashScreen onRecover={vi.fn()} />)
 
     expect(getByText('App crashed')).toBeInTheDocument()
     expect(getByText('Reload the app and try again.')).toBeInTheDocument()
@@ -16,7 +14,7 @@ describe('AppCrashScreen', () => {
 
   it('calls onRecover when the reload button is clicked', () => {
     const onRecover = vi.fn()
-    const { getByRole } = renderWithProviders(() => <AppCrashScreen dockVisible={false} onRecover={onRecover} />)
+    const { getByRole } = renderWithProviders(() => <AppCrashScreen onRecover={onRecover} />)
 
     fireEvent.click(getByRole('button', { name: 'Reload app' }))
 

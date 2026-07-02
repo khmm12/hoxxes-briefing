@@ -7,6 +7,7 @@ import { AppCrashScreen } from '~/app/shell/AppCrashScreen'
 import { BriefingPage } from '~/pages/briefing'
 import { I18nProvider } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
+import { AppLayout } from '~/shared/ui/layout'
 import { PwaNotice } from '~/widgets/pwa-notice'
 import '../styles/global.css'
 
@@ -42,18 +43,19 @@ export function App(props: AppProps): JSX.Element {
             else window.location.reload()
           }
 
-          return <AppCrashScreen dockVisible={pwaDockVisible()} onRecover={recover} />
+          return <AppCrashScreen onRecover={recover} />
         }}
       >
-        <Router root={(props) => <Loading>{props.children}</Loading>}>
-          <Route
-            path="/"
-            component={() => (
-              <BriefingPage dockVisible={pwaDockVisible()} onUpdateApp={() => void pwa.reloadForOutdated()} />
-            )}
-          />
+        <Router
+          root={(props) => (
+            <AppLayout>
+              <Loading>{props.children}</Loading>
+            </AppLayout>
+          )}
+        >
+          <Route path="/" component={() => <BriefingPage onUpdateApp={() => void pwa.reloadForOutdated()} />} />
           {PlaygroundPage != null ? <Route path="/__playground/:scenario?" component={PlaygroundPage} /> : null}
-          <Route path="*404" component={() => <NotFoundPage dockVisible={pwaDockVisible()} />} />
+          <Route path="*404" component={() => <NotFoundPage />} />
         </Router>
       </Errored>
 
