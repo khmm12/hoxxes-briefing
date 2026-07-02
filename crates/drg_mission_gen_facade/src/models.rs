@@ -34,7 +34,7 @@ pub struct DeepDiveMissions(pub [DeepDiveMission; MISSION_COUNT]);
 pub struct DeepDiveMission {
     pub primary_objective: DeepDivePrimaryObjective,
     pub secondary_objective: DeepDiveSecondaryObjective,
-    pub mutator: Option<DeepDiveMutator>,
+    pub anomaly: Option<DeepDiveAnomaly>,
     pub warning: Option<DeepDiveWarning>,
     pub complexity: Complexity,
     pub duration: Duration,
@@ -73,7 +73,7 @@ pub enum DeepDivePrimaryObjective {
     OnSiteRefining { morkite_wells: u32 },
     SalvageOperation { mini_mules: u32 },
     Elimination { dreadnought_kinds: Vec<Dreadnought> },
-    HeavyExtraction { resinite_masses: u32 }, // TODO: NAMING
+    HeavyExtraction { resinite_masses: u32 },
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -85,11 +85,11 @@ pub enum DeepDiveSecondaryObjective {
     MiningExpedition { morkite: u32 },
     OnSiteRefining { morkite_wells: u32 },
     SalvageOperation { mini_mules: u32 },
-    HeavyExcavation { resinite_masses: u32 }, // TODO: NAMING
+    HeavyExtraction { resinite_masses: u32 },
 }
 
 #[derive(Debug, Copy, Clone, PartialEq)]
-pub enum DeepDiveMutator {
+pub enum DeepDiveAnomaly {
     VolatileGuts,
     RichAtmosphere,
     CriticalWeakness,

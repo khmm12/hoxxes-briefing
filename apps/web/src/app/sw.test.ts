@@ -77,17 +77,20 @@ describe('service worker', () => {
     expect(fakeSelf.skipWaiting).toHaveBeenCalledTimes(1)
   })
 
-  it('cleans up old weekly data caches on activate', async () => {
+  it('drops retired weekly caches and superseded briefing caches on activate, keeping the live one', async () => {
     const listeners = new Map<string, (event: MockServiceWorkerEvent) => void>()
     const waitUntilCalls: Promise<unknown>[] = []
     const fakeCaches = createFakeCaches([
+      // Retired pre-briefing data caches — every version is dropped.
       'hoxxes-briefing-weekly-cache-v0',
-      'hoxxes-briefing-weekly-cache-v2',
       'hoxxes-briefing-weekly-cache-v1',
-      'hoxxes-briefing-weekly-cache-v1-stale',
+      // Superseded briefing schema version — dropped.
+      'hoxxes-briefing-data-cache-v0',
+      // The live briefing cache — kept.
+      'hoxxes-briefing-data-cache-v1',
+      // Unrelated caches — kept.
       'drg-weekly-ui-cache-v0',
-      'drg-weekly-shell-v2',
-      'hoxxes-briefing-weekly-cache-v3',
+      'workbox-precache-v2-index',
     ])
 
     vi.stubGlobal('caches', fakeCaches)
@@ -103,18 +106,17 @@ describe('service worker', () => {
 
     await Promise.all(waitUntilCalls)
 
-    expect(fakeCaches.delete).toHaveBeenCalledTimes(4)
+    expect(fakeCaches.delete).toHaveBeenCalledTimes(3)
     expect(fakeCaches.delete.mock.calls).toEqual(
       expect.arrayContaining([
         ['hoxxes-briefing-weekly-cache-v0'],
-        ['hoxxes-briefing-weekly-cache-v2'],
-        ['hoxxes-briefing-weekly-cache-v1-stale'],
-        ['hoxxes-briefing-weekly-cache-v3'],
+        ['hoxxes-briefing-weekly-cache-v1'],
+        ['hoxxes-briefing-data-cache-v0'],
       ]),
     )
-    expect(fakeCaches.delete).not.toHaveBeenCalledWith('hoxxes-briefing-weekly-cache-v1')
+    expect(fakeCaches.delete).not.toHaveBeenCalledWith('hoxxes-briefing-data-cache-v1')
     expect(fakeCaches.delete).not.toHaveBeenCalledWith('drg-weekly-ui-cache-v0')
-    expect(fakeCaches.delete).not.toHaveBeenCalledWith('drg-weekly-shell-v2')
+    expect(fakeCaches.delete).not.toHaveBeenCalledWith('workbox-precache-v2-index')
   })
 })
 

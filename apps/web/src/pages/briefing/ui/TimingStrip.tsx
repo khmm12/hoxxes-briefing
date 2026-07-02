@@ -1,0 +1,118 @@
+import type { I18n } from '@lingui/core'
+import { msg } from '@lingui/core/macro'
+import type { JSX } from '@solidjs/web'
+import { intervalToDuration, parseISO } from 'date-fns'
+import { css, cva } from 'styled-system/css'
+import type { Briefing } from '~/shared/api'
+import { getDateTimeFormat, useI18n } from '~/shared/i18n'
+
+type Timing = Pick<Briefing, 'release' | 'expiration'>
+
+type TimingStripProps = {
+  now: Date
+  expired: boolean
+  timing: Timing
+}
+
+// Week range and countdown are one entity — a single time scale reading
+// `Jun 1 – 8 · 14:00 · 5d 21h`. Splitting them apart breaks comprehension.
+const stripStyles = css.raw({
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: '2',
+  minWidth: '0',
+  fontVariantNumeric: 'tabular-nums',
+})
+
+const rangeStyles = css.raw({
+  color: 'text.primary',
+  textStyle: { base: 'label.strong', md: 'metric.sm' },
+  whiteSpace: 'nowrap',
+})
+
+const separatorStyles = css.raw({
+  color: 'text.muted',
+  textStyle: { base: 'body.sm', md: 'body.md' },
+})
+
+const countdownRecipe = cva({
+  base: {
+    textStyle: { base: 'label.strong', md: 'metric.sm' },
+    whiteSpace: 'nowrap',
+  },
+  variants: {
+    // A stale briefing must not glow like a live countdown.
+    tone: {
+      live: {
+        color: 'primary.hover',
+      },
+      expired: {
+        color: 'danger',
+      },
+    },
+  },
+})
+
+export function TimingStrip(props: TimingStripProps): JSX.Element {
+  const i18n = useI18n()
+
+  return (
+    <p class={css(stripStyles)}>
+      <span class={css(rangeStyles)}>{formatWeekRange(i18n, props.timing)}</span>
+      <span class={css(separatorStyles)} aria-hidden="true">
+        ·
+      </span>
+      <span class={css(countdownRecipe.raw({ tone: props.expired ? 'expired' : 'live' }))}>
+        {props.expired ? i18n._(msg`already ended`) : formatRemaining(i18n, props.timing.expiration, props.now)}
+      </span>
+    </p>
+  )
+}
+
+// Release and expiration are a fixed 7 days apart in UTC, but a DST shift
+// inside the week can desync their local times — so the single time shown
+// here is always the *end* time, and the start stays date-only.
+function formatWeekRange(i18n: I18n, timing: Timing): string {
+  const start = parseISO(timing.release)
+  const end = parseISO(timing.expiration)
+  const days = getDateTimeFormat(i18n.locale, {
+    day: 'numeric',
+    month: 'short',
+  }).formatRange(start, end)
+  const time = getDateTimeFormat(i18n.locale, {
+    hour: '2-digit',
+    hourCycle: 'h23',
+    minute: '2-digit',
+  }).format(end)
+
+  return `${days} · ${time}`
+}
+
+function formatRemaining(i18n: I18n, timestamp: string, now: Date): string {
+  const expiration = parseISO(timestamp)
+
+  if (expiration <= now) return i18n._(msg`coming soon`)
+
+  const duration = intervalToDuration({ start: now, end: expiration })
+  const { days = 0, hours = 0, minutes = 0, seconds = 0 } = duration
+
+  const formatDays = () => i18n._(msg`${days}d`)
+  const formatHours = () => i18n._(msg`${hours}h`)
+  const formatMinutes = () => i18n._(msg`${minutes}m`)
+  const formatSeconds = () => i18n._(msg`${seconds}s`)
+
+  if (days > 0) {
+    if (hours > 0) return `${formatDays()} ${formatHours()}`
+    if (minutes > 0) return `${formatDays()} ${formatMinutes()}`
+    if (seconds > 0) return `${formatDays()} ${formatSeconds()}`
+    return `${formatDays()} ${formatHours()}`
+  }
+
+  if (hours > 0) {
+    if (minutes > 0) return `${formatHours()} ${formatMinutes()}`
+    if (seconds > 0) return `${formatHours()} ${formatSeconds()}`
+    return `${formatHours()} ${formatMinutes()}`
+  }
+
+  return `${formatMinutes()} ${formatSeconds()}`
+}

@@ -20,16 +20,16 @@ vi.mock('virtual:pwa-register/solid', () => ({
 }))
 
 // Stub the routed page: App.test is about App's own wiring (providers, router,
-// error boundary, PWA dock), not WeeklyPage internals — those have their own
+// error boundary, PWA dock), not BriefingPage internals — those have their own
 // suite. The stub also lets the crash path throw a *real* runtime error
-// (not a WeeklyRequestError, which WeeklyPage's own boundary would swallow)
+// (not a BriefingRequestError, which BriefingPage's own boundary would swallow)
 // so it bubbles to App's AppErrorBoundary, exactly like a genuine crash.
 const pageControl = { crash: false }
 
-vi.mock('~/pages/weekly', () => ({
-  WeeklyPage: (props: { dockVisible: boolean }): JSX.Element => {
+vi.mock('~/pages/briefing', () => ({
+  BriefingPage: (props: { dockVisible: boolean }): JSX.Element => {
     if (pageControl.crash) throw new Error('runtime fault')
-    return <div data-testid="weekly-page">dock:{String(props.dockVisible)}</div>
+    return <div data-testid="briefing-page">dock:{String(props.dockVisible)}</div>
   },
 }))
 
@@ -93,10 +93,10 @@ describe('App', () => {
     updateServiceWorker.mockClear()
   })
 
-  it('renders the weekly route with the dock hidden until an update is pending', () => {
+  it('renders the briefing route with the dock hidden until an update is pending', () => {
     const { getByTestId, queryByText } = render(() => <App i18n={createTestI18n()} />)
 
-    expect(getByTestId('weekly-page')).toHaveTextContent('dock:false')
+    expect(getByTestId('briefing-page')).toHaveTextContent('dock:false')
     expect(queryByText('New version ready')).toBeNull()
   })
 
@@ -106,7 +106,7 @@ describe('App', () => {
     const { findByTestId, queryByTestId } = render(() => <App i18n={createTestI18n()} />)
 
     expect(await findByTestId('not-found-page')).toBeInTheDocument()
-    expect(queryByTestId('weekly-page')).toBeNull()
+    expect(queryByTestId('briefing-page')).toBeNull()
   })
 
   it('shows the update dock once a refresh is needed while online', () => {
@@ -116,7 +116,7 @@ describe('App', () => {
     flush()
 
     expect(getByText('New version ready')).toBeInTheDocument()
-    expect(getByTestId('weekly-page')).toHaveTextContent('dock:true')
+    expect(getByTestId('briefing-page')).toHaveTextContent('dock:true')
   })
 
   it('hides the dock again when the app goes offline', () => {
@@ -127,7 +127,7 @@ describe('App', () => {
     setOnline(false)
 
     expect(queryByText('New version ready')).toBeNull()
-    expect(getByTestId('weekly-page')).toHaveTextContent('dock:false')
+    expect(getByTestId('briefing-page')).toHaveTextContent('dock:false')
   })
 
   it('hands the update button off to the service worker', () => {

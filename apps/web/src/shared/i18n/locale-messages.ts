@@ -1,5 +1,7 @@
-import type { SupportedLocale } from './locale'
+import { Locale, type SupportedLocale } from './locale'
+
+type LocaleLoader = () => Promise<{ readonly messages: Record<string, string> }>
 
 export const localeLoaders = {
-  'en-US': () => import('./locales/en'),
-} satisfies Record<SupportedLocale, () => Promise<{ messages: Record<string, unknown> }>>
+  [Locale.English]: () => import('./locales/en'),
+} satisfies Record<SupportedLocale, LocaleLoader>

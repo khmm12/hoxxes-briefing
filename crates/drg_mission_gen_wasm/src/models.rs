@@ -12,7 +12,7 @@ pub struct ConverterError {
 
 #[derive(Debug, Clone, PartialEq, ::serde::Serialize, ::tsify::Tsify)]
 #[serde(rename_all = "camelCase")]
-pub struct WeeklyDeepDives {
+pub struct GeneratedBriefing {
     pub seed: u32,
     pub dives: DeepDives,
 }
@@ -37,7 +37,7 @@ pub struct DeepDive {
 pub struct DeepDiveMission {
     pub primary_objective: DeepDivePrimaryObjective,
     pub secondary_objective: DeepDiveSecondaryObjective,
-    pub mutator: Option<DeepDiveMutator>,
+    pub anomaly: Option<DeepDiveAnomaly>,
     pub warning: Option<DeepDiveWarning>,
 }
 
@@ -99,7 +99,7 @@ pub enum DeepDiveSecondaryObjective {
         dreadnought_kinds: Vec<Dreadnought>,
     },
     #[serde(rename_all = "camelCase")]
-    HeavyExcavation { resinite_masses: u32 },
+    HeavyExtraction { resinite_masses: u32 },
     #[serde(rename_all = "camelCase")]
     MiningExpedition { morkite: u32 },
     #[serde(rename_all = "camelCase")]
@@ -109,7 +109,7 @@ pub enum DeepDiveSecondaryObjective {
 }
 
 wasm_string_enum! {
-    pub enum DeepDiveMutator {
+    pub enum DeepDiveAnomaly {
         BloodSugar,
         CriticalWeakness,
         LowGravity,
@@ -117,7 +117,7 @@ wasm_string_enum! {
         VolatileGuts,
     }
 
-    from drg_mission_gen_facade::DeepDiveMutator
+    from drg_mission_gen_facade::DeepDiveAnomaly
 }
 
 wasm_string_enum! {
@@ -145,12 +145,6 @@ wasm_string_enum! {
 
 wasm_string_enum! {
     pub enum Dreadnought {
-        // Domain name is `Classic` (ubiquitous language, see docs/domain.md);
-        // the wire tag stays "Dreadnought" for backward compat with shipped
-        // payloads and warm client caches.
-        // TODO: align the TS contract on `Classic` and flip the wire (drop this
-        // rename) once a cache-busting deploy is acceptable.
-        #[serde(rename = "Dreadnought")]
         Classic,
         Hiveguard,
         Twins,

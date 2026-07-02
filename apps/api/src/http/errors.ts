@@ -1,49 +1,45 @@
-import * as v1 from '@hoxxes-briefing/contracts/api/v1'
-import { DeepDivesProviderError } from '../ports/deep-dives-provider.ts'
+import type { BriefingProviderFailureKind } from '../ports/briefing-provider.ts'
+import { BriefingProviderError } from '../ports/briefing-provider.ts'
 
-type PublicErrorCode = v1.ErrorResponse['code']
-type PublicErrorStatus = 429 | 500 | 502 | 503
+// App-level failure taxonomy: clean, endpoint-agnostic reasons. Each HTTP
+// endpoint presents them as its own wire `code`/`message` (see the
+// presentation tables in `briefing/errors.ts` and `weekly/errors.ts`).
+export type AppFailureReason = BriefingProviderFailureKind | 'INVALID_RESPONSE_PAYLOAD' | 'INTERNAL_ERROR'
 
-const ERROR_STATUS_BY_CODE: Record<PublicErrorCode, PublicErrorStatus> = {
-  UPSTREAM_UNAVAILABLE: 502,
-  WEEKLY_DATA_UNAVAILABLE: 503,
-  INVALID_RESPONSE_PAYLOAD: 500,
-  RATE_LIMITED: 429,
-  INTERNAL_ERROR: 500,
+export type PublicErrorStatus = 500 | 502 | 503
+
+export type WirePresentation<Code extends string> = {
+  code: Code
+  message: string
 }
 
-const ERROR_MESSAGE_BY_CODE: Record<PublicErrorCode, string> = {
-  UPSTREAM_UNAVAILABLE: 'Upstream deep dive data is currently unavailable.',
-  WEEKLY_DATA_UNAVAILABLE: 'Weekly mission data is currently unavailable.',
-  INVALID_RESPONSE_PAYLOAD: 'The weekly response payload is invalid.',
-  RATE_LIMITED: 'Rate limit exceeded.',
-  INTERNAL_ERROR: 'Internal server error.',
+export const STATUS_BY_REASON: Record<AppFailureReason, PublicErrorStatus> = {
+  UPSTREAM_UNAVAILABLE: 502,
+  GENERATOR_UNAVAILABLE: 503,
+  INVALID_RESPONSE_PAYLOAD: 500,
+  INTERNAL_ERROR: 500,
 }
 
 export class InvalidResponsePayloadError extends Error {
   override readonly name = 'InvalidResponsePayloadError'
 }
 
-export type PublicErrorResponse = {
-  status: PublicErrorStatus
-  body: v1.ErrorResponse
+export function resolveReason(error: unknown): AppFailureReason {
+  if (error instanceof BriefingProviderError) return error.kind
+  if (error instanceof InvalidResponsePayloadError) return 'INVALID_RESPONSE_PAYLOAD'
+  return 'INTERNAL_ERROR'
 }
 
-export function toPublicErrorResponse(error: unknown, requestId?: string): PublicErrorResponse {
-  let code: PublicErrorCode = 'INTERNAL_ERROR'
+export type ErrorBody<Code extends string> = {
+  code: Code
+  message: string
+  requestId?: string
+}
 
-  if (error instanceof DeepDivesProviderError) {
-    code = error.kind
-  } else if (error instanceof InvalidResponsePayloadError) {
-    code = 'INVALID_RESPONSE_PAYLOAD'
-  }
-
+export function buildErrorBody<Code extends string>(code: Code, message: string, requestId?: string): ErrorBody<Code> {
   return {
-    status: ERROR_STATUS_BY_CODE[code],
-    body: v1.parseErrorResponse({
-      code,
-      message: ERROR_MESSAGE_BY_CODE[code],
-      ...(requestId === undefined ? {} : { requestId }),
-    }),
+    code,
+    message,
+    ...(requestId === undefined ? {} : { requestId }),
   }
 }

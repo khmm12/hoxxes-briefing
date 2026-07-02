@@ -2,9 +2,9 @@ import * as v from 'valibot'
 
 export const publicErrorCodeSchema = /* @__PURE__ */ v.picklist([
   'UPSTREAM_UNAVAILABLE',
-  'WEEKLY_DATA_UNAVAILABLE',
+  'BRIEFING_DATA_UNAVAILABLE',
   'INVALID_RESPONSE_PAYLOAD',
-  'RATE_LIMITED',
+  'CONTRACT_RETIRED',
   'INTERNAL_ERROR',
 ] as const)
 

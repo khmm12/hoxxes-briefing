@@ -48,16 +48,16 @@ Rules in this file apply under `apps/`.
   values.
 - After changing UI strings run `pnpm exec lingui extract --clean` from
   `apps/web`.
-- The fastest way to inspect or screenshot weekly UI states (hazards, expired,
+- The fastest way to inspect or screenshot briefing UI states (mutators, expired,
   errors, loading, crash) is the dev-only playground at
   `/__playground/:scenario` under `pnpm dev:web` — it renders from fixtures in
-  `apps/web/src/pages/weekly/dev/weekly-scenarios.tsx`; add a scenario there
+  `apps/web/src/pages/briefing/dev/scenarios.tsx`; add a scenario there
   when introducing a new state.
 
 ## API
 
 - Keep contract mapping and validation at the HTTP boundary.
-- Keep application logic behind explicit ports such as `DeepDivesProvider`.
+- Keep application logic behind explicit ports such as `BriefingProvider`.
 
 ## Verification
 

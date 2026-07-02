@@ -36,9 +36,9 @@ impl From<facade::ConverterError> for wasm::ConverterError {
     }
 }
 
-impl From<facade::DeepDiveResult> for wasm::WeeklyDeepDives {
+impl From<facade::DeepDiveResult> for wasm::GeneratedBriefing {
     fn from(result: facade::DeepDiveResult) -> Self {
-        wasm::WeeklyDeepDives {
+        wasm::GeneratedBriefing {
             seed: result.seed.as_u32(),
             dives: wasm::DeepDives {
                 normal: result.normal.into(),
@@ -63,7 +63,7 @@ impl From<facade::DeepDiveMission> for wasm::DeepDiveMission {
         wasm::DeepDiveMission {
             primary_objective: mission.primary_objective.into(),
             secondary_objective: mission.secondary_objective.into(),
-            mutator: mission.mutator.map(Into::into),
+            anomaly: mission.anomaly.map(Into::into),
             warning: mission.warning.map(Into::into),
         }
     }
@@ -134,8 +134,8 @@ impl From<facade::DeepDiveSecondaryObjective> for wasm::DeepDiveSecondaryObjecti
             facade::DeepDiveSecondaryObjective::SalvageOperation { mini_mules } => {
                 wasm::DeepDiveSecondaryObjective::SalvageOperation { mini_mules }
             }
-            facade::DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses } => {
-                wasm::DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses }
+            facade::DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses } => {
+                wasm::DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses }
             }
         }
     }

@@ -5,13 +5,18 @@ working for the Deep Rock Galactic corporation on Hoxxes IV. Players descend
 into dangerous procedural caves, mine resources, complete mission objectives,
 fight alien bugs and machines, then extract.
 
-This reference covers the weekly Deep Dive rotation: Deep Dives, stages, biomes,
+This reference covers Deep Dive content: Deep Dives, stages, biomes,
 objectives, warnings, anomalies (mutators), and reset timing.
+
+This is the game reference catalogue. For the team's ubiquitous language —
+canonical terms, deliberate deviations, and terms to avoid — see
+[CONTEXT.md](../CONTEXT.md). Where an app label diverges from the official noun
+(e.g. "Crystal Scan" vs. Resonance Crystal), CONTEXT.md is the arbiter.
 
 ## Deep Dives
 
-A Deep Dive is a fixed weekly sequence of three pre-seeded missions played
-back-to-back. Every player sees the same Deep Dive for the week. Health, ammo,
+A Deep Dive is a fixed sequence of three pre-seeded missions played
+back-to-back. Every player sees the same Deep Dive until reset. Health, ammo,
 gold, and nitra carry across the three stages, so early mistakes can matter
 later.
 
@@ -26,18 +31,18 @@ Deep Rock Galactic has two Deep Dives each week:
 
 | Deep Dive | Meaning |
 | --- | --- |
-| Deep Dive | The normal weekly Deep Dive. Its stages are Hazard 3, 3.5, and 3.5. |
-| Elite Deep Dive | A separate harder weekly Deep Dive. Its stages are Hazard 4.5, 5, and 5.5. |
+| Deep Dive | The normal Deep Dive. Its stages are Hazard 3, 3.5, and 3.5. |
+| Elite Deep Dive | A separate harder Deep Dive. Its stages are Hazard 4.5, 5, and 5.5. |
 
-## Weekly Rotation
+## Reset
 
 Deep Dives reset once a week. When the reset happens, the normal Deep Dive and
 Elite Deep Dive both receive new names, biomes, stages, objectives, warnings,
 and anomalies (mutators).
 
-The timer matters because the whole board changes at once. Before reset, players
+The timer matters because both Deep Dives change at once. Before reset, players
 are looking at the same fixed Deep Dives. After reset, the previous Deep Dives
-are gone and the new weekly pair becomes the current one.
+are gone and the new pair becomes the current one.
 
 ## Biomes
 
@@ -69,9 +74,9 @@ Some names can appear in both places and still mean different things. A primary
 Crystal Scan is the full Deep Scan mission with scanners, the Drillevator, the
 geode, and the upward extraction. A secondary Crystal Scan is only the shorter
 scan task. A primary On-site Refining stage is the full refinery and pipeline
-mission. A secondary Morkite Well is a short one-well hookup. In the Resinite
-family, Heavy Extraction is the full primary mission and Heavy Excavation is the
-smaller secondary job.
+mission. A secondary Morkite Well is a short one-well hookup. Resinite Mass
+extraction is Heavy Extraction whether it appears as the full primary mission or
+as the smaller secondary job — DRG has no separate "Heavy Excavation" mission.
 
 ## Primary Objectives
 
@@ -99,7 +104,15 @@ smaller secondary job.
 | Morkite xN | Collect a smaller Morkite quota while completing the primary objective. | `MiningExpedition` |
 | Morkite Well xN | Connect one well to a small Morkite Extraction Pod. This is not the full refinery mission loop. | `OnSiteRefining` |
 | Mule xN | Repair the required Mini M.U.L.E.s without the full uplink and fuel-cell finale. | `SalvageOperation` |
-| Resinite Mass xN | Extract a smaller Resinite quota, usually one mass, using Lift Rockets. | `HeavyExcavation` |
+| Resinite Mass xN | Extract a smaller Resinite quota, usually one mass, using Lift Rockets. | `HeavyExtraction` |
+
+Both primary and secondary Resinite Mass objectives use the `HeavyExtraction`
+enum key in the domain model, matching every other objective that appears in
+both places (`DeepScan`, `EggHunt`, `Elimination`, `MiningExpedition`,
+`OnSiteRefining`, `SalvageOperation`), which share one key across primary and
+secondary. The legacy `/api/v1/weekly` wire keeps the older secondary tag
+`HeavyExcavation` for backward-compatibility; it is disposable and dropped at
+endpoint sunset (see [ADR 0001](adr/0001-versioned-wire-migration.md)).
 
 ## Dreadnought Values
 
@@ -107,9 +120,15 @@ smaller secondary job.
 
 | Name | Description | Enum |
 | --- | --- | --- |
-| Classic | Standard Glyphid Dreadnought with armor-shell timing and direct boss pressure. | `Dreadnought` |
+| Classic | Standard Glyphid Dreadnought with armor-shell timing and direct boss pressure. | `Classic` |
 | Hiveguard | Dreadnought variant with Sentinel adds and phased vulnerability. | `Hiveguard` |
 | Twins | Paired Lacerator and Arbalest fight with split melee and ranged pressure. | `Twins` |
+
+Officially all three are Glyphid Dreadnoughts; the standard one has no
+disambiguating suffix. We name it `Classic` in the domain model and on the
+`/api/v1/briefing` wire (see [CONTEXT.md](../CONTEXT.md)). The legacy
+`/api/v1/weekly` wire keeps the `Dreadnought` tag for backward-compatibility
+(disposable; see [ADR 0001](adr/0001-versioned-wire-migration.md)).
 
 ## Warnings
 
@@ -137,8 +156,15 @@ change what players must respect during the run.
 
 ## Anomalies (Mutators)
 
-Anomalies are nonstandard mission modifiers that can help, hurt, or simply
-change mission feel.
+Anomalies are nonstandard mission modifiers that are neutral or beneficial and
+add no difficulty (no hazard bonus).
+
+Officially, **Mutator** is the umbrella term and splits into two subtypes:
+**Warnings** (harmful, above) and **Anomalies** (neutral/beneficial, below). The
+domain model names this category `DeepDiveAnomaly`/`anomaly`. The legacy
+`/api/v1/weekly` wire keeps the older `mutator` field name for
+backward-compatibility (disposable; see
+[ADR 0001](adr/0001-versioned-wire-migration.md)). See [CONTEXT.md](../CONTEXT.md).
 
 | Name | Description | Enum |
 | --- | --- | --- |

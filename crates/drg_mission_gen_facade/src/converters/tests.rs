@@ -73,37 +73,37 @@ fn dreadnought_covers_every_upstream_variant() {
 }
 
 #[test]
-fn mutator_maps_every_supported_variant() {
+fn anomaly_maps_every_supported_variant() {
     let cases = [
         (
             EMissionMutator::MMUT_BloodSugar,
-            DeepDiveMutator::BloodSugar,
+            DeepDiveAnomaly::BloodSugar,
         ),
         (
             EMissionMutator::MMUT_ExplosiveEnemies,
-            DeepDiveMutator::VolatileGuts,
+            DeepDiveAnomaly::VolatileGuts,
         ),
         (
             EMissionMutator::MMUT_LowGravity,
-            DeepDiveMutator::LowGravity,
+            DeepDiveAnomaly::LowGravity,
         ),
         (
             EMissionMutator::MMUT_OxygenRich,
-            DeepDiveMutator::RichAtmosphere,
+            DeepDiveAnomaly::RichAtmosphere,
         ),
         (
             EMissionMutator::MMUT_Weakspot,
-            DeepDiveMutator::CriticalWeakness,
+            DeepDiveAnomaly::CriticalWeakness,
         ),
     ];
 
     for (upstream, expected) in cases {
-        assert_eq!(DeepDiveMutator::try_from(upstream).unwrap(), expected);
+        assert_eq!(DeepDiveAnomaly::try_from(upstream).unwrap(), expected);
     }
 }
 
 #[test]
-fn mutator_rejects_every_deep_dive_incompatible_variant() {
+fn anomaly_rejects_every_deep_dive_incompatible_variant() {
     let unsupported = [
         EMissionMutator::MMUT_ExterminationContract,
         EMissionMutator::MMUT_GoldRush,
@@ -114,7 +114,7 @@ fn mutator_rejects_every_deep_dive_incompatible_variant() {
 
     for mutator in unsupported {
         assert!(matches!(
-            DeepDiveMutator::try_from(mutator).unwrap_err(),
+            DeepDiveAnomaly::try_from(mutator).unwrap_err(),
             ConverterError::UnexpectedDeepDiveMutator(_)
         ));
     }
@@ -300,7 +300,7 @@ fn secondary_objective_maps_every_supported_kind() {
         ),
         (
             OBJ_DD_Excavation,
-            DeepDiveSecondaryObjective::HeavyExcavation { resinite_masses: 1 },
+            DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses: 1 },
         ),
         (
             OBJ_DD_Morkite,

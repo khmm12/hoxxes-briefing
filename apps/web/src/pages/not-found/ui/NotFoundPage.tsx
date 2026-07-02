@@ -21,10 +21,10 @@ export function NotFoundPage(props: NotFoundPageProps): JSX.Element {
       <StateScreen
         action={
           <ActionControl component={A} href="/">
-            {i18n._(msg`Go to weekly board`)}
+            {i18n._(msg`Go to the briefing`)}
           </ActionControl>
         }
-        body={i18n._(msg`This page is not available here. Head back to the weekly board.`)}
+        body={i18n._(msg`This page is not available here. Head back to the briefing.`)}
         eyebrow={i18n._(msg`Wrong tunnel`)}
         indicator={<NotFoundIcon />}
         title={i18n._(msg`Page not found`)}

@@ -1,3 +1,4 @@
+// CLEANUP(stage-4): the /api/v1/weekly Vercel function entrypoint — delete with the legacy wire.
 import { appDeps, createApp } from '@hoxxes-briefing/api'
 
 export const config = {

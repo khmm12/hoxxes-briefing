@@ -164,7 +164,7 @@ const textStyles = defineTextStyles({
   },
   label: {
     DEFAULT: {
-      description: 'Objective/hazard labels, chips, biome line',
+      description: 'Objective/mutator labels, chips, biome line',
       value: {
         fontFamily: 'body',
         fontSize: '0.875rem',

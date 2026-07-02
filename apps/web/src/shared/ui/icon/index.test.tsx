@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { render } from '@solidjs/testing-library'
 import {
   AlertIcon,
-  BoardUnavailableIcon,
+  BriefingUnavailableIcon,
   GlyphIcon,
   MutatorGenericIcon,
   NotFoundIcon,
@@ -49,7 +49,7 @@ describe('glyph icon set', () => {
   const icons = [
     RefreshIcon,
     AlertIcon,
-    BoardUnavailableIcon,
+    BriefingUnavailableIcon,
     OfflineIcon,
     NotFoundIcon,
     WarningGenericIcon,

@@ -59,7 +59,7 @@ if (Symbol.dispose) ConverterError.prototype[Symbol.dispose] = ConverterError.pr
 
 /**
  * @param {number} seed
- * @returns {WeeklyDeepDives}
+ * @returns {GeneratedBriefing}
  */
 export function generate(seed) {
     const ret = wasm.generate(seed);

@@ -57,7 +57,7 @@ export function parseStoredValue<TSchema extends v.GenericSchema>(
   return result.success ? result.output : undefined
 }
 
-const STORAGE_KEY_PREFIX = 'hoxxes-briefing-'
+const STORAGE_KEY_PREFIX = 'hoxxes-briefing:'
 
 function readStoredValue<TSchema extends v.GenericSchema>(
   key: string,

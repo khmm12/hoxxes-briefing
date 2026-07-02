@@ -1,7 +1,7 @@
 # Hoxxes Briefing
 
-Hoxxes Briefing is a small public Deep Rock Galactic app for the current weekly
-Deep Dive and Elite Deep Dive rotation.
+Hoxxes Briefing is a small public Deep Rock Galactic app for the current Deep
+Dive and Elite Deep Dive.
 
 Project slug: `hoxxes-briefing`.
 

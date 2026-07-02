@@ -40,7 +40,7 @@ describe('createLocalStorage', () => {
   })
 
   it('reads an existing value on init, namespaced under the app prefix', () => {
-    localStorage.setItem('hoxxes-briefing-dive-kind', '"elite"')
+    localStorage.setItem('hoxxes-briefing:dive-kind', '"elite"')
 
     const { result } = renderHook(() => createLocalStorage('dive-kind', schema))
     const [value] = result
@@ -56,11 +56,11 @@ describe('createLocalStorage', () => {
     flush()
 
     expect(value()).toBe('elite')
-    expect(localStorage.getItem('hoxxes-briefing-dive-kind')).toBe('"elite"')
+    expect(localStorage.getItem('hoxxes-briefing:dive-kind')).toBe('"elite"')
   })
 
   it('neither reads nor writes when the persistence capability is denied', () => {
-    localStorage.setItem('hoxxes-briefing-dive-kind', '"elite"')
+    localStorage.setItem('hoxxes-briefing:dive-kind', '"elite"')
 
     const { result } = renderHook(() => createLocalStorage('dive-kind', schema), {
       wrapper: (props: { children?: JSX.Element }) => (
@@ -75,7 +75,7 @@ describe('createLocalStorage', () => {
     flush()
 
     expect(value()).toBe('normal')
-    expect(localStorage.getItem('hoxxes-briefing-dive-kind')).toBe('"elite"')
+    expect(localStorage.getItem('hoxxes-briefing:dive-kind')).toBe('"elite"')
   })
 
   it('starts undefined when localStorage.getItem throws', () => {

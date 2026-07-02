@@ -5,7 +5,7 @@ declare const self: ServiceWorkerGlobalScope
 
 import { cleanupOutdatedCaches, createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
 import { NavigationRoute, registerRoute } from 'workbox-routing'
-import { clearStaleWeeklySnapshotCache } from '~/shared/api'
+import { clearStaleDataCaches } from '~/shared/api'
 
 // clean old assets
 cleanupOutdatedCaches()
@@ -20,7 +20,7 @@ self.addEventListener('message', (event) => {
 
 // cleanup api cache
 self.addEventListener('activate', (event) => {
-  event.waitUntil(clearStaleWeeklySnapshotCache())
+  event.waitUntil(clearStaleDataCaches())
 })
 
 // redirect to index.html

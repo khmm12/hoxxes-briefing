@@ -1,6 +1,6 @@
 # Hoxxes Briefing Product
 
-Hoxxes Briefing is a focused weekly board for Deep Rock Galactic players. It
+Hoxxes Briefing is a focused briefing for Deep Rock Galactic players. It
 answers one question quickly:
 
 > What are we dealing with this week, and when does it reset?
@@ -14,19 +14,19 @@ Deep Dive must not feel secondary just because Elite is harder.
 The app is not a generic dashboard, wiki, marketing site, joke page, archive, or
 admin surface.
 
-## Weekly Board
+## The Board
 
 The first screen is the product. It should show:
 
 - current Deep Dive and Elite Deep Dive
-- weekly start, end, and time remaining
-- board freshness and availability
+- the briefing's start, end, and time remaining
+- briefing freshness and availability
 - Deep Dive name, biome, and three stages per Deep Dive
 - primary objective, secondary objective, warning, and anomaly (mutator) for each stage
 - short Deep Dive guidance when the current data supports it
 
 The board should be compact, readable on phones, and easy to scan under pressure.
-Timing, hazards, and stage structure are more important than decorative detail.
+Timing, mutators, and stage structure are more important than decorative detail.
 
 ## States
 
@@ -61,7 +61,7 @@ Avoid:
 
 ## Copy And Accessibility
 
-Copy should be short, direct, and lightly themed. Use Deep Dive names, hazards,
+Copy should be short, direct, and lightly themed. Use Deep Dive names, mutators,
 timing, and recovery language. Avoid explaining how the interface works.
 
 Interactive controls must have usable touch targets. Status changes should be

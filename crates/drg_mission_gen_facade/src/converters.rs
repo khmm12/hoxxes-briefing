@@ -7,7 +7,7 @@ use crate::{
     ConverterError, DeepDivePrimaryObjective, DeepDiveSecondaryObjective, Dreadnought,
     MISSION_COUNT,
     models::{
-        Biome, Complexity, DeepDive, DeepDiveMission, DeepDiveMissions, DeepDiveMutator,
+        Biome, Complexity, DeepDive, DeepDiveAnomaly, DeepDiveMission, DeepDiveMissions,
         DeepDiveWarning, Duration,
     },
 };
@@ -67,8 +67,8 @@ impl TryFrom<&UGeneratedMission> for DeepDiveMission {
             complexity,
         )?;
 
-        let mutator = match map_mutators(&u_mission.mutators)? {
-            Some(m) => Some(DeepDiveMutator::try_from(m)?),
+        let anomaly = match map_mutators(&u_mission.mutators)? {
+            Some(m) => Some(DeepDiveAnomaly::try_from(m)?),
             None => None,
         };
 
@@ -80,7 +80,7 @@ impl TryFrom<&UGeneratedMission> for DeepDiveMission {
         Ok(DeepDiveMission {
             primary_objective,
             secondary_objective,
-            mutator,
+            anomaly,
             warning,
             complexity,
             duration,
@@ -122,11 +122,11 @@ fn map_warnings(warnings: &[EMissionWarning]) -> Result<Option<EMissionWarning>,
     }
 }
 
-impl TryFrom<EMissionMutator> for DeepDiveMutator {
+impl TryFrom<EMissionMutator> for DeepDiveAnomaly {
     type Error = ConverterError;
 
     fn try_from(mutator: EMissionMutator) -> Result<Self, Self::Error> {
-        use DeepDiveMutator::*;
+        use DeepDiveAnomaly::*;
         use EMissionMutator::*;
 
         match mutator {
@@ -235,7 +235,7 @@ fn map_secondary_objective_instance(
         } => Ok(Obj::Blackbox { black_boxes: 1 }),
         ObjectiveInstance::Other {
             kind: OBJ_DD_Excavation,
-        } => Ok(Obj::HeavyExcavation { resinite_masses: 1 }),
+        } => Ok(Obj::HeavyExtraction { resinite_masses: 1 }),
         ObjectiveInstance::Other {
             kind: OBJ_DD_Morkite,
         } => Ok(Obj::MiningExpedition { morkite: 150 }),

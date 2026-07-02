@@ -15,6 +15,12 @@ export type CreateCachedQueryOptions<K, T> = {
    * background). Without the predicate every cached value waits.
    */
   isStale?: (value: T) => boolean
+  /**
+   * A fetch error the UI must always see, even when a cached value could
+   * mask it. Non-fatal errors on a cache-served cold start are swallowed
+   * (the cached value stands in); fatal ones surface as `lastRefreshError`.
+   */
+  isFatal?: (error: unknown) => boolean
   timeoutMs?: number
   equal?: (left: T, right: T) => boolean
 }
@@ -31,6 +37,7 @@ export type StreamCachedQueryOptions<K, T> = {
   cache: CachedQueryCache<K, T>
   fetcher: (key: K, ctx: { signal: AbortSignal }) => Promise<T>
   isStale?: (value: T) => boolean
+  isFatal?: (error: unknown) => boolean
   key: K
   previous?: InnerState<K, T>
   signal: AbortSignal
@@ -68,6 +75,7 @@ export function createCachedQuery<const K extends readonly unknown[], T>(
       cache: options.cache,
       fetcher: options.fetcher,
       isStale: options.isStale,
+      isFatal: options.isFatal,
       key,
       previous,
       signal: abortController.signal,
@@ -140,7 +148,15 @@ export async function* streamCachedQuery<K, T>(
 ): AsyncGenerator<InnerState<K, T>> {
   const networkPromise = (async () => {
     const value = await options.fetcher(options.key, { signal: options.signal })
-    await options.cache.set(options.key, value)
+
+    try {
+      await options.cache.set(options.key, value)
+    } catch (error) {
+      // A storage failure (quota, private mode) must not discard a value that
+      // was successfully fetched — serve it and stay un-persisted.
+      console.warn('[cached-query] failed to persist the fetched value', error)
+    }
+
     return value
   })()
 
@@ -180,14 +196,19 @@ export async function* streamCachedQuery<K, T>(
 
     try {
       yield ok(options.key, 'network', await networkPromise)
-    } catch {
-      yield ok(options.key, first.source, first.value)
+    } catch (error) {
+      // The cached value stands in for a failed revalidation — except for
+      // fatal errors, which the UI must see even over perfectly good cache.
+      if (options.isFatal?.(error)) yield refreshFailed(first, error)
+      else yield ok(options.key, first.source, first.value)
     }
   } catch (error) {
     const cachedValue = await cachedPromise
     if (cachedValue === undefined) throw error
 
-    yield ok(options.key, 'cache', cachedValue)
+    const fallback = { key: options.key, source: 'cache' as const, value: cachedValue }
+    if (options.isFatal?.(error)) yield refreshFailed(fallback, error)
+    else yield ok(options.key, 'cache', cachedValue)
   }
 }
 

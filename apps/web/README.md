@@ -1,6 +1,6 @@
 # Hoxxes Briefing Web
 
-This package owns the public Solid SPA, weekly board UI, PWA shell, and browser
+This package owns the public Solid SPA, briefing UI, PWA shell, and browser
 data fetching.
 
 ## Commands
@@ -25,7 +25,7 @@ local API.
 
 ## Ownership
 
-- Weekly page code lives in `src/pages/weekly`.
+- Briefing page code lives in `src/pages/briefing`.
 - App-level PWA behavior lives in `src/app/pwa`; the update-notice widget lives
   in `src/widgets/pwa-notice`.
 - Shared UI primitives live in `src/shared/ui`.

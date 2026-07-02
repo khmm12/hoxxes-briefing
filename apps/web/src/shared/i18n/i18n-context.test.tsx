@@ -1,9 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { flush } from 'solid-js'
 import { setupI18n } from '@lingui/core'
-import { render } from '@solidjs/testing-library'
-import { I18nProvider } from './i18n-context'
-import { useI18n } from './use-i18n'
+import { render, renderHook } from '@solidjs/testing-library'
+import { I18nProvider, useI18n } from './i18n-context'
 
 describe('I18nProvider', () => {
   it('re-renders consumers when the wrapped i18n instance emits a change', () => {
@@ -26,5 +25,13 @@ describe('I18nProvider', () => {
     flush()
 
     expect(getByText('ru-RU')).toBeInTheDocument()
+  })
+})
+
+describe('useI18n', () => {
+  it('throws when used outside of an I18nProvider', () => {
+    expect(() => renderHook(useI18n)).toThrow(
+      'Context must either be created with a default value or a value must be provided before accessing it.',
+    )
   })
 })
