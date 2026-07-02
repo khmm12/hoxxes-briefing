@@ -94,7 +94,7 @@ msgstr "Briefing unavailable"
 msgid "Bring armor-cracking focus. Machines do not care about swagger."
 msgstr "Bring armor-cracking focus. Machines do not care about swagger."
 
-#: src/pages/briefing/ui/slogan-copy.ts:12
+#: src/pages/briefing/ui/slogan-copy.ts:11
 msgid "Brotherhood. Danger. Profit."
 msgstr "Brotherhood. Danger. Profit."
 
@@ -160,11 +160,11 @@ msgstr "Crystalline Caverns"
 msgid "Current briefing loaded."
 msgstr "Current briefing loaded."
 
-#: src/pages/briefing/ui/slogan-copy.ts:13
+#: src/pages/briefing/ui/slogan-copy.ts:12
 msgid "Danger. Darkness. Dwarves."
 msgstr "Danger. Darkness. Dwarves."
 
-#: src/pages/briefing/ui/slogan-copy.ts:18
+#: src/pages/briefing/ui/slogan-copy.ts:15
 msgid "Darkness, here I come!"
 msgstr "Darkness, here I come!"
 
@@ -229,7 +229,7 @@ msgstr "Eyes up, miners. Greed before scanning gets expensive."
 msgid "Finish what you start. Half-cleared fights drain the whole dive."
 msgstr "Finish what you start. Half-cleared fights drain the whole dive."
 
-#: src/pages/briefing/ui/slogan-copy.ts:8
+#: src/pages/briefing/ui/slogan-copy.ts:7
 msgid "For Karl!"
 msgstr "For Karl!"
 
@@ -273,11 +273,11 @@ msgstr "Hoxxes Briefing | DRG Deep Dive Overview"
 msgid "Hoxxes Briefing | Not Found"
 msgstr "Hoxxes Briefing | Not Found"
 
-#: src/pages/briefing/ui/slogan-copy.ts:19
+#: src/pages/briefing/ui/slogan-copy.ts:16
 msgid "I eat rock for breakfast!"
 msgstr "I eat rock for breakfast!"
 
-#: src/pages/briefing/ui/slogan-copy.ts:16
+#: src/pages/briefing/ui/slogan-copy.ts:14
 msgid "If you Rock and Stone, you're never alone."
 msgstr "If you Rock and Stone, you're never alone."
 
@@ -285,11 +285,11 @@ msgstr "If you Rock and Stone, you're never alone."
 msgid "Industrial Sabotage"
 msgstr "Industrial Sabotage"
 
-#: src/pages/briefing/ui/slogan-copy.ts:21
+#: src/pages/briefing/ui/slogan-copy.ts:18
 msgid "Just show me where to shoot!"
 msgstr "Just show me where to shoot!"
 
-#: src/pages/briefing/ui/slogan-copy.ts:9
+#: src/pages/briefing/ui/slogan-copy.ts:8
 msgid "Karl Would Be Proud!"
 msgstr "Karl Would Be Proud!"
 
@@ -329,11 +329,11 @@ msgstr "Last known briefing still shown. Refreshing now."
 msgid "Leave brawling room. Cramped teams run out of options fast."
 msgstr "Leave brawling room. Cramped teams run out of options fast."
 
-#: src/pages/briefing/ui/slogan-copy.ts:14
+#: src/pages/briefing/ui/slogan-copy.ts:13
 msgid "Leave no dwarf behind."
 msgstr "Leave no dwarf behind."
 
-#: src/pages/briefing/ui/slogan-copy.ts:20
+#: src/pages/briefing/ui/slogan-copy.ts:17
 msgid "Let's play this smart for once, huh?"
 msgstr "Let's play this smart for once, huh?"
 
@@ -341,7 +341,7 @@ msgstr "Let's play this smart for once, huh?"
 msgid "Lethal Enemies"
 msgstr "Lethal Enemies"
 
-#: src/pages/briefing/ui/slogan-copy.ts:11
+#: src/pages/briefing/ui/slogan-copy.ts:10
 msgid "Locked and loaded!"
 msgstr "Locked and loaded!"
 
@@ -542,12 +542,12 @@ msgstr "Rich Atmosphere"
 msgid "Rival Presence"
 msgstr "Rival Presence"
 
-#: src/pages/briefing/ui/slogan-copy.ts:10
+#: src/pages/briefing/ui/slogan-copy.ts:9
 msgid "Rock and Stone, Brother!"
 msgstr "Rock and Stone, Brother!"
 
 #: src/pages/briefing/ui/BoardFooter.tsx:73
-#: src/pages/briefing/ui/slogan-copy.ts:7
+#: src/pages/briefing/ui/slogan-copy.ts:6
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
 
