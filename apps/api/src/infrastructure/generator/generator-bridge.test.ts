@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import test from 'node:test'
+import { describe, it } from 'node:test'
 import {
   type Briefing,
   DEEP_DIVE_ANOMALIES,
@@ -55,10 +55,12 @@ const assertKnownObjective = (
   }
 }
 
-test('generateBriefing returns the WASM payload in the application model shape', () => {
-  const generated: GeneratedBriefing = generateBriefing(1234567890)
+describe('generateBriefing', () => {
+  it('returns the WASM payload in the application model shape', () => {
+    const generated: GeneratedBriefing = generateBriefing(1234567890)
 
-  assertGeneratedBriefingShape(generated)
+    assertGeneratedBriefingShape(generated)
+  })
 })
 
 function assertGeneratedBriefingShape(generated: GeneratedBriefing): void {
