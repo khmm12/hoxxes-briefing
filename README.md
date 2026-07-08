@@ -56,7 +56,9 @@ Regenerate the committed WASM package after Rust generator changes:
 - [Architecture](docs/architecture.md) - system shape and data flow
 - [Product](docs/product.md) - product and UX intent
 - [Design System](designs/DESIGN.md) - tokens, typography roles, components, motion
-- [Domain](docs/domain.md) - Deep Rock Galactic terms and contract values
+- [Ubiquitous Language](CONTEXT.md) - canonical domain terms and deliberate deviations
+- [Domain Reference](docs/domain.md) - Deep Rock Galactic catalogue and contract enums
+- [Contract Runbook](docs/contract-runbook.md) - evolving the wire contract (revisions, seasons)
 - [Deployment](docs/deployment.md) - Vercel deployment runbook
 - [Web App](apps/web/README.md) - web app ownership and local notes
 

@@ -6,7 +6,7 @@ import { BriefingPage } from './BriefingPage'
 
 // createBriefingQuery (model/create-briefing-query.ts) talks to the
 // network through the global `fetch` and to an on-device cache through the
-// Cache Storage API. jsdom does not implement Cache Storage, so the cache
+// Cache Storage API. happy-dom does not implement Cache Storage, so the cache
 // layer is already a no-op here (`caches` is undefined) — only `fetch` needs
 // stubbing to drive the page through its Loading/Errored/ready states.
 // Relative to the real host clock (not pinned): BriefingPage reads `new Date()`

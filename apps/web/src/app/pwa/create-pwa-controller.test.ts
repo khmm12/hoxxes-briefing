@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { createRoot, createSignal, flush } from 'solid-js'
 import { createPwaController } from './create-pwa-controller'
 
@@ -21,23 +21,6 @@ vi.mock('virtual:pwa-register/solid', () => ({
     }
   },
 }))
-
-// jsdom marks `window.location` unforgeable, so `vi.spyOn(location, 'reload')`
-// throws — swap the whole object for the test and restore it after.
-function stubLocationReload() {
-  const originalLocation = window.location
-  const reload = vi.fn()
-
-  Object.defineProperty(window, 'location', {
-    configurable: true,
-    value: { ...originalLocation, reload },
-  })
-  onTestFinished(() => {
-    Object.defineProperty(window, 'location', { configurable: true, value: originalLocation })
-  })
-
-  return reload
-}
 
 describe('createPwaController', () => {
   afterEach(() => {
@@ -90,7 +73,7 @@ describe('createPwaController', () => {
   })
 
   it('reloadForOutdated checks for a fresh worker, updates, and always ends in a reload', async () => {
-    const reloadSpy = stubLocationReload()
+    const reloadSpy = vi.spyOn(window.location, 'reload').mockImplementation(() => {})
 
     await createRoot(async (dispose) => {
       const state = createPwaController()
@@ -108,7 +91,7 @@ describe('createPwaController', () => {
   })
 
   it('reloadForOutdated still reloads when the update check fails', async () => {
-    const reloadSpy = stubLocationReload()
+    const reloadSpy = vi.spyOn(window.location, 'reload').mockImplementation(() => {})
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     registrationUpdate.mockRejectedValue(new Error('offline'))
 

@@ -43,39 +43,6 @@ function setOnline(online: boolean): void {
   flush()
 }
 
-// jsdom's window.location.reload is non-configurable, so it can't be spied
-// directly (and a Proxy can't mask a non-configurable property). Swap location
-// for a plain stand-in whose reads delegate to the real object — the Router
-// still resolves the route — while reload() is a spy.
-function stubReload(): ReturnType<typeof vi.fn> {
-  const reload = vi.fn()
-  const realLocation = window.location
-  const standIn = {
-    get href() {
-      return realLocation.href
-    },
-    get origin() {
-      return realLocation.origin
-    },
-    get pathname() {
-      return realLocation.pathname
-    },
-    get search() {
-      return realLocation.search
-    },
-    get hash() {
-      return realLocation.hash
-    },
-    reload,
-    toString: () => realLocation.href,
-  }
-  Object.defineProperty(window, 'location', { configurable: true, value: standIn })
-  locationRestore = () => Object.defineProperty(window, 'location', { configurable: true, value: realLocation })
-  return reload
-}
-
-let locationRestore: (() => void) | undefined
-
 describe('App', () => {
   beforeEach(() => {
     setNeedRefresh(false)
@@ -84,8 +51,6 @@ describe('App', () => {
   })
 
   afterEach(() => {
-    locationRestore?.()
-    locationRestore = undefined
     window.history.pushState({}, '', '/')
     vi.restoreAllMocks()
     updateServiceWorker.mockClear()
@@ -156,7 +121,7 @@ describe('App', () => {
   it('recovers a runtime crash with a hard reload when no update is waiting', () => {
     pageControl.crash = true
     vi.spyOn(console, 'error').mockImplementation(() => {})
-    const reload = stubReload()
+    const reload = vi.spyOn(window.location, 'reload').mockImplementation(() => {})
 
     const { getByRole } = render(() => <App i18n={createTestI18n()} />)
 

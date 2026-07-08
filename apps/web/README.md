@@ -29,8 +29,9 @@ local API.
 - App-level PWA behavior lives in `src/app/pwa`; the update-notice widget lives
   in `src/widgets/pwa-notice`.
 - Shared UI primitives live in `src/shared/ui`.
-- Generated Panda output lives in `styled-system` and must not be hand-edited.
+- Generated Panda output lives in `styled-system/`.
 
-For UI system rules, see [docs/conventions.md](docs/conventions.md). The design
-system (tokens, typography roles, components) lives in
+For UI system rules and the icon/asset pipeline, see
+[docs/conventions.md](docs/conventions.md) and [docs/assets.md](docs/assets.md). The
+design system (tokens, typography roles, components) lives in
 [../../designs/DESIGN.md](../../designs/DESIGN.md).

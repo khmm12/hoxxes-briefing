@@ -8,7 +8,7 @@ afterEach(() => {
 
 describe('clearStaleDataCaches', () => {
   it('resolves without touching CacheStorage when it is unavailable', async () => {
-    // jsdom defines no `caches`; the guard must short-circuit instead of
+    // happy-dom defines no `caches`; the guard must short-circuit instead of
     // dereferencing the missing global.
     await expect(clearStaleDataCaches()).resolves.toBeUndefined()
   })
