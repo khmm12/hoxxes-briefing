@@ -51,17 +51,17 @@ general feel of a mission.
 
 | Name | Description | Enum |
 | --- | --- | --- |
-| Crystalline Caverns | Crystal-heavy cave region. | `CrystallineCaverns` |
-| Fungus Bogs | Damp fungal cave region. | `FungusBogs` |
-| Magma Core | Volcanic cave region with heat and unstable ground. | `MagmaCore` |
-| Radioactive Exclusion Zone | Irradiated cave region. | `RadioactiveExclusionZone` |
-| Dense Biozone | Lush cave region with dense organic growth. | `DenseBiozone` |
-| Sandblasted Corridors | Sandy cave region with wide, eroded spaces. | `SandblastedCorridors` |
-| Salt Pits | Salt-crystal cave region. | `SaltPits` |
-| Glacial Strata | Frozen cave region with ice and cold hazards. | `GlacialStrata` |
-| Azure Weald | Bioluminescent alien forest cave region. | `AzureWeald` |
-| Hollow Bough | Thorny, hostile root cave region. | `HollowBough` |
-| Ossuary Depths | Bone-strewn cave region. | `OssuaryDepths` |
+| Crystalline Caverns | Open chambers lit by massive crystals — easy to read, but deceptively dangerous. Electrocrystals arc electricity on contact and spider webs snare your movement. | `CrystallineCaverns` |
+| Fungus Bogs | Swampy caverns of towering xenofungi platforms. Poison spores and sticky goo that drags at your movement make routing, not raw combat, the real threat. | `FungusBogs` |
+| Magma Core | Spacious volcanic caverns of multi-level plateaus and lava. Hot rock burns underfoot, geysers erupt, and quakes slow you to a crawl. | `MagmaCore` |
+| Radioactive Exclusion Zone | Desolate open spaces linked by wide tunnels under a sparse, irradiated glow. Volatile Uranium crystals bleed radiation and spider webs snare movement. | `RadioactiveExclusionZone` |
+| Dense Biozone | Subterranean rainforest of twisting coral and bioluminescent growth. Ejector cacti, cave urchins, and explosive plants lace the tangled, hazard-rich routes. | `DenseBiozone` |
+| Sandblasted Corridors | Soft sandstone desert strewn with giant fossils and little cover. Wind tunnels fling you off course and sandstorms gut visibility while slowing you down. | `SandblastedCorridors` |
+| Salt Pits | Big open chambers of red and white salt crystal, barren of vegetation. Unstable ceiling crystals deal massive damage when dislodged and platforms collapse under lingering feet. | `SaltPits` |
+| Glacial Strata | Frozen ice caverns where your heat drains toward a hard freeze. Crevasses open underfoot, ice is slick, icicles fall, and blizzards cut visibility. | `GlacialStrata` |
+| Azure Weald | Bioluminescent alien jungle of splendor and horror, glowing blue. Strange stone pillars halve damage for dwarves and enemies alike, turning fights into a puzzle. | `AzureWeald` |
+| Hollow Bough | Petrified halls of dried grass and towering wood, webbed with red thorns. Parasitic vines wound on contact and choke the routes into tight, dangerous passages. | `HollowBough` |
+| Ossuary Depths | Bone-strewn Ossiran depths of sandy ground and wall-hugging rock platforms. Ossiran Scrabs and buried Pit Jaws ambush from the debris, and spider webs snare movement. | `OssuaryDepths` |
 
 ## Stage Objectives
 
@@ -81,29 +81,29 @@ as the smaller secondary job — DRG has no separate "Heavy Excavation" mission.
 
 | Name | Description | Enum |
 | --- | --- | --- |
-| Deep Scan xN | Find resonance crystals, connect scanners, ride and defend the Drillevator, collect Morkite Seeds in the geode, then extract upward. | `DeepScan` |
-| Escort Duty | Escort and repair the Drilldozer, handle a Deep Dive refuel stop, defend the Heartstone fight, recover the core, then extract. | `EscortDuty` |
-| Morkite xN | Traverse a linear cave, mine the Morkite quota, deposit it, and return through the cave to extract. | `MiningExpedition` |
-| Industrial Sabotage | Hack two power stations, drop the force field, defeat the Caretaker boss, recover the Data Rack, then extract. | `IndustrialSabotage` |
-| Egg xN | Locate eggs in cave walls and pull them out. Egg pulls can trigger enemy waves, so the team controls when pressure spikes. | `EggHunt` |
-| Aquarq xN | Collect heavy Aquarqs from an open cave and deposit them at the Minehead while enemy pressure increases over time. | `PointExtraction` |
-| Morkite Well xN | Build pipelines from the refinery to Liquid Morkite wells, start refining, repair pipeline breaks, then extract. | `OnSiteRefining` |
-| Mule xN | Repair Mini M.U.L.E.s, then survive uplink and fuel-cell holdouts around fixed zones. | `SalvageOperation` |
+| Deep Scan xN | Track down Resonance Crystals with your rangefinder, deploy Scanners to pinpoint the Morkite Geode, then ride the Drillevator down to gather its Morkite Seeds. | `DeepScan` |
+| Escort Duty | Escort and repair the Drilldozer to the Ommoran Heartstone, refuel it along the way, then defend the Heartstone dig and extract. | `EscortDuty` |
+| Morkite xN | Mine the Morkite quota from the caves and deposit it into the M.U.L.E. | `MiningExpedition` |
+| Industrial Sabotage | Hack two guarded power stations to drop the shield, destroy the Caretaker, then extract the stolen data. | `IndustrialSabotage` |
+| Egg xN | Pull alien eggs from the cave walls and deposit them — each egg you take can trigger an enemy wave. | `EggHunt` |
+| Aquarq xN | Dig Aquarqs out of the walls and haul them to the Minehead while defending against escalating waves. | `PointExtraction` |
+| Morkite Well xN | Find the Liquid Morkite wells, run pipelines to the mobile refinery, and keep it patched while it pumps. | `OnSiteRefining` |
+| Mule xN | Repair the abandoned Mini M.U.L.E.s, power up the Drop Pod, and hold the uplink until extraction. | `SalvageOperation` |
 | Dreadnought xN | Break dreadnought cocoons and defeat the listed boss variants. | `Elimination` |
-| Resinite Mass xN | Find large Resinite Masses, dig them free, attach Lift Rockets, send them up, then extract. | `HeavyExtraction` |
+| Resinite Mass xN | Dig the massive Resinite Masses free, attach Lift Rockets, and send them up to orbit. | `HeavyExtraction` |
 
 ## Secondary Objectives
 
 | Name | Description | Enum |
 | --- | --- | --- |
-| Egg xN | Collect a smaller required egg quota. It can still add enemy pressure to the primary objective. | `EggHunt` |
-| Deep Scan xN | Perform the shortened scan requirement only; it does not include the Drillevator or Morkite Seed geode flow. | `DeepScan` |
-| Black Box | Find, repair, and recover one Black Box by staying inside its active radius. It behaves like a compact holdout. | `Blackbox` |
+| Egg xN | Pull the required alien eggs from the cave walls and deposit them. | `EggHunt` |
+| Deep Scan xN | Scan the required Resonance Crystals hidden through the cave. | `DeepScan` |
+| Black Box | Find the crashed Black Box on your scanner, repair it, and hold its radius until the download finishes. | `Blackbox` |
 | Dreadnought xN | Kill the smaller listed dreadnought quota, normally one boss, inside another stage structure. | `Elimination` |
-| Morkite xN | Collect a smaller Morkite quota while completing the primary objective. | `MiningExpedition` |
-| Morkite Well xN | Connect one well to a small Morkite Extraction Pod. This is not the full refinery mission loop. | `OnSiteRefining` |
-| Mule xN | Repair the required Mini M.U.L.E.s without the full uplink and fuel-cell finale. | `SalvageOperation` |
-| Resinite Mass xN | Extract a smaller Resinite quota, usually one mass, using Lift Rockets. | `HeavyExtraction` |
+| Morkite xN | Mine the required Morkite and deposit it into the M.U.L.E. | `MiningExpedition` |
+| Morkite Well xN | Hook a Liquid Morkite well up to the extraction pod and pump it dry. | `OnSiteRefining` |
+| Mule xN | Repair the required Mini M.U.L.E.s scattered around the stage. | `SalvageOperation` |
+| Resinite Mass xN | Free the required Resinite Mass and lift it out with rockets. | `HeavyExtraction` |
 
 Both primary and secondary Resinite Mass objectives use the `HeavyExtraction`
 enum key in the domain model, matching every other objective that appears in

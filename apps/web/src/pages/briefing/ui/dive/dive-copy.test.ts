@@ -3,6 +3,7 @@ import type { I18n } from '@lingui/core'
 import type {
   DeepDiveAnomaly,
   DeepDiveBiome,
+  DeepDiveDreadnought,
   DeepDivePrimaryObjective,
   DeepDiveSecondaryObjective,
   DeepDiveWarning,
@@ -12,12 +13,19 @@ import {
   formatAnomaly,
   formatAnomalyDescription,
   formatBiome,
+  formatBiomeDescription,
   formatDiveKind,
+  formatDreadnoughtDescription,
   formatPrimaryObjective,
+  formatPrimaryObjectiveDescription,
   formatSecondaryObjective,
+  formatSecondaryObjectiveDescription,
   formatWarning,
   formatWarningDescription,
 } from './dive-copy'
+
+type PrimaryDescribedKind = Exclude<DeepDivePrimaryObjective, { kind: 'Elimination' }>['kind']
+type SecondaryDescribedKind = Exclude<DeepDiveSecondaryObjective, { kind: 'Elimination' }>['kind']
 
 const i18n: I18n = createTestI18n()
 
@@ -100,6 +108,111 @@ describe('formatSecondaryObjective', () => {
     }
 
     expect(formatSecondaryObjective(i18n, objective)).toBe('Dreadnought x1 (Classic)')
+  })
+})
+
+describe('formatBiomeDescription', () => {
+  const biomes: DeepDiveBiome[] = [
+    'CrystallineCaverns',
+    'FungusBogs',
+    'MagmaCore',
+    'RadioactiveExclusionZone',
+    'DenseBiozone',
+    'SandblastedCorridors',
+    'SaltPits',
+    'GlacialStrata',
+    'AzureWeald',
+    'HollowBough',
+    'OssuaryDepths',
+  ]
+
+  it.each(biomes)('describes %s', (biome) => {
+    expect(formatBiomeDescription(i18n, biome)).toBeTruthy()
+  })
+
+  it('gives every biome its own description', () => {
+    const texts = biomes.map((biome) => formatBiomeDescription(i18n, biome))
+
+    expect(new Set(texts).size).toBe(biomes.length)
+  })
+})
+
+describe('formatPrimaryObjectiveDescription', () => {
+  const kinds: PrimaryDescribedKind[] = [
+    'DeepScan',
+    'EscortDuty',
+    'MiningExpedition',
+    'IndustrialSabotage',
+    'EggHunt',
+    'PointExtraction',
+    'OnSiteRefining',
+    'SalvageOperation',
+    'HeavyExtraction',
+  ]
+
+  it.each(kinds)('describes %s', (kind) => {
+    expect(formatPrimaryObjectiveDescription(i18n, kind)).toBeTruthy()
+  })
+
+  it('gives every primary objective its own description', () => {
+    const texts = kinds.map((kind) => formatPrimaryObjectiveDescription(i18n, kind))
+
+    expect(new Set(texts).size).toBe(kinds.length)
+  })
+
+  it('has no line-level description for Elimination', () => {
+    expect(formatPrimaryObjectiveDescription(i18n, 'Elimination')).toBeUndefined()
+  })
+})
+
+describe('formatSecondaryObjectiveDescription', () => {
+  const kinds: SecondaryDescribedKind[] = [
+    'EggHunt',
+    'DeepScan',
+    'Blackbox',
+    'MiningExpedition',
+    'OnSiteRefining',
+    'SalvageOperation',
+    'HeavyExtraction',
+  ]
+
+  it.each(kinds)('describes %s', (kind) => {
+    expect(formatSecondaryObjectiveDescription(i18n, kind)).toBeTruthy()
+  })
+
+  it('gives every secondary objective its own description', () => {
+    const texts = kinds.map((kind) => formatSecondaryObjectiveDescription(i18n, kind))
+
+    expect(new Set(texts).size).toBe(kinds.length)
+  })
+
+  it('has no line-level description for Elimination', () => {
+    expect(formatSecondaryObjectiveDescription(i18n, 'Elimination')).toBeUndefined()
+  })
+
+  it('describes a primary mission and a secondary side goal differently for a shared kind', () => {
+    // Primary = the whole mission; secondary = just the smaller side task. Shared
+    // names (Deep Scan, Mining Expedition) must not collapse to identical copy.
+    expect(formatSecondaryObjectiveDescription(i18n, 'DeepScan')).not.toBe(
+      formatPrimaryObjectiveDescription(i18n, 'DeepScan'),
+    )
+    expect(formatSecondaryObjectiveDescription(i18n, 'MiningExpedition')).not.toBe(
+      formatPrimaryObjectiveDescription(i18n, 'MiningExpedition'),
+    )
+  })
+})
+
+describe('formatDreadnoughtDescription', () => {
+  const dreadnoughts: DeepDiveDreadnought[] = ['Classic', 'Hiveguard', 'Twins']
+
+  it.each(dreadnoughts)('describes %s', (dreadnought) => {
+    expect(formatDreadnoughtDescription(i18n, dreadnought)).toBeTruthy()
+  })
+
+  it('gives every dreadnought variant its own description', () => {
+    const texts = dreadnoughts.map((dreadnought) => formatDreadnoughtDescription(i18n, dreadnought))
+
+    expect(new Set(texts).size).toBe(dreadnoughts.length)
   })
 })
 

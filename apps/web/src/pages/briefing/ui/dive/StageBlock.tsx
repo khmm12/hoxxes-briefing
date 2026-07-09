@@ -1,15 +1,24 @@
-import { Show } from 'solid-js'
+import { For, Show } from 'solid-js'
 import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
-import type { DeepDiveMission } from '~/shared/api'
+import type {
+  DeepDiveDreadnought,
+  DeepDiveMission,
+  DeepDivePrimaryObjective,
+  DeepDiveSecondaryObjective,
+} from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { Tooltip } from '~/shared/ui/tooltip'
 import {
   formatAnomaly,
   formatAnomalyDescription,
+  formatDreadnought,
+  formatDreadnoughtDescription,
   formatPrimaryObjective,
+  formatPrimaryObjectiveDescription,
   formatSecondaryObjective,
+  formatSecondaryObjectiveDescription,
   formatWarning,
   formatWarningDescription,
 } from './dive-copy'
@@ -191,19 +200,8 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
       </span>
 
       <div class={css(objectiveStackStyles)}>
-        <ObjectiveLine
-          emphasis="primary"
-          icon={<PrimaryObjectiveKindIcon kind={props.mission.primaryObjective.kind} />}
-          label={i18n._(msg`Primary objective`)}
-          value={formatPrimaryObjective(i18n, props.mission.primaryObjective)}
-        />
-        <ObjectiveLine
-          emphasis="secondary"
-          icon={<SecondaryObjectiveKindIcon kind={props.mission.secondaryObjective.kind} />}
-          iconTone="secondary"
-          label={i18n._(msg`Secondary objective`)}
-          value={formatSecondaryObjective(i18n, props.mission.secondaryObjective)}
-        />
+        <PrimaryObjectiveRow objective={props.mission.primaryObjective} />
+        <SecondaryObjectiveRow objective={props.mission.secondaryObjective} />
       </div>
 
       <div class={css(mutatorStackStyles)}>
@@ -241,12 +239,102 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
   )
 }
 
-function ObjectiveLine(props: {
+function PrimaryObjectiveRow(props: { objective: DeepDivePrimaryObjective }): JSX.Element {
+  const i18n = useI18n()
+
+  return (
+    <ObjectiveLine
+      icon={<PrimaryObjectiveKindIcon kind={props.objective.kind} />}
+      label={i18n._(msg`Primary objective`)}
+    >
+      <ObjectiveValue emphasis="primary" description={formatPrimaryObjectiveDescription(i18n, props.objective.kind)}>
+        <Show
+          when={props.objective.kind === 'Elimination' && props.objective}
+          fallback={formatPrimaryObjective(i18n, props.objective)}
+        >
+          {(objective) => <EliminationObjectiveValue dreadnoughts={objective().dreadnoughts} />}
+        </Show>
+      </ObjectiveValue>
+    </ObjectiveLine>
+  )
+}
+
+function SecondaryObjectiveRow(props: { objective: DeepDiveSecondaryObjective }): JSX.Element {
+  const i18n = useI18n()
+
+  return (
+    <ObjectiveLine
+      icon={<SecondaryObjectiveKindIcon kind={props.objective.kind} />}
+      iconTone="secondary"
+      label={i18n._(msg`Secondary objective`)}
+    >
+      <ObjectiveValue
+        emphasis="secondary"
+        description={formatSecondaryObjectiveDescription(i18n, props.objective.kind)}
+      >
+        <Show
+          when={props.objective.kind === 'Elimination' && props.objective}
+          fallback={<>{formatSecondaryObjective(i18n, props.objective)}</>}
+        >
+          {(objective) => <EliminationObjectiveValue dreadnoughts={objective().dreadnoughts} />}
+        </Show>
+      </ObjectiveValue>
+    </ObjectiveLine>
+  )
+}
+
+// The value renderer owns the description tooltip: a described objective wraps
+// its value in a Tooltip, one without a description (Elimination) renders bare.
+// The <strong> is built once and reused across both branches, so an Elimination
+// value's per-dreadnought tooltips never nest under a line-level trigger.
+function ObjectiveValue(props: {
   emphasis: 'primary' | 'secondary'
+  description?: string
+  children: JSX.Element
+}): JSX.Element {
+  const value = <strong class={css(valueTextRecipe.raw({ emphasis: props.emphasis }))}>{props.children}</strong>
+
+  return (
+    <Show when={props.description} fallback={value}>
+      {(description) => (
+        <Tooltip align="start" label={description()}>
+          {value}
+        </Tooltip>
+      )}
+    </Show>
+  )
+}
+
+// The dreadnought list is the only tokenized objective value: each named variant
+// gets its own tooltip, so the shell text and separators are rendered here
+// rather than folded into a flat string.
+function EliminationObjectiveValue(props: { dreadnoughts: readonly DeepDiveDreadnought[] }): JSX.Element {
+  const i18n = useI18n()
+
+  return (
+    <>
+      {i18n._(msg`Dreadnought x${props.dreadnoughts.length}`)}
+      {' ('}
+      <For each={props.dreadnoughts} keyed={false}>
+        {(dreadnought, index) => (
+          <>
+            <Show when={index > 0}>{' + '}</Show>
+            <Tooltip align="start" label={formatDreadnoughtDescription(i18n, dreadnought())}>
+              <span>{formatDreadnought(i18n, dreadnought())}</span>
+            </Tooltip>
+          </>
+        )}
+      </For>
+      {')'}
+    </>
+  )
+}
+
+function ObjectiveLine(props: {
   icon: JSX.Element
   iconTone?: 'primary' | 'secondary'
   label: string
-  value: string
+  children: JSX.Element
 }): JSX.Element {
   return (
     <div class={css(detailLineStyles)}>
@@ -255,7 +343,7 @@ function ObjectiveLine(props: {
         <span class={css(lineIconRecipe.raw({ tone: props.iconTone }))} aria-hidden="true">
           {props.icon}
         </span>
-        <strong class={css(valueTextRecipe.raw({ emphasis: props.emphasis }))}>{props.value}</strong>
+        {props.children}
       </span>
     </div>
   )
@@ -267,10 +355,8 @@ function MutatorLine(props: {
   tone: 'anomaly' | 'warning'
   value: string
 }): JSX.Element {
-  // The root is a <span> because Tooltip wraps modifier lines in its inline
-  // trigger; a <div> inside that span would be invalid HTML.
   return (
-    <span class={css(mutatorRecipe.raw({ tone: props.tone }))}>
+    <div class={css(mutatorRecipe.raw({ tone: props.tone }))}>
       <span class={css(labelRecipe.raw({ tone: 'mutator' }))}>{props.label}</span>
       <span class={css(detailValueLineStyles)}>
         <span class={css(lineIconRecipe.raw({ tone: props.tone }))} aria-hidden="true">
@@ -278,6 +364,6 @@ function MutatorLine(props: {
         </span>
         <strong class={css(valueTextRecipe.raw())}>{props.value}</strong>
       </span>
-    </span>
+    </div>
   )
 }

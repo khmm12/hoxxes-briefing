@@ -17,6 +17,7 @@ import {
   formatAnomaly,
   formatAnomalyDescription,
   formatBiome,
+  formatBiomeDescription,
   formatDiveKind,
   formatWarning,
   formatWarningDescription,
@@ -100,6 +101,10 @@ const biomeIconStyles = css.raw({
 })
 
 const biomeStyles = css.raw({
+  // Shrink to the label so the tooltip trigger (hover + focus ring) hugs the
+  // text, not the full width of the header grid column the <p> would otherwise
+  // stretch to fill.
+  justifySelf: 'start',
   display: 'flex',
   alignItems: 'center',
   gap: '1.5',
@@ -204,10 +209,12 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
             {formatDiveKind(i18n, props.kind)}
           </Eyebrow>
           <h2 class={css(titleStyles)}>{props.dive.name}</h2>
-          <p class={css(biomeStyles)}>
-            <BiomeKindIcon css={biomeIconStyles} kind={props.dive.biome} />
-            {formatBiome(i18n, props.dive.biome)}
-          </p>
+          <Tooltip align="start" label={formatBiomeDescription(i18n, props.dive.biome)}>
+            <p class={css(biomeStyles)}>
+              <BiomeKindIcon css={biomeIconStyles} kind={props.dive.biome} />
+              {formatBiome(i18n, props.dive.biome)}
+            </p>
+          </Tooltip>
           {props.expired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known briefing`)}</p> : null}
         </div>
         <p class={css(noteStyles)}>{formatIntelNote(i18n, intel().note)}</p>
@@ -254,16 +261,11 @@ const chipAnomalyIconStyles = css.raw({
   fontSize: '[token(sizes.icon.16)]',
 })
 
-const chipTooltipStyles = css.raw({
-  display: 'inline-block',
-  borderRadius: 'full',
-})
-
 function RundownChipView(props: { chip: RundownChip }): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <Tooltip align="center" css={chipTooltipStyles} label={formatRundownChipDescription(i18n, props.chip)}>
+    <Tooltip align="center" label={formatRundownChipDescription(i18n, props.chip)}>
       <span class={css(chipRecipe.raw({ kind: props.chip.kind }))}>
         {props.chip.kind === 'warning' ? (
           <WarningKindIcon css={chipWarningIconStyles} kind={props.chip.value} />

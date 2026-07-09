@@ -42,6 +42,15 @@ describe('DiveSlab', () => {
     expect(getAllByText(/Stage \d/)).toHaveLength(2)
   })
 
+  it('describes the biome on focus', () => {
+    const { getByText } = renderWithProviders(() => <DiveSlab dive={DIVE} expired={false} kind="normal" />)
+
+    fireEvent.focusIn(getByText('Fungus Bogs'))
+    flush()
+
+    expect(document.body.querySelector('[role="tooltip"]')).toHaveTextContent('towering xenofungi platforms')
+  })
+
   it('renders rundown chips for the dive’s warnings and anomalies', () => {
     const { getByRole } = renderWithProviders(() => <DiveSlab dive={DIVE} expired={false} kind="normal" />)
     const rundown = within(getByRole('region', { name: 'Rundown' }))

@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest'
+import { flush } from 'solid-js'
+import { fireEvent } from '@solidjs/testing-library'
 import type { DeepDiveMission } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
 import { StageBlock } from './StageBlock'
+
+// The tooltip panel renders through a `Portal` into `document.body`, outside the
+// render container the query helpers scope to — read it straight off the document.
+function queryTooltipPanel(): HTMLElement | null {
+  return document.body.querySelector('[role="tooltip"]')
+}
 
 describe('StageBlock', () => {
   it('renders the stage number and both objectives', () => {
@@ -15,8 +23,46 @@ describe('StageBlock', () => {
     const { getByText } = renderWithProviders(() => <StageBlock index={0} kind="normal" mission={mission} />)
 
     expect(getByText('Stage 1')).toBeInTheDocument()
-    expect(getByText('Dreadnought x3 (Classic + Hiveguard + Twins)')).toBeInTheDocument()
+    // The Elimination value is tokenized: each named dreadnought variant is its
+    // own element (its own tooltip trigger), not a single flat string.
+    expect(getByText('Classic')).toBeInTheDocument()
+    expect(getByText('Hiveguard')).toBeInTheDocument()
+    expect(getByText('Twins')).toBeInTheDocument()
     expect(getByText('Morkite x150')).toBeInTheDocument()
+  })
+
+  it('describes a non-Elimination objective value on focus', () => {
+    const mission: DeepDiveMission = {
+      primaryObjective: { kind: 'MiningExpedition', morkite: 200 },
+      secondaryObjective: { kind: 'DeepScan', resonanceCrystals: 2 },
+      warning: null,
+      anomaly: null,
+    }
+
+    const { getByText } = renderWithProviders(() => <StageBlock index={0} kind="normal" mission={mission} />)
+
+    fireEvent.focusIn(getByText('Morkite x200'))
+    flush()
+
+    expect(queryTooltipPanel()).toHaveTextContent(
+      'Mine the Morkite quota from the caves and deposit it into the M.U.L.E.',
+    )
+  })
+
+  it('describes each dreadnought variant on its own token', () => {
+    const mission: DeepDiveMission = {
+      primaryObjective: { kind: 'Elimination', dreadnoughts: ['Hiveguard'] },
+      secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
+      warning: null,
+      anomaly: null,
+    }
+
+    const { getByText } = renderWithProviders(() => <StageBlock index={0} kind="normal" mission={mission} />)
+
+    fireEvent.focusIn(getByText('Hiveguard'))
+    flush()
+
+    expect(queryTooltipPanel()).toHaveTextContent('Dreadnought variant with Sentinel adds and phased vulnerability.')
   })
 
   it('counts stages from one based on the index prop', () => {

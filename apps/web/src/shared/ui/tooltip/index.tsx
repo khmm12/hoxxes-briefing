@@ -1,13 +1,18 @@
-import { createEffect, createRenderEffect, createSignal, createUniqueId, Show } from 'solid-js'
+import type { ChildrenReturn } from 'solid-js'
+import { children, createEffect, createRenderEffect, createSignal, createUniqueId, Show } from 'solid-js'
 import type { JSX } from '@solidjs/web'
 import { Portal } from '@solidjs/web'
 import { css } from 'styled-system/css'
-import { resolveClass, type StylingProps } from '~/shared/ui/styling'
 
-type TooltipProps = StylingProps & {
+type TooltipProps = {
   label: string
   /** Horizontal panel placement relative to the trigger. Defaults to `center`. */
   align?: 'center' | 'start'
+  /**
+   * Exactly one element. The tooltip attaches its trigger behavior to this
+   * element directly — it keeps its own tag and styling, and no wrapper node is
+   * introduced.
+   */
   children: JSX.Element
 }
 
@@ -17,14 +22,17 @@ type TooltipProps = StylingProps & {
 const VIEWPORT_GAP = 8
 const TRIGGER_GAP = 6
 
-const triggerStyles = css.raw({
-  display: 'block',
+// Trigger affordances only — cursor and focus ring. Layout and shape stay on the
+// child element itself, so a rounded chip keeps its pill and a plain line keeps
+// its box.
+const triggerClassNames = css({
   cursor: 'help',
-  borderRadius: 'md',
   _focusVisible: {
     layerStyle: 'focusRing',
   },
 })
+  .split(' ')
+  .filter(Boolean)
 
 const panelStyles = css.raw({
   position: 'fixed',
@@ -51,16 +59,41 @@ export function Tooltip(props: TooltipProps): JSX.Element {
   const [open, setOpen] = createSignal(false)
   const [$panel, setPanel] = createSignal<HTMLDivElement>()
 
-  let $trigger: HTMLSpanElement | undefined
+  const resolved = children(() => props.children)
+
+  let $trigger: HTMLElement | undefined
 
   const close = (): void => {
     setOpen(false)
   }
 
-  // Position from a render effect: by the time
-  // the panel signal is set the portalled node is already in the DOM,
-  // and applying coordinates synchronously here lands them
-  // before paint — the panel never flashes unpositioned.
+  // Attach trigger behavior to the child element itself — no wrapper node — so
+  // the child keeps its natural tag (no invalid markup) and stays a direct child
+  // of its own grid/flex parent (no stray layout item). Children are static, so
+  // this settles once on mount and sets `$trigger` before the panel can open.
+  createRenderEffect(
+    () => resolveTriggerElement(resolved),
+    (trigger) => {
+      $trigger = trigger
+      trigger.classList.add(...triggerClassNames)
+      trigger.setAttribute('tabindex', '0')
+      return listenForTrigger(trigger, () => setOpen(true), close)
+    },
+  )
+
+  // Associate the trigger with the panel by id only while it is shown.
+  createEffect(
+    () => open(),
+    (isOpen) => {
+      if ($trigger == null) return
+      if (isOpen) $trigger.setAttribute('aria-describedby', tooltipId)
+      else $trigger.removeAttribute('aria-describedby')
+    },
+  )
+
+  // Position from a render effect: by the time the panel signal is set the
+  // portalled node is already in the DOM, and applying coordinates synchronously
+  // here lands them before paint — the panel never flashes unpositioned.
   // Include `props.label` to recompute on label changes.
   createRenderEffect(
     () => [$panel(), props.align ?? 'center', props.label] as const,
@@ -81,29 +114,7 @@ export function Tooltip(props: TooltipProps): JSX.Element {
 
   return (
     <>
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: ARIA tooltip pattern — the trigger is a focusable wrapper, not a button */}
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents: onClick is a touch-only affordance; keyboard users open via focus */}
-      <span
-        ref={$trigger}
-        aria-describedby={open() ? tooltipId : undefined}
-        class={resolveClass(props.class, props.css, triggerStyles)}
-        tabindex="0"
-        onClick={() => {
-          // Touch taps may not focus a tabbable span on every platform; make
-          // sure a tap always opens. Closing happens via outside tap or Escape.
-          if (isTouchOnly()) setOpen(true)
-        }}
-        onFocusIn={() => setOpen(true)}
-        onFocusOut={close}
-        onPointerEnter={(event) => {
-          if (event.pointerType === 'mouse') setOpen(true)
-        }}
-        onPointerLeave={(event) => {
-          if (event.pointerType === 'mouse') close()
-        }}
-      >
-        {props.children}
-      </span>
+      {resolved()}
       <Show when={open()}>
         <Portal>
           <div ref={setPanel} id={tooltipId} role="tooltip" class={css(panelStyles)}>
@@ -113,6 +124,48 @@ export function Tooltip(props: TooltipProps): JSX.Element {
       </Show>
     </>
   )
+}
+
+function resolveTriggerElement(resolved: ChildrenReturn): HTMLElement {
+  const [node, ...rest] = resolved.toArray()
+
+  if (rest.length > 0 || !(node instanceof HTMLElement)) {
+    throw new Error('Tooltip expects exactly one element child to attach its trigger behavior to.')
+  }
+
+  return node
+}
+
+// Native listeners on the child, mirroring the former delegated handlers: focus
+// and mouse hover open/close; a touch tap opens (closing then happens via an
+// outside tap or Escape). Non-mouse pointers are ignored so taps do not
+// double-fire with the click affordance.
+function listenForTrigger(trigger: HTMLElement, open: () => void, close: () => void): () => void {
+  const handleFocusIn = (): void => open()
+  const handleFocusOut = (): void => close()
+  const handlePointerEnter = (event: PointerEvent): void => {
+    if (event.pointerType === 'mouse') open()
+  }
+  const handlePointerLeave = (event: PointerEvent): void => {
+    if (event.pointerType === 'mouse') close()
+  }
+  const handleClick = (): void => {
+    if (isTouchOnly()) open()
+  }
+
+  trigger.addEventListener('focusin', handleFocusIn)
+  trigger.addEventListener('focusout', handleFocusOut)
+  trigger.addEventListener('pointerenter', handlePointerEnter)
+  trigger.addEventListener('pointerleave', handlePointerLeave)
+  trigger.addEventListener('click', handleClick)
+
+  return () => {
+    trigger.removeEventListener('focusin', handleFocusIn)
+    trigger.removeEventListener('focusout', handleFocusOut)
+    trigger.removeEventListener('pointerenter', handlePointerEnter)
+    trigger.removeEventListener('pointerleave', handlePointerLeave)
+    trigger.removeEventListener('click', handleClick)
+  }
 }
 
 function computeStyles(
