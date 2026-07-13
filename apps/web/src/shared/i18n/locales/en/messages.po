@@ -29,7 +29,7 @@ msgstr "{minutes}m"
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:281
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:282
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
@@ -65,7 +65,7 @@ msgstr "After a few seconds of not taking damage, the creatures will start recov
 msgid "already ended"
 msgstr "already ended"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:226
+#: src/pages/briefing/ui/dive/StageBlock.tsx:224
 msgid "Anomaly"
 msgstr "Anomaly"
 
@@ -246,7 +246,7 @@ msgid "Dreadnought variant with Sentinel adds and phased vulnerability."
 msgstr "Dreadnought variant with Sentinel adds and phased vulnerability."
 
 #. placeholder {0}: props.dreadnoughts.length
-#: src/pages/briefing/ui/dive/StageBlock.tsx:316
+#: src/pages/briefing/ui/dive/StageBlock.tsx:314
 msgid "Dreadnought x{0}"
 msgstr "Dreadnought x{0}"
 
@@ -439,7 +439,7 @@ msgstr "Keep moving between cover. Open ground has teeth today."
 msgid "Keep the floor tidy. Little trouble grows fast under pressure."
 msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:217
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:218
 msgid "Last known briefing"
 msgstr "Last known briefing"
 
@@ -585,7 +585,7 @@ msgstr "New version ready"
 msgid "No saved briefing"
 msgstr "No saved briefing"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:235
+#: src/pages/briefing/ui/dive/StageBlock.tsx:233
 msgid "No warning or anomaly on this stage."
 msgstr "No warning or anomaly on this stage."
 
@@ -654,7 +654,7 @@ msgstr "Prep the hold first. Clear lanes before you lock in."
 msgid "Prepare yourself for a tsunami of Glyphid Swarmers!"
 msgstr "Prepare yourself for a tsunami of Glyphid Swarmers!"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:248
+#: src/pages/briefing/ui/dive/StageBlock.tsx:246
 msgid "Primary objective"
 msgstr "Primary objective"
 
@@ -749,8 +749,8 @@ msgstr "Rock and Stone!"
 msgid "Rock solid!"
 msgstr "Rock solid!"
 
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:223
 #: src/pages/briefing/ui/dive/DiveSlab.tsx:224
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:225
 msgid "Rundown"
 msgstr "Rundown"
 
@@ -790,7 +790,7 @@ msgstr "Scanners have detected several clusters of Ossiran Pit Jaws in the area.
 msgid "Scrab Nesting Grounds"
 msgstr "Scrab Nesting Grounds"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:269
+#: src/pages/briefing/ui/dive/StageBlock.tsx:267
 msgid "Secondary objective"
 msgstr "Secondary objective"
 
@@ -810,7 +810,7 @@ msgstr "Sharing is not available on this device."
 msgid "Shield Disruption"
 msgstr "Shield Disruption"
 
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:237
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:238
 msgid "Show less"
 msgstr "Show less"
 
@@ -939,7 +939,7 @@ msgstr "Use the speed. Finish spread jobs before swarms stack."
 msgid "Volatile Guts"
 msgstr "Volatile Guts"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:213
+#: src/pages/briefing/ui/dive/StageBlock.tsx:212
 msgid "Warning"
 msgstr "Warning"
 

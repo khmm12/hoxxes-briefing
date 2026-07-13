@@ -207,27 +207,25 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
       <div class={css(mutatorStackStyles)}>
         <Show when={props.mission.warning} keyed>
           {(warning) => (
-            <Tooltip align="start" label={formatWarningDescription(i18n, warning)}>
-              <MutatorLine
-                icon={<WarningKindIcon kind={warning} />}
-                label={i18n._(msg`Warning`)}
-                tone="warning"
-                value={formatWarning(i18n, warning)}
-              />
-            </Tooltip>
+            <MutatorLine
+              icon={<WarningKindIcon kind={warning} />}
+              label={i18n._(msg`Warning`)}
+              tone="warning"
+              value={formatWarning(i18n, warning)}
+              description={formatWarningDescription(i18n, warning)}
+            />
           )}
         </Show>
 
         <Show when={props.mission.anomaly} keyed>
           {(anomaly) => (
-            <Tooltip align="start" label={formatAnomalyDescription(i18n, anomaly)}>
-              <MutatorLine
-                icon={<AnomalyKindIcon kind={anomaly} />}
-                label={i18n._(msg`Anomaly`)}
-                tone="anomaly"
-                value={formatAnomaly(i18n, anomaly)}
-              />
-            </Tooltip>
+            <MutatorLine
+              icon={<AnomalyKindIcon kind={anomaly} />}
+              label={i18n._(msg`Anomaly`)}
+              tone="anomaly"
+              value={formatAnomaly(i18n, anomaly)}
+              description={formatAnomalyDescription(i18n, anomaly)}
+            />
           )}
         </Show>
 
@@ -349,11 +347,15 @@ function ObjectiveLine(props: {
   )
 }
 
+// Like the objective value, the mutator line owns its description tooltip on the
+// name itself — the describable term — rather than the whole box, so the trigger
+// stays a text term and carries the standard underline affordance.
 function MutatorLine(props: {
   icon: JSX.Element
   label: string
   tone: 'anomaly' | 'warning'
   value: string
+  description: string
 }): JSX.Element {
   return (
     <div class={css(mutatorRecipe.raw({ tone: props.tone }))}>
@@ -362,7 +364,9 @@ function MutatorLine(props: {
         <span class={css(lineIconRecipe.raw({ tone: props.tone }))} aria-hidden="true">
           {props.icon}
         </span>
-        <strong class={css(valueTextRecipe.raw())}>{props.value}</strong>
+        <Tooltip align="start" label={props.description}>
+          <strong class={css(valueTextRecipe.raw())}>{props.value}</strong>
+        </Tooltip>
       </span>
     </div>
   )

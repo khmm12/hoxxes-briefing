@@ -473,8 +473,17 @@ labeled variant.
   (glyph or spinner), `headline` title, body, optional second paragraph,
   optional full-width action. Variants: loading, loading-offline,
   error-network, error-api, error-offline (no cache), not-found, crash.
-- **Tooltip** — `rounded.md`, raised surface, subtle border, `elevation.high`,
-  max-width 288, `label` text.
+- **Tooltip** — panel: `rounded.md`, raised surface, subtle border,
+  `elevation.high`, max-width 288, `label` text; enters via `tooltipIn`
+  (see Motion), no exit — it unmounts on dismiss. Trigger affordance: a
+  describable term carries a dotted underline (`text-muted`, 0.2 em offset) as
+  the only cue a touch tap gets. On hover-capable pointers the underline rests
+  hidden and reveals (`text-secondary`) on hover or focus — the dense board
+  stays calm where the cursor already surfaces it. The tooltip sits on the
+  describable term itself — the mutator or objective name, the chip's label,
+  the biome name — so the underline dresses the word, not the pill or card
+  around it. Only a glyph trigger with no text to dress (the status slot) opts
+  out via `affordance='none'`, keeping just `cursor: help` and the focus ring.
 - **PWA notice** — bottom dock card: `rounded.lg`, subtle border, info
   eyebrow, title/body, secondary action.
 - **Confidence notice** — advisory strip between the rail and the deck when
@@ -529,9 +538,9 @@ Semantic roles:
 | Role | Used for |
 |---|---|
 | `motion.press` | interactive color/border/transform on buttons, links, tabs |
-| `motion.fade` | opacity-only swaps (glyph ↔ spinner, tooltip) |
+| `motion.fade` | opacity-only swaps (glyph ↔ spinner) |
 | `motion.enter` | entrances: `enterUp` (fade + 1.5 rem rise), board appearing |
-| `motion.exit` | dismissals (PWA dock, tooltip out) |
+| `motion.exit` | dismissals (PWA dock) |
 | `motion.feedback` | flash-success / flash-danger: hold the outcome color for 60%, then release to resting style |
 | `motion.spin` | spinner revolution, infinite |
 
@@ -540,6 +549,10 @@ Behaviors and rules:
 - **delayedFadeIn** — loading fallbacks stay invisible for a `duration-200`
   delay, then fade in via `motion.fade`; cached data that lands quickly never
   paints a fallback.
+- **tooltipIn** — the tooltip panel enters on `motion.fade` (opacity) plus a
+  0.25 rem rise toward its trigger on the `enter` (decelerate) curve; there is
+  no exit — the panel unmounts on dismiss. Reduced motion drops the rise to a
+  plain fade.
 - **Dimming** — disabled/inactive elements dim to **56% opacity**
   (`opacity.disabled`); one constant, not per-component values. Reached via
   `motion.press`.
@@ -616,7 +629,11 @@ bake in the length of any particular string. Rules:
   **Don't** invent bespoke spinners, pulses, or ellipsis loaders.
 - **Don't** introduce font sizes or weights outside the 13 typography roles;
   uppercase comes from display roles via `text-transform`, never typed copy.
-- **Don't** use custom media queries — only the breakpoint tokens.
+- **Don't** hand-write media queries in components — reach for the breakpoint
+  tokens. The three capability/preference queries that have no breakpoint
+  equivalent — `prefers-reduced-motion`, `prefers-color-scheme`, and the
+  `hoverCapable` pointer split — are the sanctioned exception; they live as
+  named config conditions/roles, never inline.
 - **Don't** let a visible board disappear or reflow during refresh; feedback
   rides the status slot, the refresh button flash, and the freshness note.
 - **Don't** put implementation terms (cache, fetch, API) in primary copy.

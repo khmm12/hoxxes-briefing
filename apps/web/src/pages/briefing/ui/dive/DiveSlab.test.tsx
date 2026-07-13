@@ -59,6 +59,20 @@ describe('DiveSlab', () => {
     expect(rundown.getByText('Low Gravity')).toBeInTheDocument()
   })
 
+  it('describes a rundown chip on its label (the tooltip trigger moved onto the term)', () => {
+    const { getByRole } = renderWithProviders(() => <DiveSlab dive={DIVE} expired={false} kind="normal" />)
+    const rundown = within(getByRole('region', { name: 'Rundown' }))
+
+    // The chip's tooltip sits on the label span, not the whole pill, so focusing
+    // the chip text is what opens the description.
+    fireEvent.focusIn(rundown.getByText('Regenerative Bugs'))
+    flush()
+
+    expect(document.body.querySelector('[role="tooltip"]')).toHaveTextContent(
+      'After a few seconds of not taking damage, the creatures will start recovering health.',
+    )
+  })
+
   it('omits the rundown section entirely when there are no warnings or anomalies', () => {
     const cleanDive: DeepDive = {
       ...DIVE,

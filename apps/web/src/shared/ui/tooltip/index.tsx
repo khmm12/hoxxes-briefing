@@ -9,6 +9,13 @@ type TooltipProps = {
   /** Horizontal panel placement relative to the trigger. Defaults to `center`. */
   align?: 'center' | 'start'
   /**
+   * Visible hint that the trigger reveals a description. `underline` (default)
+   * gives text triggers a dotted underline — the only cue a touch user gets,
+   * since `cursor: help` is mouse-only. Container or glyph triggers that an
+   * underline would garble (pills, boxes, icons) pass `none`.
+   */
+  affordance?: 'underline' | 'none'
+  /**
    * Exactly one element. The tooltip attaches its trigger behavior to this
    * element directly — it keeps its own tag and styling, and no wrapper node is
    * introduced.
@@ -34,6 +41,32 @@ const triggerClassNames = css({
   .split(' ')
   .filter(Boolean)
 
+// The dotted-underline hint for text triggers, applied on top of the trigger's
+// own classes so it only dresses the text and leaves layout and shape untouched.
+// It is pointer-aware: touch devices, which cannot hover, keep it persistent —
+// the only cue a tap user gets. Hover-capable (mouse) devices hide it at rest to
+// keep the dense board calm and reveal it on hover or focus, where the tooltip
+// is already discoverable.
+const underlineClassNames = css({
+  textDecorationLine: 'underline',
+  textDecorationStyle: 'dotted',
+  textDecorationColor: 'text.muted',
+  textUnderlineOffset: '0.2em',
+  _hoverCapable: {
+    textDecorationLine: 'none',
+    _hover: {
+      textDecorationLine: 'underline',
+      textDecorationColor: 'text.secondary',
+    },
+    _focusVisible: {
+      textDecorationLine: 'underline',
+      textDecorationColor: 'text.secondary',
+    },
+  },
+})
+  .split(' ')
+  .filter(Boolean)
+
 const panelStyles = css.raw({
   position: 'fixed',
   zIndex: 'overlay',
@@ -51,6 +84,9 @@ const panelStyles = css.raw({
   color: 'text.secondary',
   textStyle: 'label',
   pointerEvents: 'none',
+  // Entrance only — the panel is unmounted on close, so there is no exit
+  // animation to run.
+  animationStyle: 'tooltipIn',
 })
 
 export function Tooltip(props: TooltipProps): JSX.Element {
@@ -76,6 +112,7 @@ export function Tooltip(props: TooltipProps): JSX.Element {
     (trigger) => {
       $trigger = trigger
       trigger.classList.add(...triggerClassNames)
+      if ((props.affordance ?? 'underline') === 'underline') trigger.classList.add(...underlineClassNames)
       trigger.setAttribute('tabindex', '0')
       return listenForTrigger(trigger, () => setOpen(true), close)
     },

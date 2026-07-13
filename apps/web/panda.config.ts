@@ -48,6 +48,18 @@ const keyframes = defineKeyframes({
       opacity: 1,
     },
   },
+  // The shared Tooltip panel: a quick fade with a small upward rise as it
+  // settles. Reduced motion drops the rise (see the tooltipIn animation style).
+  tooltipIn: {
+    from: {
+      opacity: 0,
+      transform: 'translateY(0.25rem)',
+    },
+    to: {
+      opacity: 1,
+      transform: 'translateY(0)',
+    },
+  },
   // A big, sustained "cheers" on the beer glyph after the tip link is clicked:
   // it leaps and swells over and over across the whole play, rocking side to
   // side, then finally settles — clink, for Rock and Stone. Paired with the
@@ -246,6 +258,20 @@ const animationStyles = defineAnimationStyles({
       animationFillMode: 'backwards',
     },
   },
+  // The Tooltip panel entrance: a quick decelerating fade-and-rise. `both`
+  // holds the from-frame before paint so the panel never flashes at full
+  // opacity, then holds the to-frame after. Reduced motion drops the rise.
+  tooltipIn: {
+    value: {
+      animationName: 'tooltipIn',
+      animationDuration: 'fade',
+      animationTimingFunction: 'enter',
+      animationFillMode: 'both',
+      '@media (prefers-reduced-motion: reduce)': {
+        animationName: 'fadeIn',
+      },
+    },
+  },
   enterUp: {
     value: {
       animationName: 'enterUp',
@@ -341,6 +367,10 @@ export default defineConfig({
       hover: '&:is(:hover, [data-hover]):not(:disabled)',
       flashSuccess: '&[data-flash=success]',
       flashDanger: '&[data-flash=danger]',
+      // Hover capability: the device can hover. Used to split affordances
+      // that must stay persistent on touch (the only cue a tap gets) but can rest
+      // hidden and reveal on hover where the pointer already discovers them.
+      hoverCapable: '@media (hover: hover)',
     },
   },
   theme: {

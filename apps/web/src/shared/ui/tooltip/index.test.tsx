@@ -55,6 +55,29 @@ describe('Tooltip', () => {
     expect(trigger).toHaveAttribute('tabindex', '0')
   })
 
+  it('adds affordance classes to a text trigger by default, and none for affordance="none"', () => {
+    const dressed = render(() => (
+      <Tooltip label="Helpful">
+        <span>dressed</span>
+      </Tooltip>
+    )).getByText('dressed')
+    const bare = render(() => (
+      <Tooltip affordance="none" label="Helpful">
+        <span>bare</span>
+      </Tooltip>
+    )).getByText('bare')
+
+    // Panda styles are not loaded here, so assert the observable DOM wiring: the
+    // underline is extra classes layered on top of the shared trigger classes,
+    // and affordance="none" leaves the trigger with exactly those. This checks
+    // class wiring only — happy-dom applies no CSS and does not evaluate
+    // `@media (hover: hover)`, so the pointer-aware reveal is verified in a real
+    // browser, not here.
+    const bareClasses = [...bare.classList]
+    expect(bareClasses.every((className) => dressed.classList.contains(className))).toBe(true)
+    expect(dressed.classList.length).toBeGreaterThan(bare.classList.length)
+  })
+
   it('opens on trigger focus and shows the label', () => {
     const { getByText } = render(() => (
       <Tooltip label="Helpful">

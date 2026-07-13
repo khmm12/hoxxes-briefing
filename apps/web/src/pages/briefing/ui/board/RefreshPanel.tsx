@@ -100,7 +100,7 @@ export function RefreshPanel(props: RefreshPanelProps): JSX.Element {
       <p class={css({ srOnly: true })} role="status" aria-live="polite" aria-atomic="true">
         {formatBriefingStatus(i18n, props.state)}
       </p>
-      <Tooltip label={formatBriefingStatus(i18n, props.state)}>
+      <Tooltip affordance="none" label={formatBriefingStatus(i18n, props.state)}>
         <span class={css(statusSlotStyles)}>
           {resolveStatusTone(props.state) === 'offline' ? (
             <OfflineIcon css={offlineIconStyles} />

@@ -145,4 +145,24 @@ describe('StageBlock', () => {
     expect(getByText('Anomaly')).toBeInTheDocument()
     expect(getByText('Low Gravity')).toBeInTheDocument()
   })
+
+  it('describes a mutator on its value name (the tooltip trigger moved onto the term)', () => {
+    const mission: DeepDiveMission = {
+      primaryObjective: { kind: 'SalvageOperation', miniMules: 3 },
+      secondaryObjective: { kind: 'DeepScan', resonanceCrystals: 2 },
+      warning: 'RegenerativeBugs',
+      anomaly: null,
+    }
+
+    const { getByText } = renderWithProviders(() => <StageBlock index={0} kind="normal" mission={mission} />)
+
+    // The tooltip lives on the mutator name, not the surrounding card, so focusing
+    // the value text — not the box — is what surfaces the description.
+    fireEvent.focusIn(getByText('Regenerative Bugs'))
+    flush()
+
+    expect(queryTooltipPanel()).toHaveTextContent(
+      'After a few seconds of not taking damage, the creatures will start recovering health.',
+    )
+  })
 })

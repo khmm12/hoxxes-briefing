@@ -100,9 +100,10 @@ const biomeIconStyles = css.raw({
 })
 
 const biomeStyles = css.raw({
-  // Shrink to the label so the tooltip trigger (hover + focus ring) hugs the
-  // text, not the full width of the header grid column the <p> would otherwise
-  // stretch to fill.
+  // Shrink to content so the line hugs its icon + name instead of stretching
+  // across the header grid column. The tooltip trigger is the name span inside
+  // (the icon sits outside it), so the underline dresses only the word — the
+  // same term-trigger shape as the rundown chips and mutator lines.
   justifySelf: 'start',
   display: 'flex',
   alignItems: 'center',
@@ -208,12 +209,12 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
             {formatDiveKind(i18n, props.kind)}
           </Eyebrow>
           <h2 class={css(titleStyles)}>{props.dive.name}</h2>
-          <Tooltip align="start" label={formatBiomeDescription(i18n, props.dive.biome)}>
-            <p class={css(biomeStyles)}>
-              <BiomeKindIcon css={biomeIconStyles} kind={props.dive.biome} />
-              {formatBiome(i18n, props.dive.biome)}
-            </p>
-          </Tooltip>
+          <p class={css(biomeStyles)}>
+            <BiomeKindIcon css={biomeIconStyles} kind={props.dive.biome} />
+            <Tooltip align="start" label={formatBiomeDescription(i18n, props.dive.biome)}>
+              <span>{formatBiome(i18n, props.dive.biome)}</span>
+            </Tooltip>
+          </p>
           {props.expired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known briefing`)}</p> : null}
         </div>
         <p class={css(noteStyles)}>{formatIntelNote(i18n, intel())}</p>
@@ -264,16 +265,16 @@ function RundownChipView(props: { chip: Mutator }): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <Tooltip align="center" label={formatMutatorDescription(i18n, props.chip)}>
-      <span class={css(chipRecipe.raw({ kind: props.chip.kind }))}>
-        {props.chip.kind === 'warning' ? (
-          <WarningKindIcon css={chipWarningIconStyles} kind={props.chip.value} />
-        ) : (
-          <AnomalyKindIcon css={chipAnomalyIconStyles} kind={props.chip.value} />
-        )}
-        {formatMutator(i18n, props.chip)}
-      </span>
-    </Tooltip>
+    <span class={css(chipRecipe.raw({ kind: props.chip.kind }))}>
+      {props.chip.kind === 'warning' ? (
+        <WarningKindIcon css={chipWarningIconStyles} kind={props.chip.value} />
+      ) : (
+        <AnomalyKindIcon css={chipAnomalyIconStyles} kind={props.chip.value} />
+      )}
+      <Tooltip align="center" label={formatMutatorDescription(i18n, props.chip)}>
+        <span>{formatMutator(i18n, props.chip)}</span>
+      </Tooltip>
+    </span>
   )
 }
 
