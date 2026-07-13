@@ -72,7 +72,7 @@ describe('service worker', () => {
 
     await import(`${swModuleUrl.href}?denylist=${Date.now()}`)
 
-    const denylist = (mockNavigationRoute.mock.calls[0]?.[1] as { denylist: RegExp[] }).denylist
+    const denylist = (mockNavigationRoute.mock.calls[0][1] as { denylist: RegExp[] }).denylist
     // Workbox tests denylist entries against `url.pathname + url.search`.
     const isShellSuppressed = (pathnameAndSearch: string) => denylist.some((re) => re.test(pathnameAndSearch))
 
