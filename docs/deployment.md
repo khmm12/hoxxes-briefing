@@ -12,6 +12,12 @@ vercel pull --yes --environment preview
 vercel deploy --target=preview
 ```
 
+On a fresh clone (no `.vercel/`), `vercel link` prompts for the team scope when
+the account has more than one team (Vercel CLI 55+ dropped the silent
+default-team fallback). Pass `--scope <team>` — or export `VERCEL_ORG_ID` (the
+`orgId` from `.vercel/project.json` after the first link) — to keep the flow
+non-interactive; the env var is required if this ever runs in CI.
+
 Verify the preview before promotion:
 
 - root URL loads the briefing

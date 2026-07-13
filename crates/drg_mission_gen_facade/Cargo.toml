@@ -5,4 +5,4 @@ edition = "2024"
 
 [dependencies]
 drg_mission_gen_core = { git = "https://github.com/vioxynteris/deepdives.git" }
-thiserror = "2.0.12"
+thiserror = "2.0.18"

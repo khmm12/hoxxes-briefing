@@ -33,9 +33,10 @@ fi
 
 cd "$workspace_root"
 
-# The generated package is consumed by the server-side API; skip wasm-opt so
-# codegen does not depend on an extra Binaryen installation.
-wasm-pack build crates/drg_mission_gen_wasm --target bundler --out-dir pkg --no-opt
+# wasm-opt trims roughly a third off the committed binary and makes its size
+# stable across rustc versions (the raw output carries toolchain-dependent
+# cruft). wasm-pack fetches its own Binaryen, so this needs no extra install.
+wasm-pack build crates/drg_mission_gen_wasm --target bundler --out-dir pkg
 
 rm -f "$pkg_gitignore"
 
