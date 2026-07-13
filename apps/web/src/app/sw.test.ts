@@ -64,6 +64,43 @@ describe('service worker', () => {
     })
   })
 
+  it('keeps the app shell off public files while still serving it to real routes', async () => {
+    const listeners = new Map<string, (event: MockServiceWorkerEvent) => void>()
+
+    vi.stubGlobal('caches', createFakeCaches([]))
+    vi.stubGlobal('self', createFakeServiceWorkerGlobalScope(listeners))
+
+    await import(`${swModuleUrl.href}?denylist=${Date.now()}`)
+
+    const denylist = (mockNavigationRoute.mock.calls[0]?.[1] as { denylist: RegExp[] }).denylist
+    // Workbox tests denylist entries against `url.pathname + url.search`.
+    const isShellSuppressed = (pathnameAndSearch: string) => denylist.some((re) => re.test(pathnameAndSearch))
+
+    // Public files at the dist root must reach the network/cache, not the shell.
+    expect(isShellSuppressed('/robots.txt')).toBe(true)
+    expect(isShellSuppressed('/sitemap.xml')).toBe(true)
+    expect(isShellSuppressed('/favicon.ico')).toBe(true)
+    expect(isShellSuppressed('/google9acfebad5253be75.html')).toBe(true)
+    expect(isShellSuppressed('/api/v1/briefing')).toBe(true)
+    // A cache-busted public file keeps bypassing the shell: the extension precedes
+    // the query, and Workbox matches against `pathname + search`.
+    expect(isShellSuppressed('/favicon.ico?v=2')).toBe(true)
+
+    // Real app navigations still fall through to the shell.
+    expect(isShellSuppressed('/')).toBe(false)
+    expect(isShellSuppressed('/__playground/error-network')).toBe(false)
+    expect(isShellSuppressed('/__playground/error-network?debug=1')).toBe(false)
+    // A dot living only in the query of a real route must not read as a file
+    // extension — the `[^/?]` class before the dot is what guards this.
+    expect(isShellSuppressed('/__playground/error-network?redirect=foo.html')).toBe(false)
+    // A dotted non-terminal segment (version-like path) still reaches the shell:
+    // the trailing `[^/]+$` cannot cross the intervening slash.
+    expect(isShellSuppressed('/v1.2/thing')).toBe(false)
+
+    // Not found pages still fall through to the shell.
+    expect(isShellSuppressed('/not-fund')).toBe(false)
+  })
+
   it('acknowledges SW skip-waiting update messages', async () => {
     const listeners = new Map<string, (event: MockServiceWorkerEvent) => void>()
     const fakeSelf = createFakeServiceWorkerGlobalScope(listeners)
