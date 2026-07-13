@@ -1,17 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import type { DeepDive, DeepDiveMission } from '~/shared/api'
-import { buildRundownChips } from './dive-rundown'
+import { buildDiveRundown } from './dive-rundown'
 
-describe('buildRundownChips', () => {
+describe('buildDiveRundown', () => {
   it('sorts warnings before anomalies and removes duplicates', () => {
-    const chips = buildRundownChips(createDive())
+    const chips = buildDiveRundown(createDive())
 
     expect(chips.map((chip) => chip.kind)).toEqual(['warning', 'warning', 'anomaly', 'anomaly'])
     expect(chips.map((chip) => chip.value)).toEqual(['LowOxygen', 'DuckAndCover', 'VolatileGuts', 'RichAtmosphere'])
   })
 
-  it('sorts warnings by catalog risk priority', () => {
-    expect(buildRundownChips(createDiveWithWarnings()).map((chip) => chip.value)).toEqual([
+  it('sorts warnings by severity', () => {
+    expect(buildDiveRundown(createDiveWithWarnings()).map((chip) => chip.value)).toEqual([
       'HauntedCave',
       'ShieldDisruption',
       'Swarmageddon',
@@ -19,7 +19,7 @@ describe('buildRundownChips', () => {
   })
 
   it('sorts mixed anomalies before beneficial anomalies', () => {
-    expect(buildRundownChips(createDiveWithAnomalies()).map((chip) => chip.value)).toEqual([
+    expect(buildDiveRundown(createDiveWithAnomalies()).map((chip) => chip.value)).toEqual([
       'BloodSugar',
       'VolatileGuts',
       'CriticalWeakness',
@@ -27,7 +27,7 @@ describe('buildRundownChips', () => {
   })
 
   it('returns empty list when the dive has no anomalies', () => {
-    expect(buildRundownChips(createDiveWithCleanStages())).toHaveLength(0)
+    expect(buildDiveRundown(createDiveWithCleanStages())).toHaveLength(0)
   })
 })
 

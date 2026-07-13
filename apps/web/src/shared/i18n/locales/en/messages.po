@@ -29,7 +29,7 @@ msgstr "{minutes}m"
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:300
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:281
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
 
@@ -41,11 +41,11 @@ msgstr "100% destructible environments, 0% job security."
 msgid "A new version is available"
 msgstr "A new version is available"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:262
+#: src/pages/briefing/ui/dive/dive-copy.ts:281
 msgid "A slow, but invulnerable and deadly creature has been detected in this area. It will relentlessly chase you, throughout the mission. Do not let it get close."
 msgstr "A slow, but invulnerable and deadly creature has been detected in this area. It will relentlessly chase you, throughout the mission. Do not let it get close."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:223
+#: src/pages/briefing/ui/dive/dive-copy.ts:242
 msgid "A special mix of gasses in the air makes both Dwarves and aliens faster. As a side effect, everyone's voice is funnier than usual."
 msgstr "A special mix of gasses in the air makes both Dwarves and aliens faster. As a side effect, everyone's voice is funnier than usual."
 
@@ -57,13 +57,9 @@ msgstr "Advance by cover, not courage. Call angles before holds."
 msgid "Afraid of the dark? No need, you got me!"
 msgstr "Afraid of the dark? No need, you got me!"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:239
+#: src/pages/briefing/ui/dive/dive-copy.ts:258
 msgid "After a few seconds of not taking damage, the creatures will start recovering health."
 msgstr "After a few seconds of not taking damage, the creatures will start recovering health."
-
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:296
-msgid "All clear"
-msgstr "All clear"
 
 #: src/pages/briefing/ui/board/TimingStrip.tsx:66
 msgid "already ended"
@@ -82,31 +78,31 @@ msgid "App update"
 msgstr "App update"
 
 #. placeholder {0}: objective.aquarqs
-#: src/pages/briefing/ui/dive/dive-copy.ts:117
+#: src/pages/briefing/ui/dive/dive-copy.ts:118
 msgid "Aquarq x{0}"
 msgstr "Aquarq x{0}"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:47
+#: src/pages/briefing/ui/dive/dive-copy.ts:48
 msgid "Azure Weald"
 msgstr "Azure Weald"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:83
+#: src/pages/briefing/ui/dive/dive-copy.ts:84
 msgid "Big open chambers of red and white salt crystal, barren of vegetation. Unstable ceiling crystals deal massive damage when dislodged and platforms collapse under lingering feet."
 msgstr "Big open chambers of red and white salt crystal, barren of vegetation. Unstable ceiling crystals deal massive damage when dislodged and platforms collapse under lingering feet."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:91
+#: src/pages/briefing/ui/dive/dive-copy.ts:92
 msgid "Bioluminescent alien jungle of splendor and horror, glowing blue. Strange stone pillars halve damage for dwarves and enemies alike, turning fights into a puzzle."
 msgstr "Bioluminescent alien jungle of splendor and horror, glowing blue. Strange stone pillars halve damage for dwarves and enemies alike, turning fights into a puzzle."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:138
+#: src/pages/briefing/ui/dive/dive-copy.ts:139
 msgid "Black Box"
 msgstr "Black Box"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:167
+#: src/pages/briefing/ui/dive/dive-copy.ts:186
 msgid "Blood Sugar"
 msgstr "Blood Sugar"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:99
+#: src/pages/briefing/ui/dive/dive-copy.ts:100
 msgid "Bone-strewn Ossiran depths of sandy ground and wall-hugging rock platforms. Ossiran Scrabs and buried Pit Jaws ambush from the debris, and spider webs snare movement."
 msgstr "Bone-strewn Ossiran depths of sandy ground and wall-hugging rock platforms. Ossiran Scrabs and buried Pit Jaws ambush from the debris, and spider webs snare movement."
 
@@ -138,7 +134,7 @@ msgstr "Call big targets early. Hero trades make bad stories."
 msgid "Call weakpoints and burn big targets early."
 msgstr "Call weakpoints and burn big targets early."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:190
+#: src/pages/briefing/ui/dive/dive-copy.ts:209
 msgid "Cave Leech Cluster"
 msgstr "Cave Leech Cluster"
 
@@ -150,7 +146,7 @@ msgstr "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive with 
 msgid "Checking the briefing"
 msgstr "Checking the briefing"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:375
+#: src/pages/briefing/ui/dive/dive-copy.ts:394
 msgid "Classic"
 msgstr "Classic"
 
@@ -178,11 +174,11 @@ msgstr "Could not load the briefing"
 msgid "Couldn't copy the Deep Dives — try again."
 msgstr "Couldn't copy the Deep Dives — try again."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:165
+#: src/pages/briefing/ui/dive/dive-copy.ts:184
 msgid "Critical Weakness"
 msgstr "Critical Weakness"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:31
+#: src/pages/briefing/ui/dive/dive-copy.ts:32
 msgid "Crystalline Caverns"
 msgstr "Crystalline Caverns"
 
@@ -198,7 +194,7 @@ msgstr "Danger. Darkness. Dwarves."
 msgid "Darkness, here I come!"
 msgstr "Darkness, here I come!"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:13
+#: src/pages/briefing/ui/dive/dive-copy.ts:14
 msgid "Deep Dive"
 msgstr "Deep Dive"
 
@@ -216,16 +212,16 @@ msgid "Deep Dives copied to clipboard."
 msgstr "Deep Dives copied to clipboard."
 
 #. placeholder {0}: objective.resonanceCrystals
-#: src/pages/briefing/ui/dive/dive-copy.ts:107
-#: src/pages/briefing/ui/dive/dive-copy.ts:136
+#: src/pages/briefing/ui/dive/dive-copy.ts:108
+#: src/pages/briefing/ui/dive/dive-copy.ts:137
 msgid "Deep Scan x{0}"
 msgstr "Deep Scan x{0}"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:39
+#: src/pages/briefing/ui/dive/dive-copy.ts:40
 msgid "Dense Biozone"
 msgstr "Dense Biozone"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:71
+#: src/pages/briefing/ui/dive/dive-copy.ts:72
 msgid "Desolate open spaces linked by wide tunnels under a sparse, irradiated glow. Volatile Uranium crystals bleed radiation and spider webs snare movement."
 msgstr "Desolate open spaces linked by wide tunnels under a sparse, irradiated glow. Volatile Uranium crystals bleed radiation and spider webs snare movement."
 
@@ -233,11 +229,11 @@ msgstr "Desolate open spaces linked by wide tunnels under a sparse, irradiated g
 msgid "Did I hear a Rock and Stone?"
 msgstr "Did I hear a Rock and Stone?"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:313
+#: src/pages/briefing/ui/dive/dive-copy.ts:332
 msgid "Dig Aquarqs out of the walls and haul them to the Minehead while defending against escalating waves."
 msgstr "Dig Aquarqs out of the walls and haul them to the Minehead while defending against escalating waves."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:324
+#: src/pages/briefing/ui/dive/dive-copy.ts:343
 msgid "Dig the massive Resinite Masses free, attach Lift Rockets, and send them up to orbit."
 msgstr "Dig the massive Resinite Masses free, attach Lift Rockets, and send them up to orbit."
 
@@ -245,7 +241,7 @@ msgstr "Dig the massive Resinite Masses free, attach Lift Rockets, and send them
 msgid "Digging's my middle name!"
 msgstr "Digging's my middle name!"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:362
+#: src/pages/briefing/ui/dive/dive-copy.ts:381
 msgid "Dreadnought variant with Sentinel adds and phased vulnerability."
 msgstr "Dreadnought variant with Sentinel adds and phased vulnerability."
 
@@ -256,8 +252,8 @@ msgstr "Dreadnought x{0}"
 
 #. placeholder {0}: objective.dreadnoughts.length
 #. placeholder {1}: formatDreadnoughtList(i18n, objective.dreadnoughts)
-#: src/pages/briefing/ui/dive/dive-copy.ts:124
-#: src/pages/briefing/ui/dive/dive-copy.ts:141
+#: src/pages/briefing/ui/dive/dive-copy.ts:125
+#: src/pages/briefing/ui/dive/dive-copy.ts:142
 msgid "Dreadnought x{0} ({1})"
 msgstr "Dreadnought x{0} ({1})"
 
@@ -265,7 +261,7 @@ msgstr "Dreadnought x{0} ({1})"
 msgid "Drop Pod will leave with or without you!"
 msgstr "Drop Pod will leave with or without you!"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:188
+#: src/pages/briefing/ui/dive/dive-copy.ts:207
 msgid "Duck and Cover"
 msgstr "Duck and Cover"
 
@@ -273,33 +269,33 @@ msgstr "Duck and Cover"
 msgid "Dwarves are assets. Assets are expendable."
 msgstr "Dwarves are assets. Assets are expendable."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:186
+#: src/pages/briefing/ui/dive/dive-copy.ts:205
 msgid "Ebonite Outbreak"
 msgstr "Ebonite Outbreak"
 
 #. placeholder {0}: objective.eggs
-#: src/pages/briefing/ui/dive/dive-copy.ts:115
-#: src/pages/briefing/ui/dive/dive-copy.ts:134
+#: src/pages/briefing/ui/dive/dive-copy.ts:116
+#: src/pages/briefing/ui/dive/dive-copy.ts:135
 msgid "Egg x{0}"
 msgstr "Egg x{0}"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:13
+#: src/pages/briefing/ui/dive/dive-copy.ts:14
 msgid "Elite Deep Dive"
 msgstr "Elite Deep Dive"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:182
+#: src/pages/briefing/ui/dive/dive-copy.ts:201
 msgid "Elite Threat"
 msgstr "Elite Threat"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:299
+#: src/pages/briefing/ui/dive/dive-copy.ts:318
 msgid "Escort and repair the Drilldozer to the Ommoran Heartstone, refuel it along the way, then defend the Heartstone dig and extract."
 msgstr "Escort and repair the Drilldozer to the Ommoran Heartstone, refuel it along the way, then defend the Heartstone dig and extract."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:109
+#: src/pages/briefing/ui/dive/dive-copy.ts:110
 msgid "Escort Duty"
 msgstr "Escort Duty"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:194
+#: src/pages/briefing/ui/dive/dive-copy.ts:213
 msgid "Exploder Infestation"
 msgstr "Exploder Infestation"
 
@@ -307,11 +303,11 @@ msgstr "Exploder Infestation"
 msgid "Eyes up, miners. Greed before scanning gets expensive."
 msgstr "Eyes up, miners. Greed before scanning gets expensive."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:344
+#: src/pages/briefing/ui/dive/dive-copy.ts:363
 msgid "Find the crashed Black Box on your scanner, repair it, and hold its radius until the download finishes."
 msgstr "Find the crashed Black Box on your scanner, repair it, and hold its radius until the download finishes."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:317
+#: src/pages/briefing/ui/dive/dive-copy.ts:336
 msgid "Find the Liquid Morkite wells, run pipelines to the mobile refinery, and keep it patched while it pumps."
 msgstr "Find the Liquid Morkite wells, run pipelines to the mobile refinery, and keep it patched while it pumps."
 
@@ -323,7 +319,7 @@ msgstr "Finish what you start. Half-cleared fights drain the whole dive."
 msgid "For Karl!"
 msgstr "For Karl!"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:250
+#: src/pages/briefing/ui/dive/dive-copy.ts:269
 msgid "For reasons unknown, there are far more ranged enemies of all classes at this mission site. Seek cover!"
 msgstr "For reasons unknown, there are far more ranged enemies of all classes at this mission site. Seek cover!"
 
@@ -335,19 +331,19 @@ msgstr "For Rock and Stone!"
 msgid "Fortune and glory!"
 msgstr "Fortune and glory!"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:353
+#: src/pages/briefing/ui/dive/dive-copy.ts:372
 msgid "Free the required Resinite Mass and lift it out with rockets."
 msgstr "Free the required Resinite Mass and lift it out with rockets."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:87
+#: src/pages/briefing/ui/dive/dive-copy.ts:88
 msgid "Frozen ice caverns where your heat drains toward a hard freeze. Crevasses open underfoot, ice is slick, icicles fall, and blizzards cut visibility."
 msgstr "Frozen ice caverns where your heat drains toward a hard freeze. Crevasses open underfoot, ice is slick, icicles fall, and blizzards cut visibility."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:33
+#: src/pages/briefing/ui/dive/dive-copy.ts:34
 msgid "Fungus Bogs"
 msgstr "Fungus Bogs"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:45
+#: src/pages/briefing/ui/dive/dive-copy.ts:46
 msgid "Glacial Strata"
 msgstr "Glacial Strata"
 
@@ -359,27 +355,27 @@ msgstr "Go to the briefing"
 msgid "Gold! ... I mean, for science!"
 msgstr "Gold! ... I mean, for science!"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:305
+#: src/pages/briefing/ui/dive/dive-copy.ts:324
 msgid "Hack two guarded power stations to drop the shield, destroy the Caretaker, then extract the stolen data."
 msgstr "Hack two guarded power stations to drop the shield, destroy the Caretaker, then extract the stolen data."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:196
+#: src/pages/briefing/ui/dive/dive-copy.ts:215
 msgid "Haunted Cave"
 msgstr "Haunted Cave"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:226
+#: src/pages/briefing/ui/dive/dive-copy.ts:245
 msgid "Hitting Weak Points hurts even more than usual."
 msgstr "Hitting Weak Points hurts even more than usual."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:377
+#: src/pages/briefing/ui/dive/dive-copy.ts:396
 msgid "Hiveguard"
 msgstr "Hiveguard"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:49
+#: src/pages/briefing/ui/dive/dive-copy.ts:50
 msgid "Hollow Bough"
 msgstr "Hollow Bough"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:349
+#: src/pages/briefing/ui/dive/dive-copy.ts:368
 msgid "Hook a Liquid Morkite well up to the extraction pod and pump it dry."
 msgstr "Hook a Liquid Morkite well up to the extraction pod and pump it dry."
 
@@ -415,7 +411,7 @@ msgstr "If you don't Rock and Stone, you ain't comin' home!"
 msgid "If you Rock and Stone, you're never alone."
 msgstr "If you Rock and Stone, you're never alone."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:113
+#: src/pages/briefing/ui/dive/dive-copy.ts:114
 msgid "Industrial Sabotage"
 msgstr "Industrial Sabotage"
 
@@ -443,7 +439,7 @@ msgstr "Keep moving between cover. Open ground has teeth today."
 msgid "Keep the floor tidy. Little trouble grows fast under pressure."
 msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
 
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:218
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:217
 msgid "Last known briefing"
 msgstr "Last known briefing"
 
@@ -475,7 +471,7 @@ msgstr "Let there be light!"
 msgid "Let's play this smart for once, huh?"
 msgstr "Let's play this smart for once, huh?"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:198
+#: src/pages/briefing/ui/dive/dive-copy.ts:217
 msgid "Lethal Enemies"
 msgstr "Lethal Enemies"
 
@@ -491,15 +487,15 @@ msgstr "Long live the Dwarves!"
 msgid "Looking for deep dives on your device."
 msgstr "Looking for deep dives on your device."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:169
+#: src/pages/briefing/ui/dive/dive-copy.ts:188
 msgid "Low Gravity"
 msgstr "Low Gravity"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:192
+#: src/pages/briefing/ui/dive/dive-copy.ts:211
 msgid "Low Oxygen"
 msgstr "Low Oxygen"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:184
+#: src/pages/briefing/ui/dive/dive-copy.ts:203
 msgid "Mactera Plague"
 msgstr "Mactera Plague"
 
@@ -507,11 +503,11 @@ msgstr "Mactera Plague"
 msgid "Made with love by"
 msgstr "Made with love by"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:35
+#: src/pages/briefing/ui/dive/dive-copy.ts:36
 msgid "Magma Core"
 msgstr "Magma Core"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:267
+#: src/pages/briefing/ui/dive/dive-copy.ts:286
 msgid "Magnetic interference is causing all shields to malfunction."
 msgstr "Magnetic interference is causing all shields to malfunction."
 
@@ -519,7 +515,7 @@ msgstr "Magnetic interference is causing all shields to malfunction."
 msgid "Management will not be happy."
 msgstr "Management will not be happy."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:265
+#: src/pages/briefing/ui/dive/dive-copy.ts:284
 msgid "Melee damage from all enemies hurts a lot more than usual."
 msgstr "Melee damage from all enemies hurts a lot more than usual."
 
@@ -531,11 +527,11 @@ msgstr "Mind the sugar route. A dry stretch kills momentum."
 msgid "Mind your spacing. Dead bugs can still ruin the formation."
 msgstr "Mind your spacing. Dead bugs can still ruin the formation."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:302
+#: src/pages/briefing/ui/dive/dive-copy.ts:321
 msgid "Mine the Morkite quota from the caves and deposit it into the M.U.L.E."
 msgstr "Mine the Morkite quota from the caves and deposit it into the M.U.L.E."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:347
+#: src/pages/briefing/ui/dive/dive-copy.ts:366
 msgid "Mine the required Morkite and deposit it into the M.U.L.E."
 msgstr "Mine the required Morkite and deposit it into the M.U.L.E."
 
@@ -552,18 +548,18 @@ msgid "Mission Control is having trouble on its end. Try again in a moment."
 msgstr "Mission Control is having trouble on its end. Try again in a moment."
 
 #. placeholder {0}: objective.morkiteWells
-#: src/pages/briefing/ui/dive/dive-copy.ts:119
-#: src/pages/briefing/ui/dive/dive-copy.ts:146
+#: src/pages/briefing/ui/dive/dive-copy.ts:120
+#: src/pages/briefing/ui/dive/dive-copy.ts:147
 msgid "Morkite Well x{0}"
 msgstr "Morkite Well x{0}"
 
 #. placeholder {0}: objective.morkite
-#: src/pages/briefing/ui/dive/dive-copy.ts:111
-#: src/pages/briefing/ui/dive/dive-copy.ts:144
+#: src/pages/briefing/ui/dive/dive-copy.ts:112
+#: src/pages/briefing/ui/dive/dive-copy.ts:145
 msgid "Morkite x{0}"
 msgstr "Morkite x{0}"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:245
+#: src/pages/briefing/ui/dive/dive-copy.ts:264
 msgid "Most threats in this mission will come from the air, the caves are full of Mactera."
 msgstr "Most threats in this mission will come from the air, the caves are full of Mactera."
 
@@ -572,12 +568,12 @@ msgid "Move like rent is due. Mine fast, regroup faster."
 msgstr "Move like rent is due. Mine fast, regroup faster."
 
 #. placeholder {0}: objective.miniMules
-#: src/pages/briefing/ui/dive/dive-copy.ts:121
-#: src/pages/briefing/ui/dive/dive-copy.ts:148
+#: src/pages/briefing/ui/dive/dive-copy.ts:122
+#: src/pages/briefing/ui/dive/dive-copy.ts:149
 msgid "Mule x{0}"
 msgstr "Mule x{0}"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:232
+#: src/pages/briefing/ui/dive/dive-copy.ts:251
 msgid "Mysterious gravitational irregularities result in lowered overall gravity in the mission area."
 msgstr "Mysterious gravitational irregularities result in lowered overall gravity in the mission area."
 
@@ -593,8 +589,8 @@ msgstr "No saved briefing"
 msgid "No warning or anomaly on this stage."
 msgstr "No warning or anomaly on this stage."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:156
 #: src/pages/briefing/ui/dive/dive-copy.ts:175
+#: src/pages/briefing/ui/dive/dive-copy.ts:194
 msgid "None"
 msgstr "None"
 
@@ -610,7 +606,7 @@ msgstr "Offline"
 msgid "Offline cache miss"
 msgstr "Offline cache miss"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:59
+#: src/pages/briefing/ui/dive/dive-copy.ts:60
 msgid "Open chambers lit by massive crystals — easy to read, but deceptively dangerous. Electrocrystals arc electricity on contact and spider webs snare your movement."
 msgstr "Open chambers lit by massive crystals — easy to read, but deceptively dangerous. Electrocrystals arc electricity on contact and spider webs snare your movement."
 
@@ -618,7 +614,7 @@ msgstr "Open chambers lit by massive crystals — easy to read, but deceptively 
 msgid "Open Hoxxes Briefing while online once to keep it available offline."
 msgstr "Open Hoxxes Briefing while online once to keep it available offline."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:51
+#: src/pages/briefing/ui/dive/dive-copy.ts:52
 msgid "Ossuary Depths"
 msgstr "Ossuary Depths"
 
@@ -626,19 +622,19 @@ msgstr "Ossuary Depths"
 msgid "Page not found"
 msgstr "Page not found"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:364
+#: src/pages/briefing/ui/dive/dive-copy.ts:383
 msgid "Paired Lacerator and Arbalest fight with split melee and ranged pressure."
 msgstr "Paired Lacerator and Arbalest fight with split melee and ranged pressure."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:202
+#: src/pages/briefing/ui/dive/dive-copy.ts:221
 msgid "Parasites"
 msgstr "Parasites"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:95
+#: src/pages/briefing/ui/dive/dive-copy.ts:96
 msgid "Petrified halls of dried grass and towering wood, webbed with red thorns. Parasitic vines wound on contact and choke the routes into tight, dangerous passages."
 msgstr "Petrified halls of dried grass and towering wood, webbed with red thorns. Parasitic vines wound on contact and choke the routes into tight, dangerous passages."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:208
+#: src/pages/briefing/ui/dive/dive-copy.ts:227
 msgid "Pit-Jaw Colony"
 msgstr "Pit-Jaw Colony"
 
@@ -654,7 +650,7 @@ msgstr "Play close and clean. No shields means no lazy mistakes."
 msgid "Prep the hold first. Clear lanes before you lock in."
 msgstr "Prep the hold first. Clear lanes before you lock in."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:273
+#: src/pages/briefing/ui/dive/dive-copy.ts:292
 msgid "Prepare yourself for a tsunami of Glyphid Swarmers!"
 msgstr "Prepare yourself for a tsunami of Glyphid Swarmers!"
 
@@ -662,11 +658,11 @@ msgstr "Prepare yourself for a tsunami of Glyphid Swarmers!"
 msgid "Primary objective"
 msgstr "Primary objective"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:309
+#: src/pages/briefing/ui/dive/dive-copy.ts:328
 msgid "Pull alien eggs from the cave walls and deposit them — each egg you take can trigger an enemy wave."
 msgstr "Pull alien eggs from the cave walls and deposit them — each egg you take can trigger an enemy wave."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:339
+#: src/pages/briefing/ui/dive/dive-copy.ts:358
 msgid "Pull the required alien eggs from the cave walls and deposit them."
 msgstr "Pull the required alien eggs from the cave walls and deposit them."
 
@@ -674,7 +670,7 @@ msgstr "Pull the required alien eggs from the cave walls and deposit them."
 msgid "Pulling the latest deep dives now."
 msgstr "Pulling the latest deep dives now."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:37
+#: src/pages/briefing/ui/dive/dive-copy.ts:38
 msgid "Radioactive Exclusion Zone"
 msgstr "Radioactive Exclusion Zone"
 
@@ -690,7 +686,7 @@ msgstr "Refreshing current briefing now."
 msgid "Refreshing..."
 msgstr "Refreshing..."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:180
+#: src/pages/briefing/ui/dive/dive-copy.ts:199
 msgid "Regenerative Bugs"
 msgstr "Regenerative Bugs"
 
@@ -706,17 +702,17 @@ msgstr "Reload for the latest app version."
 msgid "Reload the app and try again."
 msgstr "Reload the app and try again."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:321
+#: src/pages/briefing/ui/dive/dive-copy.ts:340
 msgid "Repair the abandoned Mini M.U.L.E.s, power up the Drop Pod, and hold the uplink until extraction."
 msgstr "Repair the abandoned Mini M.U.L.E.s, power up the Drop Pod, and hold the uplink until extraction."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:351
+#: src/pages/briefing/ui/dive/dive-copy.ts:370
 msgid "Repair the required Mini M.U.L.E.s scattered around the stage."
 msgstr "Repair the required Mini M.U.L.E.s scattered around the stage."
 
 #. placeholder {0}: objective.resiniteMasses
-#: src/pages/briefing/ui/dive/dive-copy.ts:127
-#: src/pages/briefing/ui/dive/dive-copy.ts:150
+#: src/pages/briefing/ui/dive/dive-copy.ts:128
+#: src/pages/briefing/ui/dive/dive-copy.ts:151
 msgid "Resinite Mass x{0}"
 msgstr "Resinite Mass x{0}"
 
@@ -724,11 +720,11 @@ msgstr "Resinite Mass x{0}"
 msgid "Respect every bite. Clean revives beat brave trades."
 msgstr "Respect every bite. Clean revives beat brave trades."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:163
+#: src/pages/briefing/ui/dive/dive-copy.ts:182
 msgid "Rich Atmosphere"
 msgstr "Rich Atmosphere"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:206
+#: src/pages/briefing/ui/dive/dive-copy.ts:225
 msgid "Rival Presence"
 msgstr "Rival Presence"
 
@@ -753,8 +749,8 @@ msgstr "Rock and Stone!"
 msgid "Rock solid!"
 msgstr "Rock solid!"
 
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:223
 #: src/pages/briefing/ui/dive/DiveSlab.tsx:224
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:225
 msgid "Rundown"
 msgstr "Rundown"
 
@@ -762,11 +758,11 @@ msgstr "Rundown"
 msgid "Runtime fault"
 msgstr "Runtime fault"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:43
+#: src/pages/briefing/ui/dive/dive-copy.ts:44
 msgid "Salt Pits"
 msgstr "Salt Pits"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:41
+#: src/pages/briefing/ui/dive/dive-copy.ts:42
 msgid "Sandblasted Corridors"
 msgstr "Sandblasted Corridors"
 
@@ -782,15 +778,15 @@ msgstr "Saved briefing loaded. Refreshing now."
 msgid "Saved briefing loaded. You're offline for now."
 msgstr "Saved briefing loaded. You're offline for now."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:341
+#: src/pages/briefing/ui/dive/dive-copy.ts:360
 msgid "Scan the required Resonance Crystals hidden through the cave."
 msgstr "Scan the required Resonance Crystals hidden through the cave."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:277
+#: src/pages/briefing/ui/dive/dive-copy.ts:296
 msgid "Scanners have detected several clusters of Ossiran Pit Jaws in the area."
 msgstr "Scanners have detected several clusters of Ossiran Pit Jaws in the area."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:210
+#: src/pages/briefing/ui/dive/dive-copy.ts:229
 msgid "Scrab Nesting Grounds"
 msgstr "Scrab Nesting Grounds"
 
@@ -798,7 +794,7 @@ msgstr "Scrab Nesting Grounds"
 msgid "Secondary objective"
 msgstr "Secondary objective"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:275
+#: src/pages/briefing/ui/dive/dive-copy.ts:294
 msgid "Sensors have detected Rival presence in the area!"
 msgstr "Sensors have detected Rival presence in the area!"
 
@@ -810,19 +806,19 @@ msgstr "Share Deep Dives"
 msgid "Sharing is not available on this device."
 msgstr "Sharing is not available on this device."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:200
+#: src/pages/briefing/ui/dive/dive-copy.ts:219
 msgid "Shield Disruption"
 msgstr "Shield Disruption"
 
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:238
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:237
 msgid "Show less"
 msgstr "Show less"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:79
+#: src/pages/briefing/ui/dive/dive-copy.ts:80
 msgid "Soft sandstone desert strewn with giant fossils and little cover. Wind tunnels fling you off course and sandstorms gut visibility while slowing you down."
 msgstr "Soft sandstone desert strewn with giant fossils and little cover. Wind tunnels fling you off course and sandstorms gut visibility while slowing you down."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:270
+#: src/pages/briefing/ui/dive/dive-copy.ts:289
 msgid "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
 msgstr "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
 
@@ -830,7 +826,7 @@ msgstr "Something is eating the creatures from the inside out, and will go after
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:67
+#: src/pages/briefing/ui/dive/dive-copy.ts:68
 msgid "Spacious volcanic caverns of multi-level plateaus and lava. Hot rock burns underfoot, geysers erupt, and quakes slow you to a crawl."
 msgstr "Spacious volcanic caverns of multi-level plateaus and lava. Hot rock burns underfoot, geysers erupt, and quakes slow you to a crawl."
 
@@ -838,7 +834,7 @@ msgstr "Spacious volcanic caverns of multi-level plateaus and lava. Hot rock bur
 msgid "Stage"
 msgstr "Stage"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:360
+#: src/pages/briefing/ui/dive/dive-copy.ts:379
 msgid "Standard Glyphid Dreadnought with armor-shell timing and direct boss pressure."
 msgstr "Standard Glyphid Dreadnought with armor-shell timing and direct boss pressure."
 
@@ -846,23 +842,23 @@ msgstr "Standard Glyphid Dreadnought with armor-shell timing and direct boss pre
 msgid "Stay near the cans. Long flanks cost more than time."
 msgstr "Stay near the cans. Long flanks cost more than time."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:242
+#: src/pages/briefing/ui/dive/dive-copy.ts:261
 msgid "Stronger, faster, and deadlier enemy variants might appear in the caves. Make every bullet count!"
 msgstr "Stronger, faster, and deadlier enemy variants might appear in the caves. Make every bullet count!"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:75
+#: src/pages/briefing/ui/dive/dive-copy.ts:76
 msgid "Subterranean rainforest of twisting coral and bioluminescent growth. Ejector cacti, cave urchins, and explosive plants lace the tangled, hazard-rich routes."
 msgstr "Subterranean rainforest of twisting coral and bioluminescent growth. Ejector cacti, cave urchins, and explosive plants lace the tangled, hazard-rich routes."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:63
+#: src/pages/briefing/ui/dive/dive-copy.ts:64
 msgid "Swampy caverns of towering xenofungi platforms. Poison spores and sticky goo that drags at your movement make routing, not raw combat, the real threat."
 msgstr "Swampy caverns of towering xenofungi platforms. Poison spores and sticky goo that drags at your movement make routing, not raw combat, the real threat."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:204
+#: src/pages/briefing/ui/dive/dive-copy.ts:223
 msgid "Swarmageddon"
 msgstr "Swarmageddon"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:279
+#: src/pages/briefing/ui/dive/dive-copy.ts:298
 msgid "Swarms of Ossiran Scrabs have begun nesting throughout the cave."
 msgstr "Swarms of Ossiran Scrabs have begun nesting throughout the cave."
 
@@ -870,11 +866,11 @@ msgstr "Swarms of Ossiran Scrabs have begun nesting throughout the cave."
 msgid "Sweep the ankles before the work. Tiny teeth stop big plans."
 msgstr "Sweep the ankles before the work. Tiny teeth stop big plans."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:256
+#: src/pages/briefing/ui/dive/dive-copy.ts:275
 msgid "The mission area has particularly low concentrations of breathable air. Dwarves must frequently replenish their O2 by standing near one of the tanks attached to the M.U.L.E. and other devices."
 msgstr "The mission area has particularly low concentrations of breathable air. Dwarves must frequently replenish their O2 by standing near one of the tanks attached to the M.U.L.E. and other devices."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:219
+#: src/pages/briefing/ui/dive/dive-copy.ts:238
 msgid "The odd composition of local food sources means all enemies violently combust upon death, causing area damage."
 msgstr "The odd composition of local food sources means all enemies violently combust upon death, causing area damage."
 
@@ -886,7 +882,7 @@ msgstr "The truth is out there. So's the gold."
 msgid "This device is offline and has no saved briefing."
 msgstr "This device is offline and has no saved briefing."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:247
+#: src/pages/briefing/ui/dive/dive-copy.ts:266
 msgid "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 msgstr "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 
@@ -898,11 +894,11 @@ msgstr "This page is not available here. Head back to the briefing."
 msgid "This version of the app can no longer read the briefing. Update to keep diving."
 msgstr "This version of the app can no longer read the briefing. Update to keep diving."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:229
+#: src/pages/briefing/ui/dive/dive-copy.ts:248
 msgid "Toxins in the atmosphere drains your health, but crystalize the blood of Hoxxes Wildlife into Red Sugar. Kill to survive!"
 msgstr "Toxins in the atmosphere drains your health, but crystalize the blood of Hoxxes Wildlife into Red Sugar. Kill to survive!"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:295
+#: src/pages/briefing/ui/dive/dive-copy.ts:314
 msgid "Track down Resonance Crystals with your rangefinder, deploy Scanners to pinpoint the Morkite Geode, then ride the Drillevator down to gather its Morkite Seeds."
 msgstr "Track down Resonance Crystals with your rangefinder, deploy Scanners to pinpoint the Morkite Geode, then ride the Drillevator down to gather its Morkite Seeds."
 
@@ -914,7 +910,7 @@ msgstr "Try again"
 msgid "Try again once the connection settles."
 msgstr "Try again once the connection settles."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:379
+#: src/pages/briefing/ui/dive/dive-copy.ts:398
 msgid "Twins"
 msgstr "Twins"
 
@@ -939,7 +935,7 @@ msgstr "Update required"
 msgid "Use the speed. Finish spread jobs before swarms stack."
 msgstr "Use the speed. Finish spread jobs before swarms stack."
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:161
+#: src/pages/briefing/ui/dive/dive-copy.ts:180
 msgid "Volatile Guts"
 msgstr "Volatile Guts"
 
@@ -947,7 +943,7 @@ msgstr "Volatile Guts"
 msgid "Warning"
 msgstr "Warning"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:253
+#: src/pages/briefing/ui/dive/dive-copy.ts:272
 msgid "Watch out for the ceiling, there is an unusual density of Cave Leeches."
 msgstr "Watch out for the ceiling, there is an unusual density of Cave Leeches."
 
@@ -963,6 +959,6 @@ msgstr "We are unbreakable!"
 msgid "Wrong tunnel"
 msgstr "Wrong tunnel"
 
-#: src/pages/briefing/ui/dive/dive-copy.ts:259
+#: src/pages/briefing/ui/dive/dive-copy.ts:278
 msgid "You will be attacked by an almost constant flow of Glyphid Exploder packs."
 msgstr "You will be attacked by an almost constant flow of Glyphid Exploder packs."

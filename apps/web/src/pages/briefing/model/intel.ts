@@ -1,11 +1,9 @@
 import type { DeepDive, DeepDiveAnomaly, DeepDiveMission, DeepDiveWarning } from '~/shared/api'
 import {
-  getAnomalyCatalogEntry,
-  getPrimaryObjectiveCatalogEntry,
-  getSecondaryObjectiveCatalogEntry,
-  getWarningCatalogEntry,
-  type MutatorCatalogEntry,
+  mutatorSeverity,
   type ObjectiveContextTag,
+  primaryObjectiveCatalog,
+  secondaryObjectiveCatalog,
 } from './catalog'
 
 export type DiveKind = 'elite' | 'normal'
@@ -48,24 +46,51 @@ type PriorityNote = {
   stageIndex: number
 }
 
-export type Intel = {
+type AnomalyIntel = {
+  stance: 'pressure' | 'favorable'
   note: IntelNote
 }
 
 const fixedPositionTags = ['escort-anchor', 'fixed-position'] as const
 const longRouteTags = ['long-travel', 'oxygen-risk', 'vertical-search'] as const
-const anomalyIntelNotes = {
-  BloodSugar: 'blood-sugar',
-  CriticalWeakness: null,
-  LowGravity: null,
-  RichAtmosphere: null,
-  VolatileGuts: 'volatile-guts',
-} satisfies Record<DeepDiveAnomaly, IntelNote | null>
 
-export function buildIntel(dive: DeepDive, kind: DiveKind): Intel {
-  return {
-    note: selectIntelNote(dive, kind),
-  }
+const warningIntelNotes = {
+  HauntedCave: 'haunted-cave',
+  LowOxygen: 'low-oxygen',
+  DuckAndCover: 'duck-and-cover',
+  ShieldDisruption: 'shield-disruption',
+  EliteThreat: 'elite-threat',
+  LethalEnemies: 'lethal-enemies',
+  MacteraPlague: 'mactera-plague',
+  RivalPresence: 'rival-presence',
+  CaveLeechCluster: 'cave-leech-cluster',
+  ExploderInfestation: 'exploder-infestation',
+  RegenerativeBugs: 'regenerative-bugs',
+  EboniteOutbreak: 'ebonite-outbreak',
+  PitJawColony: 'pit-jaw-colony',
+  ScrabNestingGrounds: 'scrab-nesting-grounds',
+  Parasites: 'parasites',
+  Swarmageddon: 'swarmageddon',
+} satisfies Record<DeepDiveWarning, IntelNote>
+
+const anomalyIntel = {
+  BloodSugar: { stance: 'pressure', note: 'blood-sugar' },
+  VolatileGuts: { stance: 'pressure', note: 'volatile-guts' },
+  CriticalWeakness: { stance: 'favorable', note: 'favorable-critical-weakness' },
+  LowGravity: { stance: 'favorable', note: 'favorable-mobility' },
+  RichAtmosphere: { stance: 'favorable', note: 'favorable-mobility' },
+} satisfies Record<DeepDiveAnomaly, AnomalyIntel>
+
+export function buildIntel(dive: DeepDive, kind: DiveKind): IntelNote {
+  const priorityNote = collectPriorityNotes(dive).sort(comparePriorityNotes)[0]
+  if (priorityNote != null) return priorityNote.note
+
+  const favorableNote = selectFavorableAnomalyNote(dive)
+  if (favorableNote != null) return favorableNote
+
+  if (hasFixedObjective(dive)) return 'fixed-objective'
+
+  return kind === 'elite' ? 'clean-elite' : 'clean-normal'
 }
 
 function collectPriorityNotes(dive: DeepDive): PriorityNote[] {
@@ -88,7 +113,11 @@ function collectWarningPriorityNote(
     return null
   }
 
-  return buildPriorityNote(selectWarningIntelNote(warning, stageContext), getWarningCatalogEntry(warning), stageIndex)
+  return {
+    note: selectWarningIntelNote(warning, stageContext),
+    priority: mutatorSeverity[warning],
+    stageIndex,
+  }
 }
 
 function collectAnomalyPriorityNote(anomaly: DeepDiveAnomaly | null, stageIndex: number): PriorityNote | null {
@@ -96,30 +125,33 @@ function collectAnomalyPriorityNote(anomaly: DeepDiveAnomaly | null, stageIndex:
     return null
   }
 
-  const note = anomalyIntelNotes[anomaly]
+  const intel = anomalyIntel[anomaly]
 
-  if (note == null) {
+  if (intel.stance !== 'pressure') {
     return null
   }
 
-  return buildPriorityNote(note, getAnomalyCatalogEntry(anomaly), stageIndex)
-}
-
-function buildPriorityNote(note: IntelNote, mutator: MutatorCatalogEntry, stageIndex: number): PriorityNote {
-  if (mutator.intelPriority == null) {
-    throw new Error(`Intel note "${note}" requires intelPriority`)
-  }
-
   return {
-    note,
-    priority: mutator.intelPriority,
+    note: intel.note,
+    priority: mutatorSeverity[anomaly],
     stageIndex,
   }
 }
 
+// The most severe favorable anomaly wins; the severity ladder deliberately
+// decides this precedence too, not a hardcoded chain.
+function selectFavorableAnomalyNote(dive: DeepDive): IntelNote | null {
+  const favorable = dive.missions
+    .map((mission) => mission.anomaly)
+    .filter((anomaly): anomaly is DeepDiveAnomaly => anomaly != null && anomalyIntel[anomaly].stance === 'favorable')
+    .sort((left, right) => mutatorSeverity[left] - mutatorSeverity[right])[0]
+
+  return favorable != null ? anomalyIntel[favorable].note : null
+}
+
 function buildStageObjectiveContext(mission: DeepDiveMission): StageObjectiveContext {
-  const primary = getPrimaryObjectiveCatalogEntry(mission.primaryObjective.kind)
-  const secondary = getSecondaryObjectiveCatalogEntry(mission.secondaryObjective.kind)
+  const primary = primaryObjectiveCatalog[mission.primaryObjective.kind]
+  const secondary = secondaryObjectiveCatalog[mission.secondaryObjective.kind]
 
   return {
     contextTags: uniqueTags([...primary.contextTags, ...secondary.contextTags]),
@@ -127,65 +159,15 @@ function buildStageObjectiveContext(mission: DeepDiveMission): StageObjectiveCon
   }
 }
 
-function selectIntelNote(dive: DeepDive, kind: DiveKind): IntelNote {
-  const priorityNote = collectPriorityNotes(dive).sort(comparePriorityNotes)[0]
-
-  if (priorityNote != null) {
-    return priorityNote.note
-  }
-
-  if (hasAnomaly(dive, 'CriticalWeakness')) {
-    return 'favorable-critical-weakness'
-  }
-
-  if (hasAnomaly(dive, 'LowGravity') || hasAnomaly(dive, 'RichAtmosphere')) {
-    return 'favorable-mobility'
-  }
-
-  if (dive.missions.some((mission) => hasAnyContextTag(buildStageObjectiveContext(mission), fixedPositionTags))) {
-    return 'fixed-objective'
-  }
-
-  return kind === 'elite' ? 'clean-elite' : 'clean-normal'
-}
-
 function selectWarningIntelNote(warning: DeepDiveWarning, context: StageObjectiveContext): IntelNote {
   switch (warning) {
-    case 'HauntedCave':
-      return 'haunted-cave'
     case 'DuckAndCover':
-      return hasAnyContextTag(context, fixedPositionTags) ? 'duck-and-cover-fixed' : 'duck-and-cover'
+      return hasAnyTag(context.contextTags, fixedPositionTags) ? 'duck-and-cover-fixed' : 'duck-and-cover'
     case 'LowOxygen':
-      return hasPrimaryAnyContextTag(context, longRouteTags) ? 'low-oxygen-long-route' : 'low-oxygen'
-    case 'ShieldDisruption':
-      return 'shield-disruption'
-    case 'EliteThreat':
-      return 'elite-threat'
-    case 'LethalEnemies':
-      return 'lethal-enemies'
-    case 'MacteraPlague':
-      return 'mactera-plague'
-    case 'RivalPresence':
-      return 'rival-presence'
-    case 'CaveLeechCluster':
-      return 'cave-leech-cluster'
-    case 'EboniteOutbreak':
-      return 'ebonite-outbreak'
-    case 'ExploderInfestation':
-      return 'exploder-infestation'
-    case 'Parasites':
-      return 'parasites'
-    case 'PitJawColony':
-      return 'pit-jaw-colony'
-    case 'RegenerativeBugs':
-      return 'regenerative-bugs'
-    case 'ScrabNestingGrounds':
-      return 'scrab-nesting-grounds'
-    case 'Swarmageddon':
-      return 'swarmageddon'
+      return hasAnyTag(context.primaryContextTags, longRouteTags) ? 'low-oxygen-long-route' : 'low-oxygen'
+    default:
+      return warningIntelNotes[warning]
   }
-
-  return assertNever(warning)
 }
 
 function comparePriorityNotes(left: PriorityNote, right: PriorityNote): number {
@@ -194,22 +176,14 @@ function comparePriorityNotes(left: PriorityNote, right: PriorityNote): number {
   return priorityDelta === 0 ? left.stageIndex - right.stageIndex : priorityDelta
 }
 
-function hasAnomaly(dive: DeepDive, anomaly: DeepDiveAnomaly): boolean {
-  return dive.missions.some((mission) => mission.anomaly === anomaly)
+function hasFixedObjective(dive: DeepDive): boolean {
+  return dive.missions.some((mission) => hasAnyTag(buildStageObjectiveContext(mission).contextTags, fixedPositionTags))
 }
 
-function hasAnyContextTag(context: StageObjectiveContext, tags: readonly ObjectiveContextTag[]): boolean {
-  return tags.some((tag) => context.contextTags.includes(tag))
-}
-
-function hasPrimaryAnyContextTag(context: StageObjectiveContext, tags: readonly ObjectiveContextTag[]): boolean {
-  return tags.some((tag) => context.primaryContextTags.includes(tag))
+function hasAnyTag(source: readonly ObjectiveContextTag[], tags: readonly ObjectiveContextTag[]): boolean {
+  return tags.some((tag) => source.includes(tag))
 }
 
 function uniqueTags(tags: readonly ObjectiveContextTag[]): ObjectiveContextTag[] {
   return [...new Set(tags)]
-}
-
-function assertNever(value: never): never {
-  throw new Error(`Unexpected intel value: ${String(value)}`)
 }

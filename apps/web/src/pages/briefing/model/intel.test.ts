@@ -10,11 +10,7 @@ describe('buildIntel', () => {
       createMission({ anomaly: 'VolatileGuts' }),
     ])
 
-    const intel = buildIntel(dive, 'normal')
-
-    expect(intel).toEqual({
-      note: 'haunted-cave',
-    })
+    expect(buildIntel(dive, 'normal')).toBe('haunted-cave')
   })
 
   it('adjusts Duck and Cover advice for fixed objective context', () => {
@@ -30,9 +26,7 @@ describe('buildIntel', () => {
       createMission(),
     ])
 
-    expect(buildIntel(dive, 'normal')).toEqual({
-      note: 'duck-and-cover-fixed',
-    })
+    expect(buildIntel(dive, 'normal')).toBe('duck-and-cover-fixed')
   })
 
   it('does not treat Elimination ranged pressure as a fixed Duck and Cover hold', () => {
@@ -48,9 +42,7 @@ describe('buildIntel', () => {
       createMission(),
     ])
 
-    expect(buildIntel(dive, 'normal')).toEqual({
-      note: 'duck-and-cover',
-    })
+    expect(buildIntel(dive, 'normal')).toBe('duck-and-cover')
   })
 
   it('does not treat a clean Elimination dive as a fixed objective fallback', () => {
@@ -65,9 +57,7 @@ describe('buildIntel', () => {
       createMission(),
     ])
 
-    expect(buildIntel(dive, 'normal')).toEqual({
-      note: 'clean-normal',
-    })
+    expect(buildIntel(dive, 'normal')).toBe('clean-normal')
   })
 
   it('uses primary objective context for Low Oxygen instead of flattening secondary variants', () => {
@@ -102,21 +92,17 @@ describe('buildIntel', () => {
       createMission(),
     ])
 
-    expect(buildIntel(primaryDeepScanDive, 'normal').note).toBe('low-oxygen-long-route')
-    expect(buildIntel(secondaryDeepScanDive, 'normal').note).toBe('low-oxygen')
+    expect(buildIntel(primaryDeepScanDive, 'normal')).toBe('low-oxygen-long-route')
+    expect(buildIntel(secondaryDeepScanDive, 'normal')).toBe('low-oxygen')
   })
 
   it('selects explicit dangerous anomaly notes when no stronger warning exists', () => {
     expect(
       buildIntel(createDive([createMission({ anomaly: 'BloodSugar' }), createMission(), createMission()]), 'normal'),
-    ).toMatchObject({
-      note: 'blood-sugar',
-    })
+    ).toBe('blood-sugar')
     expect(
       buildIntel(createDive([createMission({ anomaly: 'VolatileGuts' }), createMission(), createMission()]), 'normal'),
-    ).toMatchObject({
-      note: 'volatile-guts',
-    })
+    ).toBe('volatile-guts')
   })
 
   it('keeps pressure warning notes specific instead of using one generic line', () => {
@@ -124,45 +110,35 @@ describe('buildIntel', () => {
       buildIntel(
         createDive([createMission({ warning: 'ScrabNestingGrounds' }), createMission(), createMission()]),
         'normal',
-      ).note,
+      ),
     ).toBe('scrab-nesting-grounds')
     expect(
       buildIntel(
         createDive([createMission({ warning: 'ExploderInfestation' }), createMission(), createMission()]),
         'normal',
-      ).note,
+      ),
     ).toBe('exploder-infestation')
     expect(
-      buildIntel(createDive([createMission({ warning: 'Parasites' }), createMission(), createMission()]), 'normal')
-        .note,
+      buildIntel(createDive([createMission({ warning: 'Parasites' }), createMission(), createMission()]), 'normal'),
     ).toBe('parasites')
   })
 
   it('does not treat beneficial anomalies as pressure notes', () => {
-    const intel = buildIntel(
-      createDive([createMission({ anomaly: 'CriticalWeakness' }), createMission(), createMission()]),
-      'normal',
-    )
+    const dive = createDive([createMission({ anomaly: 'CriticalWeakness' }), createMission(), createMission()])
 
-    expect(intel).toEqual({
-      note: 'favorable-critical-weakness',
-    })
+    expect(buildIntel(dive, 'normal')).toBe('favorable-critical-weakness')
   })
 
   it('uses mobility anomalies as favorable route guidance', () => {
     expect(
       buildIntel(createDive([createMission({ anomaly: 'LowGravity' }), createMission(), createMission()]), 'normal'),
-    ).toEqual({
-      note: 'favorable-mobility',
-    })
+    ).toBe('favorable-mobility')
     expect(
       buildIntel(
         createDive([createMission({ anomaly: 'RichAtmosphere' }), createMission(), createMission()]),
         'normal',
       ),
-    ).toEqual({
-      note: 'favorable-mobility',
-    })
+    ).toBe('favorable-mobility')
   })
 
   it('keeps favorable anomaly guidance ahead of fixed objective fallback', () => {
@@ -178,9 +154,7 @@ describe('buildIntel', () => {
       createMission(),
     ])
 
-    expect(buildIntel(dive, 'normal')).toEqual({
-      note: 'favorable-mobility',
-    })
+    expect(buildIntel(dive, 'normal')).toBe('favorable-mobility')
   })
 
   it('maps every remaining warning straight to its dedicated note', () => {
@@ -204,19 +178,37 @@ describe('buildIntel', () => {
         createMission(),
       ])
 
-      expect(buildIntel(dive, 'normal').note).toBe(note)
+      expect(buildIntel(dive, 'normal')).toBe(note)
     }
+  })
+
+  it('lets the earliest stage win when the same warning repeats with different context', () => {
+    const dive = createDive([
+      createMission({
+        primaryObjective: {
+          dreadnoughts: ['Classic'],
+          kind: 'Elimination',
+        },
+        warning: 'DuckAndCover',
+      }),
+      createMission(),
+      createMission({
+        primaryObjective: {
+          kind: 'EscortDuty',
+          refuels: 1,
+        },
+        warning: 'DuckAndCover',
+      }),
+    ])
+
+    expect(buildIntel(dive, 'normal')).toBe('duck-and-cover')
   })
 
   it('keeps elite clean fallback sharper than normal clean fallback', () => {
     const dive = createDive([createMission(), createMission(), createMission()])
 
-    expect(buildIntel(dive, 'normal')).toEqual({
-      note: 'clean-normal',
-    })
-    expect(buildIntel(dive, 'elite')).toEqual({
-      note: 'clean-elite',
-    })
+    expect(buildIntel(dive, 'normal')).toBe('clean-normal')
+    expect(buildIntel(dive, 'elite')).toBe('clean-elite')
   })
 })
 

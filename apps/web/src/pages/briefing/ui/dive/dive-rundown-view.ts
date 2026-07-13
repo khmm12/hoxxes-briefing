@@ -1,12 +1,12 @@
-import type { RundownChip } from '../../model/dive-rundown'
+import type { Mutator } from '../../model/catalog'
 
 export type VisibleRundownChips = {
   overflowCount: number
-  visible: RundownChip[]
+  visible: readonly Mutator[]
 }
 
 export function getVisibleRundownChips(
-  chips: readonly RundownChip[],
+  chips: readonly Mutator[],
   visibleLimit: number,
   expanded: boolean,
 ): VisibleRundownChips {

@@ -274,7 +274,7 @@ function SecondaryObjectiveRow(props: { objective: DeepDiveSecondaryObjective })
       >
         <Show
           when={props.objective.kind === 'Elimination' && props.objective}
-          fallback={<>{formatSecondaryObjective(i18n, props.objective)}</>}
+          fallback={formatSecondaryObjective(i18n, props.objective)}
         >
           {(objective) => <EliminationObjectiveValue dreadnoughts={objective().dreadnoughts} />}
         </Show>

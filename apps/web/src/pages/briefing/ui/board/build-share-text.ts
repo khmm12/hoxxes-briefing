@@ -102,7 +102,7 @@ function formatDiveBlock(i18n: I18n, kind: DiveKind, dive: DeepDive): string {
   const heading = `${diveEmoji[kind]} ${formatDiveKind(i18n, kind).toUpperCase()} · ${dive.name} · ${formatBiome(i18n, dive.biome)}`
   // Intel leads the block just as it heads the on-screen slab — the strategic
   // hook before the raw stage list.
-  const intel = `${INTEL_MARKER} ${formatIntelNote(i18n, buildIntel(dive, kind).note)}`
+  const intel = `${INTEL_MARKER} ${formatIntelNote(i18n, buildIntel(dive, kind))}`
   const stages = dive.missions.map((mission, index) => formatStageLine(i18n, index, mission))
 
   return [heading, intel, ...stages].join('\n')

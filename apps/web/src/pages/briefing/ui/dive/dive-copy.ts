@@ -8,6 +8,7 @@ import type {
   DeepDiveSecondaryObjective,
   DeepDiveWarning,
 } from '~/shared/api'
+import type { Mutator } from '../../model/catalog'
 
 export function formatDiveKind(i18n: I18n, kind: 'normal' | 'elite'): string {
   return kind === 'elite' ? i18n._(msg`Elite Deep Dive`) : i18n._(msg`Deep Dive`)
@@ -148,6 +149,24 @@ export function formatSecondaryObjective(i18n: I18n, objective: DeepDiveSecondar
       return i18n._(msg`Mule x${objective.miniMules}`)
     case 'HeavyExtraction':
       return i18n._(msg`Resinite Mass x${objective.resiniteMasses}`)
+  }
+}
+
+export function formatMutator(i18n: I18n, mutator: Mutator): string {
+  switch (mutator.kind) {
+    case 'warning':
+      return formatWarning(i18n, mutator.value)
+    case 'anomaly':
+      return formatAnomaly(i18n, mutator.value)
+  }
+}
+
+export function formatMutatorDescription(i18n: I18n, mutator: Mutator): string {
+  switch (mutator.kind) {
+    case 'warning':
+      return formatWarningDescription(i18n, mutator.value)
+    case 'anomaly':
+      return formatAnomalyDescription(i18n, mutator.value)
   }
 }
 

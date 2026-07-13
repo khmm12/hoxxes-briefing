@@ -16,6 +16,8 @@ import {
   formatBiomeDescription,
   formatDiveKind,
   formatDreadnoughtDescription,
+  formatMutator,
+  formatMutatorDescription,
   formatPrimaryObjective,
   formatPrimaryObjectiveDescription,
   formatSecondaryObjective,
@@ -36,6 +38,22 @@ describe('formatDiveKind', () => {
 
   it('labels an elite dive', () => {
     expect(formatDiveKind(i18n, 'elite')).toBe('Elite Deep Dive')
+  })
+})
+
+describe('formatMutator', () => {
+  it('dispatches a warning to the warning copy', () => {
+    expect(formatMutator(i18n, { kind: 'warning', value: 'RegenerativeBugs' })).toBe('Regenerative Bugs')
+    expect(formatMutatorDescription(i18n, { kind: 'warning', value: 'RegenerativeBugs' })).toBe(
+      'After a few seconds of not taking damage, the creatures will start recovering health.',
+    )
+  })
+
+  it('dispatches an anomaly to the anomaly copy', () => {
+    expect(formatMutator(i18n, { kind: 'anomaly', value: 'CriticalWeakness' })).toBe('Critical Weakness')
+    expect(formatMutatorDescription(i18n, { kind: 'anomaly', value: 'CriticalWeakness' })).toBe(
+      'Hitting Weak Points hurts even more than usual.',
+    )
   })
 })
 

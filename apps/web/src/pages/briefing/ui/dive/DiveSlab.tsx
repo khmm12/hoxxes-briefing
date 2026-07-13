@@ -11,16 +11,15 @@ import { createBreakpointQuery } from '~/shared/lib/create-media-query'
 import { Eyebrow } from '~/shared/ui/eyebrow'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 import { Tooltip } from '~/shared/ui/tooltip'
-import { buildRundownChips, type RundownChip } from '../../model/dive-rundown'
+import type { Mutator } from '../../model/catalog'
+import { buildDiveRundown } from '../../model/dive-rundown'
 import { buildIntel } from '../../model/intel'
 import {
-  formatAnomaly,
-  formatAnomalyDescription,
   formatBiome,
   formatBiomeDescription,
   formatDiveKind,
-  formatWarning,
-  formatWarningDescription,
+  formatMutator,
+  formatMutatorDescription,
 } from './dive-copy'
 import { AnomalyKindIcon, BiomeKindIcon, WarningKindIcon } from './dive-glyphs'
 import { getVisibleRundownChips } from './dive-rundown-view'
@@ -196,7 +195,7 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
   const visibleLimit = createRundownVisibleLimit()
 
   const intel = createMemo(() => buildIntel(props.dive, props.kind))
-  const chips = createMemo(() => buildRundownChips(props.dive))
+  const chips = createMemo(() => buildDiveRundown(props.dive))
   const visibleChips = createMemo(() => getVisibleRundownChips(chips(), visibleLimit(), expanded()))
 
   const rundownId = createUniqueId()
@@ -217,7 +216,7 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
           </Tooltip>
           {props.expired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known briefing`)}</p> : null}
         </div>
-        <p class={css(noteStyles)}>{formatIntelNote(i18n, intel().note)}</p>
+        <p class={css(noteStyles)}>{formatIntelNote(i18n, intel())}</p>
       </header>
 
       <Show when={chips().length > 0}>
@@ -261,39 +260,21 @@ const chipAnomalyIconStyles = css.raw({
   fontSize: '[token(sizes.icon.16)]',
 })
 
-function RundownChipView(props: { chip: RundownChip }): JSX.Element {
+function RundownChipView(props: { chip: Mutator }): JSX.Element {
   const i18n = useI18n()
 
   return (
-    <Tooltip align="center" label={formatRundownChipDescription(i18n, props.chip)}>
+    <Tooltip align="center" label={formatMutatorDescription(i18n, props.chip)}>
       <span class={css(chipRecipe.raw({ kind: props.chip.kind }))}>
         {props.chip.kind === 'warning' ? (
           <WarningKindIcon css={chipWarningIconStyles} kind={props.chip.value} />
         ) : (
           <AnomalyKindIcon css={chipAnomalyIconStyles} kind={props.chip.value} />
         )}
-        {formatRundownChip(i18n, props.chip)}
+        {formatMutator(i18n, props.chip)}
       </span>
     </Tooltip>
   )
-}
-
-function formatRundownChipDescription(i18n: I18n, chip: RundownChip): string {
-  return chip.kind === 'warning'
-    ? formatWarningDescription(i18n, chip.value)
-    : formatAnomalyDescription(i18n, chip.value)
-}
-
-function formatRundownChip(i18n: I18n, chip: RundownChip): string {
-  if (chip.kind === 'warning') {
-    return formatWarning(i18n, chip.value)
-  }
-
-  if (chip.kind === 'anomaly') {
-    return formatAnomaly(i18n, chip.value)
-  }
-
-  return i18n._(msg`All clear`)
 }
 
 function formatOverflowChip(i18n: I18n, overflowCount: number): string {

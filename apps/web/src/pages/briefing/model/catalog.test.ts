@@ -1,16 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import type { DeepDiveAnomaly, DeepDiveWarning } from '~/shared/api'
 import {
-  anomalyCatalog,
-  getAnomalyCatalogEntry,
-  getPrimaryObjectiveCatalogEntry,
-  getSecondaryObjectiveCatalogEntry,
-  getWarningCatalogEntry,
+  mutatorSeverity,
   type PrimaryObjectiveKind,
   primaryObjectiveCatalog,
   type SecondaryObjectiveKind,
   secondaryObjectiveCatalog,
-  warningCatalog,
 } from './catalog'
 
 const primaryObjectiveKinds = [
@@ -75,7 +70,6 @@ const typeCoverageAssertions: [
 ] = [true, true, true, true]
 
 const objectiveEntryKeys = ['contextTags']
-const mutatorEntryKeys = ['intelPriority', 'rundownPriority']
 
 void typeCoverageAssertions
 
@@ -84,7 +78,7 @@ describe('domain catalog', () => {
     expect(Object.keys(primaryObjectiveCatalog)).toEqual([...primaryObjectiveKinds])
 
     for (const kind of primaryObjectiveKinds) {
-      const entry = getPrimaryObjectiveCatalogEntry(kind)
+      const entry = primaryObjectiveCatalog[kind]
 
       expect(Object.keys(entry).sort()).toEqual(objectiveEntryKeys)
       expect(entry.contextTags.length).toBeGreaterThan(0)
@@ -95,7 +89,7 @@ describe('domain catalog', () => {
     expect(Object.keys(secondaryObjectiveCatalog)).toEqual([...secondaryObjectiveKinds])
 
     for (const kind of secondaryObjectiveKinds) {
-      const entry = getSecondaryObjectiveCatalogEntry(kind)
+      const entry = secondaryObjectiveCatalog[kind]
 
       expect(Object.keys(entry).sort()).toEqual(objectiveEntryKeys)
       expect(entry.contextTags.length).toBeGreaterThan(0)
@@ -111,35 +105,26 @@ describe('domain catalog', () => {
     expect(secondaryObjectiveCatalog.HeavyExtraction).toBeDefined()
   })
 
-  it('covers every current warning with priority-only entries', () => {
-    expect(Object.keys(warningCatalog)).toEqual([...warningKinds])
+  it('grades every current mutator on the single severity ladder', () => {
+    expect(Object.keys(mutatorSeverity).sort()).toEqual([...warningKinds, ...anomalyKinds].sort())
 
-    for (const kind of warningKinds) {
-      const entry = getWarningCatalogEntry(kind)
-
-      expect(Object.keys(entry).sort()).toEqual(mutatorEntryKeys)
-      expect(entry.rundownPriority).toBeGreaterThan(0)
-      expect(entry.intelPriority).not.toBeNull()
+    for (const kind of [...warningKinds, ...anomalyKinds]) {
+      expect(mutatorSeverity[kind]).toBeGreaterThan(0)
     }
 
-    expect(warningCatalog.HauntedCave.intelPriority).toBe(10)
-    expect(warningCatalog.LowOxygen.rundownPriority).toBeLessThan(warningCatalog.DuckAndCover.rundownPriority)
+    expect(mutatorSeverity.LowOxygen).toBeLessThan(mutatorSeverity.DuckAndCover)
   })
 
-  it('covers every current anomaly with priority-only entries', () => {
-    expect(Object.keys(anomalyCatalog)).toEqual([...anomalyKinds])
+  it('keeps severities unique so the ladder alone decides the order', () => {
+    const severities = Object.values(mutatorSeverity)
 
-    for (const kind of anomalyKinds) {
-      const entry = getAnomalyCatalogEntry(kind)
+    expect(new Set(severities).size).toBe(severities.length)
+  })
 
-      expect(Object.keys(entry).sort()).toEqual(mutatorEntryKeys)
-      expect(entry.rundownPriority).toBeGreaterThan(0)
-    }
+  it('keeps every warning ahead of every anomaly on the ladder', () => {
+    const highestWarning = Math.max(...warningKinds.map((kind) => mutatorSeverity[kind]))
+    const lowestAnomaly = Math.min(...anomalyKinds.map((kind) => mutatorSeverity[kind]))
 
-    expect(anomalyCatalog.BloodSugar.intelPriority).toBe(210)
-    expect(anomalyCatalog.VolatileGuts.intelPriority).toBe(220)
-    expect(anomalyCatalog.CriticalWeakness.intelPriority).toBeNull()
-    expect(anomalyCatalog.LowGravity.intelPriority).toBeNull()
-    expect(anomalyCatalog.RichAtmosphere.intelPriority).toBeNull()
+    expect(highestWarning).toBeLessThan(lowestAnomaly)
   })
 })

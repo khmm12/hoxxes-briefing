@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import type { RundownChip } from '../../model/dive-rundown'
+import type { Mutator } from '../../model/catalog'
 import { getVisibleRundownChips } from './dive-rundown-view'
 
 describe('getVisibleRundownChips', () => {
   it('keeps hidden chips behind an overflow count until expanded', () => {
-    const chips: RundownChip[] = [
+    const chips: Mutator[] = [
       { kind: 'warning', value: 'LowOxygen' },
       { kind: 'warning', value: 'DuckAndCover' },
       { kind: 'anomaly', value: 'VolatileGuts' },

@@ -168,6 +168,14 @@ A neutral or beneficial modifier with no difficulty penalty — Volatile Guts,
 Rich Atmosphere, Critical Weakness, Blood Sugar, Low Gravity.
 _Avoid_: Mutator (that's the umbrella, Anomaly is the subtype).
 
+**Severity**:
+The single ordering of Mutators by how much they should command the reader's
+attention. One ladder drives both presentation surfaces derived from it: the
+Rundown chip order and the Intel note selection. Warnings outrank Anomalies on
+the ladder — a product expectation, not a coincidence of numbers.
+_Avoid_: separate "rundown priority" and "intel priority" (they are the same
+ordering); "risk" (Anomalies carry severity too, without being risks).
+
 **Hazard**:
 DRG's difficulty tier (Hazard 3, 3.5, 5…). The app does not carry or display a
 hazard level — it is not part of the Briefing data. Do not reuse "hazard" as a

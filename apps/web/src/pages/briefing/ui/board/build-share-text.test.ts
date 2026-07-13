@@ -119,8 +119,8 @@ describe('buildShareText', () => {
       const normalBlock = blocks.find((block) => block.includes('Standard Run'))
       const eliteBlock = blocks.find((block) => block.includes('Elite Run'))
 
-      expect(normalBlock).toContain(`💡 ${formatIntelNote(i18n, buildIntel(briefing.dives.normal, 'normal').note)}`)
-      expect(eliteBlock).toContain(`💡 ${formatIntelNote(i18n, buildIntel(briefing.dives.elite, 'elite').note)}`)
+      expect(normalBlock).toContain(`💡 ${formatIntelNote(i18n, buildIntel(briefing.dives.normal, 'normal'))}`)
+      expect(eliteBlock).toContain(`💡 ${formatIntelNote(i18n, buildIntel(briefing.dives.elite, 'elite'))}`)
     })
 
     it('places the Intel note above the stage lines', () => {

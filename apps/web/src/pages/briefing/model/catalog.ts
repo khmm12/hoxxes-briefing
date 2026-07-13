@@ -8,6 +8,16 @@ import type {
 export type PrimaryObjectiveKind = DeepDivePrimaryObjective['kind']
 export type SecondaryObjectiveKind = DeepDiveSecondaryObjective['kind']
 
+export type Mutator =
+  | {
+      kind: 'anomaly'
+      value: DeepDiveAnomaly
+    }
+  | {
+      kind: 'warning'
+      value: DeepDiveWarning
+    }
+
 export type ObjectiveContextTag =
   | 'ammo-intensive'
   | 'escort-anchor'
@@ -22,17 +32,8 @@ type ObjectiveCatalogEntry = {
   contextTags: readonly ObjectiveContextTag[]
 }
 
-export type MutatorCatalogEntry = {
-  intelPriority: number | null
-  rundownPriority: number
-}
-
 type ObjectiveCatalog<Kind extends string> = {
   readonly [EntryKind in Kind]: ObjectiveCatalogEntry
-}
-
-type MutatorCatalog<Kind extends string> = {
-  readonly [EntryKind in Kind]: MutatorCatalogEntry
 }
 
 export const primaryObjectiveCatalog = {
@@ -95,131 +96,37 @@ export const secondaryObjectiveCatalog = {
   },
 } satisfies ObjectiveCatalog<SecondaryObjectiveKind>
 
-export const warningCatalog = {
-  HauntedCave: {
-    intelPriority: 10,
-    rundownPriority: 10,
-  },
-  DuckAndCover: {
-    intelPriority: 30,
-    rundownPriority: 30,
-  },
-  LowOxygen: {
-    intelPriority: 20,
-    rundownPriority: 20,
-  },
-  ShieldDisruption: {
-    intelPriority: 40,
-    rundownPriority: 40,
-  },
-  EliteThreat: {
-    intelPriority: 50,
-    rundownPriority: 50,
-  },
-  LethalEnemies: {
-    intelPriority: 60,
-    rundownPriority: 60,
-  },
-  MacteraPlague: {
-    intelPriority: 70,
-    rundownPriority: 70,
-  },
-  RivalPresence: {
-    intelPriority: 80,
-    rundownPriority: 80,
-  },
-  CaveLeechCluster: {
-    intelPriority: 90,
-    rundownPriority: 90,
-  },
-  ExploderInfestation: {
-    intelPriority: 100,
-    rundownPriority: 100,
-  },
-  RegenerativeBugs: {
-    intelPriority: 110,
-    rundownPriority: 110,
-  },
-  EboniteOutbreak: {
-    intelPriority: 120,
-    rundownPriority: 120,
-  },
-  PitJawColony: {
-    intelPriority: 130,
-    rundownPriority: 130,
-  },
-  ScrabNestingGrounds: {
-    intelPriority: 140,
-    rundownPriority: 140,
-  },
-  Parasites: {
-    intelPriority: 150,
-    rundownPriority: 150,
-  },
-  Swarmageddon: {
-    intelPriority: 160,
-    rundownPriority: 160,
-  },
-} satisfies MutatorCatalog<DeepDiveWarning>
+// The single severity ladder: how much a mutator should command the reader's
+// attention. Drives both the Rundown chip order and the Intel note selection —
+// warnings before anomalies is a product expectation encoded by the numbers.
+// Which mutators are intel-eligible is decided by the note tables in intel.ts,
+// not here: a ladder entry alone does not surface an intel note.
+export const mutatorSeverity = {
+  HauntedCave: 10,
+  LowOxygen: 20,
+  DuckAndCover: 30,
+  ShieldDisruption: 40,
+  EliteThreat: 50,
+  LethalEnemies: 60,
+  MacteraPlague: 70,
+  RivalPresence: 80,
+  CaveLeechCluster: 90,
+  ExploderInfestation: 100,
+  RegenerativeBugs: 110,
+  EboniteOutbreak: 120,
+  PitJawColony: 130,
+  ScrabNestingGrounds: 140,
+  Parasites: 150,
+  Swarmageddon: 160,
+  BloodSugar: 210,
+  VolatileGuts: 220,
+  CriticalWeakness: 230,
+  LowGravity: 240,
+  RichAtmosphere: 250,
+} satisfies Record<DeepDiveWarning | DeepDiveAnomaly, number>
 
-export const anomalyCatalog = {
-  BloodSugar: {
-    intelPriority: 210,
-    rundownPriority: 210,
-  },
-  VolatileGuts: {
-    intelPriority: 220,
-    rundownPriority: 220,
-  },
-  CriticalWeakness: {
-    intelPriority: null,
-    rundownPriority: 230,
-  },
-  LowGravity: {
-    intelPriority: null,
-    rundownPriority: 240,
-  },
-  RichAtmosphere: {
-    intelPriority: null,
-    rundownPriority: 250,
-  },
-} satisfies MutatorCatalog<DeepDiveAnomaly>
+export function compareMutatorSeverity(left: Mutator, right: Mutator): number {
+  const severityDelta = mutatorSeverity[left.value] - mutatorSeverity[right.value]
 
-export function getPrimaryObjectiveCatalogEntry(
-  kind: PrimaryObjectiveKind,
-): (typeof primaryObjectiveCatalog)[PrimaryObjectiveKind] {
-  return primaryObjectiveCatalog[kind]
-}
-
-export function getSecondaryObjectiveCatalogEntry(
-  kind: SecondaryObjectiveKind,
-): (typeof secondaryObjectiveCatalog)[SecondaryObjectiveKind] {
-  return secondaryObjectiveCatalog[kind]
-}
-
-export function getWarningCatalogEntry(warning: DeepDiveWarning): MutatorCatalogEntry {
-  return warningCatalog[warning]
-}
-
-export function getAnomalyCatalogEntry(anomaly: DeepDiveAnomaly): MutatorCatalogEntry {
-  return anomalyCatalog[anomaly]
-}
-
-export function compareWarningsForRundown(left: DeepDiveWarning, right: DeepDiveWarning): number {
-  return compareMutatorsForRundown(left, warningCatalog[left], right, warningCatalog[right])
-}
-
-export function compareAnomaliesForRundown(left: DeepDiveAnomaly, right: DeepDiveAnomaly): number {
-  return compareMutatorsForRundown(left, anomalyCatalog[left], right, anomalyCatalog[right])
-}
-
-function compareMutatorsForRundown(
-  leftKind: string,
-  left: Pick<MutatorCatalogEntry, 'rundownPriority'>,
-  rightKind: string,
-  right: Pick<MutatorCatalogEntry, 'rundownPriority'>,
-): number {
-  const priorityDelta = left.rundownPriority - right.rundownPriority
-
-  return priorityDelta === 0 ? leftKind.localeCompare(rightKind) : priorityDelta
+  return severityDelta === 0 ? left.value.localeCompare(right.value) : severityDelta
 }
