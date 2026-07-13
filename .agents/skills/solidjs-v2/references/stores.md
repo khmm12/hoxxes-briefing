@@ -1,6 +1,6 @@
 # Stores: drafts, projections, helpers
 
-Verified against solid-js@2.0.0-beta.15 (published typings) and `next@a4ca10b` sources/tests.
+Verified against solid-js@2.0.0-beta.17 (published typings) and `next@a51cac19` sources/tests.
 All store APIs are exported from `solid-js` (the `solid-js/store` subpath is gone).
 
 ## Draft-first setters (produce is the default)
@@ -41,7 +41,8 @@ setStore(s => {
 setStore(reconcile(serverState, "id"));
 ```
 
-`key` is a property name or extractor function.
+`key` is a property name or extractor function. Symbol-keyed nodes are diffed
+too, not just string keys.
 
 ## Derived stores: the memo/signal split, mirrored
 
@@ -74,6 +75,29 @@ const [cache, setCache] = createStore(draft => { draft.x = compute(); }, { x: 0 
 setCache(s => { s.override = true; });
 ```
 
+### Store-in-store views track structure
+
+A derived store may return or contain another store. Structural consumers of
+that wrapper — `<For>`/`mapArray`, `Object.keys`, `snapshot`, and `deep` — track
+through to the wrapped store in beta.17. Adds/deletes and `reconcile()` on the
+inner store therefore invalidate the outer view; direct property reads and
+enumeration stay consistent:
+
+```tsx
+const [items] = createOptimisticStore(() => api.list(), []);
+const [view] = createOptimisticStore<{ items: readonly Item[] }>(
+  () => ({ items }),
+  { items: [] }
+);
+
+<For each={view.items}>{item => <Row item={item} />}</For>
+```
+
+Before beta.17, a structural consumer could stay stale through this wrapper
+(for example, an optimistic row survived in `<For>` after refreshed data had
+already reached direct property reads). Do not work around it by cloning the
+inner store; update to beta.17 or newer.
+
 Function-form `createSignal` (the "writable memo") completes the picture:
 
 ```ts
@@ -99,6 +123,13 @@ deep(store);     // subscribes to EVERY nested property — use in an effect's
 `snapshot` replaces 1.x `unwrap` (the immutable internals mean unwrapping
 proxies isn't sufficient; `snapshot` builds a distinct object graph, preserving
 references where nothing changed).
+
+- Both **read through an active optimistic override** on a
+  `createOptimisticStore` — the optimistic value is THE value for every reader
+  (same as the proxy traps; see async optimistic mask in
+  `async-and-actions.md`).
+- A deleted trailing slot (`delete arr[i]`) stays a hole: `length` is preserved
+  and the hole serializes as `null` — the copy is not truncated.
 
 ## `merge` / `omit` (replace `mergeProps` / `splitProps`)
 

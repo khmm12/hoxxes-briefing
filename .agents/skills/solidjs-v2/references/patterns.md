@@ -1,5 +1,7 @@
 # Patterns: composing Solid 2.0 primitives
 
+Verified against solid-js@2.0.0-beta.17 (published typings) and `next@a51cac19` sources/tests.
+
 Field-tested compositions on top of the core APIs. Each pattern names the
 primitives it leans on; signatures are covered in the sibling reference files.
 
@@ -119,9 +121,16 @@ const addTodo = action(function* (todo) {
 // has installed the real data, keyed reconciliation preserves row identity.
 ```
 
-UI flags: `isPending` covers both revalidation and explicit `refresh()` calls
-(`isRefreshing` was removed in beta.15) — never repurpose `refresh()` itself as
-a flag.
+UI flags: on a **resting** store (no live optimistic write) `isPending` reports
+both revalidation and explicit `refresh()` refetches. But an active optimistic
+write **masks it store-wide** — the store you just wrote reads `isPending ===
+false` for the whole transition, refetch included ("certainty by decree", see
+`async-and-actions.md` → *Optimistic primitives*). So don't drive *this*
+mutation's "Saving…" spinner off `isPending(() => todos.length)`; co-write a
+flag into the row (`{ ...todo, pending: true }`) or use a separate
+`createOptimistic(false)`.
+Never repurpose `refresh()` itself as a flag (`isRefreshing` was removed in
+beta.15).
 
 ## Selection projection (don't notify every row)
 
@@ -174,8 +183,14 @@ async generator — next.
 ## Streaming a socket through an async-generator memo
 
 Bridge the socket's push events into an async iterable and `yield*` it. The whole
-discipline is the cleanup (the *why* — Solid's `.return()` can't unwind a generator
-parked on `await` — is in `async-and-actions.md` → *Cancellation & cleanup*):
+discipline is the cleanup, and it has a footgun: a `try/finally` inside the generator
+is **not** enough. On dispose Solid **does** call `.return()` on the iterator — but a
+generator parked on an *external* `await` (the next socket message) won't unwind from
+it: `.return()` queues behind that `await`, and if the socket has gone quiet the
+`await` never settles, so `finally` never runs and the socket leaks. The reliable hook
+is an up-front `onCleanup` that **actively cancels** the source — which frees it *and*
+unblocks the parked `await` so the generator can unwind. (Full treatment, plus the
+plain-async tier: `async-and-actions.md` → *Cancellation & cleanup*.)
 
 ```ts
 function createSocketStream<T>(url: () => string) {
@@ -280,7 +295,7 @@ function handleSubmit() {
 Scope it tightly (handlers, tests); sprinkling `flush()` to "fix" stale reads
 usually means a read belongs in JSX or an effect instead.
 
-## Known beta gotchas (observed at 2.0.0-beta.15)
+## Known beta gotchas (observed at 2.0.0-beta.17)
 
 - `Portal` from `@solidjs/web` was **rewritten in beta.15** (owner-parented
   insert via the new `host` option, no mount `Proxy`) — this resolves the
@@ -292,10 +307,9 @@ usually means a read belongs in JSX or an effect instead.
   betas churn the public API freely: `isRefreshing` was a public `solid-js`
   export from beta.0 through beta.14 (and written up in the RFC docs), then
   **removed in beta.15** — commit `52255dc` cut the code, typings, and docs
-  together; `@solidjs/signals` still defines it internally. When docs and
-  `node_modules` disagree, trust
-  `node_modules`; before building on a beta-only API, check the repo's
-  `.changeset/` directory for its scheduled fate.
-- `refresh()` semantics are also tightening upstream: a pending changeset stops
-  it cascading into upstream memos (only the explicit target / top-level reads
-  of the refresh callback recompute).
+  together (as of beta.17 it is gone from `@solidjs/signals` internals too).
+  When docs and `node_modules` disagree, trust `node_modules`; before building
+  on a beta-only API, check the repo's `.changeset/` directory for its
+  scheduled fate.
+- `refresh()` no longer cascades into upstream memos (landed in beta.15): only
+  the explicit target / top-level reads of the refresh callback recompute.

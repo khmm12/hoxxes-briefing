@@ -56,6 +56,10 @@ const switcherLinkRecipe = cva({
 })
 
 const stageStyles = css.raw({
+  // Span the full layout width so the Board's own `marginInline: auto` centers it
+  // as it does on the real route, where it is a direct flex child of AppLayout.
+  // Without this the wrapper shrinks to the Board's width and pins it left.
+  width: 'full',
   paddingBlockEnd: '8',
 })
 
