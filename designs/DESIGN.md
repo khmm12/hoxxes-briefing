@@ -492,13 +492,26 @@ labeled variant.
   (`UNVERIFIED BRIEFING`) over a `body-sm` `text-secondary` line.
   Non-blocking — the board below stays fully live.
 - **Footer** — board sign-off, flat on the page background (no card chrome),
-  centered: an uppercase gold display salute (`ROCK AND STONE!`) flanked by
-  thin angled gold hazard-stripe bands that extend full-bleed to the screen
-  edge on mobile (mirroring the header divider treatment), above a single
-  `body-sm` `text-muted` signoff (`Made with love by khmm12 ❤️ · Source on
-  GitHub`); the GitHub link reveals an underline + `text-secondary` on hover.
-  Spaced from the cards by `spacing.6` (24 px) on mobile and `spacing.8`
-  (32 px) on desktop — visually separated from the board, not just padded.
+  centered, all fine print in `body-sm` `text-muted`: an uppercase gold
+  display salute (`ROCK AND STONE!`) flanked by thin angled gold
+  hazard-stripe bands that extend full-bleed to the screen edge on mobile
+  (mirroring the header divider treatment), above the signoff lines (`Made
+  with love by khmm12 ❤️`, then `Source on GitHub · Buy me a Blackout Stout
+  🍺`; links reveal an underline + `text-secondary` on hover; the tip link
+  plays the beer-cheer burst), closed by the briefing note — a one-paragraph
+  plain-language description of the board (what it shows, when new Deep
+  Dives arrive), max-width 512 and centered, `spacing.4` on top of the
+  footer's own `spacing.2` gap (24 px total below the signoff so the note
+  reads as its own tier despite sharing the signoff's type role) — and a
+  `caption` disclaimer line (unofficial fan project, Deep Rock Galactic is
+  a Ghost Ship Games trademark) in the same measure. Both wrap with
+  `text-wrap: balance`; non-breaking spaces keep "Deep Rock Galactic" and
+  "11:00 UTC" whole across line breaks. Both paragraphs are
+  mirrored in the `index.html` `<noscript>` block for non-JS crawlers
+  (which adds a final JavaScript-required sentence) — keep them in sync.
+  Spaced from the cards by
+  `spacing.6` (24 px) on mobile and `spacing.8` (32 px) on desktop —
+  visually separated from the board, not just padded.
 
 ## Interaction states
 

@@ -2,7 +2,7 @@ import { msg } from '@lingui/core/macro'
 import { A } from '@solidjs/router'
 import type { JSX } from '@solidjs/web'
 import { useI18n } from '~/shared/i18n'
-import { Title } from '~/shared/lib/document-head'
+import { Meta, Title } from '~/shared/lib/document-head'
 import { ActionControl } from '~/shared/ui/action-button'
 import { NotFoundIcon } from '~/shared/ui/icon'
 import { StateScreen } from '~/shared/ui/state-screen'
@@ -12,7 +12,12 @@ export function NotFoundPage(): JSX.Element {
 
   return (
     <>
-      <Title>{i18n._(msg`Hoxxes Briefing | Not Found`)}</Title>
+      <Title>{i18n._(msg`Page not found — Hoxxes Briefing`)}</Title>
+      {/* The SPA rewrite serves every path with HTTP 200, so this state is the
+          only 404 signal crawlers get — noindex keeps stray URLs out of the
+          index instead of registering as soft 404s. */}
+      <Meta name="robots" content="noindex" />
+      <Meta name="description" content={i18n._(msg`This page is not available here. Head back to the briefing.`)} />
       <StateScreen
         action={
           <ActionControl component={A} href="/">

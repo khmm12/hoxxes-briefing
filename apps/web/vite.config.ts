@@ -2,8 +2,11 @@ import { readFile } from 'node:fs/promises'
 import { basename, dirname, relative, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, type Plugin, type ViteUserConfig } from 'vitest/config'
+import { UTCDate } from '@date-fns/utc'
 import { lingui as linguiPlugin, linguiTransformerBabelPreset } from '@lingui/vite-plugin'
 import babelPlugin from '@rolldown/plugin-babel'
+import { isThursday, previousThursday, set } from 'date-fns'
+import { ViteMinifyPlugin } from 'vite-plugin-minify'
 import { VitePWA } from 'vite-plugin-pwa'
 import solidPlugin from 'vite-plugin-solid'
 
@@ -57,6 +60,8 @@ export function createWebViteConfig(): ViteUserConfig {
         },
       }),
       webManifest(),
+      sitemap(),
+      ViteMinifyPlugin({}),
     ],
     resolve: {
       alias: {
@@ -154,6 +159,46 @@ function webManifest(): Plugin {
   function devIconUrl(src: string): string {
     const fromRoot = relative(root, resolve(dirname(manifestTemplate), src))
     return `/${fromRoot.split(sep).join('/')}`
+  }
+}
+
+// The sitemap is generated, not a public/ file, so <lastmod> can carry the most
+// recent Reset (Thursday 11:00 UTC) — the moment the page content actually
+// changed — rather than a commit or build date. Same dev/build split as
+// webManifest: middleware in serve, emitFile in build.
+function sitemap(): Plugin {
+  const lastReset = (): Date => {
+    const now = new UTCDate()
+    const reset = set(isThursday(now) ? now : previousThursday(now), {
+      hours: 11,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    })
+    return reset > now ? previousThursday(reset) : reset
+  }
+  const source = (): string =>
+    [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+      '  <url>',
+      '    <loc>https://hoxxes-briefing.vercel.app/</loc>',
+      `    <lastmod>${lastReset().toISOString().slice(0, 10)}</lastmod>`,
+      '  </url>',
+      '</urlset>',
+      '',
+    ].join('\n')
+  return {
+    name: 'sitemap',
+    configureServer(server) {
+      server.middlewares.use('/sitemap.xml', (_req, res) => {
+        res.setHeader('Content-Type', 'application/xml')
+        res.end(source())
+      })
+    },
+    generateBundle() {
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: source() })
+    },
   }
 }
 

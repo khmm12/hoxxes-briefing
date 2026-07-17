@@ -118,7 +118,7 @@ msgstr "Bring armor-cracking focus. Machines do not care about swagger."
 msgid "Brotherhood. Danger. Profit."
 msgstr "Brotherhood. Danger. Profit."
 
-#: src/pages/briefing/ui/board/BoardFooter.tsx:143
+#: src/pages/briefing/ui/board/BoardFooter.tsx:163
 msgid "Buy me a Blackout Stout"
 msgstr "Buy me a Blackout Stout"
 
@@ -139,8 +139,8 @@ msgid "Cave Leech Cluster"
 msgstr "Cave Leech Cluster"
 
 #: src/pages/briefing/ui/board/BriefingPage.tsx:52
-msgid "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive with stages, objectives, mutators, and reset timing."
-msgstr "Check the current Deep Rock Galactic Deep Dive and Elite Deep Dive with stages, objectives, mutators, and reset timing."
+msgid "Check this week's Deep Rock Galactic Deep Dive and Elite Deep Dive: stages, objectives, mutators, and reset timing."
+msgstr "Check this week's Deep Rock Galactic Deep Dive and Elite Deep Dive: stages, objectives, mutators, and reset timing."
 
 #: src/pages/briefing/ui/board/BriefingPageStates.tsx:37
 msgid "Checking the briefing"
@@ -347,7 +347,7 @@ msgstr "Fungus Bogs"
 msgid "Glacial Strata"
 msgstr "Glacial Strata"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:19
+#: src/pages/not-found/ui/NotFoundPage.tsx:24
 msgid "Go to the briefing"
 msgstr "Go to the briefing"
 
@@ -382,14 +382,6 @@ msgstr "Hook a Liquid Morkite well up to the extraction pod and pump it dry."
 #: src/pages/briefing/ui/board/build-share-text.ts:85
 msgid "Hoxxes Briefing · Rock and Stone!"
 msgstr "Hoxxes Briefing · Rock and Stone!"
-
-#: src/pages/briefing/ui/board/BriefingPage.tsx:48
-msgid "Hoxxes Briefing | DRG Deep Dive Overview"
-msgstr "Hoxxes Briefing | DRG Deep Dive Overview"
-
-#: src/pages/not-found/ui/NotFoundPage.tsx:15
-msgid "Hoxxes Briefing | Not Found"
-msgstr "Hoxxes Briefing | Not Found"
 
 #: src/pages/briefing/ui/board/slogan-copy.ts:24
 msgid "I eat rock for breakfast!"
@@ -499,7 +491,7 @@ msgstr "Low Oxygen"
 msgid "Mactera Plague"
 msgstr "Mactera Plague"
 
-#: src/pages/briefing/ui/board/BoardFooter.tsx:120
+#: src/pages/briefing/ui/board/BoardFooter.tsx:140
 msgid "Made with love by"
 msgstr "Made with love by"
 
@@ -618,9 +610,13 @@ msgstr "Open Hoxxes Briefing while online once to keep it available offline."
 msgid "Ossuary Depths"
 msgstr "Ossuary Depths"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:25
+#: src/pages/not-found/ui/NotFoundPage.tsx:30
 msgid "Page not found"
 msgstr "Page not found"
+
+#: src/pages/not-found/ui/NotFoundPage.tsx:15
+msgid "Page not found — Hoxxes Briefing"
+msgstr "Page not found — Hoxxes Briefing"
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:383
 msgid "Paired Lacerator and Arbalest fight with split melee and ranged pressure."
@@ -740,7 +736,7 @@ msgstr "Rock and Stone to the Bone!"
 msgid "Rock and Stone, Brother!"
 msgstr "Rock and Stone, Brother!"
 
-#: src/pages/briefing/ui/board/BoardFooter.tsx:116
+#: src/pages/briefing/ui/board/BoardFooter.tsx:136
 #: src/pages/briefing/ui/board/slogan-copy.ts:7
 msgid "Rock and Stone!"
 msgstr "Rock and Stone!"
@@ -822,7 +818,7 @@ msgstr "Soft sandstone desert strewn with giant fossils and little cover. Wind t
 msgid "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
 msgstr "Something is eating the creatures from the inside out, and will go after you as soon as their hosts die."
 
-#: src/pages/briefing/ui/board/BoardFooter.tsx:133
+#: src/pages/briefing/ui/board/BoardFooter.tsx:153
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
 
@@ -886,13 +882,18 @@ msgstr "This device is offline and has no saved briefing."
 msgid "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 msgstr "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:22
+#: src/pages/not-found/ui/NotFoundPage.tsx:20
+#: src/pages/not-found/ui/NotFoundPage.tsx:27
 msgid "This page is not available here. Head back to the briefing."
 msgstr "This page is not available here. Head back to the briefing."
 
 #: src/pages/briefing/ui/board/BriefingPageStates.tsx:95
 msgid "This version of the app can no longer read the briefing. Update to keep diving."
 msgstr "This version of the app can no longer read the briefing. Update to keep diving."
+
+#: src/pages/briefing/ui/board/BriefingPage.tsx:48
+msgid "This Week's Deep Dive & Elite Deep Dive in Deep Rock Galactic — Hoxxes Briefing"
+msgstr "This Week's Deep Dive & Elite Deep Dive in Deep Rock Galactic — Hoxxes Briefing"
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:248
 msgid "Toxins in the atmosphere drains your health, but crystalize the blood of Hoxxes Wildlife into Red Sugar. Kill to survive!"
@@ -913,6 +914,10 @@ msgstr "Try again once the connection settles."
 #: src/pages/briefing/ui/dive/dive-copy.ts:398
 msgid "Twins"
 msgstr "Twins"
+
+#: src/pages/briefing/ui/board/BoardFooter.tsx:189
+msgid "Unofficial fan project, not affiliated with Ghost Ship Games. Deep Rock Galactic is their trademark."
+msgstr "Unofficial fan project, not affiliated with Ghost Ship Games. Deep Rock Galactic is their trademark."
 
 #: src/pages/briefing/ui/board/build-share-text.ts:98
 msgid "Unverified — Mission Control has not confirmed this briefing yet, details may change."
@@ -955,10 +960,14 @@ msgstr "Watch the floor before you plant. Bad footing breaks good holds."
 msgid "We are unbreakable!"
 msgstr "We are unbreakable!"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:23
+#: src/pages/not-found/ui/NotFoundPage.tsx:28
 msgid "Wrong tunnel"
 msgstr "Wrong tunnel"
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:278
 msgid "You will be attacked by an almost constant flow of Glyphid Exploder packs."
 msgstr "You will be attacked by an almost constant flow of Glyphid Exploder packs."
+
+#: src/pages/briefing/ui/board/BoardFooter.tsx:184
+msgid "Your briefing for this week's Deep Dive and Elite Deep Dive in Deep Rock Galactic. Fresh Deep Dives land every Thursday at 11:00 UTC."
+msgstr "Your briefing for this week's Deep Dive and Elite Deep Dive in Deep Rock Galactic. Fresh Deep Dives land every Thursday at 11:00 UTC."

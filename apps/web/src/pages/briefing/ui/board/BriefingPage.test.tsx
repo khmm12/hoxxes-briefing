@@ -97,7 +97,10 @@ describe('BriefingPage', () => {
 
     const { findByText } = renderBriefingPage()
 
-    expect(document.title).toBe('Hoxxes Briefing | DRG Deep Dive Overview')
+    expect(document.title).toBe("This Week's Deep Dive & Elite Deep Dive in Deep Rock Galactic — Hoxxes Briefing")
+    expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
+      "Check this week's Deep Rock Galactic Deep Dive and Elite Deep Dive: stages, objectives, mutators, and reset timing.",
+    )
     expect(await findByText('Awful Catacomb')).toBeInTheDocument()
   })
 
