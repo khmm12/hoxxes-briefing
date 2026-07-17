@@ -4,7 +4,7 @@ import { renderWithProviders } from '~test/render'
 import { BriefingErrorState, BriefingLoadingState } from './BriefingPageStates'
 
 describe('BriefingLoadingState', () => {
-  it('tells the user it is pulling fresh dives when online', () => {
+  it('tells the user it is pulling fresh deep dives when online', () => {
     const { getByText } = renderWithProviders(() => <BriefingLoadingState online={true} />)
 
     expect(getByText('Mining Morkite')).toBeInTheDocument()

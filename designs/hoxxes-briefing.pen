@@ -13047,7 +13047,7 @@
       "name": "Screen · Mobile · Board (live)",
       "clip": true,
       "width": 390,
-      "height": 1217,
+      "height": 1379,
       "fill": "$bg",
       "layout": "vertical",
       "gap": 12,
@@ -13603,7 +13603,15 @@
               "type": "ref",
               "ref": "Y1XJVH",
               "name": "Footer",
-              "width": "fill_container"
+              "width": "fill_container",
+              "descendants": {
+                "p7JMLo": {
+                  "width": 366
+                },
+                "xkAXu": {
+                  "width": 366
+                }
+              }
             }
           ]
         }
@@ -13617,7 +13625,7 @@
       "name": "Screen · Mobile · Board (offline, cached)",
       "clip": true,
       "width": 390,
-      "height": 1217,
+      "height": 1379,
       "fill": "$bg",
       "layout": "vertical",
       "gap": 12,
@@ -14189,7 +14197,18 @@
               "type": "ref",
               "ref": "Y1XJVH",
               "name": "Footer",
-              "width": "fill_container"
+              "width": "fill_container",
+              "descendants": {
+                "Hp92y": {
+                  "clip": false
+                },
+                "p7JMLo": {
+                  "width": 366
+                },
+                "xkAXu": {
+                  "width": 366
+                }
+              }
             }
           ]
         }
@@ -14847,7 +14866,15 @@
               "type": "ref",
               "ref": "Y1XJVH",
               "name": "Footer",
-              "width": "fill_container"
+              "width": "fill_container",
+              "descendants": {
+                "p7JMLo": {
+                  "width": 366
+                },
+                "xkAXu": {
+                  "width": 366
+                }
+              }
             }
           ]
         },
@@ -15438,7 +15465,15 @@
                   "type": "ref",
                   "ref": "Y1XJVH",
                   "name": "Footer",
-                  "width": "fill_container"
+                  "width": "fill_container",
+                  "descendants": {
+                    "p7JMLo": {
+                      "width": 366
+                    },
+                    "xkAXu": {
+                      "width": 366
+                    }
+                  }
                 }
               ]
             }
@@ -17106,6 +17141,52 @@
                           "content": "Source on GitHub",
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Hp92y",
+                      "name": "Briefing Note",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": "$space-2",
+                      "padding": [
+                        "$space-4",
+                        0,
+                        0,
+                        0
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "p7JMLo",
+                          "name": "Note",
+                          "fill": "$text-muted",
+                          "textGrowth": "fixed-width",
+                          "width": 512,
+                          "content": "Your briefing for this week's Deep Dive and Elite Deep Dive in Deep Rock Galactic — every stage, objective, and mutator. Fresh Dives land every Thursday at 11:00 UTC.",
+                          "lineHeight": 1.55,
+                          "textAlign": "center",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "xkAXu",
+                          "name": "Disclaimer",
+                          "fill": "$text-muted",
+                          "textGrowth": "fixed-width",
+                          "width": 512,
+                          "content": "Unofficial fan project, not affiliated with Ghost Ship Games. Deep Rock Galactic is their trademark.",
+                          "lineHeight": 1.4,
+                          "textAlign": "center",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-xs",
                           "fontWeight": "normal"
                         }
                       ]

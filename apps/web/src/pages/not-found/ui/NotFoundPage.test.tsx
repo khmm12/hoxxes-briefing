@@ -29,9 +29,13 @@ describe('NotFoundPage', () => {
     expect(link).toHaveAttribute('href', '/')
   })
 
-  it('sets the document title', () => {
+  it('sets the document title and keeps the state out of the index', () => {
     renderNotFoundPage()
 
-    expect(document.title).toBe('Hoxxes Briefing | Not Found')
+    expect(document.title).toBe('Page not found — Hoxxes Briefing')
+    expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex')
+    expect(document.head.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(
+      'This page is not available here. Head back to the briefing.',
+    )
   })
 })

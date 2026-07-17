@@ -46,6 +46,26 @@ const saluteStyles = css.raw({
   whiteSpace: 'nowrap',
 })
 
+// What the board is, in one breath — the paragraph search engines and first-time
+// visitors read. Mirrored in the index.html <noscript> block for non-JS crawlers
+// (which adds a final JavaScript-required sentence on top).
+// The auto margins center the paragraph by opting it out of the flex stretch;
+// its width becomes fit-content(available), capped at the 512 reading measure.
+// Non-breaking spaces in the copy keep the proper names whole across wraps.
+const briefingNoteStyles = css.raw({
+  marginTop: '4',
+  maxWidth: '[42rem]',
+  marginInline: 'auto',
+  textWrap: 'balance',
+})
+
+const disclaimerStyles = css.raw({
+  textStyle: 'caption',
+  maxWidth: '[42rem]',
+  marginInline: 'auto',
+  textWrap: 'balance',
+})
+
 const footerLinkStyles = css.raw({
   color: 'inherit',
   textDecorationLine: 'underline',
@@ -158,6 +178,16 @@ export function BoardFooter(): JSX.Element {
             </For>
           </Show>
         </span>
+      </p>
+      <p class={css(briefingNoteStyles)}>
+        {i18n._(
+          msg`Your briefing for this week's Deep Dive and Elite Deep Dive in Deep Rock Galactic. Fresh Deep Dives land every Thursday at 11:00 UTC.`,
+        )}
+      </p>
+      <p class={css(disclaimerStyles)}>
+        {i18n._(
+          msg`Unofficial fan project, not affiliated with Ghost Ship Games. Deep Rock Galactic is their trademark.`,
+        )}
       </p>
     </footer>
   )
