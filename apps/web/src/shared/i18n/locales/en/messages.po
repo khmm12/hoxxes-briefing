@@ -347,7 +347,7 @@ msgstr "Fungus Bogs"
 msgid "Glacial Strata"
 msgstr "Glacial Strata"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:24
+#: src/pages/not-found/ui/NotFoundPage.tsx:25
 msgid "Go to the briefing"
 msgstr "Go to the briefing"
 
@@ -610,11 +610,11 @@ msgstr "Open Hoxxes Briefing while online once to keep it available offline."
 msgid "Ossuary Depths"
 msgstr "Ossuary Depths"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:30
+#: src/pages/not-found/ui/NotFoundPage.tsx:31
 msgid "Page not found"
 msgstr "Page not found"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:15
+#: src/pages/not-found/ui/NotFoundPage.tsx:16
 msgid "Page not found — Hoxxes Briefing"
 msgstr "Page not found — Hoxxes Briefing"
 
@@ -882,8 +882,8 @@ msgstr "This device is offline and has no saved briefing."
 msgid "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 msgstr "This mission site suffers from a massive Ebonite infestation. Rock and Stone - literally!"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:20
-#: src/pages/not-found/ui/NotFoundPage.tsx:27
+#: src/pages/not-found/ui/NotFoundPage.tsx:21
+#: src/pages/not-found/ui/NotFoundPage.tsx:28
 msgid "This page is not available here. Head back to the briefing."
 msgstr "This page is not available here. Head back to the briefing."
 
@@ -960,7 +960,7 @@ msgstr "Watch the floor before you plant. Bad footing breaks good holds."
 msgid "We are unbreakable!"
 msgstr "We are unbreakable!"
 
-#: src/pages/not-found/ui/NotFoundPage.tsx:28
+#: src/pages/not-found/ui/NotFoundPage.tsx:29
 msgid "Wrong tunnel"
 msgstr "Wrong tunnel"
 

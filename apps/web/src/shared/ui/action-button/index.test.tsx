@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { A, Route, Router } from '@solidjs/router'
 import { render } from '@solidjs/testing-library'
 import { ActionControl } from '~/shared/ui/action-button'
 
@@ -20,23 +19,6 @@ describe('ActionControl', () => {
 
     const control = getByRole('link', { name: 'Open board' })
     expect(control).toHaveAttribute('href', '/board')
-  })
-
-  it('renders as the router <A> when asked', () => {
-    const { getByRole } = render(() => (
-      <Router>
-        <Route
-          path="/"
-          component={() => (
-            <ActionControl component={A} href="/board">
-              Open board
-            </ActionControl>
-          )}
-        />
-      </Router>
-    ))
-
-    expect(getByRole('link', { name: 'Open board' })).toHaveAttribute('href', '/board')
   })
 
   it('disables the button when busy and shows the spinner instead of stealing layout', () => {

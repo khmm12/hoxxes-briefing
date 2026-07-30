@@ -1,11 +1,10 @@
 import { createMemo, omit, Show } from 'solid-js'
-import type { A, AnchorProps } from '@solidjs/router'
 import { Dynamic, type JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import { Spinner } from '~/shared/ui/spinner'
 import { resolveClass, type WithStylingProps } from '~/shared/ui/styling'
 
-type ActionControlComponent = 'button' | 'a' | typeof A
+type ActionControlComponent = 'button' | 'a'
 type ActionControlOwnProps = {
   busy?: boolean
   children?: JSX.Element
@@ -105,11 +104,7 @@ const actionControlRecipe = cva({
 
 type ActionControlComponentProps<TComponent extends ActionControlComponent> = TComponent extends 'button'
   ? JSX.ButtonHTMLAttributes<HTMLButtonElement>
-  : TComponent extends 'a'
-    ? JSX.AnchorHTMLAttributes<HTMLAnchorElement>
-    : TComponent extends typeof A
-      ? AnchorProps
-      : never
+  : JSX.AnchorHTMLAttributes<HTMLAnchorElement>
 
 type ActionControlComponentProp<TComponent extends ActionControlComponent> = TComponent extends 'button'
   ? { component?: TComponent }
@@ -127,7 +122,7 @@ export type ActionControlProps<TComponent extends ActionControlComponent = 'butt
   ActionControlBaseProps<TComponent>
 >
 
-type AnyActionControlProps = ActionControlProps<'button'> | ActionControlProps<'a'> | ActionControlProps<typeof A>
+type AnyActionControlProps = ActionControlProps<'button'> | ActionControlProps<'a'>
 
 // Busy keeps the control size; the spinner rides the 12px icon slot.
 const busySpinnerStyles = css.raw({

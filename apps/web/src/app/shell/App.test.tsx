@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createSignal, flush } from 'solid-js'
+import { useHref } from '@solidjs/router'
 import { fireEvent, render } from '@solidjs/testing-library'
 import type { JSX } from '@solidjs/web'
 import { createTestI18n } from '~test/render'
@@ -34,7 +35,16 @@ vi.mock('~/pages/briefing', () => ({
 }))
 
 vi.mock('~/pages/not-found', () => ({
-  NotFoundPage: (): JSX.Element => <div data-testid="not-found-page">not found</div>,
+  NotFoundPage: (): JSX.Element => {
+    const homeHref = useHref(() => '/')
+
+    return (
+      <div data-testid="not-found-page">
+        not found
+        <a href={homeHref()}>Go home</a>
+      </div>
+    )
+  },
 }))
 
 function setOnline(online: boolean): void {
@@ -71,6 +81,18 @@ describe('App', () => {
 
     expect(await findByTestId('not-found-page')).toBeInTheDocument()
     expect(queryByTestId('briefing-page')).toBeNull()
+  })
+
+  it('intercepts plain anchors for client-side navigation', async () => {
+    window.history.pushState({}, '', '/does-not-exist')
+
+    const { findByTestId, getByRole } = render(() => <App i18n={createTestI18n()} />)
+
+    expect(await findByTestId('not-found-page')).toBeInTheDocument()
+    fireEvent.click(getByRole('link', { name: 'Go home' }))
+
+    expect(await findByTestId('briefing-page')).toBeInTheDocument()
+    expect(window.location.pathname).toBe('/')
   })
 
   it('shows the update dock once a refresh is needed while online', () => {

@@ -4,7 +4,7 @@ rust = { version = "stable", profile = "minimal", components = "rustfmt,clippy",
 "cargo:wasm-pack" = { version = "0.15.0", locked = true }
 "cargo:wasm-bindgen-cli" = { version = "0.2.126", locked = true }
 "cargo:cargo-llvm-cov" = { version = "0.8.7", locked = true }
-"npm:vercel" = "56.1.0"
+"npm:vercel" = "58.4.0"
 
 [tasks.pre-commit]
 description = "Re-extract the web i18n catalog when staged changes touch apps/web/"
