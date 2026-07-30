@@ -1,21 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { MemoryRouter, Route } from '@solidjs/router'
-import { render } from '@solidjs/testing-library'
-import { I18nProvider } from '~/shared/i18n'
-import { createTestI18n } from '~test/render'
+import { createRouter, memoryHistory } from '@solidjs/router'
+import { renderWithProviders } from '~test/render'
 import { NotFoundPage } from './NotFoundPage'
-
-// NotFoundPage uses <A>, which needs router context — a MemoryRouter wired to a
-// single root route stands in for the real app shell.
-function renderNotFoundPage() {
-  return render(() => (
-    <I18nProvider i18n={createTestI18n()}>
-      <MemoryRouter root={(props) => <>{props.children}</>}>
-        <Route path="/" component={() => <NotFoundPage />} />
-      </MemoryRouter>
-    </I18nProvider>
-  ))
-}
 
 describe('NotFoundPage', () => {
   it('renders the not-found copy and a link back to the briefing', () => {
@@ -39,3 +25,12 @@ describe('NotFoundPage', () => {
     )
   })
 })
+
+const TestRouter = createRouter({
+  routes: [{ path: '*404', component: NotFoundPage }],
+  history: memoryHistory('/missing'),
+})
+
+function renderNotFoundPage() {
+  return renderWithProviders(() => <TestRouter />)
+}

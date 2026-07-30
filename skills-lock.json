@@ -5,19 +5,19 @@
       "source": "feature-sliced/skills",
       "sourceType": "github",
       "skillPath": "feature-sliced-design/SKILL.md",
-      "computedHash": "c57a32d524addae35b41b07bbfdd35eea3d85b3d0bd8f4779032eb31b62e5ce9"
+      "computedHash": "913158ff73fba3223e3d37fd57f1fe2c24863936308ef6b78d9a37300ce9e563"
     },
     "solidjs-v2": {
       "source": "khmm12/solidjs-v2-skills",
       "sourceType": "github",
       "skillPath": "skills/solidjs-v2/SKILL.md",
-      "computedHash": "c24e2124bbd308233ae04a5a57c27900ced35dada6bf90a9e065304dd1312073"
+      "computedHash": "4844dcdb466bda77a50f3065bcc787262f76915933c199863b1150224cad1ee0"
     },
     "solidjs-v2-reviewer": {
       "source": "khmm12/solidjs-v2-skills",
       "sourceType": "github",
       "skillPath": "skills/solidjs-v2-reviewer/SKILL.md",
-      "computedHash": "81051d30065d5de8a58bc457b27e539dc3af0f9aad79b19fd7b036949e7a673e"
+      "computedHash": "9f011ef883fe93aa47dd3186976492269f2f65e26be0c12c3fd54a94db6f0851"
     }
   }
 }

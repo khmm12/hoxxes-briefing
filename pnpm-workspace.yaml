@@ -4,6 +4,11 @@ packages:
   - "packages/*"
   - "crates/drg_mission_gen_wasm/pkg"
 allowBuilds:
-  '@parcel/watcher': true
   sharp: true
   esbuild: false
+minimumReleaseAgeExclude:
+  - vite-plugin-solid@3.0.0-next.20
+  - vite@8.2.0
+overrides:
+  '@feature-sliced/filesystem>typescript': 'npm:typescript@v6'
+  '@pandacss/config>typescript': 'npm:typescript@v6'

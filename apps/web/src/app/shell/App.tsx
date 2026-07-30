@@ -1,23 +1,14 @@
-import { createEffect, Errored, Loading, lazy, Show } from 'solid-js'
+import { createEffect, Errored, Loading, Show } from 'solid-js'
 import type { I18n } from '@lingui/core'
-import { Route, Router } from '@solidjs/router'
 import type { JSX } from '@solidjs/web'
 import { createPwaController } from '~/app/pwa'
-import { AppCrashScreen } from '~/app/shell/AppCrashScreen'
-import { BriefingPage } from '~/pages/briefing'
 import { I18nProvider } from '~/shared/i18n'
 import { createOnlineStatus } from '~/shared/lib/create-online-status'
 import { AppLayout } from '~/shared/ui/layout'
 import { PwaNotice } from '~/widgets/pwa-notice'
+import { AppCrashScreen } from './AppCrashScreen'
+import { AppRouter } from './router'
 import '../styles/global.css'
-
-const NotFoundPage = lazy(() => import('~/pages/not-found').then((module) => ({ default: module.NotFoundPage })))
-
-// Dev-only state playground; the false branch is statically eliminated, so
-// neither the route nor its chunk exists in production builds.
-const PlaygroundPage = import.meta.env.DEV
-  ? lazy(() => import('~/pages/briefing/dev').then((module) => ({ default: module.PlaygroundPage })))
-  : null
 
 type AppProps = {
   i18n: I18n
@@ -46,17 +37,13 @@ export function App(props: AppProps): JSX.Element {
           return <AppCrashScreen onRecover={recover} />
         }}
       >
-        <Router
-          root={(props) => (
+        <AppRouter onUpdateApp={() => void pwa.reloadForOutdated()}>
+          {(routerProps) => (
             <AppLayout>
-              <Loading>{props.children}</Loading>
+              <Loading>{routerProps.children}</Loading>
             </AppLayout>
           )}
-        >
-          <Route path="/" component={() => <BriefingPage onUpdateApp={() => void pwa.reloadForOutdated()} />} />
-          {PlaygroundPage != null ? <Route path="/__playground/:scenario?" component={PlaygroundPage} /> : null}
-          <Route path="*404" component={() => <NotFoundPage />} />
-        </Router>
+        </AppRouter>
       </Errored>
 
       <Show when={pwaDockVisible()}>

@@ -1,7 +1,7 @@
 # Control flow and DOM
 
-Verified against solid-js@2.0.0-beta.17 / @solidjs/web@2.0.0-beta.17 typings,
-`next@a51cac19` sources and `packages/solid-web/test/flow.type-tests.tsx`.
+Verified against solid-js@2.0.0-beta.28 / @solidjs/web@2.0.0-beta.28 typings,
+`next@90fcbd0a` sources and `packages/solid-web/test/flow.type-tests.tsx`.
 Control-flow components live in `solid-js`; `render`/`hydrate`/`Portal`/
 `Dynamic`/`dynamic` live in `@solidjs/web`.
 
@@ -75,13 +75,23 @@ automatically. Semantics details: `references/async-and-actions.md`.
 Coordinates sibling `Loading` boundaries.
 
 - `order`: `"sequential"` (default; reveal in DOM order) | `"together"` (whole
-  group at once) | `"natural"` (each on its own data — only meaningful nested,
-  as one composite slot in the parent's ordering).
+  group at once) | `"natural"` (each boundary reveals on its own data, no
+  frontier — meaningful nested: marks the subtree as one slot to the parent,
+  while its own children don't coordinate with each other).
 - `collapsed` (boolean, sequential-only): boundaries past the frontier render
   nothing instead of their fallback.
-- Nesting: a nested `<Reveal>` is one composite slot; the parent holds the
-  whole inner group (no opt-out) until its ordering releases the slot, then the
-  inner group runs its own order.
+- **Membership is direct-children-only.** Each boundary (`<Loading>` or
+  `<Errored>`) severs reveal coordination for its subtree: a `<Loading>`
+  nested inside another slot's content, or wrapped in an `<Errored>`, never
+  joins the ancestor group and never delays its release — it resolves on its
+  own schedule inside the (possibly held) slot. While that slot is still
+  held, content the severed boundary streams is queued and applied the moment
+  the slot goes live.
+- Nesting: a nested `<Reveal>` is one composite slot to a `sequential` or
+  `together` parent — held (no opt-out) until the parent's ordering releases
+  it, then it runs its own order locally. A `natural` parent does **not**
+  hold nested composites: they activate immediately and run their own order
+  from the start.
 - SSR: `order="together"` and `collapsed` need streaming
   (`renderToStream`/`renderToStringAsync`); plain `renderToString` supports
   `sequential` (uncollapsed) and `natural`.
@@ -89,7 +99,7 @@ Coordinates sibling `Loading` boundaries.
 ```jsx
 <Reveal>
   <Loading fallback={<Skeleton />}><Header /></Loading>
-  <Reveal order="natural">  {/* held until Header reveals; then each card on its own data */}
+  <Reveal order="natural">  {/* held under this sequential parent until Header reveals; then each card on its own data */}
     <Loading fallback={<CardSkel />}><Card id={1} /></Loading>
     <Loading fallback={<CardSkel />}><Card id={2} /></Loading>
   </Reveal>
@@ -115,6 +125,14 @@ return <Active value={value()} />;
 `createComponent(dynamic(source), props)`. One `dynamic(...)` source is shared
 across all mounted instances.
 
+### SSR: pending dynamic/lazy components and the first shell
+
+In streaming SSR, a pending `dynamic()` or `lazy()` component inside `<Loading>`
+no longer gates the first shell: the boundary fallback is emitted in the shell and
+the resolved component streams later. Without a boundary, the same pending
+component is a root hole; that hole still gates the first shell, which waits and
+emits the resolved component inline rather than sending an empty shell first.
+
 ### `lazy()` in SSR and hydration
 
 `lazy(loader, moduleUrl?)` lives in `solid-js`. The optional callsite module
@@ -126,7 +144,7 @@ const About = lazy(() => import("./About"));
 const moduleRef: string | undefined = About.moduleUrl;
 ```
 
-In beta.17, hydration matches preloaded lazy modules **positionally by
+Since beta.17, hydration matches preloaded lazy modules **positionally by
 hydration id**, not by module identity, so a client callsite without
 `moduleUrl` (including `import.meta.glob`) hydrates correctly. On the server:
 
@@ -207,6 +225,18 @@ function titleDirective(source) {
 }
 ```
 
+For library code that forwards or applies user refs, use `applyRef` rather than
+manually flattening callback arrays; its exact DOM typing and recursive `JSX.Ref`
+shape are in `references/typescript-setup.md`.
+
+### `claimElementTree` is renderer infrastructure
+
+`claimElementTree(root)` sweep-claims navigation-relevant descendants such as
+`a[href]` and `form[action]` when live DOM arrives without compiled creation code.
+It is a low-level integration primitive for frames, routers, and adopted/streamed
+SSR ranges—not an application ref, hydration, or DOM-initialization idiom. The
+server export is a no-op.
+
 ## Rendering entries
 
 ```ts
@@ -214,4 +244,23 @@ import { render, hydrate, Portal } from "@solidjs/web";                       //
 import { renderToString, renderToStringAsync, renderToStream, isServer, isDev } from "@solidjs/web"; // server
 ```
 
-`render` returns a dispose function. `Portal` throws on the server.
+`render` returns a dispose function.
+
+### `Portal` — client-only island
+
+The server renders nothing for `<Portal>`: children never evaluate, no async
+starts, nothing is serialized. Under hydration the children render fresh
+after settle, not during the hydration walk — so a read that must run on the
+server belongs above the portal (hoist the read, don't rely on the portal to
+run it). Async started inside a portal therefore begins on the client; give
+it its own `<Loading>` if you want fallback UI, since async discovered after
+settle forwards through already-initialized ancestor boundaries as ordinary
+pending status rather than dropping any of them back into fallback.
+
+```jsx
+<Portal mount={modalRoot}>
+  <Loading fallback={<Spinner />}>
+    <Dialog />
+  </Loading>
+</Portal>
+```
