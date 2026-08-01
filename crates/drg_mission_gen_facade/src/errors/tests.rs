@@ -27,6 +27,10 @@ fn display_messages_report_the_offending_variant_details() {
         "unexpected deep dive warning: `WRN_Plague`"
     );
     assert_eq!(
+        ConverterError::EmptyDreadnoughtRoster.to_string(),
+        "dreadnought roster must contain at least one variant"
+    );
+    assert_eq!(
         ConverterError::WarningsCountMismatch { count: 2 }.to_string(),
         "only expected at most 1 warning, but was given 2"
     );

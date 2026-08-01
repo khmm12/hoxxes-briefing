@@ -98,6 +98,32 @@ test('safeParseBriefingResponse fails when a dive carries the wrong mission coun
   assert.equal(result.success, false)
 })
 
+test('safeParseBriefingResponse rejects empty Elimination dreadnoughts in either objective branch', () => {
+  for (const objective of ['primaryObjective', 'secondaryObjective'] as const) {
+    const payload = createValidBriefingPayload()
+    const firstMission = payload.dives.normal.missions[0]
+
+    const result = v1.safeParseBriefingResponse({
+      ...payload,
+      dives: {
+        ...payload.dives,
+        normal: {
+          ...payload.dives.normal,
+          missions: [
+            {
+              ...firstMission,
+              [objective]: { kind: 'Elimination', dreadnoughts: [] },
+            },
+            ...payload.dives.normal.missions.slice(1),
+          ],
+        },
+      },
+    })
+
+    assert.equal(result.success, false, objective)
+  }
+})
+
 test('parseErrorResponse parses the CONTRACT_RETIRED error code', () => {
   const parsed = v1.parseErrorResponse({
     code: 'CONTRACT_RETIRED',

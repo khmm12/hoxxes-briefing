@@ -1,4 +1,45 @@
 use super::*;
+use crate::ConverterError;
+
+#[test]
+fn dreadnought_roster_rejects_empty_input() {
+    assert!(matches!(
+        DreadnoughtRoster::try_new(vec![]),
+        Err(ConverterError::EmptyDreadnoughtRoster)
+    ));
+}
+
+#[test]
+fn dreadnought_roster_preserves_order_and_supports_iteration() {
+    let roster = DreadnoughtRoster::try_new(vec![
+        Dreadnought::Twins,
+        Dreadnought::Classic,
+        Dreadnought::Hiveguard,
+    ])
+    .unwrap();
+
+    assert_eq!(
+        roster.as_slice(),
+        &[
+            Dreadnought::Twins,
+            Dreadnought::Classic,
+            Dreadnought::Hiveguard,
+        ]
+    );
+
+    let borrowed: Vec<_> = (&roster).into_iter().copied().collect();
+    assert_eq!(borrowed, roster.as_slice());
+
+    let owned: Vec<_> = roster.clone().into_iter().collect();
+    assert_eq!(owned, roster.as_slice());
+}
+
+#[test]
+fn dreadnought_roster_try_from_delegates_to_constructor() {
+    let roster = DreadnoughtRoster::try_from(vec![Dreadnought::Classic]).unwrap();
+
+    assert_eq!(roster.as_slice(), &[Dreadnought::Classic]);
+}
 
 #[test]
 fn deep_scan_values_by_duration_complexity() {

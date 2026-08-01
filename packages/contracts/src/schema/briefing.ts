@@ -46,6 +46,10 @@ const deepDiveWarningSchema = /* @__PURE__ */ v.picklist([
 ] as const)
 
 const deepDiveDreadnoughtSchema = /* @__PURE__ */ v.picklist(['Classic', 'Hiveguard', 'Twins'] as const)
+const deepDiveDreadnoughtsSchema = /* @__PURE__ */ v.pipe(
+  v.tupleWithRest([deepDiveDreadnoughtSchema], deepDiveDreadnoughtSchema),
+  v.readonly(),
+)
 
 const objectiveCountSchema = /* @__PURE__ */ v.pipe(v.number(), v.integer(), v.minValue(0))
 
@@ -85,7 +89,7 @@ const deepDivePrimaryObjectiveSchema = /* @__PURE__ */ v.pipe(
     }),
     v.object({
       kind: v.literal('Elimination'),
-      dreadnoughts: v.array(deepDiveDreadnoughtSchema),
+      dreadnoughts: deepDiveDreadnoughtsSchema,
     }),
     v.object({
       kind: v.literal('HeavyExtraction'),
@@ -111,7 +115,7 @@ const deepDiveSecondaryObjectiveSchema = /* @__PURE__ */ v.pipe(
     }),
     v.object({
       kind: v.literal('Elimination'),
-      dreadnoughts: v.array(deepDiveDreadnoughtSchema),
+      dreadnoughts: deepDiveDreadnoughtsSchema,
     }),
     v.object({
       kind: v.literal('MiningExpedition'),

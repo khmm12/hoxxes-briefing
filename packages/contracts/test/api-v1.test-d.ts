@@ -99,12 +99,15 @@ export type Assertions = [
       | 'HeavyExtraction'
     >
   >,
-  // A variant narrows to its own payload; `Elimination` carries a dreadnought roster.
+  // A variant narrows to its own payload; `Elimination` carries a read-only non-empty roster.
   Expect<
-    Equal<Extract<v1.DeepDivePrimaryObjective, { kind: 'Elimination' }>['dreadnoughts'], v1.DeepDiveDreadnought[]>
+    Equal<
+      Extract<v1.DeepDivePrimaryObjective, { kind: 'Elimination' }>['dreadnoughts'],
+      readonly [v1.DeepDiveDreadnought, ...v1.DeepDiveDreadnought[]]
+    >
   >,
-  // Nullable modifiers survive inference. `v.readonly()` is shallow: the mission
-  // element is itself read-only, but the roster array indexes back to mutable.
+  // Nullable modifiers survive inference. `v.readonly()` is shallow: each mission
+  // element is itself read-only, but the missions array remains mutable.
   Expect<Equal<v1.DeepDiveMission['anomaly'], v1.DeepDiveAnomaly | null>>,
   Expect<Equal<v1.DeepDive['missions'], v1.DeepDiveMission[]>>,
   // Parsers hand back the contract type, not `any`.

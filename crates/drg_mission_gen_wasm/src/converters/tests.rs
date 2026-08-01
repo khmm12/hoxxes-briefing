@@ -67,6 +67,14 @@ fn converter_error_maps_missions_count_mismatch() {
 }
 
 #[test]
+fn converter_error_maps_empty_dreadnought_roster() {
+    assert_eq!(
+        converter_error_type(facade::ConverterError::EmptyDreadnoughtRoster),
+        "EmptyDreadnoughtRoster"
+    );
+}
+
+#[test]
 fn converter_error_preserves_display_message() {
     let error =
         wasm::ConverterError::from(facade::ConverterError::MissionsCountMismatch { count: 4 });
@@ -234,7 +242,11 @@ fn primary_objective_maps_salvage_operation() {
 #[test]
 fn primary_objective_elimination_maps_kinds_to_dreadnoughts_field() {
     let objective = facade::DeepDivePrimaryObjective::Elimination {
-        dreadnought_kinds: vec![facade::Dreadnought::Hiveguard, facade::Dreadnought::Twins],
+        dreadnought_kinds: facade::DreadnoughtRoster::try_new(vec![
+            facade::Dreadnought::Hiveguard,
+            facade::Dreadnought::Twins,
+        ])
+        .unwrap(),
     };
 
     assert_eq!(
@@ -290,7 +302,8 @@ fn secondary_objective_maps_blackbox() {
 #[test]
 fn secondary_objective_elimination_keeps_kinds() {
     let objective = facade::DeepDiveSecondaryObjective::Elimination {
-        dreadnought_kinds: vec![facade::Dreadnought::Classic],
+        dreadnought_kinds: facade::DreadnoughtRoster::try_new(vec![facade::Dreadnought::Classic])
+            .unwrap(),
     };
 
     assert_eq!(

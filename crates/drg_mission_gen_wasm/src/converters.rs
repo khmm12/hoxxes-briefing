@@ -31,6 +31,9 @@ impl From<facade::ConverterError> for wasm::ConverterError {
                 facade::ConverterError::MissionsCountMismatch { .. } => {
                     "MissionsCountMismatch".to_string()
                 }
+                facade::ConverterError::EmptyDreadnoughtRoster => {
+                    "EmptyDreadnoughtRoster".to_string()
+                }
             },
         }
     }
