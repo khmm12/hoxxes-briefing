@@ -4,6 +4,26 @@ import * as v from 'valibot'
 import { getDeepDiveEvent } from './get-deep-dive-event.ts'
 
 describe('getDeepDiveEvent', () => {
+  it('bounds the upstream request with an abort signal', async () => {
+    let requestSignal: AbortSignal | undefined
+    const fetchImpl: typeof fetch = async (_input, init) => {
+      requestSignal = init?.signal ?? undefined
+      return jsonResponse({ SeedV2: 1234567890, ExpirationTime: '2026-07-02T11:00:00.000Z' })
+    }
+
+    await getDeepDiveEvent(fetchImpl, 1)
+
+    const signal = requestSignal
+    assert.ok(signal)
+    if (!signal.aborted) {
+      await new Promise<void>((resolve) => {
+        signal.addEventListener('abort', () => resolve(), { once: true })
+      })
+    }
+    assert.equal(signal.aborted, true)
+    assert.equal(signal.reason?.name, 'TimeoutError')
+  })
+
   it('maps the upstream payload and derives the release one week back', async () => {
     const fetchImpl: typeof fetch = async () =>
       jsonResponse({ SeedV2: 1234567890, ExpirationTime: '2026-07-02T11:00:00.000Z' })

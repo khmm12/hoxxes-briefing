@@ -2,6 +2,7 @@ import { subWeeks } from 'date-fns/subWeeks'
 import * as v from 'valibot'
 
 const UPSTREAM_DEEP_DIVE_EVENT_URL = 'https://drg.ghostship.dk/events/deepdive'
+const UPSTREAM_TIMEOUT_MS = 8_000
 
 const uint32 = /* @__PURE__ */ v.pipe(v.number(), v.integer(), v.minValue(0), v.maxValue(0xffffffff))
 
@@ -23,8 +24,11 @@ export type DeepDiveEvent = {
   expiration: string
 }
 
-export async function getDeepDiveEvent(fetchImpl: typeof fetch = fetch): Promise<DeepDiveEvent> {
-  const response = await fetchImpl(UPSTREAM_DEEP_DIVE_EVENT_URL)
+export async function getDeepDiveEvent(
+  fetchImpl: typeof fetch = fetch,
+  timeoutMs: number = UPSTREAM_TIMEOUT_MS,
+): Promise<DeepDiveEvent> {
+  const response = await fetchImpl(UPSTREAM_DEEP_DIVE_EVENT_URL, { signal: AbortSignal.timeout(timeoutMs) })
 
   if (!response.ok) throw new Error(`Failed to fetch deep dive mission event: HTTP ${response.status}`)
 
