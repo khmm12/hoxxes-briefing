@@ -32,6 +32,8 @@ local API.
 - Generated Panda output lives in `styled-system/`.
 
 For UI system rules and the icon/asset pipeline, see
-[docs/conventions.md](docs/conventions.md) and [docs/assets.md](docs/assets.md). The
-design system (tokens, typography roles, components) lives in
+[docs/conventions.md](docs/conventions.md) and [docs/assets.md](docs/assets.md).
+Service-worker build compatibility notes live in
+[docs/pwa-build.md](docs/pwa-build.md). The design system (tokens, typography
+roles, components) lives in
 [../../designs/DESIGN.md](../../designs/DESIGN.md).

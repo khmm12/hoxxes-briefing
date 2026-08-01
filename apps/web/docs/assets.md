@@ -37,7 +37,7 @@ path gets a content hash for free — change `emblem.ts` (or `favicon.svg`), rer
   `index.html`; Vite rewrites them to hashed `/assets/…` paths at build.
 - The manifest install icons (192/512/maskable) can't be reached that way — the
   OS reads the manifest as static JSON, which Vite never scans for assets. The
-  `manifest-icons` plugin in `vite.config.ts` resolves each one through Vite's
+  `web-manifest` plugin in `vite.config.ts` resolves each one through Vite's
   resolver (`this.resolve`) and routes it through the asset pipeline (`emitFile`
   → `getFileName`), then emits `manifest.webmanifest` with the hashed paths. It
   computes no hash itself; `assets/manifest.webmanifest` is the template — every
