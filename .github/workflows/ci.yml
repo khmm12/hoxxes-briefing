@@ -15,17 +15,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: pnpm
-      - name: Setup Rust toolchain
+      - name: Setup toolchain
         uses: jdx/mise-action@v4
         with:
-          install_args: rust
+          install_args: node rust
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2.9.1
       - name: Install dependencies
