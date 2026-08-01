@@ -175,7 +175,6 @@ backward-compatibility (disposable; see
 
 ## Sources
 
-- Enum source: [packages/contracts/src/schema/weekly.ts](../packages/contracts/src/schema/weekly.ts)
 - Official Deep Rock Galactic Wiki: [Deep Rock Galactic](https://deeprockgalactic.wiki.gg/wiki/Deep_Rock_Galactic)
 - Official Deep Rock Galactic Wiki: [Deep Dives](https://deeprockgalactic.wiki.gg/wiki/Deep_Dives)
 - Official Deep Rock Galactic Wiki: [Missions](https://deeprockgalactic.wiki.gg/wiki/Missions)
