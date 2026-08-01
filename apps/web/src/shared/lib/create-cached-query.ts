@@ -170,7 +170,12 @@ export async function* streamCachedQuery<K, T>(
     return
   }
 
-  const cachedPromise = options.cache.get(options.key)
+  // CacheStorage is a best-effort read-through layer. A denied or otherwise
+  // failed read must behave exactly like a miss so it cannot mask the network
+  // result (or replace a network error when both operations fail).
+  const cachedPromise = Promise.resolve()
+    .then(() => options.cache.get(options.key))
+    .catch(() => undefined)
   const networkResultPromise = networkPromise.then((value) => ok(options.key, 'network', value))
   const gracePromise = sleep(options.timeoutMs)
   const cachedResultPromise = (async () => {

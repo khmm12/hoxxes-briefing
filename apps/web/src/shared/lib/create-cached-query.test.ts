@@ -410,6 +410,53 @@ describe('streamCachedQuery', () => {
     expect(cache.set).not.toHaveBeenCalled()
   })
 
+  it('treats a rejected cache read as a miss when the network succeeds', async () => {
+    const key = ['weekly'] as const
+    const storageError = new Error('cache unavailable')
+    const networkValue = { weekId: '2026-W17' }
+    const networkRequest = createDeferred<typeof networkValue>()
+    const cache = {
+      get: vi.fn().mockRejectedValue(storageError),
+      set: vi.fn().mockResolvedValue(undefined),
+    }
+
+    const firstValue = streamCachedQuery({
+      cache,
+      fetcher: vi.fn(() => networkRequest.promise),
+      key,
+      signal: new AbortController().signal,
+      timeoutMs: 150,
+    }).next()
+
+    await Promise.resolve()
+    networkRequest.resolve(networkValue)
+
+    await expect(firstValue).resolves.toMatchObject({
+      done: false,
+      value: { refresh: { status: 'ok' }, source: 'network', value: networkValue },
+    })
+  })
+
+  it('surfaces the network error when both the cache read and network request fail', async () => {
+    const key = ['weekly'] as const
+    const storageError = new Error('cache unavailable')
+    const networkError = new Error('offline')
+    const cache = {
+      get: vi.fn().mockRejectedValue(storageError),
+      set: vi.fn().mockResolvedValue(undefined),
+    }
+
+    const iterator = streamCachedQuery({
+      cache,
+      fetcher: vi.fn().mockRejectedValue(networkError),
+      key,
+      signal: new AbortController().signal,
+      timeoutMs: 150,
+    })
+
+    await expect(iterator.next()).rejects.toBe(networkError)
+  })
+
   it('keeps the previous visible value when refresh fails', async () => {
     const key = ['weekly'] as const
     const previousValue = {
