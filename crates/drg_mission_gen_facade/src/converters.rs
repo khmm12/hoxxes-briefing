@@ -5,7 +5,7 @@ use drg_mission_gen_core::{
 
 use crate::{
     ConverterError, DeepDivePrimaryObjective, DeepDiveSecondaryObjective, Dreadnought,
-    DreadnoughtRoster, MISSION_COUNT,
+    Dreadnoughts, MISSION_COUNT,
     models::{
         Biome, Complexity, DeepDive, DeepDiveAnomaly, DeepDiveMission, DeepDiveMissions,
         DeepDiveWarning, Duration,
@@ -156,9 +156,7 @@ fn map_primary_objective_instance(
             kind: OBJ_Eliminate_Eggs,
             targets,
         } => Ok(DeepDivePrimaryObjective::Elimination {
-            dreadnought_kinds: DreadnoughtRoster::try_new(
-                targets.into_iter().map(Into::into).collect(),
-            )?,
+            dreadnoughts: Dreadnoughts::try_new(targets.into_iter().map(Into::into).collect())?,
         }),
         ObjectiveInstance::Other {
             kind: OBJ_1st_DeepScan,
@@ -222,9 +220,7 @@ fn map_secondary_objective_instance(
             kind: OBJ_DD_Elimination_Eggs,
             targets,
         } => Ok(Obj::Elimination {
-            dreadnought_kinds: DreadnoughtRoster::try_new(
-                targets.into_iter().map(Into::into).collect(),
-            )?,
+            dreadnoughts: Dreadnoughts::try_new(targets.into_iter().map(Into::into).collect())?,
         }),
         ObjectiveInstance::Other {
             kind: OBJ_DD_AlienEggs,

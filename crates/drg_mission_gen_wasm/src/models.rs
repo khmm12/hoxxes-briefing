@@ -94,10 +94,7 @@ pub enum DeepDiveSecondaryObjective {
     #[serde(rename_all = "camelCase")]
     EggHunt { eggs: u32 },
     #[serde(rename_all = "camelCase")]
-    Elimination {
-        #[serde(rename = "dreadnoughts")]
-        dreadnought_kinds: Vec<Dreadnought>,
-    },
+    Elimination { dreadnoughts: Vec<Dreadnought> },
     #[serde(rename_all = "camelCase")]
     HeavyExtraction { resinite_masses: u32 },
     #[serde(rename_all = "camelCase")]

@@ -2,16 +2,16 @@ use super::*;
 use crate::ConverterError;
 
 #[test]
-fn dreadnought_roster_rejects_empty_input() {
+fn dreadnoughts_reject_empty_input() {
     assert!(matches!(
-        DreadnoughtRoster::try_new(vec![]),
-        Err(ConverterError::EmptyDreadnoughtRoster)
+        Dreadnoughts::try_new(vec![]),
+        Err(ConverterError::EmptyDreadnoughts)
     ));
 }
 
 #[test]
-fn dreadnought_roster_preserves_order_and_supports_iteration() {
-    let roster = DreadnoughtRoster::try_new(vec![
+fn dreadnoughts_preserve_order_and_support_iteration() {
+    let dreadnoughts = Dreadnoughts::try_new(vec![
         Dreadnought::Twins,
         Dreadnought::Classic,
         Dreadnought::Hiveguard,
@@ -19,7 +19,7 @@ fn dreadnought_roster_preserves_order_and_supports_iteration() {
     .unwrap();
 
     assert_eq!(
-        roster.as_slice(),
+        dreadnoughts.as_slice(),
         &[
             Dreadnought::Twins,
             Dreadnought::Classic,
@@ -27,18 +27,18 @@ fn dreadnought_roster_preserves_order_and_supports_iteration() {
         ]
     );
 
-    let borrowed: Vec<_> = (&roster).into_iter().copied().collect();
-    assert_eq!(borrowed, roster.as_slice());
+    let borrowed: Vec<_> = (&dreadnoughts).into_iter().copied().collect();
+    assert_eq!(borrowed, dreadnoughts.as_slice());
 
-    let owned: Vec<_> = roster.clone().into_iter().collect();
-    assert_eq!(owned, roster.as_slice());
+    let owned: Vec<_> = dreadnoughts.clone().into_iter().collect();
+    assert_eq!(owned, dreadnoughts.as_slice());
 }
 
 #[test]
-fn dreadnought_roster_try_from_delegates_to_constructor() {
-    let roster = DreadnoughtRoster::try_from(vec![Dreadnought::Classic]).unwrap();
+fn dreadnoughts_try_from_delegates_to_constructor() {
+    let dreadnoughts = Dreadnoughts::try_from(vec![Dreadnought::Classic]).unwrap();
 
-    assert_eq!(roster.as_slice(), &[Dreadnought::Classic]);
+    assert_eq!(dreadnoughts.as_slice(), &[Dreadnought::Classic]);
 }
 
 #[test]

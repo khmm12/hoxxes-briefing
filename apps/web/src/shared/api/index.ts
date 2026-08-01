@@ -6,6 +6,7 @@ export {
   type DeepDiveAnomaly,
   type DeepDiveBiome,
   type DeepDiveDreadnought,
+  type DeepDiveDreadnoughts,
   type DeepDiveMission,
   type DeepDivePrimaryObjective,
   type DeepDiveSecondaryObjective,

@@ -63,15 +63,15 @@ pub enum Dreadnought {
 }
 
 #[derive(Debug, Clone, PartialEq)]
-pub struct DreadnoughtRoster(Vec<Dreadnought>);
+pub struct Dreadnoughts(Vec<Dreadnought>);
 
-impl DreadnoughtRoster {
-    pub fn try_new(dreadnought_kinds: Vec<Dreadnought>) -> Result<Self, crate::ConverterError> {
-        if dreadnought_kinds.is_empty() {
-            return Err(crate::ConverterError::EmptyDreadnoughtRoster);
+impl Dreadnoughts {
+    pub fn try_new(dreadnoughts: Vec<Dreadnought>) -> Result<Self, crate::ConverterError> {
+        if dreadnoughts.is_empty() {
+            return Err(crate::ConverterError::EmptyDreadnoughts);
         }
 
-        Ok(Self(dreadnought_kinds))
+        Ok(Self(dreadnoughts))
     }
 
     pub fn as_slice(&self) -> &[Dreadnought] {
@@ -79,15 +79,15 @@ impl DreadnoughtRoster {
     }
 }
 
-impl TryFrom<Vec<Dreadnought>> for DreadnoughtRoster {
+impl TryFrom<Vec<Dreadnought>> for Dreadnoughts {
     type Error = crate::ConverterError;
 
-    fn try_from(dreadnought_kinds: Vec<Dreadnought>) -> Result<Self, Self::Error> {
-        Self::try_new(dreadnought_kinds)
+    fn try_from(dreadnoughts: Vec<Dreadnought>) -> Result<Self, Self::Error> {
+        Self::try_new(dreadnoughts)
     }
 }
 
-impl IntoIterator for DreadnoughtRoster {
+impl IntoIterator for Dreadnoughts {
     type Item = Dreadnought;
     type IntoIter = std::vec::IntoIter<Dreadnought>;
 
@@ -96,7 +96,7 @@ impl IntoIterator for DreadnoughtRoster {
     }
 }
 
-impl<'a> IntoIterator for &'a DreadnoughtRoster {
+impl<'a> IntoIterator for &'a Dreadnoughts {
     type Item = &'a Dreadnought;
     type IntoIter = std::slice::Iter<'a, Dreadnought>;
 
@@ -107,64 +107,28 @@ impl<'a> IntoIterator for &'a DreadnoughtRoster {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum DeepDivePrimaryObjective {
-    DeepScan {
-        resonance_crystals: u32,
-    },
-    EscortDuty {
-        refuels: u32,
-    },
-    MiningExpedition {
-        morkite: u32,
-    },
-    IndustrialSabotage {
-        power_stations: u32,
-    },
-    EggHunt {
-        eggs: u32,
-    },
-    PointExtraction {
-        aquarqs: u32,
-    },
-    OnSiteRefining {
-        morkite_wells: u32,
-    },
-    SalvageOperation {
-        mini_mules: u32,
-    },
-    Elimination {
-        dreadnought_kinds: DreadnoughtRoster,
-    },
-    HeavyExtraction {
-        resinite_masses: u32,
-    },
+    DeepScan { resonance_crystals: u32 },
+    EscortDuty { refuels: u32 },
+    MiningExpedition { morkite: u32 },
+    IndustrialSabotage { power_stations: u32 },
+    EggHunt { eggs: u32 },
+    PointExtraction { aquarqs: u32 },
+    OnSiteRefining { morkite_wells: u32 },
+    SalvageOperation { mini_mules: u32 },
+    Elimination { dreadnoughts: Dreadnoughts },
+    HeavyExtraction { resinite_masses: u32 },
 }
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum DeepDiveSecondaryObjective {
-    EggHunt {
-        eggs: u32,
-    },
-    DeepScan {
-        resonance_crystals: u32,
-    },
-    Blackbox {
-        black_boxes: u32,
-    },
-    Elimination {
-        dreadnought_kinds: DreadnoughtRoster,
-    },
-    MiningExpedition {
-        morkite: u32,
-    },
-    OnSiteRefining {
-        morkite_wells: u32,
-    },
-    SalvageOperation {
-        mini_mules: u32,
-    },
-    HeavyExtraction {
-        resinite_masses: u32,
-    },
+    EggHunt { eggs: u32 },
+    DeepScan { resonance_crystals: u32 },
+    Blackbox { black_boxes: u32 },
+    Elimination { dreadnoughts: Dreadnoughts },
+    MiningExpedition { morkite: u32 },
+    OnSiteRefining { morkite_wells: u32 },
+    SalvageOperation { mini_mules: u32 },
+    HeavyExtraction { resinite_masses: u32 },
 }
 
 #[derive(Debug, Copy, Clone, PartialEq)]

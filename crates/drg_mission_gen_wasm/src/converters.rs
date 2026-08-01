@@ -31,9 +31,7 @@ impl From<facade::ConverterError> for wasm::ConverterError {
                 facade::ConverterError::MissionsCountMismatch { .. } => {
                     "MissionsCountMismatch".to_string()
                 }
-                facade::ConverterError::EmptyDreadnoughtRoster => {
-                    "EmptyDreadnoughtRoster".to_string()
-                }
+                facade::ConverterError::EmptyDreadnoughts => "EmptyDreadnoughts".to_string(),
             },
         }
     }
@@ -99,9 +97,9 @@ impl From<facade::DeepDivePrimaryObjective> for wasm::DeepDivePrimaryObjective {
             facade::DeepDivePrimaryObjective::SalvageOperation { mini_mules } => {
                 wasm::DeepDivePrimaryObjective::SalvageOperation { mini_mules }
             }
-            facade::DeepDivePrimaryObjective::Elimination { dreadnought_kinds } => {
+            facade::DeepDivePrimaryObjective::Elimination { dreadnoughts } => {
                 wasm::DeepDivePrimaryObjective::Elimination {
-                    dreadnoughts: dreadnought_kinds.into_iter().map(Into::into).collect(),
+                    dreadnoughts: dreadnoughts.into_iter().map(Into::into).collect(),
                 }
             }
             facade::DeepDivePrimaryObjective::HeavyExtraction { resinite_masses } => {
@@ -123,9 +121,9 @@ impl From<facade::DeepDiveSecondaryObjective> for wasm::DeepDiveSecondaryObjecti
             facade::DeepDiveSecondaryObjective::Blackbox { black_boxes } => {
                 wasm::DeepDiveSecondaryObjective::Blackbox { black_boxes }
             }
-            facade::DeepDiveSecondaryObjective::Elimination { dreadnought_kinds } => {
+            facade::DeepDiveSecondaryObjective::Elimination { dreadnoughts } => {
                 wasm::DeepDiveSecondaryObjective::Elimination {
-                    dreadnought_kinds: dreadnought_kinds.into_iter().map(Into::into).collect(),
+                    dreadnoughts: dreadnoughts.into_iter().map(Into::into).collect(),
                 }
             }
             facade::DeepDiveSecondaryObjective::MiningExpedition { morkite } => {

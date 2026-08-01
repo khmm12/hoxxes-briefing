@@ -179,6 +179,7 @@ export type DeepDiveBiome = v.InferOutput<typeof deepDiveBiomeSchema>
 export type DeepDiveAnomaly = v.InferOutput<typeof deepDiveAnomalySchema>
 export type DeepDiveWarning = v.InferOutput<typeof deepDiveWarningSchema>
 export type DeepDiveDreadnought = v.InferOutput<typeof deepDiveDreadnoughtSchema>
+export type DeepDiveDreadnoughts = v.InferOutput<typeof deepDiveDreadnoughtsSchema>
 export type DeepDivePrimaryObjective = v.InferOutput<typeof deepDivePrimaryObjectiveSchema>
 export type DeepDiveSecondaryObjective = v.InferOutput<typeof deepDiveSecondaryObjectiveSchema>
 export type DeepDiveMission = v.InferOutput<typeof deepDiveMissionSchema>

@@ -264,11 +264,8 @@ fn primary_objective_maps_every_supported_kind() {
     assert_eq!(
         result.unwrap(),
         DeepDivePrimaryObjective::Elimination {
-            dreadnought_kinds: DreadnoughtRoster::try_new(vec![
-                Dreadnought::Twins,
-                Dreadnought::Hiveguard,
-            ])
-            .unwrap(),
+            dreadnoughts: Dreadnoughts::try_new(vec![Dreadnought::Twins, Dreadnought::Hiveguard,])
+                .unwrap(),
         }
     );
 }
@@ -280,7 +277,7 @@ fn primary_objective_rejects_empty_elimination_targets() {
 
     assert!(matches!(
         result.unwrap_err(),
-        ConverterError::EmptyDreadnoughtRoster
+        ConverterError::EmptyDreadnoughts
     ));
 }
 
@@ -347,7 +344,7 @@ fn secondary_objective_maps_every_supported_kind() {
     assert_eq!(
         result.unwrap(),
         DeepDiveSecondaryObjective::Elimination {
-            dreadnought_kinds: DreadnoughtRoster::try_new(vec![Dreadnought::Hiveguard]).unwrap(),
+            dreadnoughts: Dreadnoughts::try_new(vec![Dreadnought::Hiveguard]).unwrap(),
         }
     );
 }
@@ -359,7 +356,7 @@ fn secondary_objective_rejects_empty_elimination_targets() {
 
     assert!(matches!(
         result.unwrap_err(),
-        ConverterError::EmptyDreadnoughtRoster
+        ConverterError::EmptyDreadnoughts
     ));
 }
 
