@@ -13,5 +13,8 @@
   "sideEffects": [
     "./drg_mission_gen_wasm.js",
     "./snippets/*"
-  ]
+  ],
+  "hoxxesBriefing": {
+    "codegenInputHash": "9b0b7ebd0dc6d3bf8b7953b1d4ec5ecd8b384db7"
+  }
 }

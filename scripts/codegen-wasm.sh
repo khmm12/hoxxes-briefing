@@ -12,6 +12,22 @@ package_json="$pkg_root/package.json"
 pkg_js_entry="$pkg_root/drg_mission_gen_wasm.js"
 pkg_wasm_entry="$pkg_root/drg_mission_gen_wasm_bg.wasm"
 pkg_types_entry="$pkg_root/drg_mission_gen_wasm.d.ts"
+codegen_input_hash=$(
+  git ls-files -- \
+    .mise.toml \
+    Cargo.lock \
+    Cargo.toml \
+    scripts/codegen-wasm.sh \
+    crates/drg_mission_gen_facade/Cargo.toml \
+    crates/drg_mission_gen_facade/src \
+    crates/drg_mission_gen_wasm/Cargo.toml \
+    crates/drg_mission_gen_wasm/src |
+    while IFS= read -r input_file
+    do
+      printf '%s %s\n' "$(git hash-object -- "$input_file")" "$input_file"
+    done |
+    git hash-object --stdin
+)
 
 if ! command -v wasm-pack >/dev/null 2>&1
 then
@@ -49,7 +65,11 @@ fi
 tmp_file=$(mktemp)
 trap 'rm -f "$tmp_file"' EXIT
 
-jq --arg name "$package_name" '.name = $name' "$package_json" > "$tmp_file"
+jq \
+  --arg name "$package_name" \
+  --arg codegen_input_hash "$codegen_input_hash" \
+  '.name = $name | .hoxxesBriefing.codegenInputHash = $codegen_input_hash' \
+  "$package_json" > "$tmp_file"
 mv "$tmp_file" "$package_json"
 
 for output_file in "$pkg_js_entry" "$pkg_wasm_entry" "$pkg_types_entry"

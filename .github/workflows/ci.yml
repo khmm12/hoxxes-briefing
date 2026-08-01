@@ -20,6 +20,10 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+      - name: Setup Rust toolchain
+        uses: jdx/mise-action@v3
+        env:
+          MISE_ENABLE_TOOLS: rust
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2.9.1
       - name: Install dependencies
@@ -28,7 +32,7 @@ jobs:
         run: pnpm check
 
   wasm-codegen:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -41,4 +45,7 @@ jobs:
       - name: Regenerate WASM package
         run: ./scripts/codegen-wasm.sh
       - name: Verify generated package is committed
-        run: git diff --exit-code -- crates/drg_mission_gen_wasm/pkg
+        run: >-
+          git diff --exit-code --
+          crates/drg_mission_gen_wasm/pkg
+          ':(exclude)crates/drg_mission_gen_wasm/pkg/drg_mission_gen_wasm_bg.wasm'
