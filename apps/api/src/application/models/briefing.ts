@@ -45,6 +45,7 @@ type DeepDiveBiome = (typeof DEEP_DIVE_BIOMES)[number]
 type DeepDiveAnomaly = (typeof DEEP_DIVE_ANOMALIES)[number]
 type DeepDiveWarning = (typeof DEEP_DIVE_WARNINGS)[number]
 export type DeepDiveDreadnought = (typeof DEEP_DIVE_DREADNOUGHTS)[number]
+export type DeepDiveDreadnoughts = readonly [DeepDiveDreadnought, ...DeepDiveDreadnought[]]
 
 export type DeepDivePrimaryObjective = Readonly<
   | { kind: 'DeepScan'; resonanceCrystals: number }
@@ -55,7 +56,7 @@ export type DeepDivePrimaryObjective = Readonly<
   | { kind: 'PointExtraction'; aquarqs: number }
   | { kind: 'OnSiteRefining'; morkiteWells: number }
   | { kind: 'SalvageOperation'; miniMules: number }
-  | { kind: 'Elimination'; dreadnoughts: DeepDiveDreadnought[] }
+  | { kind: 'Elimination'; dreadnoughts: DeepDiveDreadnoughts }
   | { kind: 'HeavyExtraction'; resiniteMasses: number }
 >
 
@@ -63,7 +64,7 @@ export type DeepDiveSecondaryObjective = Readonly<
   | { kind: 'EggHunt'; eggs: number }
   | { kind: 'DeepScan'; resonanceCrystals: number }
   | { kind: 'Blackbox'; blackBoxes: number }
-  | { kind: 'Elimination'; dreadnoughts: DeepDiveDreadnought[] }
+  | { kind: 'Elimination'; dreadnoughts: DeepDiveDreadnoughts }
   | { kind: 'MiningExpedition'; morkite: number }
   | { kind: 'OnSiteRefining'; morkiteWells: number }
   | { kind: 'SalvageOperation'; miniMules: number }
@@ -77,10 +78,12 @@ export type DeepDiveMission = Readonly<{
   warning: DeepDiveWarning | null
 }>
 
+export type DeepDiveMissions = readonly [DeepDiveMission, DeepDiveMission, DeepDiveMission]
+
 export type DeepDive = Readonly<{
   name: string
   biome: DeepDiveBiome
-  missions: ReadonlyArray<DeepDiveMission>
+  missions: DeepDiveMissions
 }>
 
 export type Briefing = Readonly<{

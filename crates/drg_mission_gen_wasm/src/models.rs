@@ -29,8 +29,13 @@ pub struct DeepDives {
 pub struct DeepDive {
     pub name: String,
     pub biome: Biome,
-    pub missions: Vec<DeepDiveMission>,
+    pub missions: DeepDiveMissions,
 }
+
+#[derive(Debug, Clone, PartialEq, ::serde::Serialize, ::tsify::Tsify)]
+#[serde(transparent)]
+#[tsify(type = "readonly [DeepDiveMission, DeepDiveMission, DeepDiveMission]")]
+pub struct DeepDiveMissions(pub [DeepDiveMission; drg_mission_gen_facade::MISSION_COUNT]);
 
 #[derive(Debug, Clone, PartialEq, ::serde::Serialize, ::tsify::Tsify)]
 #[serde(rename_all = "camelCase")]
@@ -79,7 +84,7 @@ pub enum DeepDivePrimaryObjective {
     #[serde(rename_all = "camelCase")]
     SalvageOperation { mini_mules: u32 },
     #[serde(rename_all = "camelCase")]
-    Elimination { dreadnoughts: Vec<Dreadnought> },
+    Elimination { dreadnoughts: Dreadnoughts },
     #[serde(rename_all = "camelCase")]
     HeavyExtraction { resinite_masses: u32 },
 }
@@ -94,7 +99,7 @@ pub enum DeepDiveSecondaryObjective {
     #[serde(rename_all = "camelCase")]
     EggHunt { eggs: u32 },
     #[serde(rename_all = "camelCase")]
-    Elimination { dreadnoughts: Vec<Dreadnought> },
+    Elimination { dreadnoughts: Dreadnoughts },
     #[serde(rename_all = "camelCase")]
     HeavyExtraction { resinite_masses: u32 },
     #[serde(rename_all = "camelCase")]
@@ -149,6 +154,11 @@ wasm_string_enum! {
 
     from drg_mission_gen_facade::Dreadnought
 }
+
+#[derive(Debug, Clone, PartialEq, ::serde::Serialize, ::tsify::Tsify)]
+#[serde(transparent)]
+#[tsify(type = "readonly [Dreadnought, ...Dreadnought[]]")]
+pub struct Dreadnoughts(pub(crate) Vec<Dreadnought>);
 
 #[cfg(test)]
 mod tests;

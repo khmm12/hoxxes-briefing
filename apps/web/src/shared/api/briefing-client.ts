@@ -9,6 +9,7 @@ export type {
   DeepDiveDreadnought,
   DeepDiveDreadnoughts,
   DeepDiveMission,
+  DeepDiveMissions,
   DeepDivePrimaryObjective,
   DeepDiveSecondaryObjective,
   DeepDiveWarning,

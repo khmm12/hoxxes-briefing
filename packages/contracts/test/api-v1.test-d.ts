@@ -99,17 +99,15 @@ export type Assertions = [
       | 'HeavyExtraction'
     >
   >,
-  // A variant narrows to its own payload; `Elimination` carries a read-only non-empty roster.
-  Expect<
-    Equal<
-      Extract<v1.DeepDivePrimaryObjective, { kind: 'Elimination' }>['dreadnoughts'],
-      readonly [v1.DeepDiveDreadnought, ...v1.DeepDiveDreadnought[]]
-    >
-  >,
-  // Nullable modifiers survive inference. `v.readonly()` is shallow: each mission
-  // element is itself read-only, but the missions array remains mutable.
+  // A variant narrows to its own payload; `Elimination` carries a read-only
+  // non-empty dreadnought collection.
+  Expect<Equal<v1.DeepDiveDreadnoughts, readonly [v1.DeepDiveDreadnought, ...v1.DeepDiveDreadnought[]]>>,
+  Expect<Equal<Extract<v1.DeepDivePrimaryObjective, { kind: 'Elimination' }>['dreadnoughts'], v1.DeepDiveDreadnoughts>>,
+  // Nullable modifiers survive inference and a Deep Dive exposes exactly three
+  // read-only Missions.
   Expect<Equal<v1.DeepDiveMission['anomaly'], v1.DeepDiveAnomaly | null>>,
-  Expect<Equal<v1.DeepDive['missions'], v1.DeepDiveMission[]>>,
+  Expect<Equal<v1.DeepDiveMissions, readonly [v1.DeepDiveMission, v1.DeepDiveMission, v1.DeepDiveMission]>>,
+  Expect<Equal<v1.DeepDive['missions'], v1.DeepDiveMissions>>,
   // Parsers hand back the contract type, not `any`.
   Expect<Equal<ReturnType<typeof v1.parseBriefingResponse>, v1.BriefingResponse>>,
   Expect<Equal<ReturnType<typeof v1.parseContractRev>, number | null>>,

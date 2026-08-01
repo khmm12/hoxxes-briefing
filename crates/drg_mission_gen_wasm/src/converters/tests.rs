@@ -121,7 +121,7 @@ fn deep_dive_converts_name_biome_and_missions() {
 
     assert_eq!(converted.name, "Point Extraction Site");
     assert_eq!(converted.biome, wasm::Biome::HollowBough);
-    assert_eq!(converted.missions.len(), 3);
+    assert_eq!(converted.missions.0.len(), facade::MISSION_COUNT);
 }
 
 #[test]
@@ -252,7 +252,10 @@ fn primary_objective_elimination_maps_dreadnoughts() {
     assert_eq!(
         wasm::DeepDivePrimaryObjective::from(objective),
         wasm::DeepDivePrimaryObjective::Elimination {
-            dreadnoughts: vec![wasm::Dreadnought::Hiveguard, wasm::Dreadnought::Twins]
+            dreadnoughts: wasm::Dreadnoughts(vec![
+                wasm::Dreadnought::Hiveguard,
+                wasm::Dreadnought::Twins,
+            ])
         }
     );
 }
@@ -308,7 +311,7 @@ fn secondary_objective_elimination_maps_dreadnoughts() {
     assert_eq!(
         wasm::DeepDiveSecondaryObjective::from(objective),
         wasm::DeepDiveSecondaryObjective::Elimination {
-            dreadnoughts: vec![wasm::Dreadnought::Classic]
+            dreadnoughts: wasm::Dreadnoughts(vec![wasm::Dreadnought::Classic])
         }
     );
 }

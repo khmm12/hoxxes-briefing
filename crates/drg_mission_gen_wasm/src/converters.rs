@@ -54,8 +54,14 @@ impl From<facade::DeepDive> for wasm::DeepDive {
         wasm::DeepDive {
             name: dd.name,
             biome: dd.biome.into(),
-            missions: dd.missions.0.into_iter().map(Into::into).collect(),
+            missions: dd.missions.into(),
         }
+    }
+}
+
+impl From<facade::DeepDiveMissions> for wasm::DeepDiveMissions {
+    fn from(missions: facade::DeepDiveMissions) -> Self {
+        Self(missions.0.map(Into::into))
     }
 }
 
@@ -99,7 +105,7 @@ impl From<facade::DeepDivePrimaryObjective> for wasm::DeepDivePrimaryObjective {
             }
             facade::DeepDivePrimaryObjective::Elimination { dreadnoughts } => {
                 wasm::DeepDivePrimaryObjective::Elimination {
-                    dreadnoughts: dreadnoughts.into_iter().map(Into::into).collect(),
+                    dreadnoughts: dreadnoughts.into(),
                 }
             }
             facade::DeepDivePrimaryObjective::HeavyExtraction { resinite_masses } => {
@@ -123,7 +129,7 @@ impl From<facade::DeepDiveSecondaryObjective> for wasm::DeepDiveSecondaryObjecti
             }
             facade::DeepDiveSecondaryObjective::Elimination { dreadnoughts } => {
                 wasm::DeepDiveSecondaryObjective::Elimination {
-                    dreadnoughts: dreadnoughts.into_iter().map(Into::into).collect(),
+                    dreadnoughts: dreadnoughts.into(),
                 }
             }
             facade::DeepDiveSecondaryObjective::MiningExpedition { morkite } => {
@@ -139,6 +145,12 @@ impl From<facade::DeepDiveSecondaryObjective> for wasm::DeepDiveSecondaryObjecti
                 wasm::DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses }
             }
         }
+    }
+}
+
+impl From<facade::Dreadnoughts> for wasm::Dreadnoughts {
+    fn from(dreadnoughts: facade::Dreadnoughts) -> Self {
+        Self(dreadnoughts.into_iter().map(Into::into).collect())
     }
 }
 

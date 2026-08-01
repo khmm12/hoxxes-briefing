@@ -3,7 +3,7 @@
 export interface DeepDive {
     name: string;
     biome: Biome;
-    missions: DeepDiveMission[];
+    missions: DeepDiveMissions;
 }
 
 export interface DeepDiveMission {
@@ -27,13 +27,17 @@ export type Biome = "CrystallineCaverns" | "FungusBogs" | "MagmaCore" | "Radioac
 
 export type DeepDiveAnomaly = "BloodSugar" | "CriticalWeakness" | "LowGravity" | "RichAtmosphere" | "VolatileGuts";
 
-export type DeepDivePrimaryObjective = { kind: "DeepScan"; resonanceCrystals: number } | { kind: "EscortDuty"; refuels: number } | { kind: "MiningExpedition"; morkite: number } | { kind: "IndustrialSabotage"; powerStations: number } | { kind: "EggHunt"; eggs: number } | { kind: "PointExtraction"; aquarqs: number } | { kind: "OnSiteRefining"; morkiteWells: number } | { kind: "SalvageOperation"; miniMules: number } | { kind: "Elimination"; dreadnoughts: Dreadnought[] } | { kind: "HeavyExtraction"; resiniteMasses: number };
+export type DeepDiveMissions = readonly [DeepDiveMission, DeepDiveMission, DeepDiveMission];
 
-export type DeepDiveSecondaryObjective = { kind: "Blackbox"; blackBoxes: number } | { kind: "DeepScan"; resonanceCrystals: number } | { kind: "EggHunt"; eggs: number } | { kind: "Elimination"; dreadnoughts: Dreadnought[] } | { kind: "HeavyExtraction"; resiniteMasses: number } | { kind: "MiningExpedition"; morkite: number } | { kind: "OnSiteRefining"; morkiteWells: number } | { kind: "SalvageOperation"; miniMules: number };
+export type DeepDivePrimaryObjective = { kind: "DeepScan"; resonanceCrystals: number } | { kind: "EscortDuty"; refuels: number } | { kind: "MiningExpedition"; morkite: number } | { kind: "IndustrialSabotage"; powerStations: number } | { kind: "EggHunt"; eggs: number } | { kind: "PointExtraction"; aquarqs: number } | { kind: "OnSiteRefining"; morkiteWells: number } | { kind: "SalvageOperation"; miniMules: number } | { kind: "Elimination"; dreadnoughts: Dreadnoughts } | { kind: "HeavyExtraction"; resiniteMasses: number };
+
+export type DeepDiveSecondaryObjective = { kind: "Blackbox"; blackBoxes: number } | { kind: "DeepScan"; resonanceCrystals: number } | { kind: "EggHunt"; eggs: number } | { kind: "Elimination"; dreadnoughts: Dreadnoughts } | { kind: "HeavyExtraction"; resiniteMasses: number } | { kind: "MiningExpedition"; morkite: number } | { kind: "OnSiteRefining"; morkiteWells: number } | { kind: "SalvageOperation"; miniMules: number };
 
 export type DeepDiveWarning = "CaveLeechCluster" | "DuckAndCover" | "EboniteOutbreak" | "EliteThreat" | "ExploderInfestation" | "HauntedCave" | "LethalEnemies" | "LowOxygen" | "MacteraPlague" | "Parasites" | "PitJawColony" | "RegenerativeBugs" | "RivalPresence" | "ScrabNestingGrounds" | "ShieldDisruption" | "Swarmageddon";
 
 export type Dreadnought = "Classic" | "Hiveguard" | "Twins";
+
+export type Dreadnoughts = readonly [Dreadnought, ...Dreadnought[]];
 
 
 export class ConverterError {
