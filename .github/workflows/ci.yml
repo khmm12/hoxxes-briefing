@@ -23,7 +23,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - name: Setup Rust toolchain
-        uses: jdx/mise-action@v3
+        uses: jdx/mise-action@v4
         env:
           MISE_ENABLE_TOOLS: rust
       - name: Cache Rust
@@ -39,7 +39,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Setup WASM toolchain
-        uses: jdx/mise-action@v3
+        uses: jdx/mise-action@v4
         env:
           MISE_ENABLE_TOOLS: rust,cargo:wasm-pack,cargo:wasm-bindgen-cli
       - name: Cache Rust
