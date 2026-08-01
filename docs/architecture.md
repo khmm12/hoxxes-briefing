@@ -14,8 +14,7 @@ Deep Dive and Elite Deep Dive rotation.
   models.
 - `crates/drg_mission_gen_wasm` exposes the generator to TypeScript through the
   committed WASM package.
-- `api/v1/briefing.ts` is the Vercel Function entrypoint for the deployed API;
-  `api/v1/weekly.ts` is the retained legacy entrypoint.
+- `api/v1/briefing.ts` is the Vercel Function entrypoint for the deployed API.
 
 ## Request Flow
 
@@ -35,7 +34,7 @@ The first supported deployment shape is root-path, same-origin hosting:
 - app shell: `/`
 - manifest: `/manifest.webmanifest`
 - service worker: `/sw.js`
-- briefing API: `/api/v1/briefing` (legacy `/api/v1/weekly` retained)
+- briefing API: `/api/v1/briefing`
 
 Subpath hosting, SSR, browser-side generation, archive pages, and admin surfaces
 are not part of the current architecture.

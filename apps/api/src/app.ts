@@ -1,7 +1,6 @@
 import { Hono } from 'hono'
 import type { v1 } from '@hoxxes-briefing/contracts'
 import { registerBriefingRoute } from './http/briefing/route.ts'
-import { registerWeeklyRoute } from './http/weekly/route.ts'
 import { createDirectBriefingProvider } from './infrastructure/providers/direct-briefing-provider.ts'
 import type { BriefingProvider } from './ports/briefing-provider.ts'
 
@@ -16,8 +15,6 @@ export function createApp(dependencies: AppDependencies) {
   const { briefingProvider, confidence } = dependencies
 
   registerBriefingRoute(app, { briefingProvider, confidence })
-  // CLEANUP(stage-4): drop the legacy /api/v1/weekly route and its import above.
-  registerWeeklyRoute(app, { briefingProvider })
 
   return app
 }

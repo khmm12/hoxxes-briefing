@@ -13,11 +13,11 @@ describe('clearStaleDataCaches', () => {
     await expect(clearStaleDataCaches()).resolves.toBeUndefined()
   })
 
-  it('evicts superseded data-cache versions and the retired legacy weekly cache, keeping the live one', async () => {
+  it('evicts superseded data-cache versions, keeping the live one', async () => {
     const deleteMock = vi.fn(async () => true)
     vi.stubGlobal('caches', {
       keys: vi.fn(async () => [
-        // Retired data cache from the pre-briefing client — always dropped.
+        // Unrelated retired cache — not ours to delete.
         'hoxxes-briefing-weekly-cache-v1',
         // Superseded data-cache version — dropped.
         'hoxxes-briefing-data-cache-v0',
@@ -30,10 +30,10 @@ describe('clearStaleDataCaches', () => {
 
     await clearStaleDataCaches()
 
-    expect(deleteMock).toHaveBeenCalledTimes(2)
-    expect(deleteMock).toHaveBeenCalledWith('hoxxes-briefing-weekly-cache-v1')
+    expect(deleteMock).toHaveBeenCalledOnce()
     expect(deleteMock).toHaveBeenCalledWith('hoxxes-briefing-data-cache-v0')
     expect(deleteMock).not.toHaveBeenCalledWith('hoxxes-briefing-data-cache-v1')
+    expect(deleteMock).not.toHaveBeenCalledWith('hoxxes-briefing-weekly-cache-v1')
     expect(deleteMock).not.toHaveBeenCalledWith('unrelated-cache')
   })
 })

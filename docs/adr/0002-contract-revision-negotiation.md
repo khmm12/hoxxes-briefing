@@ -31,8 +31,7 @@ update wall.**
     it `Cache-Control: no-store`, so downgraded shapes never enter the CDN and
     no `Vary` behavior needs to be trusted.
   - `< MIN_SUPPORTED_REV` → **410 Gone** with error code `CONTRACT_RETIRED`.
-  - No header → serve current (curl/debugging sees the live schema; the only
-    header-less clients are pre-revision ones on the legacy `/api/v1/weekly`).
+  - No header → serve current (curl/debugging sees the live schema).
 - **Every `CONTRACT_REV` bump must choose exactly one of two options:**
   - **transform** — the change is expressible in the previous revision's
     vocabulary and semantics; write the `N → N−1` downgrade, keep the tail
@@ -95,10 +94,8 @@ update wall.**
   tests), and `packages/contracts` carries nothing but the current contract
   plus `CONTRACT_REV` and the header name. The generator, providers and wasm
   boundary know nothing about revisions.
-- The legacy `/api/v1/weekly` ACL stays outside the revision system and dies
-  on its own schedule (ADR 0001); its wire schema and the
-  `WEEKLY_DATA_UNAVAILABLE` error code move out of `packages/contracts` into
-  the API next to the ACL, making contracts current-only.
+- The legacy `/api/v1/weekly` ACL stayed outside the revision system and was
+  removed in Stage 4 under ADR 0001. `packages/contracts` remains current-only.
 - Retiring a revision is a real decision with a real cost (the tail hits the
   wall), so bumps must be deliberate. The operational side — when to bump,
   when to transform, when to retire, how to run a season — is documented in

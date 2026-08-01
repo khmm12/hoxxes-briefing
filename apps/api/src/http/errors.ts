@@ -1,9 +1,8 @@
 import type { BriefingProviderFailureKind } from '../ports/briefing-provider.ts'
 import { BriefingProviderError } from '../ports/briefing-provider.ts'
 
-// App-level failure taxonomy: clean, endpoint-agnostic reasons. Each HTTP
-// endpoint presents them as its own wire `code`/`message` (see the
-// presentation tables in `briefing/errors.ts` and `weekly/errors.ts`).
+// App-level failure taxonomy: clean, endpoint-agnostic reasons. The briefing
+// route presents them as its wire `code`/`message`.
 export type AppFailureReason = BriefingProviderFailureKind | 'INVALID_RESPONSE_PAYLOAD' | 'INTERNAL_ERROR'
 
 export type PublicErrorStatus = 500 | 502 | 503

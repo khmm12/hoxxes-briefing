@@ -10,26 +10,18 @@ const dataCacheVersion = 1
 const dataCachePrefix = 'hoxxes-briefing-data-cache-v'
 const dataCacheName = `${dataCachePrefix}${dataCacheVersion}`
 
-// CLEANUP(stage-4): one-time eviction of retired `/api/v1/weekly` cache residue.
-// This is cleanup, not migration — the payload is the incompatible legacy wire
-// shape, so we evict it and never read it; a migrated client just refetches the
-// briefing. Remove this once legacy clients have cycled.
-const legacyWeeklyCachePrefix = 'hoxxes-briefing-weekly-cache-v'
-
 export async function openDataCache(): Promise<Cache | null> {
   return isCacheStorageAvailable() ? caches.open(dataCacheName) : null
 }
 
-// Activation sweep: drops superseded data-cache versions and the retired
-// legacy weekly cache, keeping only the live store.
+// Activation sweep: drops superseded data-cache versions, keeping the live store.
 export async function clearStaleDataCaches(): Promise<void> {
   if (!isCacheStorageAvailable()) return
 
   const cacheKeys = await caches.keys()
-  const staleCaches = cacheKeys.filter((cacheName) => {
-    if (cacheName.startsWith(legacyWeeklyCachePrefix)) return true
-    return cacheName.startsWith(dataCachePrefix) && cacheName !== dataCacheName
-  })
+  const staleCaches = cacheKeys.filter(
+    (cacheName) => cacheName.startsWith(dataCachePrefix) && cacheName !== dataCacheName,
+  )
 
   await Promise.all(staleCaches.map((cacheName) => caches.delete(cacheName)))
 }

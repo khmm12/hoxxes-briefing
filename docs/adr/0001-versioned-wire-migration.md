@@ -10,11 +10,11 @@ contract end-to-end: resource `weekly` → `briefing`, the legacy wire tags
 `HeavyExtraction` / `anomaly`, and the `week` wrapper flattened away. Because the
 app is a live PWA, an installed service worker keeps running the old client until
 the user accepts an update, so an in-place wire break would blank those clients.
-We therefore ship the clean contract as a **new** `/api/v1/briefing` endpoint and
-keep the old `/api/v1/weekly` alive through a disposable anti-corruption layer
-that maps the clean internal `Briefing` model back to the legacy wire shape. The
-old endpoint and its ACL are deleted ~1 month after the new client ships, once
-old service workers have aged out.
+We therefore shipped the clean contract as a **new** `/api/v1/briefing` endpoint
+and kept the old `/api/v1/weekly` alive through a disposable anti-corruption
+layer that mapped the clean internal `Briefing` model back to the legacy wire
+shape. Stage 4 removed the old endpoint and its ACL after old service workers
+had aged out.
 
 ## Considered options
 
@@ -29,19 +29,16 @@ old service workers have aged out.
 ## Consequences
 
 - The clean model crosses the wasm boundary and serializes directly on
-  `/api/v1/briefing` (`domain == wire`); the legacy translation lives only in the
-  throwaway `/api/v1/weekly` ACL.
+  `/api/v1/briefing` (`domain == wire`); the temporary `/api/v1/weekly` ACL was
+  removed in Stage 4.
 - Client data caching moves onto the workbox convention (versioned cache name,
   old caches cleaned up like precache), replacing the bespoke hand-rolled weekly
   cache.
 - `seed` stays on the wire and gains a client use — it deterministically seeds
   slogan selection, replacing the client's former hash of the now-removed
   `week.id`.
-- The sunset is a commitment: the old endpoint must actually be removed, or it
-  becomes permanent cruft. Every removal site is tagged with a `CLEANUP(stage-4)`
-  comment — grep for it to find the full delete list (endpoint entrypoint, route,
-  ACL, weekly cache headers + `weekly-v1` tag, `schema/weekly`, the
-  `WEEKLY_DATA_UNAVAILABLE` code, and the client's legacy cache eviction).
+- The sunset was a commitment: the old endpoint and every temporary migration
+  artifact were removed in Stage 4.
 
 ## Amended by ADR-0002
 
@@ -53,6 +50,6 @@ fact:
   breaks; those go through the contract revision header instead
   ([ADR 0002](0002-contract-revision-negotiation.md)). This ADR describes a
   one-off migration that predates the revision system.
-- `schema/weekly` and the `WEEKLY_DATA_UNAVAILABLE` code move out of
+- `schema/weekly` and the `WEEKLY_DATA_UNAVAILABLE` code moved out of
   `packages/contracts` into `apps/api` next to the ACL (contracts stays
-  current-only), so their `CLEANUP(stage-4)` deletion happens there.
+  current-only), then were removed with the ACL in Stage 4.

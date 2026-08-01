@@ -95,7 +95,5 @@ the logged client-revision distribution first (the API logs each request's
   briefings expire weekly and cache-first + network overwrite handles it.
 - **Client cache storage format** (the envelope itself): bump the cache
   layer's private `schemaVersion` in `apps/web`; unrelated to `CONTRACT_REV`.
-- **Legacy `/api/v1/weekly`**: pre-revision ACL, dies per ADR 0001
-  (`CLEANUP(stage-4)` tags mark the delete list).
 - **The `v1` path segment**: reserved for a break of the negotiation
   mechanism itself. Changing it is a new ADR, not a runbook entry.

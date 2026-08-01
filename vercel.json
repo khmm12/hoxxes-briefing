@@ -67,10 +67,6 @@
 			"destination": "/api/v1/briefing"
 		},
 		{
-			"source": "/api/v1/weekly",
-			"destination": "/api/v1/weekly"
-		},
-		{
 			"source": "/(.*)",
 			"destination": "/index.html"
 		}

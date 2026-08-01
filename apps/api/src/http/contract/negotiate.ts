@@ -34,9 +34,9 @@ export function createContractNegotiation(deps: ContractNegotiationDependencies)
     // bypassing the downgrade path entirely.
     context.header('vary', BRIEFING_CONTRACT_HEADER, { append: true })
 
-    // No header means a pre-revision client (legacy weekly) or curl/debugging;
-    // both get the live schema. A future revision means a fresher client that
-    // still parses the current shape — serve current as-is.
+    // No header means curl/debugging; it gets the live schema. A future revision
+    // means a fresher client that still parses the current shape — serve current
+    // as-is.
     if (clientRev === null || clientRev >= deps.currentRev) return next()
 
     if (clientRev < deps.minSupportedRev) {

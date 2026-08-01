@@ -1,90 +1,9 @@
-// CLEANUP(stage-4): the /api/v1/weekly describe block and the legacy-remap fixture delete with the weekly wire.
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import * as v1 from '@hoxxes-briefing/contracts/api/v1'
 import { appDeps, createApp, readBriefingConfidence } from '../src/app.ts'
 import type { Briefing } from '../src/application/models/briefing.ts'
-import { parseWeeklyErrorResponse, parseWeeklyResponse } from '../src/http/weekly/wire.ts'
 import { type BriefingProvider, BriefingProviderError } from '../src/ports/briefing-provider.ts'
-
-describe('GET /api/v1/weekly', () => {
-  it('returns the legacy weekly contract payload', async () => {
-    const app = createAppWith(async () => createBriefing())
-
-    const response = await app.request('/api/v1/weekly')
-
-    assert.equal(response.status, 200)
-
-    const rawPayload = await response.json()
-    assert.equal(typeof rawPayload, 'object')
-    assert.notEqual(rawPayload, null)
-    assert.equal(Object.hasOwn(rawPayload as Record<string, unknown>, 'freshness'), false)
-
-    const payload = parseWeeklyResponse(rawPayload)
-    assert.equal(payload.week.id, '2026-W17')
-    assert.equal(payload.week.seed, 1234567890)
-    assert.equal(payload.dives.normal.name, 'Crystalline Corridors')
-    assert.equal(payload.dives.elite.missions.length, 3)
-
-    // Legacy wire vocabulary, rebuilt by the ACL from the clean domain.
-    const [first, second, third] = payload.dives.normal.missions
-    assert.deepEqual(first.primaryObjective, { kind: 'Elimination', dreadnoughts: ['Dreadnought', 'Twins'] })
-    assert.equal(first.mutator, 'LowGravity')
-    assert.deepEqual(second.secondaryObjective, { kind: 'HeavyExcavation', resiniteMasses: 3 })
-    assert.deepEqual(third.secondaryObjective, { kind: 'Elimination', dreadnoughts: ['Dreadnought'] })
-  })
-
-  it('returns CDN cache headers for a fresh payload', async () => {
-    const app = createAppWith(async () => withFutureWindow(createBriefing()))
-
-    const response = await app.request('/api/v1/weekly')
-
-    assert.equal(response.status, 200)
-    assert.equal(response.headers.get('cache-control'), 'public, max-age=0, must-revalidate')
-    assert.equal(response.headers.get('vercel-cache-tag'), 'weekly,weekly-v1')
-    assert.match(
-      response.headers.get('vercel-cdn-cache-control') ?? '',
-      /^public, max-age=\d+, stale-while-revalidate=60$/,
-    )
-  })
-
-  it('maps an upstream failure to the shared error contract', async () => {
-    const app = createAppWith(async () => {
-      throw new BriefingProviderError('UPSTREAM_UNAVAILABLE', 'boom')
-    })
-
-    const response = await app.request('/api/v1/weekly', { headers: { 'x-request-id': 'req-123' } })
-
-    assert.equal(response.status, 502)
-    assert.equal(response.headers.get('cache-control'), 'no-store')
-
-    const payload = parseWeeklyErrorResponse(await response.json())
-    assert.equal(payload.code, 'UPSTREAM_UNAVAILABLE')
-    assert.equal(payload.requestId, 'req-123')
-  })
-
-  it('presents a generator failure with the legacy wire code', async () => {
-    const app = createAppWith(async () => {
-      throw new BriefingProviderError('GENERATOR_UNAVAILABLE', 'boom')
-    })
-
-    const response = await app.request('/api/v1/weekly')
-
-    assert.equal(response.status, 503)
-    const payload = parseWeeklyErrorResponse(await response.json())
-    assert.equal(payload.code, 'WEEKLY_DATA_UNAVAILABLE')
-  })
-
-  it('rejects an invalid payload before it reaches the wire', async () => {
-    const app = createAppWith(async () => invalidBriefing())
-
-    const response = await app.request('/api/v1/weekly')
-
-    assert.equal(response.status, 500)
-    const payload = parseWeeklyErrorResponse(await response.json())
-    assert.equal(payload.code, 'INVALID_RESPONSE_PAYLOAD')
-  })
-})
 
 describe('GET /api/v1/briefing', () => {
   it('returns the clean briefing contract payload', async () => {
@@ -210,6 +129,16 @@ describe('GET /api/v1/briefing', () => {
   })
 })
 
+describe('retired legacy route', () => {
+  it('does not register /api/v1/weekly', async () => {
+    const app = createAppWith(async () => createBriefing())
+
+    const response = await app.request('/api/v1/weekly')
+
+    assert.equal(response.status, 404)
+  })
+})
+
 describe('readBriefingConfidence', () => {
   it('defaults to verified and rejects unknown values', () => {
     assert.equal(readBriefingConfidence(undefined), 'verified')
@@ -235,9 +164,6 @@ describe('appDeps', () => {
   })
 })
 
-// A briefing that exercises every clean→legacy remap the `/api/v1/weekly` ACL
-// performs: primary + secondary `Elimination` with the `Classic` dreadnought, a
-// secondary `HeavyExtraction`, and a non-null `anomaly`.
 const createBriefing = (): Briefing => {
   return {
     seed: 1234567890,

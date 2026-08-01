@@ -114,11 +114,11 @@ describe('service worker', () => {
     expect(fakeSelf.skipWaiting).toHaveBeenCalledTimes(1)
   })
 
-  it('drops retired weekly caches and superseded briefing caches on activate, keeping the live one', async () => {
+  it('drops superseded briefing caches on activate, keeping the live one', async () => {
     const listeners = new Map<string, (event: MockServiceWorkerEvent) => void>()
     const waitUntilCalls: Promise<unknown>[] = []
     const fakeCaches = createFakeCaches([
-      // Retired pre-briefing data caches — every version is dropped.
+      // Unrelated retired cache — not ours to delete.
       'hoxxes-briefing-weekly-cache-v0',
       'hoxxes-briefing-weekly-cache-v1',
       // Superseded briefing schema version — dropped.
@@ -143,15 +143,11 @@ describe('service worker', () => {
 
     await Promise.all(waitUntilCalls)
 
-    expect(fakeCaches.delete).toHaveBeenCalledTimes(3)
-    expect(fakeCaches.delete.mock.calls).toEqual(
-      expect.arrayContaining([
-        ['hoxxes-briefing-weekly-cache-v0'],
-        ['hoxxes-briefing-weekly-cache-v1'],
-        ['hoxxes-briefing-data-cache-v0'],
-      ]),
-    )
+    expect(fakeCaches.delete).toHaveBeenCalledTimes(1)
+    expect(fakeCaches.delete.mock.calls).toEqual(expect.arrayContaining([['hoxxes-briefing-data-cache-v0']]))
     expect(fakeCaches.delete).not.toHaveBeenCalledWith('hoxxes-briefing-data-cache-v1')
+    expect(fakeCaches.delete).not.toHaveBeenCalledWith('hoxxes-briefing-weekly-cache-v0')
+    expect(fakeCaches.delete).not.toHaveBeenCalledWith('hoxxes-briefing-weekly-cache-v1')
     expect(fakeCaches.delete).not.toHaveBeenCalledWith('drg-weekly-ui-cache-v0')
     expect(fakeCaches.delete).not.toHaveBeenCalledWith('workbox-precache-v2-index')
   })

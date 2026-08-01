@@ -50,9 +50,6 @@ loudly at startup.
 briefing's expiration. Browser HTTP cache is kept on revalidation mode so the web
 app can use its own CacheStorage fallback for stale data.
 
-`/api/v1/weekly` (tag `weekly-v1`) is the retained legacy endpoint with identical
-caching; it is removed in Stage 4.
-
 Check deployed cache behavior with:
 
 ```bash
