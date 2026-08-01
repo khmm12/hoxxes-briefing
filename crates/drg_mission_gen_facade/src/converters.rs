@@ -29,13 +29,6 @@ impl TryFrom<UDeepDive> for DeepDive {
 }
 
 fn map_missions(missions: &[UGeneratedMission]) -> Result<DeepDiveMissions, ConverterError> {
-    // let missions: Result<Vec<_>, _> = missions.iter().map(map_mission).collect();
-
-    // missions?
-    //     .try_into()
-    //     .map(DeepDiveMissions)
-    //     .map_err(|v: Vec<_>| ConverterError::MissionsCountMismatch { count: v.len() })
-
     if missions.len() != MISSION_COUNT {
         return Err(ConverterError::MissionsCountMismatch {
             count: missions.len(),
