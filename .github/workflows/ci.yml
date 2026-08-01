@@ -15,19 +15,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+      - name: Setup toolchain
+        uses: jdx/mise-action@v4
+        with:
+          install_args: node rust
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
         with:
-          node-version: 24
-          cache: pnpm
-      - name: Setup Rust toolchain
-        uses: jdx/mise-action@v3
-        env:
-          MISE_ENABLE_TOOLS: rust
+          cache: true
       - name: Cache Rust
-        uses: Swatinem/rust-cache@v2.9.1
+        uses: Swatinem/rust-cache@v2
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Check
@@ -39,11 +36,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Setup WASM toolchain
-        uses: jdx/mise-action@v3
-        env:
-          MISE_ENABLE_TOOLS: rust,cargo:wasm-pack,cargo:wasm-bindgen-cli
+        uses: jdx/mise-action@v4
+        with:
+          install_args: rust cargo:wasm-pack cargo:wasm-bindgen-cli
       - name: Cache Rust
-        uses: Swatinem/rust-cache@v2.9.1
+        uses: Swatinem/rust-cache@v2
       - name: Regenerate WASM package
         run: ./scripts/codegen-wasm.sh
       - name: Verify generated package is committed
