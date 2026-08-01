@@ -3,6 +3,14 @@ import { render } from '@solidjs/testing-library'
 import { StateScreen } from '~/shared/ui/state-screen'
 
 describe('StateScreen', () => {
+  it('focuses its title so keyboard users land on the new state', () => {
+    const { getByRole } = render(() => <StateScreen eyebrow="e" title="Could not load the briefing" body="b" />)
+
+    const $title = getByRole('heading', { level: 1, name: 'Could not load the briefing' })
+    expect($title).toHaveAttribute('tabindex', '-1')
+    expect($title).toHaveFocus()
+  })
+
   it('renders the eyebrow, title, and body', () => {
     const { getByText } = render(() => (
       <StateScreen eyebrow="Mining Morkite" title="Could not load the board" body="Try again later." />

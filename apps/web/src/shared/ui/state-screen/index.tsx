@@ -1,4 +1,4 @@
-import { Show } from 'solid-js'
+import { onSettled, Show } from 'solid-js'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import { Eyebrow } from '~/shared/ui/eyebrow'
@@ -109,7 +109,12 @@ const statusRowStyles = css.raw({
 })
 
 export function StateScreen(props: StateScreenProps): JSX.Element {
+  let $title: HTMLHeadingElement | undefined
   const resolvedTone = () => props.tone ?? 'primary'
+
+  onSettled(() => {
+    $title?.focus()
+  })
 
   return (
     <section
@@ -121,7 +126,15 @@ export function StateScreen(props: StateScreenProps): JSX.Element {
         <div class={css(indicatorRecipe.raw({ tone: resolvedTone() }))} aria-hidden="true">
           {props.indicator}
         </div>
-        <h1 class={css(titleStyles)}>{props.title}</h1>
+        <h1
+          class={css(titleStyles)}
+          tabindex="-1"
+          ref={($element) => {
+            $title = $element
+          }}
+        >
+          {props.title}
+        </h1>
         <p class={css(bodyRecipe.raw({ tone: props.bodyTone }))}>{props.body}</p>
         <Show when={props.passiveStatus}>
           <div class={css(statusRowStyles)}>
