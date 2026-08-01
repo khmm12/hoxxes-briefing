@@ -24,7 +24,7 @@ jobs:
         with:
           cache: true
       - name: Cache Rust
-        uses: Swatinem/rust-cache@v2.9.1
+        uses: Swatinem/rust-cache@v2
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Check
@@ -40,7 +40,7 @@ jobs:
         with:
           install_args: rust cargo:wasm-pack cargo:wasm-bindgen-cli
       - name: Cache Rust
-        uses: Swatinem/rust-cache@v2.9.1
+        uses: Swatinem/rust-cache@v2
       - name: Regenerate WASM package
         run: ./scripts/codegen-wasm.sh
       - name: Verify generated package is committed
