@@ -264,9 +264,21 @@ fn primary_objective_maps_every_supported_kind() {
     assert_eq!(
         result.unwrap(),
         DeepDivePrimaryObjective::Elimination {
-            dreadnought_kinds: vec![Dreadnought::Twins, Dreadnought::Hiveguard],
+            dreadnoughts: Dreadnoughts::try_new(vec![Dreadnought::Twins, Dreadnought::Hiveguard,])
+                .unwrap(),
         }
     );
+}
+
+#[test]
+fn primary_objective_rejects_empty_elimination_targets() {
+    let instance = ObjectiveInstance::from_objective(EObjective::OBJ_Eliminate_Eggs);
+    let result = map_primary_objective_instance(instance, Duration::Normal, Complexity::Average);
+
+    assert!(matches!(
+        result.unwrap_err(),
+        ConverterError::EmptyDreadnoughts
+    ));
 }
 
 #[test]
@@ -332,9 +344,20 @@ fn secondary_objective_maps_every_supported_kind() {
     assert_eq!(
         result.unwrap(),
         DeepDiveSecondaryObjective::Elimination {
-            dreadnought_kinds: vec![Dreadnought::Hiveguard],
+            dreadnoughts: Dreadnoughts::try_new(vec![Dreadnought::Hiveguard]).unwrap(),
         }
     );
+}
+
+#[test]
+fn secondary_objective_rejects_empty_elimination_targets() {
+    let instance = ObjectiveInstance::from_objective(EObjective::OBJ_DD_Elimination_Eggs);
+    let result = map_secondary_objective_instance(instance, Duration::Normal, Complexity::Average);
+
+    assert!(matches!(
+        result.unwrap_err(),
+        ConverterError::EmptyDreadnoughts
+    ));
 }
 
 #[test]

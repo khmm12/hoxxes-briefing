@@ -46,6 +46,10 @@ const deepDiveWarningSchema = /* @__PURE__ */ v.picklist([
 ] as const)
 
 const deepDiveDreadnoughtSchema = /* @__PURE__ */ v.picklist(['Classic', 'Hiveguard', 'Twins'] as const)
+const deepDiveDreadnoughtsSchema = /* @__PURE__ */ v.pipe(
+  v.tupleWithRest([deepDiveDreadnoughtSchema], deepDiveDreadnoughtSchema),
+  v.readonly(),
+)
 
 const objectiveCountSchema = /* @__PURE__ */ v.pipe(v.number(), v.integer(), v.minValue(0))
 
@@ -85,7 +89,7 @@ const deepDivePrimaryObjectiveSchema = /* @__PURE__ */ v.pipe(
     }),
     v.object({
       kind: v.literal('Elimination'),
-      dreadnoughts: v.array(deepDiveDreadnoughtSchema),
+      dreadnoughts: deepDiveDreadnoughtsSchema,
     }),
     v.object({
       kind: v.literal('HeavyExtraction'),
@@ -111,7 +115,7 @@ const deepDiveSecondaryObjectiveSchema = /* @__PURE__ */ v.pipe(
     }),
     v.object({
       kind: v.literal('Elimination'),
-      dreadnoughts: v.array(deepDiveDreadnoughtSchema),
+      dreadnoughts: deepDiveDreadnoughtsSchema,
     }),
     v.object({
       kind: v.literal('MiningExpedition'),
@@ -143,11 +147,16 @@ const deepDiveMissionSchema = /* @__PURE__ */ v.pipe(
   v.readonly(),
 )
 
+const deepDiveMissionsSchema = /* @__PURE__ */ v.pipe(
+  v.strictTuple([deepDiveMissionSchema, deepDiveMissionSchema, deepDiveMissionSchema]),
+  v.readonly(),
+)
+
 const deepDiveSchema = /* @__PURE__ */ v.pipe(
   v.object({
     name: v.pipe(v.string(), v.minLength(1)),
     biome: deepDiveBiomeSchema,
-    missions: v.pipe(v.array(deepDiveMissionSchema), v.minLength(3), v.maxLength(3)),
+    missions: deepDiveMissionsSchema,
   }),
   v.readonly(),
 )
@@ -175,8 +184,10 @@ export type DeepDiveBiome = v.InferOutput<typeof deepDiveBiomeSchema>
 export type DeepDiveAnomaly = v.InferOutput<typeof deepDiveAnomalySchema>
 export type DeepDiveWarning = v.InferOutput<typeof deepDiveWarningSchema>
 export type DeepDiveDreadnought = v.InferOutput<typeof deepDiveDreadnoughtSchema>
+export type DeepDiveDreadnoughts = v.InferOutput<typeof deepDiveDreadnoughtsSchema>
 export type DeepDivePrimaryObjective = v.InferOutput<typeof deepDivePrimaryObjectiveSchema>
 export type DeepDiveSecondaryObjective = v.InferOutput<typeof deepDiveSecondaryObjectiveSchema>
 export type DeepDiveMission = v.InferOutput<typeof deepDiveMissionSchema>
+export type DeepDiveMissions = v.InferOutput<typeof deepDiveMissionsSchema>
 export type DeepDive = v.InferOutput<typeof deepDiveSchema>
 export type BriefingResponse = v.InferOutput<typeof briefingResponseSchema>

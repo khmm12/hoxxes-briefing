@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { flush } from 'solid-js'
 import { fireEvent } from '@solidjs/testing-library'
-import type { Briefing, DeepDive } from '~/shared/api'
+import type { Briefing, DeepDive, DeepDiveMission } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
 import { setViewportWidth, VIEWPORT_WIDTH } from '~test/viewport'
 import { DiveDeck } from './DiveDeck'
@@ -93,16 +93,16 @@ describe('DiveDeck · mobile swipe deck (below md)', () => {
 })
 
 function dive(name: string): DeepDive {
+  const mission: DeepDiveMission = {
+    primaryObjective: { kind: 'EggHunt', eggs: 6 },
+    secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
+    warning: null,
+    anomaly: null,
+  }
+
   return {
     name,
     biome: 'FungusBogs',
-    missions: [
-      {
-        primaryObjective: { kind: 'EggHunt', eggs: 6 },
-        secondaryObjective: { kind: 'MiningExpedition', morkite: 150 },
-        warning: null,
-        anomaly: null,
-      },
-    ],
+    missions: [mission, mission, mission],
   }
 }

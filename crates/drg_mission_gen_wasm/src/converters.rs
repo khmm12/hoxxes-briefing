@@ -31,6 +31,7 @@ impl From<facade::ConverterError> for wasm::ConverterError {
                 facade::ConverterError::MissionsCountMismatch { .. } => {
                     "MissionsCountMismatch".to_string()
                 }
+                facade::ConverterError::EmptyDreadnoughts => "EmptyDreadnoughts".to_string(),
             },
         }
     }
@@ -53,8 +54,14 @@ impl From<facade::DeepDive> for wasm::DeepDive {
         wasm::DeepDive {
             name: dd.name,
             biome: dd.biome.into(),
-            missions: dd.missions.0.into_iter().map(Into::into).collect(),
+            missions: dd.missions.into(),
         }
+    }
+}
+
+impl From<facade::DeepDiveMissions> for wasm::DeepDiveMissions {
+    fn from(missions: facade::DeepDiveMissions) -> Self {
+        Self(missions.0.map(Into::into))
     }
 }
 
@@ -96,9 +103,9 @@ impl From<facade::DeepDivePrimaryObjective> for wasm::DeepDivePrimaryObjective {
             facade::DeepDivePrimaryObjective::SalvageOperation { mini_mules } => {
                 wasm::DeepDivePrimaryObjective::SalvageOperation { mini_mules }
             }
-            facade::DeepDivePrimaryObjective::Elimination { dreadnought_kinds } => {
+            facade::DeepDivePrimaryObjective::Elimination { dreadnoughts } => {
                 wasm::DeepDivePrimaryObjective::Elimination {
-                    dreadnoughts: dreadnought_kinds.into_iter().map(Into::into).collect(),
+                    dreadnoughts: dreadnoughts.into(),
                 }
             }
             facade::DeepDivePrimaryObjective::HeavyExtraction { resinite_masses } => {
@@ -120,9 +127,9 @@ impl From<facade::DeepDiveSecondaryObjective> for wasm::DeepDiveSecondaryObjecti
             facade::DeepDiveSecondaryObjective::Blackbox { black_boxes } => {
                 wasm::DeepDiveSecondaryObjective::Blackbox { black_boxes }
             }
-            facade::DeepDiveSecondaryObjective::Elimination { dreadnought_kinds } => {
+            facade::DeepDiveSecondaryObjective::Elimination { dreadnoughts } => {
                 wasm::DeepDiveSecondaryObjective::Elimination {
-                    dreadnought_kinds: dreadnought_kinds.into_iter().map(Into::into).collect(),
+                    dreadnoughts: dreadnoughts.into(),
                 }
             }
             facade::DeepDiveSecondaryObjective::MiningExpedition { morkite } => {
@@ -138,6 +145,12 @@ impl From<facade::DeepDiveSecondaryObjective> for wasm::DeepDiveSecondaryObjecti
                 wasm::DeepDiveSecondaryObjective::HeavyExtraction { resinite_masses }
             }
         }
+    }
+}
+
+impl From<facade::Dreadnoughts> for wasm::Dreadnoughts {
+    fn from(dreadnoughts: facade::Dreadnoughts) -> Self {
+        Self(dreadnoughts.into_iter().map(Into::into).collect())
     }
 }
 

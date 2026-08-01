@@ -5,7 +5,7 @@ use drg_mission_gen_core::{
 
 use crate::{
     ConverterError, DeepDivePrimaryObjective, DeepDiveSecondaryObjective, Dreadnought,
-    MISSION_COUNT,
+    Dreadnoughts, MISSION_COUNT,
     models::{
         Biome, Complexity, DeepDive, DeepDiveAnomaly, DeepDiveMission, DeepDiveMissions,
         DeepDiveWarning, Duration,
@@ -29,13 +29,6 @@ impl TryFrom<UDeepDive> for DeepDive {
 }
 
 fn map_missions(missions: &[UGeneratedMission]) -> Result<DeepDiveMissions, ConverterError> {
-    // let missions: Result<Vec<_>, _> = missions.iter().map(map_mission).collect();
-
-    // missions?
-    //     .try_into()
-    //     .map(DeepDiveMissions)
-    //     .map_err(|v: Vec<_>| ConverterError::MissionsCountMismatch { count: v.len() })
-
     if missions.len() != MISSION_COUNT {
         return Err(ConverterError::MissionsCountMismatch {
             count: missions.len(),
@@ -156,7 +149,7 @@ fn map_primary_objective_instance(
             kind: OBJ_Eliminate_Eggs,
             targets,
         } => Ok(DeepDivePrimaryObjective::Elimination {
-            dreadnought_kinds: targets.into_iter().map(Into::into).collect(),
+            dreadnoughts: Dreadnoughts::try_new(targets.into_iter().map(Into::into).collect())?,
         }),
         ObjectiveInstance::Other {
             kind: OBJ_1st_DeepScan,
@@ -220,7 +213,7 @@ fn map_secondary_objective_instance(
             kind: OBJ_DD_Elimination_Eggs,
             targets,
         } => Ok(Obj::Elimination {
-            dreadnought_kinds: targets.into_iter().map(Into::into).collect(),
+            dreadnoughts: Dreadnoughts::try_new(targets.into_iter().map(Into::into).collect())?,
         }),
         ObjectiveInstance::Other {
             kind: OBJ_DD_AlienEggs,

@@ -21,6 +21,9 @@ pub enum ConverterError {
     #[error("unexpected deep dive warning: `{0}`")]
     UnexpectedDeepDiveWarning(&'static str),
 
+    #[error("elimination objective must contain at least one dreadnought")]
+    EmptyDreadnoughts,
+
     #[error("only expected at most 1 warning, but was given {count}")]
     WarningsCountMismatch { count: usize },
 

@@ -85,17 +85,49 @@ test('safeParseBriefingResponse fails when required fields are omitted', () => {
 })
 
 test('safeParseBriefingResponse fails when a dive carries the wrong mission count', () => {
-  const payload = createValidBriefingPayload()
+  const invalidMissionLists = [
+    [createMission(), createMission()],
+    [createMission(), createMission(), createMission(), createMission()],
+  ]
 
-  const result = v1.safeParseBriefingResponse({
-    ...payload,
-    dives: {
-      ...payload.dives,
-      normal: { ...payload.dives.normal, missions: [createMission()] },
-    },
-  })
+  for (const missions of invalidMissionLists) {
+    const payload = createValidBriefingPayload()
+    const result = v1.safeParseBriefingResponse({
+      ...payload,
+      dives: {
+        ...payload.dives,
+        normal: { ...payload.dives.normal, missions },
+      },
+    })
 
-  assert.equal(result.success, false)
+    assert.equal(result.success, false, `${missions.length} missions`)
+  }
+})
+
+test('safeParseBriefingResponse rejects empty Elimination dreadnoughts in either objective branch', () => {
+  for (const objective of ['primaryObjective', 'secondaryObjective'] as const) {
+    const payload = createValidBriefingPayload()
+    const firstMission = payload.dives.normal.missions[0]
+
+    const result = v1.safeParseBriefingResponse({
+      ...payload,
+      dives: {
+        ...payload.dives,
+        normal: {
+          ...payload.dives.normal,
+          missions: [
+            {
+              ...firstMission,
+              [objective]: { kind: 'Elimination', dreadnoughts: [] },
+            },
+            ...payload.dives.normal.missions.slice(1),
+          ],
+        },
+      },
+    })
+
+    assert.equal(result.success, false, objective)
+  }
 })
 
 test('parseErrorResponse parses the CONTRACT_RETIRED error code', () => {

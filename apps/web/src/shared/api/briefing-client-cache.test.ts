@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { CONTRACT_REV } from '@hoxxes-briefing/contracts'
-import { briefingUrl } from './briefing-client'
+import { briefingUrl, type DeepDive } from './briefing-client'
 import { cacheBriefing, clearCachedBriefing, readCachedBriefing } from './briefing-client-cache'
 
 type FakeCache = {
@@ -23,7 +23,7 @@ const createMission = () => ({
   warning: 'RegenerativeBugs' as const,
 })
 
-const createDive = (name: string) => ({
+const createDive = (name: string): DeepDive => ({
   name,
   biome: 'AzureWeald' as const,
   missions: [createMission(), createMission(), createMission()],

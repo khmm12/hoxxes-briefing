@@ -22,6 +22,12 @@ const DIVE: DeepDive = {
       warning: null,
       anomaly: 'LowGravity',
     },
+    {
+      primaryObjective: { kind: 'PointExtraction', aquarqs: 7 },
+      secondaryObjective: { kind: 'Blackbox', blackBoxes: 1 },
+      warning: null,
+      anomaly: null,
+    },
   ],
 }
 
@@ -39,7 +45,7 @@ describe('DiveSlab', () => {
 
     expect(getByText('Awful Catacomb')).toBeInTheDocument()
     expect(getByText('Fungus Bogs')).toBeInTheDocument()
-    expect(getAllByText(/Stage \d/)).toHaveLength(2)
+    expect(getAllByText(/Stage \d/)).toHaveLength(3)
   })
 
   it('describes the biome on focus', () => {
@@ -76,7 +82,11 @@ describe('DiveSlab', () => {
   it('omits the rundown section entirely when there are no warnings or anomalies', () => {
     const cleanDive: DeepDive = {
       ...DIVE,
-      missions: DIVE.missions.map((mission) => ({ ...mission, warning: null, anomaly: null })),
+      missions: [
+        { ...DIVE.missions[0], warning: null, anomaly: null },
+        { ...DIVE.missions[1], warning: null, anomaly: null },
+        { ...DIVE.missions[2], warning: null, anomaly: null },
+      ],
     }
 
     const { queryByRole } = renderWithProviders(() => <DiveSlab dive={cleanDive} expired={false} kind="normal" />)

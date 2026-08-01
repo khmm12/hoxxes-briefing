@@ -67,6 +67,14 @@ fn converter_error_maps_missions_count_mismatch() {
 }
 
 #[test]
+fn converter_error_maps_empty_dreadnoughts() {
+    assert_eq!(
+        converter_error_type(facade::ConverterError::EmptyDreadnoughts),
+        "EmptyDreadnoughts"
+    );
+}
+
+#[test]
 fn converter_error_preserves_display_message() {
     let error =
         wasm::ConverterError::from(facade::ConverterError::MissionsCountMismatch { count: 4 });
@@ -113,7 +121,7 @@ fn deep_dive_converts_name_biome_and_missions() {
 
     assert_eq!(converted.name, "Point Extraction Site");
     assert_eq!(converted.biome, wasm::Biome::HollowBough);
-    assert_eq!(converted.missions.len(), 3);
+    assert_eq!(converted.missions.0.len(), facade::MISSION_COUNT);
 }
 
 #[test]
@@ -232,15 +240,22 @@ fn primary_objective_maps_salvage_operation() {
 }
 
 #[test]
-fn primary_objective_elimination_maps_kinds_to_dreadnoughts_field() {
+fn primary_objective_elimination_maps_dreadnoughts() {
     let objective = facade::DeepDivePrimaryObjective::Elimination {
-        dreadnought_kinds: vec![facade::Dreadnought::Hiveguard, facade::Dreadnought::Twins],
+        dreadnoughts: facade::Dreadnoughts::try_new(vec![
+            facade::Dreadnought::Hiveguard,
+            facade::Dreadnought::Twins,
+        ])
+        .unwrap(),
     };
 
     assert_eq!(
         wasm::DeepDivePrimaryObjective::from(objective),
         wasm::DeepDivePrimaryObjective::Elimination {
-            dreadnoughts: vec![wasm::Dreadnought::Hiveguard, wasm::Dreadnought::Twins]
+            dreadnoughts: wasm::Dreadnoughts(vec![
+                wasm::Dreadnought::Hiveguard,
+                wasm::Dreadnought::Twins,
+            ])
         }
     );
 }
@@ -288,15 +303,15 @@ fn secondary_objective_maps_blackbox() {
 }
 
 #[test]
-fn secondary_objective_elimination_keeps_kinds() {
+fn secondary_objective_elimination_maps_dreadnoughts() {
     let objective = facade::DeepDiveSecondaryObjective::Elimination {
-        dreadnought_kinds: vec![facade::Dreadnought::Classic],
+        dreadnoughts: facade::Dreadnoughts::try_new(vec![facade::Dreadnought::Classic]).unwrap(),
     };
 
     assert_eq!(
         wasm::DeepDiveSecondaryObjective::from(objective),
         wasm::DeepDiveSecondaryObjective::Elimination {
-            dreadnought_kinds: vec![wasm::Dreadnought::Classic]
+            dreadnoughts: wasm::Dreadnoughts(vec![wasm::Dreadnought::Classic])
         }
     );
 }

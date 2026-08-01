@@ -3,7 +3,7 @@ import { msg } from '@lingui/core/macro'
 import type { JSX } from '@solidjs/web'
 import { css, cva } from 'styled-system/css'
 import type {
-  DeepDiveDreadnought,
+  DeepDiveDreadnoughts,
   DeepDiveMission,
   DeepDivePrimaryObjective,
   DeepDiveSecondaryObjective,
@@ -306,7 +306,7 @@ function ObjectiveValue(props: {
 // The dreadnought list is the only tokenized objective value: each named variant
 // gets its own tooltip, so the shell text and separators are rendered here
 // rather than folded into a flat string.
-function EliminationObjectiveValue(props: { dreadnoughts: readonly DeepDiveDreadnought[] }): JSX.Element {
+function EliminationObjectiveValue(props: { dreadnoughts: DeepDiveDreadnoughts }): JSX.Element {
   const i18n = useI18n()
 
   return (
