@@ -19,3 +19,8 @@ fi
 (cd apps/web && pnpm exec lingui extract --clean)
 git add apps/web/src/shared/i18n/locales/*/messages.po
 '''
+
+[tasks.sweep-generator-seeds]
+description = "Exhaustively check generator seeds in pseudo-random order"
+dir = "{{ config_root }}/crates/drg_mission_gen_facade"
+run = "cargo run --release --example sweep_generator_seeds"
