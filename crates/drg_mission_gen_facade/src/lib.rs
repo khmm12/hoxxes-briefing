@@ -1,33 +1,13 @@
-mod converters;
+mod deep_dive;
 mod errors;
-mod models;
+mod generation;
+mod mission;
+mod objective;
 
-use drg_mission_gen_core::gen_deep_dive_pair;
-
-pub use errors::*;
-pub use models::*;
-
-pub fn deep_dives_from_seed(seed: Seed) -> Result<DeepDiveResult, ConverterError> {
-    let (u_normal, u_elite) = gen_deep_dive_pair(seed.as_u32());
-    let (normal, elite) = (u_normal.try_into()?, u_elite.try_into()?);
-
-    Ok(DeepDiveResult {
-        normal,
-        elite,
-        seed,
-    })
-}
-
-impl DeepDiveResult {
-    pub fn from_seed(seed: Seed) -> Result<Self, ConverterError> {
-        deep_dives_from_seed(seed)
-    }
-}
-
-impl TryFrom<Seed> for DeepDiveResult {
-    type Error = ConverterError;
-
-    fn try_from(seed: Seed) -> Result<Self, Self::Error> {
-        DeepDiveResult::from_seed(seed)
-    }
-}
+pub use deep_dive::{Biome, DeepDive, DeepDiveMissions, MISSION_COUNT};
+pub use errors::ConverterError;
+pub use generation::{DeepDiveResult, Seed, deep_dives_from_seed};
+pub use mission::{Complexity, DeepDiveAnomaly, DeepDiveMission, DeepDiveWarning, Duration};
+pub use objective::{
+    DeepDivePrimaryObjective, DeepDiveSecondaryObjective, Dreadnought, Dreadnoughts,
+};

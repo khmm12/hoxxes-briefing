@@ -10,6 +10,9 @@ impl From<facade::ConverterError> for wasm::ConverterError {
                 facade::ConverterError::UnexpectedDeepDivePrimaryObjective(..) => {
                     "UnexpectedDeepDivePrimaryObjective".to_string()
                 }
+                facade::ConverterError::InvalidPrimaryObjectiveConfiguration { .. } => {
+                    "InvalidPrimaryObjectiveConfiguration".to_string()
+                }
                 facade::ConverterError::UnexpectedDeepDiveSecondaryObjective(..) => {
                     "UnexpectedDeepDiveSecondaryObjective".to_string()
                 }
