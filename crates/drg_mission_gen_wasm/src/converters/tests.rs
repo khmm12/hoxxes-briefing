@@ -11,6 +11,20 @@ fn converter_error_maps_unexpected_primary_objective() {
 }
 
 #[test]
+fn converter_error_maps_invalid_primary_objective_configuration() {
+    assert_eq!(
+        converter_error_type(
+            facade::ConverterError::InvalidPrimaryObjectiveConfiguration {
+                objective: "OBJ_1st_DeepScan",
+                duration: facade::Duration::Short,
+                complexity: facade::Complexity::Simple,
+            }
+        ),
+        "InvalidPrimaryObjectiveConfiguration"
+    );
+}
+
+#[test]
 fn converter_error_maps_unexpected_secondary_objective() {
     assert_eq!(
         converter_error_type(facade::ConverterError::UnexpectedDeepDiveSecondaryObjective("bogus")),

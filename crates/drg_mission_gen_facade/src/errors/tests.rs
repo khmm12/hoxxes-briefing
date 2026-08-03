@@ -7,6 +7,15 @@ fn display_messages_report_the_offending_variant_details() {
         "unexpected primary deep dive objective: `OBJ_2nd_KillFleas`"
     );
     assert_eq!(
+        ConverterError::InvalidPrimaryObjectiveConfiguration {
+            objective: "OBJ_1st_DeepScan",
+            duration: Duration::Short,
+            complexity: Complexity::Simple,
+        }
+        .to_string(),
+        "invalid primary deep dive objective configuration for `OBJ_1st_DeepScan`: duration=Short, complexity=Simple"
+    );
+    assert_eq!(
         ConverterError::UnexpectedDeepDiveSecondaryObjective("OBJ_2nd_KillFleas").to_string(),
         "unexpected secondary deep dive objective: `OBJ_2nd_KillFleas`"
     );

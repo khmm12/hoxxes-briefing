@@ -1,10 +1,19 @@
-use crate::MISSION_COUNT;
+use crate::{Complexity, Duration, MISSION_COUNT};
 use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum ConverterError {
     #[error("unexpected primary deep dive objective: `{0}`")]
     UnexpectedDeepDivePrimaryObjective(&'static str),
+
+    #[error(
+        "invalid primary deep dive objective configuration for `{objective}`: duration={duration:?}, complexity={complexity:?}"
+    )]
+    InvalidPrimaryObjectiveConfiguration {
+        objective: &'static str,
+        duration: Duration,
+        complexity: Complexity,
+    },
 
     #[error("unexpected secondary deep dive objective: `{0}`")]
     UnexpectedDeepDiveSecondaryObjective(&'static str),
