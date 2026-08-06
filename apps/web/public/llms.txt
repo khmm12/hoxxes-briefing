@@ -1,0 +1,15 @@
+# Hoxxes Briefing
+
+> Hoxxes Briefing is an unofficial open-source web app that shows the current Deep Rock Galactic Deep Dive and Elite Deep Dive, including stages, objectives, mutators, and reset timing.
+
+## Live site
+
+- [Hoxxes Briefing](https://hoxxes-briefing.vercel.app/): The live board for the current Deep Dive and Elite Deep Dive rotation.
+
+## Current data
+
+- [Current briefing JSON](https://hoxxes-briefing.vercel.app/api/v1/briefing): Machine-readable data for the current normal and Elite Deep Dive rotation.
+
+## Project
+
+- [Source repository](https://github.com/khmm12/hoxxes-briefing): The open-source project behind the live board.
