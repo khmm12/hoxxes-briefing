@@ -31,8 +31,11 @@ const CHROME_LEAD_PX = 24
  *   on the final approach to the pin, so content never slides under a
  *   still-transparent bar.
  *
- * The collision point is re-derived from layout every frame, so reflows
- * (fonts, resize) never leave a stale distance behind.
+ * The collision point is measured once and cached for scroll frames. Layout
+ * invalidation (activation, resize, or font completion) schedules one fresh
+ * measurement before the next write. Keeping the geometry read out of the
+ * scroll path avoids a read-after-write layout loop while preserving the
+ * sticky collision point after a reflow.
  */
 export function createShrinkProgress(args: ShrinkProgressArgs): void {
   let frame: number | null = null
@@ -52,20 +55,33 @@ export function createShrinkProgress(args: ShrinkProgressArgs): void {
       // from the live style rather than hardcoded: the CSS value is a
       // rem-based token that can be retuned — or rescaled by a non-default
       // root font size — without this file knowing.
-      const pinBleed = measurePinBleed($el.firstElementChild)
+      let stickDistance: number | null = null
+      let measurementPending = true
       let lastProgress = ''
       let lastChrome = ''
+      let disposed = false
 
-      const write = () => {
+      const measure = (): void => {
+        // Read all geometry before the scroll-linked CSS variables are written
+        // for this frame. The child margin is the only bar geometry that can
+        // move the pin independently of the host's flow position.
+        const pinBleed = measurePinBleed($el.firstElementChild)
+        stickDistance = $el.getBoundingClientRect().top + window.scrollY - pinBleed
+        measurementPending = false
+      }
+
+      const write = (): void => {
         frame = null
+        // A restored scroll position can arrive before the deferred activation
+        // frame. Pay the one unavoidable read there; every later scroll frame
+        // uses the cached distance.
+        if (measurementPending || stickDistance === null) measure()
+
         const scrollY = window.scrollY
-        // The host is in normal flow, so this sum is the scroll position
-        // at which the bar's flow top meets the viewport top — constant
-        // regardless of the current scroll or stuck state. The actual pin
-        // lands pinBleed earlier.
-        const stickDistance = $el.getBoundingClientRect().top + scrollY - pinBleed
-        const progress = String(computeWindowProgress(scrollY, stickDistance, SHRINK_RANGE_PX))
-        const chrome = String(computeWindowProgress(scrollY, stickDistance - CHROME_LEAD_PX, CHROME_LEAD_PX))
+        const distance = stickDistance
+        if (distance === null) return
+        const progress = String(computeWindowProgress(scrollY, distance, SHRINK_RANGE_PX))
+        const chrome = String(computeWindowProgress(scrollY, distance - CHROME_LEAD_PX, CHROME_LEAD_PX))
         // Skip same-value writes: outside the windows both values sit
         // clamped at 0/1, and rewriting them would dirty the inline style
         // (and recalc the consuming subtree) on every momentum frame.
@@ -80,16 +96,45 @@ export function createShrinkProgress(args: ShrinkProgressArgs): void {
       }
 
       const scheduleWrite = (): void => {
+        if (disposed) return
         frame ??= requestAnimationFrame(write)
       }
 
-      // Land on the right size immediately: reload mid-scroll restores the
-      // scroll position before any scroll event fires.
-      write()
+      const scheduleMeasurement = (): void => {
+        if (disposed) return
+        measurementPending = true
+        scheduleWrite()
+      }
+
+      const onFontLayout = (): void => {
+        scheduleMeasurement()
+      }
+
+      // Defer the initial read until the browser has had a chance to settle
+      // the first board layout. `write` still lands on the right size for a
+      // reload restored at a non-zero scroll position.
+      scheduleMeasurement()
       window.addEventListener('scroll', scheduleWrite, { passive: true })
+      window.addEventListener('resize', scheduleMeasurement, { passive: true })
+
+      // Do not observe the host with ResizeObserver: its own progress-driven
+      // padding and the switch's shrinking box are part of the observed
+      // subtree, so the observer would turn our writes back into measurements.
+      // Viewport resize plus the font-settle signals below cover the external
+      // layout changes this collision distance can receive without that loop.
+
+      // Font metrics can change after the first stylesheet pass. `ready` is
+      // available in Chromium/Safari; `loadingdone` also catches a later face
+      // that was not part of the initial document.fonts set.
+      const fonts = document.fonts
+      fonts?.addEventListener?.('loadingdone', onFontLayout)
+      void fonts?.ready.then(onFontLayout)
 
       return () => {
+        disposed = true
         window.removeEventListener('scroll', scheduleWrite)
+        window.removeEventListener('resize', scheduleMeasurement)
+        fonts?.removeEventListener?.('loadingdone', onFontLayout)
         if (frame != null) cancelAnimationFrame(frame)
         frame = null
       }

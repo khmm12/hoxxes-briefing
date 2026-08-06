@@ -6,12 +6,14 @@ const [needRefresh, setNeedRefresh] = createSignal(false)
 const [offlineReady, setOfflineReady] = createSignal(false)
 const updateServiceWorker = vi.fn(async () => {})
 const registrationUpdate = vi.fn(async () => {})
+const registerOptions = vi.hoisted(() => vi.fn())
 
 // vite-plugin-pwa's dev stub for this virtual module returns dead signals
 // (no setter wired to a real worker), so the state machine can't be driven
 // through it. Mock it with signals the test controls instead.
 vi.mock('virtual:pwa-register/solid', () => ({
-  useRegisterSW: (options?: { onRegisteredSW?: (url: string, registration: unknown) => void }) => {
+  useRegisterSW: (options?: { immediate?: boolean; onRegisteredSW?: (url: string, registration: unknown) => void }) => {
+    registerOptions(options)
     options?.onRegisteredSW?.('/sw.js', { update: registrationUpdate })
 
     return {
@@ -28,6 +30,7 @@ describe('createPwaController', () => {
     setOfflineReady(false)
     updateServiceWorker.mockClear()
     registrationUpdate.mockClear()
+    registerOptions.mockClear()
     registrationUpdate.mockImplementation(async () => {})
     vi.restoreAllMocks()
   })
@@ -37,6 +40,16 @@ describe('createPwaController', () => {
       const state = createPwaController()
 
       expect(state.notice()).toBeNull()
+
+      dispose()
+    })
+  })
+
+  it('defers initial registration to the browser load boundary', () => {
+    createRoot((dispose) => {
+      createPwaController()
+
+      expect(registerOptions).toHaveBeenCalledWith(expect.objectContaining({ immediate: false }))
 
       dispose()
     })

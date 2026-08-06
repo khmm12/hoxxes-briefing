@@ -13,6 +13,10 @@ export function createPwaController() {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW({
+    // Let the PWA helper register at the browser's initial load boundary
+    // instead of competing with the first Briefing board request and paint.
+    // Update-wall callbacks remain wired from the first render onward.
+    immediate: false,
     onRegisteredSW(_url, swRegistration) {
       registration = swRegistration
     },
