@@ -16,6 +16,10 @@ Deep Dive and Elite Deep Dive rotation.
   committed WASM package.
 - `api/v1/briefing.ts` is the Vercel Function entrypoint for the deployed API.
 
+The API maps and validates wire data at the HTTP boundary. Server application
+dependencies enter orchestration through explicit ports such as
+`BriefingProvider`.
+
 ## Request Flow
 
 1. The browser loads the static SPA shell.

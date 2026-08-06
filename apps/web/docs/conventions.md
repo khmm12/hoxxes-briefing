@@ -41,6 +41,17 @@ Follow Feature-Sliced Design for placement.
 - Prefer function declarations for exported components.
 - Shared UI primitives should accept caller styling through `class` and Panda
   `css` extension props when they are intended for reuse.
+- Put exported APIs and test cases before non-trivial helpers. Prefix variables
+  holding DOM elements with `$`, and keep geometry computation pure.
+- Annotate pure module-level constructor calls assigned to constants with
+  `/* @__PURE__ */` so the production build can tree-shake them.
+- Route environment-dependent permissions through
+  `shared/lib/app-capabilities`; consumers ask what is allowed, not where they
+  run.
+
+## SolidJS
+
+Upgrade `solid-js`, `@solidjs/web`, and related Solid packages together.
 
 ## Icons And Assets
 
@@ -66,16 +77,25 @@ All user-facing copy should go through Lingui. Keep copy short, operational, and
 specific to the board state. Avoid exposing implementation terms such as API,
 payload, service worker, or cache in primary UI copy.
 
-## Verification
-
-For web UI changes run the full gate from the repo root:
+After changing user-facing strings, run:
 
 ```bash
-pnpm check
+pnpm --dir apps/web exec lingui extract --clean
 ```
 
-While iterating, the narrower `pnpm --filter @hoxxes-briefing/web test` and
-`... build` runs are fine, but they skip biome and typecheck.
+## Verification
+
+While iterating, use `pnpm --filter @hoxxes-briefing/web test` or `... build`.
+They skip the repository gate.
+
+Component tests use `renderWithProviders` from `~test/render`; there is no global
+`screen`. `happy-dom` does not provide layout, so extract and test pure geometry
+instead of mocking browser layout.
+
+Use `/__playground/:scenario` under `pnpm dev:web` to inspect briefing UI states.
 
 When a change touches layout, state screens, offline behavior, or PWA update UI,
 also inspect desktop and common mobile widths in a browser.
+
+Safari-only rendering bugs may not reproduce in Chromium or Playwright WebKit;
+verify them in real Safari.
