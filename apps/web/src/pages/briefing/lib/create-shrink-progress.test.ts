@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { computeWindowProgress } from './create-shrink-progress'
+import { computeStickDistance, computeWindowProgress } from './create-shrink-progress'
+
+describe('computeStickDistance', () => {
+  it('converts a viewport measurement into the page pin position', () => {
+    expect(computeStickDistance(120, 300, 8)).toBe(412)
+  })
+})
 
 describe('computeWindowProgress', () => {
   it('is linear inside the window and clamped outside', () => {

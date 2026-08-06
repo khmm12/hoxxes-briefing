@@ -66,7 +66,7 @@ export function createShrinkProgress(args: ShrinkProgressArgs): void {
         // for this frame. The child margin is the only bar geometry that can
         // move the pin independently of the host's flow position.
         const pinBleed = measurePinBleed($el.firstElementChild)
-        stickDistance = $el.getBoundingClientRect().top + window.scrollY - pinBleed
+        stickDistance = computeStickDistance($el.getBoundingClientRect().top, window.scrollY, pinBleed)
         measurementPending = false
       }
 
@@ -106,35 +106,25 @@ export function createShrinkProgress(args: ShrinkProgressArgs): void {
         scheduleWrite()
       }
 
-      const onFontLayout = (): void => {
-        scheduleMeasurement()
+      const handleScroll = (): void => {
+        // If restored scroll arrives before the deferred activation frame,
+        // measure once in the event itself so the first paint cannot show the
+        // default uncollapsed switch. Later invalidations stay rAF-batched.
+        if (stickDistance === null) measure()
+        scheduleWrite()
       }
 
       // Defer the initial read until the browser has had a chance to settle
       // the first board layout. `write` still lands on the right size for a
       // reload restored at a non-zero scroll position.
       scheduleMeasurement()
-      window.addEventListener('scroll', scheduleWrite, { passive: true })
-      window.addEventListener('resize', scheduleMeasurement, { passive: true })
-
-      // Do not observe the host with ResizeObserver: its own progress-driven
-      // padding and the switch's shrinking box are part of the observed
-      // subtree, so the observer would turn our writes back into measurements.
-      // Viewport resize plus the font-settle signals below cover the external
-      // layout changes this collision distance can receive without that loop.
-
-      // Font metrics can change after the first stylesheet pass. `ready` is
-      // available in Chromium/Safari; `loadingdone` also catches a later face
-      // that was not part of the initial document.fonts set.
-      const fonts = document.fonts
-      fonts?.addEventListener?.('loadingdone', onFontLayout)
-      void fonts?.ready.then(onFontLayout)
+      window.addEventListener('scroll', handleScroll, { passive: true })
+      const disposePageLayout = onPageLayout(scheduleMeasurement)
 
       return () => {
         disposed = true
-        window.removeEventListener('scroll', scheduleWrite)
-        window.removeEventListener('resize', scheduleMeasurement)
-        fonts?.removeEventListener?.('loadingdone', onFontLayout)
+        window.removeEventListener('scroll', handleScroll)
+        disposePageLayout()
         if (frame != null) cancelAnimationFrame(frame)
         frame = null
       }
@@ -148,6 +138,32 @@ export function createShrinkProgress(args: ShrinkProgressArgs): void {
  */
 export function computeWindowProgress(scrollY: number, start: number, range: number): number {
   return Math.min(1, Math.max(0, (scrollY - start) / range))
+}
+
+/** Convert a measured host top edge into the page scroll position of the pin. */
+export function computeStickDistance(hostTop: number, scrollY: number, pinBleed: number): number {
+  return hostTop + scrollY - pinBleed
+}
+
+/**
+ * Subscribe to page-level changes that can move the Deck anchor. The host is
+ * intentionally not observed: its progress-driven padding and shrinking bar
+ * would feed our own writes back into a ResizeObserver loop.
+ */
+function onPageLayout(handleMeasurement: () => void): () => void {
+  const fonts = document.fonts
+
+  // Font metrics can change after the first stylesheet pass. `ready` is
+  // available in Chromium/Safari; `loadingdone` also catches a later face
+  // that was not part of the initial document.fonts set.
+  window.addEventListener('resize', handleMeasurement, { passive: true })
+  fonts?.addEventListener?.('loadingdone', handleMeasurement)
+  void fonts?.ready.then(handleMeasurement)
+
+  return () => {
+    window.removeEventListener('resize', handleMeasurement)
+    fonts?.removeEventListener?.('loadingdone', handleMeasurement)
+  }
 }
 
 /** How far the bar's border box bleeds above its flow slot, in px. */
