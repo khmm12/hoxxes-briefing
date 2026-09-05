@@ -100,7 +100,7 @@ function formatUnverifiedCaveat(i18n: I18n): string {
 
 function formatDiveBlock(i18n: I18n, kind: DiveKind, dive: DeepDive): string {
   const heading = `${diveEmoji[kind]} ${formatDiveKind(i18n, kind).toUpperCase()} · ${dive.name} · ${formatBiome(i18n, dive.biome)}`
-  const assessment = buildIntel(dive, kind)
+  const assessment = buildIntel(dive)
   const intel = `${INTEL_MARKER} ${formatDifficulty(i18n, assessment.overall.small, assessment.overall.full)}`
   const stages = dive.missions.map((mission, index) => formatStageLine(i18n, index, mission))
 

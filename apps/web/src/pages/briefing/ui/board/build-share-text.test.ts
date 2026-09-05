@@ -119,8 +119,8 @@ describe('buildShareText', () => {
       const normalBlock = blocks.find((block) => block.includes('Standard Run'))
       const eliteBlock = blocks.find((block) => block.includes('Elite Run'))
 
-      const normal = buildIntel(briefing.dives.normal, 'normal').overall
-      const elite = buildIntel(briefing.dives.elite, 'elite').overall
+      const normal = buildIntel(briefing.dives.normal).overall
+      const elite = buildIntel(briefing.dives.elite).overall
       expect(normalBlock).toContain(`💡 ${formatDifficulty(i18n, normal.small, normal.full)}`)
       expect(eliteBlock).toContain(`💡 ${formatDifficulty(i18n, elite.small, elite.full)}`)
     })

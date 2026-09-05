@@ -190,7 +190,7 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
   const [expanded, setExpanded] = createSignal(false)
   const visibleLimit = createRundownVisibleLimit()
 
-  const intel = createMemo(() => buildIntel(props.dive, props.kind))
+  const intel = createMemo(() => buildIntel(props.dive))
   const chips = createMemo(() => buildDiveRundown(props.dive))
   const visibleChips = createMemo(() => getVisibleRundownChips(chips(), visibleLimit(), expanded()))
 

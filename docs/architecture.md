@@ -52,6 +52,16 @@ only the shell and asset delivery layer.
 When a cached briefing is visible, the app should still try to refresh from the
 network and replace the cached briefing after a successful newer response.
 
+Persistence is best-effort and does not delay showing a network result. Writes
+within a query are serialized so a slow earlier write cannot overwrite a later
+refresh. A retired client checks for a new service worker and waits for its
+activation before reloading; a failed or timed-out installation leaves the
+update wall available for another attempt.
+
+Briefing request failures are logged once at the HTTP boundary with the
+original error (including its cause), public status/code and incoming request
+ID when present. Provider adapters classify errors without logging them.
+
 ## Source Documents
 
 - Product and UX intent: [product.md](product.md)

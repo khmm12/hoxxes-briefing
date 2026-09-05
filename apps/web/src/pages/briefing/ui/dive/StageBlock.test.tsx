@@ -181,7 +181,5 @@ describe('StageBlock', () => {
 })
 
 function stageIntel(mission: DeepDiveMission, index: number) {
-  return buildIntel({ name: 'Test Dive', biome: 'AzureWeald', missions: [mission, mission, mission] }, 'normal').stages[
-    index
-  ]
+  return buildIntel({ name: 'Test Dive', biome: 'AzureWeald', missions: [mission, mission, mission] }).stages[index]
 }

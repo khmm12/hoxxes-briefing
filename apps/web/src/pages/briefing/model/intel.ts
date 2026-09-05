@@ -9,7 +9,7 @@ export type Intel = {
   stages: [CrewGrades, CrewGrades, CrewGrades]
 }
 
-export function buildIntel(dive: DeepDive, _kind: DiveKind): Intel {
+export function buildIntel(dive: DeepDive): Intel {
   // Both kinds currently share relative rule grades; kind never adds a Hazard bonus.
   let entry: Runway = 'Fresh'
   const stages = dive.missions.map((mission) => {
@@ -199,47 +199,11 @@ function warningPressure(mission: DeepDiveMission, entry: Runway): CrewGrades[] 
         },
       ]
     case 'EliteThreat':
-      return [
-        {
-          small: 'Manageable',
-          full: 'Manageable',
-        },
-      ]
     case 'LethalEnemies':
-      return [
-        {
-          small: 'Manageable',
-          full: 'Manageable',
-        },
-      ]
     case 'RivalPresence':
-      return [
-        {
-          small: 'Manageable',
-          full: 'Manageable',
-        },
-      ]
     case 'ExploderInfestation':
-      return [
-        {
-          small: 'Manageable',
-          full: 'Manageable',
-        },
-      ]
     case 'Swarmageddon':
-      return [
-        {
-          small: 'Manageable',
-          full: 'Manageable',
-        },
-      ]
     case 'PitJawColony':
-      return [
-        {
-          small: 'Manageable',
-          full: 'Manageable',
-        },
-      ]
     case 'ScrabNestingGrounds':
       return [
         {

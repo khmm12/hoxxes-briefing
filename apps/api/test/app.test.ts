@@ -3,9 +3,69 @@ import { describe, it } from 'node:test'
 import * as v1 from '@hoxxes-briefing/contracts/api/v1'
 import { appDeps, createApp, readBriefingConfidence } from '../src/app.ts'
 import type { Briefing } from '../src/application/models/briefing.ts'
+import { InvalidResponsePayloadError } from '../src/http/errors.ts'
+import { createDirectBriefingProvider } from '../src/infrastructure/providers/direct-briefing-provider.ts'
 import { type BriefingProvider, BriefingProviderError } from '../src/ports/briefing-provider.ts'
 
 describe('GET /api/v1/briefing', () => {
+  it('logs provider failures once at the HTTP boundary with their cause and request ID', async (t) => {
+    const log = t.mock.method(console, 'error', () => {})
+    for (const kind of ['UPSTREAM_UNAVAILABLE', 'GENERATOR_UNAVAILABLE'] as const) {
+      const cause = new Error('private diagnostic detail')
+      const provider = createDirectBriefingProvider({
+        loadEvent: async () => {
+          if (kind === 'UPSTREAM_UNAVAILABLE') throw cause
+          return { seed: 42, release: '2026-09-03T11:00:00Z', expiration: '2026-09-10T11:00:00Z' }
+        },
+        generateFromSeed: () => {
+          throw cause
+        },
+      })
+      const app = createApp({ briefingProvider: provider, confidence: 'verified' })
+      const response = await app.request('/api/v1/briefing', { headers: { 'x-request-id': 'req-diagnostic' } })
+      const body = await response.text()
+
+      assert.equal(log.mock.callCount(), 1)
+      const [message, context, error] = log.mock.calls[0].arguments as unknown as [
+        string,
+        object,
+        BriefingProviderError,
+      ]
+      assert.equal(message, '[briefing] request failed')
+      assert.deepEqual(context, {
+        requestId: 'req-diagnostic',
+        status: response.status,
+        code: kind === 'UPSTREAM_UNAVAILABLE' ? kind : 'BRIEFING_DATA_UNAVAILABLE',
+      })
+      assert.ok(error instanceof BriefingProviderError)
+      assert.equal(error.cause, cause)
+      assert.doesNotMatch(body, /private diagnostic detail|stack|cause/)
+      log.mock.resetCalls()
+    }
+  })
+
+  it('logs serialization and unexpected failures without exposing diagnostics to the client', async (t) => {
+    const log = t.mock.method(console, 'error', () => {})
+    const cause = new Error('private diagnostic detail')
+    const providers = [
+      async () => invalidBriefing(),
+      async () => {
+        throw cause
+      },
+    ]
+    for (const getBriefing of providers) {
+      const response = await createAppWith(getBriefing).request('/api/v1/briefing')
+      assert.equal(response.status, 500)
+      assert.doesNotMatch(await response.text(), /private diagnostic detail|stack|cause/)
+    }
+
+    assert.equal(log.mock.callCount(), 2)
+    const serializationError = log.mock.calls[0].arguments[2] as unknown as InvalidResponsePayloadError
+    assert.ok(serializationError instanceof InvalidResponsePayloadError)
+    assert.ok(serializationError.cause instanceof Error)
+    assert.equal(log.mock.calls[1].arguments[2], cause)
+  })
+
   it('returns the clean briefing contract payload', async () => {
     const app = createAppWith(async () => createBriefing())
 

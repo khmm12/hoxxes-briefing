@@ -59,6 +59,17 @@ export function createCachedQuery<const K extends readonly unknown[], T>(
   options: CreateCachedQueryOptions<K, T>,
 ): CachedQuery<T> {
   const timeoutMs = options.timeoutMs ?? 150
+  // Persistence must not hold up rendering, but successive refreshes must
+  // still reach storage in order so a slow older write cannot win last.
+  let cacheWrite = Promise.resolve()
+  const cache: CachedQueryCache<K, T> = {
+    get: (key) => options.cache.get(key),
+    set(key, value) {
+      const write = cacheWrite.then(() => options.cache.set(key, value))
+      cacheWrite = write.catch(() => {})
+      return write
+    },
+  }
 
   const s = createMemo<InnerState<K, T>>(async function* (prev) {
     const key = options.source()
@@ -72,7 +83,7 @@ export function createCachedQuery<const K extends readonly unknown[], T>(
     })
 
     yield* streamCachedQuery({
-      cache: options.cache,
+      cache,
       fetcher: options.fetcher,
       isStale: options.isStale,
       isFatal: options.isFatal,
@@ -149,12 +160,12 @@ export async function* streamCachedQuery<K, T>(
   const networkPromise = (async () => {
     const value = await options.fetcher(options.key, { signal: options.signal })
 
-    try {
-      await options.cache.set(options.key, value)
-    } catch (error) {
-      // A storage failure (quota, private mode) must not discard a value that
-      // was successfully fetched — serve it and stay un-persisted.
-      console.warn('[cached-query] failed to persist the fetched value', error)
+    if (!options.signal.aborted) {
+      // Storage is best-effort, including slow writes, not just rejected ones.
+      // Observe sync throws and async rejections without delaying the network.
+      void Promise.resolve()
+        .then(() => options.cache.set(options.key, value))
+        .catch((error) => console.warn('[cached-query] failed to persist the fetched value', error))
     }
 
     return value

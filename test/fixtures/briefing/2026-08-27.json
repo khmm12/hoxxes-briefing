@@ -1,0 +1,89 @@
+{
+	"seed": 32502,
+	"dives": {
+		"normal": {
+			"name": "Rocky Wilderness",
+			"biome": "AzureWeald",
+			"missions": [
+				{
+					"primaryObjective": {
+						"kind": "OnSiteRefining",
+						"morkiteWells": 3
+					},
+					"secondaryObjective": {
+						"kind": "EggHunt",
+						"eggs": 2
+					},
+					"anomaly": "LowGravity",
+					"warning": "CaveLeechCluster"
+				},
+				{
+					"primaryObjective": {
+						"kind": "PointExtraction",
+						"aquarqs": 7
+					},
+					"secondaryObjective": {
+						"kind": "OnSiteRefining",
+						"morkiteWells": 1
+					},
+					"anomaly": null,
+					"warning": null
+				},
+				{
+					"primaryObjective": {
+						"kind": "HeavyExtraction",
+						"resiniteMasses": 3
+					},
+					"secondaryObjective": {
+						"kind": "SalvageOperation",
+						"miniMules": 2
+					},
+					"anomaly": null,
+					"warning": "ShieldDisruption"
+				}
+			]
+		},
+		"elite": {
+			"name": "Scarred Pursuit",
+			"biome": "SandblastedCorridors",
+			"missions": [
+				{
+					"primaryObjective": {
+						"kind": "DeepScan",
+						"resonanceCrystals": 3
+					},
+					"secondaryObjective": {
+						"kind": "EggHunt",
+						"eggs": 2
+					},
+					"anomaly": null,
+					"warning": "EliteThreat"
+				},
+				{
+					"primaryObjective": {
+						"kind": "EggHunt",
+						"eggs": 6
+					},
+					"secondaryObjective": {
+						"kind": "Elimination",
+						"dreadnoughts": ["Hiveguard"]
+					},
+					"anomaly": "LowGravity",
+					"warning": "RivalPresence"
+				},
+				{
+					"primaryObjective": {
+						"kind": "MiningExpedition",
+						"morkite": 200
+					},
+					"secondaryObjective": {
+						"kind": "DeepScan",
+						"resonanceCrystals": 2
+					},
+					"anomaly": null,
+					"warning": null
+				}
+			]
+		}
+	}
+}

@@ -9,6 +9,7 @@
 		"gen:og": "node scripts/generate-og-image.ts",
 		"lint:fsd": "steiger ./src",
 		"test": "vitest run",
+		"test:browser": "playwright test",
 		"typecheck": "panda codegen --clean && tsc -b tsconfig.json",
 		"prepare": "panda codegen --clean"
 	},
@@ -37,6 +38,7 @@
 		"@lingui/cli": "^6.6.0",
 		"@lingui/vite-plugin": "^6.6.0",
 		"@pandacss/dev": "^1.12.1",
+		"@playwright/test": "1.63.0",
 		"@resvg/resvg-js": "^2.6.2",
 		"@rolldown/plugin-babel": "^0.2.3",
 		"@solidjs/testing-library": "1.0.0-beta.3",

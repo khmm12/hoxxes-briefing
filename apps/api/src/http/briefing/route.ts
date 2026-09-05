@@ -37,7 +37,9 @@ export function registerBriefingRoute(app: Hono, dependencies: BriefingRouteDepe
         throw new InvalidResponsePayloadError('Failed to serialize briefing response', { cause })
       }
     } catch (error) {
-      const { status, body } = toBriefingErrorResponse(error, context.req.header('x-request-id'))
+      const requestId = context.req.header('x-request-id')
+      const { status, body } = toBriefingErrorResponse(error, requestId)
+      console.error('[briefing] request failed', { requestId, status, code: body.code }, error)
       applyHeaders(context, createBriefingErrorCacheHeaders())
 
       return context.json(body, status)
