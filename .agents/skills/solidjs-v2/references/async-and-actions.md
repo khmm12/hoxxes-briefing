@@ -1,6 +1,7 @@
 # Async data, transitions, actions, optimistic UI
 
-Verified against solid-js@2.0.0-beta.28 (published typings) and `next@90fcbd0a` sources/tests.
+Verified against solid-js@2.0.0-rc.5 (published typings/runtime) and
+`solidjs/solid@5eb3250a` sources/tests.
 
 ## Async lives in computations — there is no `createResource`
 
@@ -22,6 +23,8 @@ const user = createMemo(() => fetchUser(params.id));
   each `yield` commits a new value. Both async shapes own in-flight work that needs
   explicit cleanup — see **Cancellation & cleanup** below; the streaming-query
   pattern is in `references/patterns.md`.
+- A `Promise<AsyncIterable<T>>` is flattened automatically and streams like a
+  directly returned async iterable; no `yield* await serverFn()` wrapper is needed.
 - Reading a pending async value **outside** a tracked scope throws
   (`PENDING_ASYNC_UNTRACKED_READ`). Read in JSX, a memo, or an effect compute.
 - Async with no `<Loading>` ancestor at `render()` time warns
@@ -108,9 +111,9 @@ Symptoms when this is wrong:
 
 - `onCleanup` after the first `await`/`yield` → `NO_OWNER_CLEANUP`; cleanup silently
   skipped, resource leaks.
-- An async iterator that completes without yielding settles to `undefined`
-  (fixed in beta.17), so `<Loading>` releases. A `return value` is still
-  discarded — emit a final value with `yield`, not `return`.
+- An async iterator that completes without yielding settles to `undefined`, so
+  `<Loading>` releases. A `return value` is still discarded — emit a final value
+  with `yield`, not `return`.
 - Subscribing to a socket/emitter with no up-front `onCleanup` → leaks on every re-run
   and on route change. `try/finally` alone does **not** save you.
 
@@ -123,11 +126,38 @@ Symptoms when this is wrong:
   pending — for route/key-level transitions:
   `<Loading on={id()} fallback={<Spinner />}>...`
 
-## `isPending(fn)` — question-scoped pending (beta.21 re-ruling)
+### `loadingValue` / `seedLoadingValue` — committed first paint
 
-One rule, re-derived from the ground up in beta.21 (changeset
-`question-scoped-pending-affects`, supersedes the old "optimistic mask"
-model): a read is pending **iff** a value change is in flight for it that
+Use a loading value when the provisional state is useful content rather than a
+structural fallback:
+
+```ts
+const user = createMemo<User | null>(() => fetchUser(id()), {
+  loadingValue: null,
+});
+
+const [todos] = createStore(() => fetchTodos(), [], {
+  seedLoadingValue: true,
+});
+```
+
+`loadingValue` applies to memo/signal-family derived sources;
+`seedLoadingValue: true` makes a derived store's seed the committed first
+paint. The source reads as settled until its first real answer lands: it does
+not suspend `<Loading>`, hold a transition, or make `isPending(source)` true.
+Drive the first-load UI from the provisional value itself. After the first
+landing, ordinary refetch pending semantics apply and the loading value never
+returns. The loading value is also the compute's first `prev`.
+
+With `ssrSource: "client"`, both forms render the declared first paint on the
+server and preserve it through hydration. The bare form is also valid: it is a
+structural client hole, so the server suspends the nearest `<Loading>` fallback
+and hands that position to the client. Outside a boundary, a bare client source
+is a render error.
+
+## `isPending(fn)` — question-scoped pending
+
+One rule: a read is pending **iff** a value change is in flight for it that
 hasn't *revealed* yet, or it carries a live `affects()` mark (below).
 
 `isPending` **performs the read** and reports whether anything it touched is
@@ -149,24 +179,27 @@ currently pending.
   `<button disabled={isPending(user)}>Save</button>` under the boundary,
   with a disabled fallback for the initial path.
 
-**Same-question re-asks are silent; new questions pend monotonically.** A
+**Same-question re-asks are quiet; new questions pend monotonically.** A
 `refresh()`, a poll, or a confirming refetch after a mutation — none of which
-change the *tracked input* (id, query key) — reveal their fresh value without
-ever flipping `isPending` to `true`: the source you're showing still answers
+change the *tracked input* (id, query key) — normally reveal their fresh value
+without flipping `isPending` to `true`: the source you're showing still answers
 what's being asked, so the swap is quiet. A change to the tracked input
 itself (navigation changes `id()`) pends every read under that source
 monotonically until the new answer reveals — nothing can silence it early.
 To make an otherwise-quiet reload read as pending, declare it:
 `affects(user); refresh(user)` (see **`affects()`** below).
 
+Published rc.5 has one narrow runtime defect at this boundary: if a quiet
+refresh landing is held by another transition, a directly observing render
+effect can see a one-frame `isPending === true` pulse. The post-rc.5 upstream
+fix is not part of this target. Treat refresh as a quiet re-ask for UI design,
+but do not write correctness logic that depends on it *never* pulsing in rc.5.
+
 Optimistic writes are **verdict-inert**: an active override displays the
 provisional value but decrees nothing — it does not read pending on its own
-slot, and (unlike beta.17–beta.20) it no longer masks anything else. The
-store-wide and per-node optimistic "isPending mask" from those betas is
-**removed** (changeset `question-scoped-pending-affects`: "The store-wide
-optimistic mask (A21) and node mask (A20) are removed"). A spinner driven by
+slot and does not mask anything else. A spinner driven by
 `isPending` next to an optimistic write now depends only on whether the
-confirming work is a quiet re-ask (`refresh()` alone → silent) or a declared
+confirming work is a quiet re-ask (`refresh()` alone → normally quiet) or a declared
 one (`affects()` + `refresh()` → pending) — not on the presence of the
 optimistic write. Drive "Saving…" process affordances from co-written data
 (a flag in the optimistic write, or a dedicated `createOptimistic` boolean),
@@ -174,7 +207,6 @@ never from `isPending` — see **`affects()` and division of labor** below.
 
 ## `affects(target, key?)` — declare what's changing
 
-New in beta.21 (public `solid-js` export, verified in installed typings).
 `affects` declares that in-flight work will change the targeted data: the
 marked slot — and anything **derived** from it — reads pending
 (`isPending` → `true`) from the declaration until the surrounding transaction
@@ -188,8 +220,7 @@ mark can turn pending *on* for data the graph can't otherwise see changing;
 nothing can turn pending *off* while a real change is in flight. `affects`
 belongs inside an action (or another transaction): called outside any
 transaction the mark is released at the end of the current flush, so it never
-reaches your effects or UI (beta.22 pins this as an explicit contract —
-ambient marks are verdict-only).
+reaches your effects or UI; ambient marks are verdict-only.
 
 ```ts
 declare function affects(target: Accessor<unknown> | Store<object>): void;
@@ -211,7 +242,7 @@ Targets:
 - `affects(accessor)` — a plain signal/memo source accessor.
 
 The idiom for a "loud" reload — one that should read pending even though a
-bare `refresh()` alone would be silent:
+bare `refresh()` alone would normally be quiet:
 
 ```ts
 const reload = action(function* () {
@@ -240,16 +271,7 @@ co-written state — an optimistic flag that reverts on its own at settle —
 never a verdict read off `isPending`. See *Optimistic primitives* below for
 why optimistic writes themselves are verdict-inert.
 
-## `latest(fn)`, `resolve(fn)`, `refresh(target)`
-
-> `isRefreshing()` is **gone as of beta.15** — it was a public `solid-js`
-> export from beta.0 through beta.14 (and written up in the RFC docs), removed
-> in beta.15: commit `52255dc` cut the code, typings, and docs together
-> (it is gone from `@solidjs/signals` internals too). There is
-> no public replacement: model refresh/retry intent with actions + optimistic
-> state, observe readiness via `<Loading>`/`isPending`, and detect a `refresh()`
-> re-run inside a compute by carrying the source key in the yielded state and
-> comparing (see `patterns.md`).
+## `latest(fn)`, `resolve(fn)`, `refresh(target)`, `until(fn)`
 
 ```ts
 latest(userId); // peek at the in-flight value during a transition
@@ -260,12 +282,74 @@ await resolve(() => user()); // Promise that settles when the expression is
                 // source rejects. Imperative code / tests only — throws inside
                 // a tracking scope.
 
-refresh(user);  // invalidate-and-recompute a derived read. Target must be
-                // refreshable: an async memo, derived signal/store
-                // (function-form), or projection. It is an action: call from
-                // handlers/effects/actions — calling inside a pure
-                // computation throws (REACTIVE_WRITE_IN_OWNED_SCOPE).
+const settled = await refresh(user); // invalidate/recompute and wait for the
+                // next quiescent answer. Target must be refreshable: an async
+                // memo, derived signal/store (function-form), or projection.
+                // Calling inside a pure computation throws
+                // REACTIVE_WRITE_IN_OWNED_SCOPE.
 ```
+
+Published rc.5 makes refresh awaitable:
+
+```ts
+declare function refresh<T>(
+  target: Refreshable<T>
+): Promise<T extends (...args: any) => infer V ? V : T>;
+```
+
+The promise follows the re-ask through any superseding invalidation and settles
+at the next quiescent answer. For an accessor it resolves the settled value; for
+a store it resolves the node passed (refreshing a nested node still re-asks its
+whole derived family). It rejects with the re-ask error. Ignoring the returned
+promise remains valid fire-and-forget usage and does not create an unhandled
+rejection. Inside an action, `yield refresh(source)` waits at a transaction-safe
+point; failure throws at that yield and reverts optimistic writes. The delivered
+value is authoritative staged data, never the caller's optimistic override.
+
+`refresh()` recomputes only the explicit target (or the top-level reads of a
+refresh callback); it does not cascade into unrelated upstream memos.
+
+### `until()` — wait for a live source to acknowledge
+
+```ts
+interface UntilOptions {
+  timeout?: number;
+  signal?: AbortSignal;
+}
+
+const acknowledged = await until(
+  () => todos.find(todo => todo.clientId === clientId),
+  { timeout: 5_000, signal }
+);
+```
+
+`until(fn, options?)` returns `Promise<Truthy<T>>`: it resolves with the first
+truthy settled predicate result. Falsy and pending results keep waiting; a
+predicate error, abort, or timeout rejects (`TimeoutError` for timeout). Call it
+from imperative code, never inside a tracking scope.
+
+Its important action use is live-source acknowledgement:
+
+```ts
+const addTodo = action(async function* (todo: Todo) {
+  setOptimisticTodos(list => { list.push(todo); });
+  yield api.addTodo(todo);
+  yield until(
+    () => todos.some(row => row.id === todo.id),
+    { timeout: 5_000 }
+  );
+});
+```
+
+`yield until(...)` keeps the transaction and its optimistic writes alive until
+the authoritative subscription/store observes the mutation. The predicate
+does not see the action's own optimistic overlay, so an optimistic write cannot
+acknowledge itself; transition-staged authoritative data is visible. Use a
+timeout or abort signal for a live channel that can drop acknowledgements. If
+another transition supplies the truthy confirmation, rc.5 entangles it with
+the awaiting action so the confirming truth and optimistic reversion/reveal
+paint atomically rather than tearing; unrelated non-flipping updates remain
+free to reveal.
 
 ## Transitions are built-in
 
@@ -280,7 +364,7 @@ function. Writes between yields are batched into the action's transition.
 
 Defining an action in a component is fine; **calling it synchronously from an
 owned scope is not**. A call in a component body, memo, or effect compute throws
-in dev (`ACTION_CALLED_IN_OWNED_SCOPE`, beta.17). Starting the transaction there
+in dev (`ACTION_CALLED_IN_OWNED_SCOPE`). Starting the transaction there
 can livelock when the scope tracks state that the action later writes: each
 write retriggers the scope and starts a replacement transition before the value
 commits. Invoke actions from event handlers, effect apply/error callbacks,
@@ -306,8 +390,9 @@ const save = action(async function* (todo) {
 ```
 
 Shape of a mutation: optimistic write → `yield`/`await` server work →
-`refresh(...)` derived reads. Don't use `refresh()` as a "refreshing" UI flag —
-that's `isPending`'s job.
+`refresh(...)` derived reads or `until(...)` live acknowledgement. Don't use
+`refresh()` as a "refreshing" UI flag: use a co-written process flag, or
+`affects()` + `isPending` when the data re-ask itself should read pending.
 
 **`yield` is the only transaction-safe suspension point** (changeset
 `document-action-await-contract`, ruled behaves-as-designed). Writes made
@@ -331,9 +416,9 @@ its ordering there.
 
 An **uncaught error** in an async-generator action rejects the returned promise
 and completes the transition — so optimistic writes revert and the caller can
-`.catch`. It no longer freezes the thread (a beta.16 fix). A `try`/`catch`
-around a `yield`/`await` still handles an awaited rejection locally. As of
-beta.17, falsy throws (`undefined`, `null`, `0`, `""`, `false`) reject with that
+`.catch`; it does not halt reactivity. A `try`/`catch` around a `yield`/`await`
+still handles an awaited rejection locally. Falsy throws
+(`undefined`, `null`, `0`, `""`, `false`) reject with that
 exact value too; never infer action success from error truthiness.
 
 ## Optimistic primitives
@@ -358,21 +443,15 @@ An optimistic write of literal `undefined` — a delete, a `filter()`-shaped
 removal, "set to no value" — is a fully supported override, not a special
 case: it reverts like any other write when the transition settles.
 
-### Optimistic writes are verdict-inert (beta.21 re-ruling)
+### Optimistic writes are verdict-inert
 
-As of beta.21 (changeset `question-scoped-pending-affects`), an optimistic
-write decrees nothing about `isPending`: it doesn't read pending on its own
-slot, and it no longer masks anything else. **The store-wide and per-node
-"certainty by decree" mask from beta.17–beta.20 is removed.**
+An optimistic write decrees nothing about `isPending`: it doesn't read pending
+on its own slot and it doesn't mask anything else.
 
-If you're used to that mask: a `<Show when={isPending(() => todos())}>`
-spinner next to an `action` that does an optimistic write followed by a bare
-`refresh(todos)` still doesn't show a spinner in beta.21 — but the reason has
-changed. It's not because the optimistic write masked it; it's because a bare
-`refresh()` is a **quiet, same-question re-ask** (see *`isPending` —
-question-scoped pending* above) — it was never going to read as pending
-regardless of the optimistic write. If the reload should read as pending,
-declare it: `affects(todos); refresh(todos)`.
+A `<Show when={isPending(() => todos())}>` spinner next to an action that does
+an optimistic write followed by `refresh(todos)` stays hidden: a bare refresh
+is a quiet, same-question re-ask. If the reload should read as pending, declare
+it: `affects(todos); refresh(todos)`.
 
 The "Saving…" recipe is unchanged: put process affordances **in the data** —
 a co-written flag that rides along with the optimistic write, or a separate

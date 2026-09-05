@@ -1,6 +1,7 @@
 # TypeScript, JSX, imports, project setup
 
-Verified against solid-js@2.0.0-beta.28 / @solidjs/web@2.0.0-beta.28 typings.
+Verified against solid-js@2.0.0-rc.5 / @solidjs/web@2.0.0-rc.5 published
+typings and `solidjs/solid@5eb3250a` sources.
 
 ## Import paths
 
@@ -13,13 +14,22 @@ Verified against solid-js@2.0.0-beta.28 / @solidjs/web@2.0.0-beta.28 typings.
 | `solid-js/universal` | `@solidjs/universal` |
 | `solid-js/jsx-runtime` | `@solidjs/web/jsx-runtime` |
 
-Upgrade `solid-js`, `@solidjs/web`, `babel-preset-solid` (and other
-`@solidjs/*` packages) together — betas move in lockstep.
+Upgrade `solid-js`, `@solidjs/web`, and the compiler integration together —
+prereleases move in lockstep. `babel-preset-solid` is gone: Babel pipelines use
+`@solidjs/babel-plugin`; Vite uses `@solidjs/vite-plugin`, whose default native
+compiler is `@solidjs/compiler`.
 
 `@solidjs/web` also ships `./server-functions` (see
 `references/server-functions.md`), `./storage`, and `./serialization`
 subpaths for server-side concerns — not part of the renderer-neutral surface
 above.
+
+The published rc.5 `solid-js` export map no longer exposes `solid-js/types/*`.
+Import public types from `solid-js` itself; a deep import that happened to find
+generated declaration files in an earlier prerelease is unsupported and now
+fails package export resolution. `@solidjs/web/types/*` remains available for
+renderer integration declarations, but application code should prefer the
+documented root/subpath exports.
 
 ## tsconfig for web apps
 
@@ -58,16 +68,16 @@ rather than 1.x memory.
 
 ## DOM ref typing and `applyRef`
 
-`JSX.Ref<T>` is recursive and includes direct assignment, a callback, or nested
-arrays of either shape:
+`JSX.Ref<T>` is recursive and includes direct assignment, a callback,
+`undefined`, or nested arrays of those shapes:
 
 ```ts
 type RefCallback<T> = (el: T) => void;
-type Ref<T> = T | RefCallback<T> | Ref<T>[];
+type Ref<T> = T | RefCallback<T> | undefined | Ref<T>[];
 ```
 
 This is why `ref={[first, [second, third]]}` type-checks. Library code that has
-resolved refs to invoke should use the renderer's `applyRef` helper. Its beta.28
+resolved refs to invoke should use the renderer's `applyRef` helper. Its rc.5
 client typing is:
 
 ```ts
@@ -116,7 +126,7 @@ const [todos, { addTodo }] = useContext(TodosContext);
 primitive config (theme, locale). App-wide state doesn't need Context at all:
 a module-scope signal/store *is* a global.
 
-## Known typing traps (beta.21, unchanged in beta.28)
+## Known typing traps
 
 - `createSignal<T>(value)` with a generic `T` can fail the
   `Exclude<T, Function>` value overload — seed via the compute-fn overload:

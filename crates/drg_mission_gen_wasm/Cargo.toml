@@ -7,12 +7,12 @@ edition = "2024"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-wasm-bindgen = "=0.2.126"
+wasm-bindgen = "=0.2.128"
 serde = { version = "1.0", features = ["derive"] }
 serde-wasm-bindgen = "0.6.5"
 drg_mission_gen_facade = { path = "../drg_mission_gen_facade" }
-talc = "5.0.4"
-tsify = "0.5.6"
+talc = "5.1.0"
+tsify = "0.5.8"
 
 [dev-dependencies]
 criterion = { version = "0.8.2", features = ["html_reports"] }
