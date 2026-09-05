@@ -312,11 +312,11 @@ weights, or line heights.
 | `eyebrow` | uppercase | eyebrows, stage index |
 | `metric` | — | primary objective values |
 | `metric-sm` | — | secondary objective values, timing strip (desktop) |
-| `body-md` | — | intel notes, state bodies |
-| `body-sm` | — | secondary copy, footer, slogans |
+| `body-md` | — | state bodies |
+| `body-sm` | — | Secondary copy, footer, slogans |
 | `label` | — | objective/mutator labels, chips, biome line |
-| `label-strong` | — | timing strip (mobile), chip accents, freshness notes |
-| `caption` | — | fine print |
+| `label-strong` | — | Timing strip (mobile), chip accents, freshness notes |
+| `caption` | — | Dive and Stage Difficulty indicators, fine print |
 
 Notes:
 - A role owns exactly one casing. Uppercase is applied via `text-transform`,
@@ -454,6 +454,24 @@ labeled variant.
   (20 px glyph + `metric-sm`) objective lines; mutator stack under a divider:
   warning card (danger surface/border), anomaly card (primary surface/border),
   or the quiet note.
+- **Difficulty indicator** — informational assessment block using `caption`
+  text and a 16 px decorative glyph in a 24×24 viewBox. Easy, Manageable,
+  Demanding, and Brutal use one through four angular chevrons and `success`,
+  `text-secondary`, `warning`, and `danger`, respectively. Each icon/name group
+  has a 4 px gap. The assessment block uses an 8 px horizontal and 4 px
+  wrapped-row gap, keeping wrapped groups right-aligned. Matching grades collapse
+  to one icon and name; split grades retain `1–2:` / `3–4:` conditions. Groups
+  wrap inside the block without truncation, badge padding, borders, backgrounds,
+  legend, or tooltip. One visually hidden localized sentence supplies the
+  complete Dive or Stage and both Crew assessments; visible duplicates are
+  decorative to screen readers.
+  The four `glyph/difficulty-*` masters live in Foundations · Icons and are
+  reused by indicator instances throughout the `.pen` document.
+- **Intel** — grades only, without generated commentary or hotspot headings.
+  On desktop, overall Difficulty sits to the right of the Dive kind eyebrow.
+  On mobile, it occupies a separate row above the Dive name. Stage Difficulty
+  sits at the right edge of each Stage heading. Names and indices retain their
+  own space while the assessment block handles its internal wrapping.
 - **Slab** — `rounded.lg`, raised surface (sunken + danger border on
   elite), `elevation.medium`, radial primary wash from the top-right corner
   (primary-surface / danger-surface); padding steps 16 → 20 (`md`) → 24
@@ -462,7 +480,7 @@ labeled variant.
   the mobile dive switch already names the dive — dive name, biome line with
   16 px tinted glyph + `label`, “Last known briefing” freshness note (expired
   briefings only — a cached briefing within a live week is simply valid),
-  intel note), rundown chips, three stage blocks.
+  Difficulty assessment), rundown chips, three stage blocks.
 - **Command rail** — page chrome, not a card: brand block (logo, title,
   slogan), timing strip (`Jun 1 – 8 · 14:00 · 5d 21h`, gold countdown; danger
   “already ended” when expired), status slot, refresh icon button; closed by
@@ -612,8 +630,10 @@ code and are not enumerated on the canvas:
   (`DiveSlab`).
 - **Countdown** shows “coming soon” after the cycle expires, until the new
   briefing lands (`TimingStrip`).
-- **Slogans** — pool of 13 (`slogan-copy`); **intel notes** — pool of
-  25 (`intel-copy`).
+- **Slogans** — pool of 13 (`slogan-copy`). **Intel** — `buildIntel` returns
+  grade pairs only. `DifficultyIndicator` and its `difficulty-copy` module own
+  localized levels and Crew conditions; share text reuses that formatter.
+  No narrative copy pool.
 
 ## Overflow & localization
 

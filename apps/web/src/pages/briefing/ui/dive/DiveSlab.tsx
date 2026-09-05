@@ -14,6 +14,7 @@ import { Tooltip } from '~/shared/ui/tooltip'
 import type { Mutator } from '../../model/catalog'
 import { buildDiveRundown } from '../../model/dive-rundown'
 import { buildIntel } from '../../model/intel'
+import { DifficultyIndicator } from './DifficultyIndicator'
 import {
   formatBiome,
   formatBiomeDescription,
@@ -23,7 +24,6 @@ import {
 } from './dive-copy'
 import { AnomalyKindIcon, BiomeKindIcon, WarningKindIcon } from './dive-glyphs'
 import { getVisibleRundownChips } from './dive-rundown-view'
-import { formatIntelNote } from './intel-copy'
 import { StageBlock } from './StageBlock'
 
 type DiveSlabProps = WithStylingProps<{
@@ -117,11 +117,6 @@ const freshnessStyles = css.raw({
   textStyle: 'label.strong',
 })
 
-const noteStyles = css.raw({
-  color: 'text.secondary',
-  textStyle: 'body.sm',
-})
-
 const metaStyles = css.raw({
   display: 'grid',
   gap: '2',
@@ -205,9 +200,15 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
     <article class={resolveClass(props.class, props.css, slabRecipe.raw({ kind: props.kind }))} inert={props.inert}>
       <header class={css(headerStyles)}>
         <div class={css(introStyles)}>
-          <Eyebrow css={{ srOnly: { base: true, md: false } }} tone={props.kind === 'elite' ? 'danger' : 'primary'}>
-            {formatDiveKind(i18n, props.kind)}
-          </Eyebrow>
+          <div class={css({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '3' })}>
+            <Eyebrow
+              css={{ srOnly: { base: true, md: false }, flexShrink: '0' }}
+              tone={props.kind === 'elite' ? 'danger' : 'primary'}
+            >
+              {formatDiveKind(i18n, props.kind)}
+            </Eyebrow>
+            <DifficultyIndicator small={intel().overall.small} full={intel().overall.full} />
+          </div>
           <h2 class={css(titleStyles)}>{props.dive.name}</h2>
           <p class={css(biomeStyles)}>
             <BiomeKindIcon css={biomeIconStyles} kind={props.dive.biome} />
@@ -217,7 +218,6 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
           </p>
           {props.expired ? <p class={css(freshnessStyles)}>{i18n._(msg`Last known briefing`)}</p> : null}
         </div>
-        <p class={css(noteStyles)}>{formatIntelNote(i18n, intel())}</p>
       </header>
 
       <Show when={chips().length > 0}>
@@ -244,7 +244,9 @@ export function DiveSlab(props: DiveSlabProps): JSX.Element {
 
       <ol class={css(stageListStyles)}>
         <For each={props.dive.missions} keyed={false}>
-          {(mission, index) => <StageBlock index={index} kind={props.kind} mission={mission()} />}
+          {(mission, index) => (
+            <StageBlock index={index} kind={props.kind} mission={mission()} intel={intel().stages[index]} />
+          )}
         </For>
       </ol>
     </article>

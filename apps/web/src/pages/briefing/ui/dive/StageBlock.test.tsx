@@ -3,6 +3,7 @@ import { flush } from 'solid-js'
 import { fireEvent } from '@solidjs/testing-library'
 import type { DeepDiveMission } from '~/shared/api'
 import { renderWithProviders } from '~test/render'
+import { buildIntel } from '../../model/intel'
 import { StageBlock } from './StageBlock'
 
 // The tooltip panel renders through a `Portal` into `document.body`, outside the
@@ -20,7 +21,9 @@ describe('StageBlock', () => {
       anomaly: null,
     }
 
-    const { getByText } = renderWithProviders(() => <StageBlock index={0} kind="normal" mission={mission} />)
+    const { getByText } = renderWithProviders(() => (
+      <StageBlock intel={stageIntel(mission, 0)} index={0} kind="normal" mission={mission} />
+    ))
 
     expect(getByText('Stage 1')).toBeInTheDocument()
     // The Elimination value is tokenized: each named dreadnought variant is its
@@ -39,7 +42,9 @@ describe('StageBlock', () => {
       anomaly: null,
     }
 
-    const { getByText } = renderWithProviders(() => <StageBlock index={0} kind="normal" mission={mission} />)
+    const { getByText } = renderWithProviders(() => (
+      <StageBlock intel={stageIntel(mission, 0)} index={0} kind="normal" mission={mission} />
+    ))
 
     fireEvent.focusIn(getByText('Morkite x200'))
     flush()
@@ -57,7 +62,9 @@ describe('StageBlock', () => {
       anomaly: null,
     }
 
-    const { getByText } = renderWithProviders(() => <StageBlock index={0} kind="normal" mission={mission} />)
+    const { getByText } = renderWithProviders(() => (
+      <StageBlock intel={stageIntel(mission, 0)} index={0} kind="normal" mission={mission} />
+    ))
 
     fireEvent.focusIn(getByText('Hiveguard'))
     flush()
@@ -73,7 +80,9 @@ describe('StageBlock', () => {
       anomaly: null,
     }
 
-    const { getByText } = renderWithProviders(() => <StageBlock index={2} kind="normal" mission={mission} />)
+    const { getByText } = renderWithProviders(() => (
+      <StageBlock intel={stageIntel(mission, 2)} index={2} kind="normal" mission={mission} />
+    ))
 
     expect(getByText('Stage 3')).toBeInTheDocument()
   })
@@ -87,7 +96,7 @@ describe('StageBlock', () => {
     }
 
     const { getByText, queryByText } = renderWithProviders(() => (
-      <StageBlock index={0} kind="normal" mission={mission} />
+      <StageBlock intel={stageIntel(mission, 0)} index={0} kind="normal" mission={mission} />
     ))
 
     expect(getByText('No warning or anomaly on this stage.')).toBeInTheDocument()
@@ -104,7 +113,7 @@ describe('StageBlock', () => {
     }
 
     const { getByText, queryByText } = renderWithProviders(() => (
-      <StageBlock index={0} kind="normal" mission={mission} />
+      <StageBlock intel={stageIntel(mission, 0)} index={0} kind="normal" mission={mission} />
     ))
 
     expect(getByText('Warning')).toBeInTheDocument()
@@ -122,7 +131,7 @@ describe('StageBlock', () => {
     }
 
     const { getByText, queryByText } = renderWithProviders(() => (
-      <StageBlock index={0} kind="normal" mission={mission} />
+      <StageBlock intel={stageIntel(mission, 0)} index={0} kind="normal" mission={mission} />
     ))
 
     expect(getByText('Anomaly')).toBeInTheDocument()
@@ -138,7 +147,9 @@ describe('StageBlock', () => {
       anomaly: 'LowGravity',
     }
 
-    const { getByText } = renderWithProviders(() => <StageBlock index={0} kind="normal" mission={mission} />)
+    const { getByText } = renderWithProviders(() => (
+      <StageBlock intel={stageIntel(mission, 0)} index={0} kind="normal" mission={mission} />
+    ))
 
     expect(getByText('Warning')).toBeInTheDocument()
     expect(getByText('Mactera Plague')).toBeInTheDocument()
@@ -154,7 +165,9 @@ describe('StageBlock', () => {
       anomaly: null,
     }
 
-    const { getByText } = renderWithProviders(() => <StageBlock index={0} kind="normal" mission={mission} />)
+    const { getByText } = renderWithProviders(() => (
+      <StageBlock intel={stageIntel(mission, 0)} index={0} kind="normal" mission={mission} />
+    ))
 
     // The tooltip lives on the mutator name, not the surrounding card, so focusing
     // the value text — not the box — is what surfaces the description.
@@ -166,3 +179,9 @@ describe('StageBlock', () => {
     )
   })
 })
+
+function stageIntel(mission: DeepDiveMission, index: number) {
+  return buildIntel({ name: 'Test Dive', biome: 'AzureWeald', missions: [mission, mission, mission] }, 'normal').stages[
+    index
+  ]
+}

@@ -11,6 +11,7 @@ import type {
 import { canonicalUrl } from '~/shared/config'
 import { getDateTimeFormat } from '~/shared/i18n'
 import { buildIntel, type DiveKind } from '../../model/intel'
+import { formatDifficulty } from '../dive/difficulty-copy'
 import {
   formatAnomaly,
   formatBiome,
@@ -19,7 +20,6 @@ import {
   formatSecondaryObjective,
   formatWarning,
 } from '../dive/dive-copy'
-import { formatIntelNote } from '../dive/intel-copy'
 
 /**
  * Renders the current Briefing as a self-contained, paste-anywhere text block.
@@ -76,7 +76,7 @@ const diveEmoji: Record<DiveKind, string> = {
 const WARNING_MARKER = '⚠️'
 const ANOMALY_MARKER = '✨'
 
-// The Intel note is the block's hook — the lightbulb reads as the tip it is.
+// The overall assessment leads each Dive block.
 const INTEL_MARKER = '💡'
 
 const BRAND_MARKER = '⛏️'
@@ -100,9 +100,8 @@ function formatUnverifiedCaveat(i18n: I18n): string {
 
 function formatDiveBlock(i18n: I18n, kind: DiveKind, dive: DeepDive): string {
   const heading = `${diveEmoji[kind]} ${formatDiveKind(i18n, kind).toUpperCase()} · ${dive.name} · ${formatBiome(i18n, dive.biome)}`
-  // Intel leads the block just as it heads the on-screen slab — the strategic
-  // hook before the raw stage list.
-  const intel = `${INTEL_MARKER} ${formatIntelNote(i18n, buildIntel(dive, kind))}`
+  const assessment = buildIntel(dive, kind)
+  const intel = `${INTEL_MARKER} ${formatDifficulty(i18n, assessment.overall.small, assessment.overall.full)}`
   const stages = dive.missions.map((mission, index) => formatStageLine(i18n, index, mission))
 
   return [heading, intel, ...stages].join('\n')

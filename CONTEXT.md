@@ -170,16 +170,87 @@ _Avoid_: Mutator (that's the umbrella, Anomaly is the subtype).
 
 **Severity**:
 The single ordering of Mutators by how much they should command the reader's
-attention. One ladder drives both presentation surfaces derived from it: the
-Rundown chip order and the Intel note selection. Warnings outrank Anomalies on
-the ladder — a product expectation, not a coincidence of numbers.
-_Avoid_: separate "rundown priority" and "intel priority" (they are the same
-ordering); "risk" (Anomalies carry severity too, without being risks).
+attention. It drives the Rundown chip order; Warnings outrank Anomalies on the
+ladder — a product expectation, not a coincidence of numbers.
+_Avoid_: "risk" (Anomalies carry severity too, without being risks).
 
 **Hazard**:
 DRG's difficulty tier (Hazard 3, 3.5, 5…). The app does not carry or display a
 hazard level — it is not part of the Briefing data. Do not reuse "hazard" as a
 synonym for a shown Mutator.
+
+**Difficulty**:
+The four-level assessment of how demanding a Stage or Deep Dive is for each Crew
+profile, relative to its Dive kind. **Easy** has no material Pressure,
+**Manageable** is handled through ordinary competent play, **Demanding** requires
+deliberate adaptation or coordination, and **Brutal** lets Pressure dictate play
+and creates serious failure risk; Objective and Mutator context can outweigh
+Stage position.
+_Avoid_: Severity (that ranks Mutator attention), Hazard (the game's difficulty
+tier).
+
+**Workload**:
+The time and resources needed to complete a Stage's Objectives. Workload does
+not raise Difficulty unless it interacts with Pressure.
+_Avoid_: Difficulty, Pressure.
+
+**Resource runway**:
+The qualitative carried-resource state with which the Reference Crew enters a
+Stage. **Fresh** starts the Dive with full health and ammunition but no banked
+Nitra, **Banked** means earlier Stages plausibly leave a usable reserve, and
+**Contested** means established Pressure competes for or is likely to consume
+that reserve. Intel folds this state through the Dive in Stage order without
+claiming an exact inventory that the Briefing cannot observe.
+_Avoid_: a monotonic Stage-position bonus, guessed Nitra totals.
+
+**Pressure**:
+A gameplay constraint that limits execution, demands a specific response, or
+creates a failure window. Pressure can come from Objectives, Mutators, or their
+interaction.
+_Avoid_: Workload, Difficulty (the resulting assessment).
+
+**Objective Commitment**:
+What a Crew risks by disengaging from an active Objective. Depending on the
+Objective, disengaging can drain progress toward mission failure, reset a
+retryable attempt, pause progress until repair, expose a target to permanent
+damage, or merely prolong an open fight. Commitment describes the consequence,
+not whether miners are physically free to move.
+_Avoid_: fixed-position, Objective Difficulty.
+
+**Oxygen topology**:
+The Stage-level distribution and mobility of oxygen sources under Low Oxygen.
+It is derived from the primary Objective's infrastructure plus any local source
+added by the secondary Objective. It describes one combined Stage, not separate
+primary and secondary assessments.
+_Avoid_: "M.U.L.E. mission", treating Objective slots as independent missions.
+
+**Sugar access**:
+Whether enemies killed under Blood Sugar leave healing close enough to the
+miners who need it. A defence with local kills can make Blood Sugar favorable;
+travel, search, and hauling can separate miners from the drops even when the
+Stage has many enemies.
+_Avoid_: using global kill count without considering where the sugar drops.
+
+**Crew profile**:
+The crew-size lens used to assess Difficulty: **Small Crew** is one or two
+miners, while **Full Crew** is three or four. It captures differences in
+execution capacity, including the ability to split objectives, but not class,
+build, or player skill.
+_Avoid_: treating one party size as the universal difficulty baseline.
+
+**Reference crew**:
+The player-skill baseline behind Difficulty: promoted miners who understand
+mission mechanics and coordinate competently, without assuming optimized builds,
+practiced comms, or graybeard execution. Crew profiles vary headcount, not this
+baseline.
+_Avoid_: average players, ideal team.
+
+**Counterplay**:
+A deliberate tactic, class choice, or build choice that mitigates Pressure.
+Counterplay can explain how to make a Stage easier, but class- or build-specific
+Counterplay does not lower the class-agnostic Difficulty assessment. Requiring a
+separate plan is itself evidence for `Demanding`.
+_Avoid_: assuming the Briefing knows the Crew's composition or loadout.
 
 ## Geography
 
@@ -209,7 +280,9 @@ The raised card surface that renders one Deep Dive.
 _Avoid_: Route slab.
 
 **Intel**:
-The short strategic guidance note for a Deep Dive.
+A concise assessment of how difficult a Deep Dive is relative to its Dive kind.
+It summarizes the Dive as a whole and assesses each Stage without generated
+commentary.
 _Avoid_: Route intel (drop "route").
 
 **Rundown**:
