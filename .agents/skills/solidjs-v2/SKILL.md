@@ -1,6 +1,6 @@
 ---
 name: solidjs-v2
-description: Answer SolidJS 2.0 API and beta-behavior questions, and write or edit SolidJS 2.0 code (solid-js 2.x / next / beta). Use for questions or implementation involving components, signals/effects/batching, async data/generators/actions and Loading, removed beta APIs, stores and nested store views, lazy SSR/hydration, server functions ("use server"), experimental server components/frames, or DOM code for solid-js 2.x or @solidjs/web. Not for Solid 1.x projects and not for migrating 1.x code (see solidjs-v2-migration).
+description: Answer SolidJS 2.0 API and prerelease-behavior questions, and write or edit SolidJS 2.0 code (solid-js 2.x / next / RC). Use for questions or implementation involving components, signals/effects/batching, async data/generators/actions and Loading, stores and nested store views, lazy SSR/hydration, server functions ("use server"), experimental server components/frames, or DOM code for solid-js 2.x or @solidjs/web. Not for Solid 1.x projects and not for migrating 1.x code (see solidjs-v2-migration).
 ---
 
 # SolidJS 2.0
@@ -14,7 +14,7 @@ installed typings in `node_modules`.
 
 Check before applying anything below:
 
-- `package.json`: `solid-js` major is `2` (e.g. `2.0.0-beta.x`), and/or
+- `package.json`: `solid-js` major is `2` (e.g. `2.0.0-rc.x`), and/or
   `@solidjs/web` is a dependency.
 - `tsconfig.json`: `"jsxImportSource": "@solidjs/web"`.
 
@@ -22,7 +22,7 @@ If `solid-js` is `1.x` (imports like `solid-js/web`, `solid-js/store`), **stop �
 these rules do not apply**; that's a Solid 1.x project. If the task is to
 convert it, use the `solidjs-v2-migration` skill instead.
 
-Betas drift: when docs and the installed package disagree, trust the typings in
+Prereleases drift: when docs and the installed package disagree, trust the typings in
 `node_modules` (`solid-js`, `@solidjs/web`, `@solidjs/signals`).
 
 ## The ten rules that prevent most bugs
@@ -37,7 +37,8 @@ Betas drift: when docs and the installed package disagree, trust the typings in
 3. **Never write signals/stores or invoke an action inside a reactive scope**
    (memo, compute, component body) — throws in dev. Define actions there if
    useful, but invoke/write from event handlers, effect callbacks, actions, or
-   `onSettled`. Derive instead of writing back.
+   `onSettled`. `untrack()` suppresses read tracking but does not exempt writes.
+   Derive instead of writing back.
 4. **No top-level reactive reads in component bodies** and no destructured
    props — warns, value goes stale. Read via `props.x` inside JSX / memos /
    effect computes; `untrack(() => ...)` for deliberate one-shots.
@@ -53,7 +54,8 @@ Betas drift: when docs and the installed package disagree, trust the typings in
    — no `createResource`. Wrap consumers in `<Loading fallback={...}>`;
    errors go to `<Errored>`. In-flight-change indicators: `isPending(() => user())`
    — fires for changed inputs and `affects()` declarations; a bare `refresh()`
-   is silent.
+   is normally quiet. `await refresh(source)` waits for the settled re-ask;
+   `until(predicate)` waits for a truthy live-source acknowledgement.
 7. **Store setters take a draft**: `setStore(s => { s.a.b = 1; })` (produce is
    the default). Store APIs (`createStore`, `reconcile`, `snapshot`…) are
    exported from `solid-js` — `solid-js/store` does not exist.
@@ -76,13 +78,13 @@ Read the file matching the task before writing code in that area:
 |---|---|
 | Quick API lookup, import list, full 1.x→2.0 footgun list | `references/cheatsheet.md` (official) |
 | Signals, memos, split/render effects and paint timing, `createReaction`, batching/flush, lifecycle, ownership, dev diagnostics | `references/reactivity.md` |
-| Data fetching, async iterator completion, Loading/Errored, isPending/latest/resolve/refresh, removed `isRefreshing`, action call scope/errors, optimistic UI | `references/async-and-actions.md` |
-| createStore, reconcile, projections, nested store-view structural tracking, snapshot/deep, merge/omit, storePath | `references/stores.md` |
+| Data fetching, loading values, async iterator completion, Loading/Errored, isPending/latest/resolve/awaitable refresh/until, action call scope/errors, optimistic UI | `references/async-and-actions.md` |
+| createStore, reconcile, projections, nested store-view structural tracking, compiler patch-driver boundary, snapshot/deep, merge/omit, storePath | `references/stores.md` |
 | For/Repeat/Show/Switch/Reveal, dynamic/lazy components, lazy SSR/hydration identity, class/attributes/events/refs/directives, render entries | `references/control-flow-and-dom.md` |
 | tsconfig, JSX types, import paths, Context typing, test setup | `references/typescript-setup.md` |
 | Composed patterns: SWR query, optimistic mutations, selection projections, global state, demand-driven resources | `references/patterns.md` |
 | Naming a primitive/composable (`create*` vs `use*`), cross-cutting conventions | `references/conventions.md` |
-| `"use server"` directive, server-function privacy/DCE, respond/redirect/reload, GET/withMeta, prepareRequest, single-flight, no-JS, getRequestEvent | `references/server-functions.md` |
+| `"use server"` directive, module/function wrappers, server-function addressing/invoke/live, respond/redirect/reload, GET/withMeta, fetch/prepareRequest, named single-flight, no-JS, getRequestEvent | `references/server-functions.md` |
 | Experimental server components, frames, client slots/state preservation, `installServerComponents`, `serverFunctions: { components: true }` | `references/server-components.md` |
 
 ## Failure modes
@@ -96,5 +98,5 @@ Read the file matching the task before writing code in that area:
   for app state.
 - **Test asserts stale values** → missing `flush()` after writes, or reactive
   code created without an owner (`createRoot` in tests).
-- **An API from docs/examples doesn't exist** → betas drift; verify against
+- **An API from docs/examples doesn't exist** → prereleases drift; verify against
   installed typings and prefer them over any doc, including these references.

@@ -6,9 +6,13 @@ packages:
 allowBuilds:
   sharp: true
   esbuild: false
-minimumReleaseAgeExclude:
-  - vite-plugin-solid@3.0.0-next.20
-  - vite@8.2.0
 overrides:
   '@feature-sliced/filesystem>typescript': 'npm:typescript@v6'
   '@pandacss/config>typescript': 'npm:typescript@v6'
+  # Remove when Solid's WASM compiler adopts emnapi 2; runtime 1.2 requires it.
+  '@solidjs/compiler-wasm32-wasi>@napi-rs/wasm-runtime': '1.1.6'
+peerDependencyRules:
+  allowedVersions:
+    # The plugin only auto-registers the unchanged matcher entry point.
+    # Remove when its peer range includes jest-dom 7 (verified by web tests).
+    '@solidjs/vite-plugin>@testing-library/jest-dom': '7'

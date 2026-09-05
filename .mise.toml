@@ -1,10 +1,10 @@
 [tools]
 node = "24"
-rust = { version = "1.97.1", profile = "minimal", components = "rustfmt,clippy", targets = "wasm32-unknown-unknown" }
+rust = { version = "1.98.1", profile = "minimal", components = "rustfmt,clippy", targets = "wasm32-unknown-unknown" }
 "cargo:wasm-pack" = { version = "0.15.0", locked = true }
-"cargo:wasm-bindgen-cli" = { version = "0.2.126", locked = true }
-"cargo:cargo-llvm-cov" = { version = "0.8.7", locked = true }
-"npm:vercel" = "58.4.0"
+"cargo:wasm-bindgen-cli" = { version = "0.2.128", locked = true }
+"cargo:cargo-llvm-cov" = { version = "0.9.0", locked = true }
+"npm:vercel" = "59.11.2"
 
 [tasks.pre-commit]
 description = "Re-extract the web i18n catalog when staged changes touch apps/web/"
