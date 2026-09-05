@@ -1,5 +1,5 @@
 {
-  "version": "2.14",
+  "version": "2.17",
   "children": [
     {
       "type": "frame",
@@ -1413,6 +1413,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -1474,6 +1475,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -1535,6 +1537,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -1596,6 +1599,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -1657,6 +1661,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -1717,6 +1722,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -1778,6 +1784,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -1838,6 +1845,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -1898,6 +1906,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -1958,6 +1967,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -2018,6 +2028,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -2079,6 +2090,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -2139,6 +2151,7 @@
               "strokeWidth": {
                 "bottom": 1
               },
+              "strokeLinejoin": "round",
               "gap": 48,
               "padding": [
                 20,
@@ -4607,7 +4620,41 @@
                       "id": "cETnh",
                       "type": "ref",
                       "ref": "wIAoB",
-                      "name": "Stage/full"
+                      "name": "Stage/full",
+                      "descendants": {
+                        "aLQpR": {
+                          "content": "STAGE 1"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "JVrEo",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "GqC9b",
+                              "type": "ref",
+                              "ref": "vBOD7",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$success"
+                            },
+                            {
+                              "type": "text",
+                              "id": "Uy2f1",
+                              "name": "Difficulty level",
+                              "fill": "$success",
+                              "content": "Easy",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      }
                     },
                     {
                       "type": "text",
@@ -4637,6 +4684,35 @@
                         "aLQpR": {
                           "content": "STAGE 2"
                         },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "w03f2",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "IIGnm",
+                              "type": "ref",
+                              "ref": "z1yut",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$text-secondary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "o9WiNX",
+                              "name": "Difficulty level",
+                              "fill": "$text-secondary",
+                              "content": "Manageable",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
                         "M9AH0": {
                           "id": "r6iOOf",
                           "type": "ref",
@@ -4659,7 +4735,7 @@
                           "fill": "$info"
                         },
                         "x3Y2O": {
-                          "content": "Crystal Scan x2"
+                          "content": "Deep Scan x2"
                         },
                         "nxUS5": {
                           "enabled": false
@@ -4700,6 +4776,73 @@
                       "descendants": {
                         "aLQpR": {
                           "content": "STAGE 3"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "eZaYI",
+                          "name": "Difficulty · split crews",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "a22eU",
+                              "name": "1–2: Brutal",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "qOfOH",
+                                  "type": "ref",
+                                  "ref": "iwow5",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$danger"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "pZe7U",
+                                  "name": "Brutal label",
+                                  "fill": "$danger",
+                                  "content": "1–2: Brutal",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "axELv",
+                              "name": "3–4: Demanding",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "fGgXV",
+                                  "type": "ref",
+                                  "ref": "F6ryhU",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$warning"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "uyT65",
+                                  "name": "Demanding label",
+                                  "fill": "$warning",
+                                  "content": "3–4: Demanding",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
                         },
                         "M9AH0": {
                           "id": "EL6E6",
@@ -4839,12 +4982,61 @@
                       "gap": 4,
                       "children": [
                         {
-                          "id": "a4gTT",
-                          "type": "ref",
-                          "ref": "WNdRs",
-                          "name": "Kind",
-                          "content": "DEEP DIVE",
-                          "fill": "$primary"
+                          "type": "frame",
+                          "id": "yO6CU",
+                          "name": "Dive kind and difficulty",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "a4gTT",
+                              "type": "ref",
+                              "ref": "WNdRs",
+                              "name": "Kind",
+                              "content": "DEEP DIVE",
+                              "fill": "$primary"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "AAu1k",
+                              "name": "Difficulty groups",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "g80Pa1",
+                                  "name": "Dive difficulty Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "nUyCh",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "j5umY",
+                                      "name": "Difficulty level",
+                                      "fill": "$text-secondary",
+                                      "content": "Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -4898,19 +5090,6 @@
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
-                        },
-                        {
-                          "type": "text",
-                          "id": "aQK9a",
-                          "name": "Intel Note",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "Finish what you start. Half-cleared fights drain the whole dive.",
-                          "lineHeight": 1.55,
-                          "fontFamily": "$font-body",
-                          "fontSize": "$text-sm",
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -4991,6 +5170,38 @@
                           "name": "N1",
                           "width": "fill_container",
                           "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 1"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "wkt2A",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "GYzuy",
+                                  "type": "ref",
+                                  "ref": "vBOD7",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$success"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "GwM8E",
+                                  "name": "Difficulty level",
+                                  "fill": "$success",
+                                  "content": "Easy",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
                             "tPSFp": {
                               "enabled": false
                             }
@@ -5005,6 +5216,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 2"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "UZCMU",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "yPvQ3",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "D3oAFa",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "sZOSl",
@@ -5028,7 +5268,7 @@
                               "fill": "$info"
                             },
                             "x3Y2O": {
-                              "content": "Crystal Scan x2"
+                              "content": "Deep Scan x2"
                             },
                             "nxUS5": {
                               "enabled": false
@@ -5050,6 +5290,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 3"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "e029D4",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "VhHUM",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "MQhYJ",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "KcaYN",
@@ -5154,12 +5423,90 @@
                       "gap": 4,
                       "children": [
                         {
-                          "id": "McC2u",
-                          "type": "ref",
-                          "ref": "WNdRs",
-                          "name": "Kind",
-                          "content": "ELITE DEEP DIVE",
-                          "fill": "$danger"
+                          "type": "frame",
+                          "id": "RkQuj",
+                          "name": "Dive kind and difficulty",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "McC2u",
+                              "type": "ref",
+                              "ref": "WNdRs",
+                              "name": "Kind",
+                              "content": "ELITE DEEP DIVE",
+                              "fill": "$danger"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "J1vD4E",
+                              "name": "Difficulty groups",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "glzi0",
+                                  "name": "Dive difficulty 1–2: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "P8Kzd",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "wDS9v",
+                                      "name": "Difficulty level",
+                                      "fill": "$warning",
+                                      "content": "1–2: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "A8fUGB",
+                                  "name": "Dive difficulty 3–4: Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "FnzWZ",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "hyjMv",
+                                      "name": "Difficulty level",
+                                      "fill": "$text-secondary",
+                                      "content": "3–4: Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -5213,19 +5560,6 @@
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
-                        },
-                        {
-                          "type": "text",
-                          "id": "DfipV",
-                          "name": "Intel Note",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "Keep moving between cover. Open ground has teeth today.",
-                          "lineHeight": 1.55,
-                          "fontFamily": "$font-body",
-                          "fontSize": "$text-sm",
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -5316,6 +5650,76 @@
                           "width": "fill_container",
                           "stroke": "$danger-border",
                           "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 1"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "uQuY8",
+                              "name": "Difficulty · split crews",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "fZ7or",
+                                  "name": "1–2: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "tRJfA",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "Yc019",
+                                      "name": "Demanding label",
+                                      "fill": "$warning",
+                                      "content": "1–2: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "vTGNs",
+                                  "name": "3–4: Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "lBsJ3",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "HHMgN",
+                                      "name": "Manageable label",
+                                      "fill": "$text-secondary",
+                                      "content": "3–4: Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "tqHH9",
                               "type": "ref",
@@ -5368,6 +5772,35 @@
                             "aLQpR": {
                               "content": "STAGE 2"
                             },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "K1JQI",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "o9m99",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "T6Zne4",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "luSVr",
                               "type": "ref",
@@ -5378,7 +5811,7 @@
                               "fill": "$primary"
                             },
                             "q4wn9": {
-                              "content": "Crystal Scan x5"
+                              "content": "Deep Scan x5"
                             },
                             "eKiZe": {
                               "id": "geXkQ",
@@ -5414,6 +5847,73 @@
                             "aLQpR": {
                               "content": "STAGE 3"
                             },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "FEdYr",
+                              "name": "Difficulty · split crews",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "K2W2GN",
+                                  "name": "1–2: Brutal",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "hqvDO",
+                                      "type": "ref",
+                                      "ref": "iwow5",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$danger"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "qT6EQ",
+                                      "name": "Brutal label",
+                                      "fill": "$danger",
+                                      "content": "1–2: Brutal",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "Nowgo",
+                                  "name": "3–4: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "ioDY9",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "AaXc0",
+                                      "name": "Demanding label",
+                                      "fill": "$warning",
+                                      "content": "3–4: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "LGjgi",
                               "type": "ref",
@@ -5436,7 +5936,7 @@
                               "fill": "$info"
                             },
                             "x3Y2O": {
-                              "content": "Resistive Mass x3"
+                              "content": "Resinite Mass x1"
                             },
                             "y3aYtZ": {
                               "id": "sCrS4",
@@ -6342,6 +6842,201 @@
                       "fontFamily": "$font-body",
                       "fontSize": "$text-xs",
                       "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "G3rrKf",
+          "name": "DIFFICULTY · PRODUCTION",
+          "layout": "vertical",
+          "gap": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "HSynP",
+              "name": "Section",
+              "fill": "$text-primary",
+              "content": "DIFFICULTY — ANGULAR CHEVRONS",
+              "fontFamily": "$font-display",
+              "fontSize": "$text-xl",
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "GgGIn",
+              "name": "Difficulty glyph catalogue",
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "K41ai1",
+                  "name": "Easy glyph card",
+                  "width": 144,
+                  "fill": "$surface-sunken",
+                  "cornerRadius": "$radius-md",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "vBOD7",
+                      "name": "glyph/difficulty-easy",
+                      "reusable": true,
+                      "geometry": "M5 14l7-4 7 4",
+                      "viewBox": [
+                        0,
+                        0,
+                        24,
+                        24
+                      ],
+                      "width": 24,
+                      "height": 24,
+                      "stroke": "$text-secondary",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "square"
+                    },
+                    {
+                      "type": "text",
+                      "id": "r0DGy",
+                      "name": "Difficulty label",
+                      "fill": "$text-secondary",
+                      "content": "Easy",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-sm",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Mad0Q",
+                  "name": "Manageable glyph card",
+                  "width": 144,
+                  "fill": "$surface-sunken",
+                  "cornerRadius": "$radius-md",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "z1yut",
+                      "name": "glyph/difficulty-manageable",
+                      "reusable": true,
+                      "geometry": "M5 11l7-4 7 4m-14 5l7-4 7 4",
+                      "viewBox": [
+                        0,
+                        0,
+                        24,
+                        24
+                      ],
+                      "width": 24,
+                      "height": 24,
+                      "stroke": "$text-secondary",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "square"
+                    },
+                    {
+                      "type": "text",
+                      "id": "kJw2W",
+                      "name": "Difficulty label",
+                      "fill": "$text-secondary",
+                      "content": "Manageable",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-sm",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Pi8hg",
+                  "name": "Demanding glyph card",
+                  "width": 144,
+                  "fill": "$surface-sunken",
+                  "cornerRadius": "$radius-md",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "F6ryhU",
+                      "name": "glyph/difficulty-demanding",
+                      "reusable": true,
+                      "geometry": "M5 9l7-4 7 4m-14 5l7-4 7 4m-14 5l7-4 7 4",
+                      "viewBox": [
+                        0,
+                        0,
+                        24,
+                        24
+                      ],
+                      "width": 24,
+                      "height": 24,
+                      "stroke": "$text-secondary",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "square"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ceFdd",
+                      "name": "Difficulty label",
+                      "fill": "$text-secondary",
+                      "content": "Demanding",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-sm",
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ur5RD",
+                  "name": "Brutal glyph card",
+                  "width": 144,
+                  "fill": "$surface-sunken",
+                  "cornerRadius": "$radius-md",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "iwow5",
+                      "name": "glyph/difficulty-brutal",
+                      "reusable": true,
+                      "geometry": "M5 7l7-4 7 4m-14 5l7-4 7 4m-14 5l7-4 7 4m-14 5l7-4 7 4",
+                      "viewBox": [
+                        0,
+                        0,
+                        24,
+                        24
+                      ],
+                      "width": 24,
+                      "height": 24,
+                      "stroke": "$text-secondary",
+                      "strokeWidth": 2,
+                      "strokeLinecap": "square"
+                    },
+                    {
+                      "type": "text",
+                      "id": "jLT5U",
+                      "name": "Difficulty label",
+                      "fill": "$text-secondary",
+                      "content": "Brutal",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-sm",
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -11596,12 +12291,61 @@
                       "gap": 4,
                       "children": [
                         {
-                          "id": "E6x72",
-                          "type": "ref",
-                          "ref": "WNdRs",
-                          "name": "Kind",
-                          "content": "DEEP DIVE",
-                          "fill": "$primary"
+                          "type": "frame",
+                          "id": "K8x6GW",
+                          "name": "Dive kind and difficulty",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "E6x72",
+                              "type": "ref",
+                              "ref": "WNdRs",
+                              "name": "Kind",
+                              "content": "DEEP DIVE",
+                              "fill": "$primary"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "j5ODD",
+                              "name": "Difficulty groups",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "N38eT2",
+                                  "name": "Dive difficulty Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "vDKso",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "D4FTj",
+                                      "name": "Difficulty level",
+                                      "fill": "$text-secondary",
+                                      "content": "Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -11655,19 +12399,6 @@
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
-                        },
-                        {
-                          "type": "text",
-                          "id": "nA8tH",
-                          "name": "Intel Note",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "Finish what you start. Half-cleared fights drain the whole dive.",
-                          "lineHeight": 1.55,
-                          "fontFamily": "$font-body",
-                          "fontSize": "$text-sm",
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -11748,6 +12479,38 @@
                           "name": "N1",
                           "width": "fill_container",
                           "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 1"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "xtyT6",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "hZyjB",
+                                  "type": "ref",
+                                  "ref": "vBOD7",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$success"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "iQiUh",
+                                  "name": "Difficulty level",
+                                  "fill": "$success",
+                                  "content": "Easy",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
                             "tPSFp": {
                               "enabled": false
                             }
@@ -11762,6 +12525,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 2"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "BH5O2",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "r24bix",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "YadMv",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "VgO9Q",
@@ -11785,7 +12577,7 @@
                               "fill": "$info"
                             },
                             "x3Y2O": {
-                              "content": "Crystal Scan x2"
+                              "content": "Deep Scan x2"
                             },
                             "nxUS5": {
                               "enabled": false
@@ -11807,6 +12599,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 3"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "B42hV",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "w7rvoy",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "PgR6a",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "CqF1k",
@@ -11911,12 +12732,90 @@
                       "gap": 4,
                       "children": [
                         {
-                          "id": "rSTbg",
-                          "type": "ref",
-                          "ref": "WNdRs",
-                          "name": "Kind",
-                          "content": "ELITE DEEP DIVE",
-                          "fill": "$danger"
+                          "type": "frame",
+                          "id": "VgPOL",
+                          "name": "Dive kind and difficulty",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "rSTbg",
+                              "type": "ref",
+                              "ref": "WNdRs",
+                              "name": "Kind",
+                              "content": "ELITE DEEP DIVE",
+                              "fill": "$danger"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Zit6d",
+                              "name": "Difficulty groups",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "iy4cy",
+                                  "name": "Dive difficulty 1–2: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "zlT0f",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "dWL14",
+                                      "name": "Difficulty level",
+                                      "fill": "$warning",
+                                      "content": "1–2: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "Srlb8",
+                                  "name": "Dive difficulty 3–4: Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "A6QOXq",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "E0297n",
+                                      "name": "Difficulty level",
+                                      "fill": "$text-secondary",
+                                      "content": "3–4: Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -11970,19 +12869,6 @@
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
-                        },
-                        {
-                          "type": "text",
-                          "id": "Ajg8q",
-                          "name": "Intel Note",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "Keep moving between cover. Open ground has teeth today.",
-                          "lineHeight": 1.55,
-                          "fontFamily": "$font-body",
-                          "fontSize": "$text-sm",
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -12073,6 +12959,76 @@
                           "width": "fill_container",
                           "stroke": "$danger-border",
                           "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 1"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "HO6qW",
+                              "name": "Difficulty · split crews",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "S2XoI",
+                                  "name": "1–2: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "TAPoc",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "aD0yS",
+                                      "name": "Demanding label",
+                                      "fill": "$warning",
+                                      "content": "1–2: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "nPjfl",
+                                  "name": "3–4: Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "dl2wO",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "gLaEy",
+                                      "name": "Manageable label",
+                                      "fill": "$text-secondary",
+                                      "content": "3–4: Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "IqMwm",
                               "type": "ref",
@@ -12125,6 +13081,35 @@
                             "aLQpR": {
                               "content": "STAGE 2"
                             },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "DAnp1",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "tKu9o",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "yabsS",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "A3FZP",
                               "type": "ref",
@@ -12135,7 +13120,7 @@
                               "fill": "$primary"
                             },
                             "q4wn9": {
-                              "content": "Crystal Scan x5"
+                              "content": "Deep Scan x5"
                             },
                             "eKiZe": {
                               "id": "kIgi4",
@@ -12171,6 +13156,73 @@
                             "aLQpR": {
                               "content": "STAGE 3"
                             },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "fEPL7",
+                              "name": "Difficulty · split crews",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "Omcf2",
+                                  "name": "1–2: Brutal",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "VVJak",
+                                      "type": "ref",
+                                      "ref": "iwow5",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$danger"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "sTqLv",
+                                      "name": "Brutal label",
+                                      "fill": "$danger",
+                                      "content": "1–2: Brutal",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "rOWL7",
+                                  "name": "3–4: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "Zwjsu",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "c638su",
+                                      "name": "Demanding label",
+                                      "fill": "$warning",
+                                      "content": "3–4: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "i3g8o5",
                               "type": "ref",
@@ -12193,7 +13245,7 @@
                               "fill": "$info"
                             },
                             "x3Y2O": {
-                              "content": "Resistive Mass x3"
+                              "content": "Resinite Mass x1"
                             },
                             "y3aYtZ": {
                               "id": "cHPHs",
@@ -12350,12 +13402,61 @@
                       "gap": 4,
                       "children": [
                         {
-                          "id": "TB3dI",
-                          "type": "ref",
-                          "ref": "WNdRs",
-                          "name": "Kind",
-                          "content": "DEEP DIVE",
-                          "fill": "$primary"
+                          "type": "frame",
+                          "id": "e3GHX",
+                          "name": "Dive kind and difficulty",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "TB3dI",
+                              "type": "ref",
+                              "ref": "WNdRs",
+                              "name": "Kind",
+                              "content": "DEEP DIVE",
+                              "fill": "$primary"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Zhnlr",
+                              "name": "Difficulty groups",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "Ii3J1",
+                                  "name": "Dive difficulty Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "COAs5",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "MoI6a",
+                                      "name": "Difficulty level",
+                                      "fill": "$text-secondary",
+                                      "content": "Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -12406,19 +13507,6 @@
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
-                        },
-                        {
-                          "type": "text",
-                          "id": "Qe93I",
-                          "name": "Intel Note",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "Finish what you start. Half-cleared fights drain the whole dive.",
-                          "lineHeight": 1.55,
-                          "fontFamily": "$font-body",
-                          "fontSize": "$text-sm",
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -12499,6 +13587,38 @@
                           "name": "N1",
                           "width": "fill_container",
                           "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 1"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "E2K9M",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "qImss",
+                                  "type": "ref",
+                                  "ref": "vBOD7",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$success"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "UcOdk",
+                                  "name": "Difficulty level",
+                                  "fill": "$success",
+                                  "content": "Easy",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
                             "tPSFp": {
                               "enabled": false
                             }
@@ -12513,6 +13633,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 2"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "jlWJp",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "jv3hB",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "hbDiW",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "hJ5Gj",
@@ -12536,7 +13685,7 @@
                               "fill": "$info"
                             },
                             "x3Y2O": {
-                              "content": "Crystal Scan x2"
+                              "content": "Deep Scan x2"
                             },
                             "nxUS5": {
                               "enabled": false
@@ -12558,6 +13707,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 3"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "uowp0",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "hj4Zo",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "PXYHL",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "z9Rqy",
@@ -12662,12 +13840,90 @@
                       "gap": 4,
                       "children": [
                         {
-                          "id": "P1unJ9",
-                          "type": "ref",
-                          "ref": "WNdRs",
-                          "name": "Kind",
-                          "content": "ELITE DEEP DIVE",
-                          "fill": "$danger"
+                          "type": "frame",
+                          "id": "dOK0d",
+                          "name": "Dive kind and difficulty",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "P1unJ9",
+                              "type": "ref",
+                              "ref": "WNdRs",
+                              "name": "Kind",
+                              "content": "ELITE DEEP DIVE",
+                              "fill": "$danger"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "oZTMW",
+                              "name": "Difficulty groups",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "EDmCN",
+                                  "name": "Dive difficulty 1–2: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "i3vUN",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "uEofz",
+                                      "name": "Difficulty level",
+                                      "fill": "$warning",
+                                      "content": "1–2: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "Mrwso",
+                                  "name": "Dive difficulty 3–4: Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "SKau2",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "dGcWz",
+                                      "name": "Difficulty level",
+                                      "fill": "$text-secondary",
+                                      "content": "3–4: Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -12718,19 +13974,6 @@
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
-                        },
-                        {
-                          "type": "text",
-                          "id": "hKTXL",
-                          "name": "Intel Note",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "Keep moving between cover. Open ground has teeth today.",
-                          "lineHeight": 1.55,
-                          "fontFamily": "$font-body",
-                          "fontSize": "$text-sm",
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -12821,6 +14064,76 @@
                           "width": "fill_container",
                           "stroke": "$danger-border",
                           "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 1"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "rHbnW",
+                              "name": "Difficulty · split crews",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "q4uXB2",
+                                  "name": "1–2: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "f563HZ",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "fb4CJ",
+                                      "name": "Demanding label",
+                                      "fill": "$warning",
+                                      "content": "1–2: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "KFm64",
+                                  "name": "3–4: Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "N6OAq",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "bHkep",
+                                      "name": "Manageable label",
+                                      "fill": "$text-secondary",
+                                      "content": "3–4: Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "uJ2dA",
                               "type": "ref",
@@ -12873,6 +14186,35 @@
                             "aLQpR": {
                               "content": "STAGE 2"
                             },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "UobOv",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "s2ZHnv",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "n8cCKq",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "oVnlB",
                               "type": "ref",
@@ -12883,7 +14225,7 @@
                               "fill": "$primary"
                             },
                             "q4wn9": {
-                              "content": "Crystal Scan x5"
+                              "content": "Deep Scan x5"
                             },
                             "eKiZe": {
                               "id": "Ccwo0",
@@ -12919,6 +14261,73 @@
                             "aLQpR": {
                               "content": "STAGE 3"
                             },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "bDLFW",
+                              "name": "Difficulty · split crews",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "ppxI7",
+                                  "name": "1–2: Brutal",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "w7CdcH",
+                                      "type": "ref",
+                                      "ref": "iwow5",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$danger"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "dyck9",
+                                      "name": "Brutal label",
+                                      "fill": "$danger",
+                                      "content": "1–2: Brutal",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "A5fPCK",
+                                  "name": "3–4: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "T4n3U",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "fEHQp",
+                                      "name": "Demanding label",
+                                      "fill": "$warning",
+                                      "content": "3–4: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "qcbtR",
                               "type": "ref",
@@ -12941,7 +14350,7 @@
                               "fill": "$info"
                             },
                             "x3Y2O": {
-                              "content": "Resistive Mass x3"
+                              "content": "Resinite Mass x1"
                             },
                             "y3aYtZ": {
                               "id": "dChY2",
@@ -13047,7 +14456,6 @@
       "name": "Screen · Mobile · Board (live)",
       "clip": true,
       "width": 390,
-      "height": 1379,
       "fill": "$bg",
       "layout": "vertical",
       "gap": 12,
@@ -13325,13 +14733,62 @@
                   "gap": 4,
                   "children": [
                     {
-                      "id": "aD8uo",
-                      "type": "ref",
-                      "ref": "WNdRs",
-                      "name": "Kind",
-                      "content": "DEEP DIVE",
-                      "fill": "$primary",
-                      "enabled": false
+                      "type": "frame",
+                      "id": "ocTuy",
+                      "name": "Dive kind and difficulty",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "aD8uo",
+                          "type": "ref",
+                          "ref": "WNdRs",
+                          "name": "Kind",
+                          "content": "DEEP DIVE",
+                          "fill": "$primary",
+                          "enabled": false
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ipxjW",
+                          "name": "Difficulty groups",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "h7ABvY",
+                              "name": "Dive difficulty Manageable",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "UueDB",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "n9HmS3",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "type": "text",
@@ -13385,19 +14842,6 @@
                       "fontFamily": "$font-body",
                       "fontSize": "$text-sm",
                       "fontWeight": "600"
-                    },
-                    {
-                      "type": "text",
-                      "id": "W91dbb",
-                      "name": "Intel Note",
-                      "fill": "$text-secondary",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Finish what you start. Half-cleared fights drain the whole dive.",
-                      "lineHeight": 1.55,
-                      "fontFamily": "$font-body",
-                      "fontSize": "$text-sm",
-                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -13478,6 +14922,38 @@
                       "name": "N1",
                       "width": "fill_container",
                       "descendants": {
+                        "aLQpR": {
+                          "content": "STAGE 1"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "v24r8d",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "y7xoom",
+                              "type": "ref",
+                              "ref": "vBOD7",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$success"
+                            },
+                            {
+                              "type": "text",
+                              "id": "ieru7",
+                              "name": "Difficulty level",
+                              "fill": "$success",
+                              "content": "Easy",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
                         "tPSFp": {
                           "enabled": false
                         }
@@ -13492,6 +14968,35 @@
                       "descendants": {
                         "aLQpR": {
                           "content": "STAGE 2"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "eKfhz",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "oDPHq",
+                              "type": "ref",
+                              "ref": "z1yut",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$text-secondary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "ySi73",
+                              "name": "Difficulty level",
+                              "fill": "$text-secondary",
+                              "content": "Manageable",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
                         },
                         "M9AH0": {
                           "id": "fgjCr",
@@ -13515,7 +15020,7 @@
                           "fill": "$info"
                         },
                         "x3Y2O": {
-                          "content": "Crystal Scan x2"
+                          "content": "Deep Scan x2"
                         },
                         "nxUS5": {
                           "enabled": false
@@ -13537,6 +15042,35 @@
                       "descendants": {
                         "aLQpR": {
                           "content": "STAGE 3"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "pVqES",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "SKvRL",
+                              "type": "ref",
+                              "ref": "z1yut",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$text-secondary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "aroQt",
+                              "name": "Difficulty level",
+                              "fill": "$text-secondary",
+                              "content": "Manageable",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
                         },
                         "M9AH0": {
                           "id": "D64guZ",
@@ -13625,7 +15159,6 @@
       "name": "Screen · Mobile · Board (offline, cached)",
       "clip": true,
       "width": 390,
-      "height": 1379,
       "fill": "$bg",
       "layout": "vertical",
       "gap": 12,
@@ -13919,13 +15452,62 @@
                   "gap": 4,
                   "children": [
                     {
-                      "id": "V8mvrF",
-                      "type": "ref",
-                      "ref": "WNdRs",
-                      "name": "Kind",
-                      "content": "DEEP DIVE",
-                      "fill": "$primary",
-                      "enabled": false
+                      "type": "frame",
+                      "id": "bLnrs",
+                      "name": "Dive kind and difficulty",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "V8mvrF",
+                          "type": "ref",
+                          "ref": "WNdRs",
+                          "name": "Kind",
+                          "content": "DEEP DIVE",
+                          "fill": "$primary",
+                          "enabled": false
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Anzg9",
+                          "name": "Difficulty groups",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "CF1Lh",
+                              "name": "Dive difficulty Manageable",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "h6OTdf",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "y7NR1",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "type": "text",
@@ -13979,19 +15561,6 @@
                       "fontFamily": "$font-body",
                       "fontSize": "$text-sm",
                       "fontWeight": "600"
-                    },
-                    {
-                      "type": "text",
-                      "id": "tHo6v",
-                      "name": "Intel Note",
-                      "fill": "$text-secondary",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Finish what you start. Half-cleared fights drain the whole dive.",
-                      "lineHeight": 1.55,
-                      "fontFamily": "$font-body",
-                      "fontSize": "$text-sm",
-                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -14072,6 +15641,38 @@
                       "name": "N1",
                       "width": "fill_container",
                       "descendants": {
+                        "aLQpR": {
+                          "content": "STAGE 1"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "VfYHf",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "dHKeS",
+                              "type": "ref",
+                              "ref": "vBOD7",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$success"
+                            },
+                            {
+                              "type": "text",
+                              "id": "o2aIr",
+                              "name": "Difficulty level",
+                              "fill": "$success",
+                              "content": "Easy",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
                         "tPSFp": {
                           "enabled": false
                         }
@@ -14086,6 +15687,35 @@
                       "descendants": {
                         "aLQpR": {
                           "content": "STAGE 2"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "h7GKhj",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "w1Gh8n",
+                              "type": "ref",
+                              "ref": "z1yut",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$text-secondary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "ayVVh",
+                              "name": "Difficulty level",
+                              "fill": "$text-secondary",
+                              "content": "Manageable",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
                         },
                         "M9AH0": {
                           "id": "fGf0y",
@@ -14109,7 +15739,7 @@
                           "fill": "$info"
                         },
                         "x3Y2O": {
-                          "content": "Crystal Scan x2"
+                          "content": "Deep Scan x2"
                         },
                         "nxUS5": {
                           "enabled": false
@@ -14131,6 +15761,35 @@
                       "descendants": {
                         "aLQpR": {
                           "content": "STAGE 3"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "otUdh",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "clKMX",
+                              "type": "ref",
+                              "ref": "z1yut",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$text-secondary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "z1G71",
+                              "name": "Difficulty level",
+                              "fill": "$text-secondary",
+                              "content": "Manageable",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
                         },
                         "M9AH0": {
                           "id": "dsm8g",
@@ -14588,13 +16247,62 @@
                   "gap": 4,
                   "children": [
                     {
-                      "id": "vm1G6",
-                      "type": "ref",
-                      "ref": "WNdRs",
-                      "name": "Kind",
-                      "content": "DEEP DIVE",
-                      "fill": "$primary",
-                      "enabled": false
+                      "type": "frame",
+                      "id": "D92yk",
+                      "name": "Dive kind and difficulty",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "vm1G6",
+                          "type": "ref",
+                          "ref": "WNdRs",
+                          "name": "Kind",
+                          "content": "DEEP DIVE",
+                          "fill": "$primary",
+                          "enabled": false
+                        },
+                        {
+                          "type": "frame",
+                          "id": "NrGCu",
+                          "name": "Difficulty groups",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "nS3gI",
+                              "name": "Dive difficulty Manageable",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "aaKpR",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "WLova",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "type": "text",
@@ -14648,19 +16356,6 @@
                       "fontFamily": "$font-body",
                       "fontSize": "$text-sm",
                       "fontWeight": "600"
-                    },
-                    {
-                      "type": "text",
-                      "id": "Aeh9E",
-                      "name": "Intel Note",
-                      "fill": "$text-secondary",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Finish what you start. Half-cleared fights drain the whole dive.",
-                      "lineHeight": 1.55,
-                      "fontFamily": "$font-body",
-                      "fontSize": "$text-sm",
-                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -14741,6 +16436,38 @@
                       "name": "N1",
                       "width": "fill_container",
                       "descendants": {
+                        "aLQpR": {
+                          "content": "STAGE 1"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "grqek",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "gvF1Z",
+                              "type": "ref",
+                              "ref": "vBOD7",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$success"
+                            },
+                            {
+                              "type": "text",
+                              "id": "HMZ5Q",
+                              "name": "Difficulty level",
+                              "fill": "$success",
+                              "content": "Easy",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
                         "tPSFp": {
                           "enabled": false
                         }
@@ -14755,6 +16482,35 @@
                       "descendants": {
                         "aLQpR": {
                           "content": "STAGE 2"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "L36JO",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "JOaFF",
+                              "type": "ref",
+                              "ref": "z1yut",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$text-secondary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "dFiiT",
+                              "name": "Difficulty level",
+                              "fill": "$text-secondary",
+                              "content": "Manageable",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
                         },
                         "M9AH0": {
                           "id": "j7eBc",
@@ -14778,7 +16534,7 @@
                           "fill": "$info"
                         },
                         "x3Y2O": {
-                          "content": "Crystal Scan x2"
+                          "content": "Deep Scan x2"
                         },
                         "nxUS5": {
                           "enabled": false
@@ -14800,6 +16556,35 @@
                       "descendants": {
                         "aLQpR": {
                           "content": "STAGE 3"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "ynPQA",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "ycVUc",
+                              "type": "ref",
+                              "ref": "z1yut",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$text-secondary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "vjKqM",
+                              "name": "Difficulty level",
+                              "fill": "$text-secondary",
+                              "content": "Manageable",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
                         },
                         "M9AH0": {
                           "id": "rW0qE",
@@ -15187,13 +16972,62 @@
                       "gap": 4,
                       "children": [
                         {
-                          "id": "EqNGA",
-                          "type": "ref",
-                          "ref": "WNdRs",
-                          "name": "Kind",
-                          "content": "DEEP DIVE",
-                          "fill": "$primary",
-                          "enabled": false
+                          "type": "frame",
+                          "id": "pTE4i",
+                          "name": "Dive kind and difficulty",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "EqNGA",
+                              "type": "ref",
+                              "ref": "WNdRs",
+                              "name": "Kind",
+                              "content": "DEEP DIVE",
+                              "fill": "$primary",
+                              "enabled": false
+                            },
+                            {
+                              "type": "frame",
+                              "id": "XJdW4",
+                              "name": "Difficulty groups",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "O47PdT",
+                                  "name": "Dive difficulty Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "mZbe1",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "VdB9L",
+                                      "name": "Difficulty level",
+                                      "fill": "$text-secondary",
+                                      "content": "Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -15247,19 +17081,6 @@
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
-                        },
-                        {
-                          "type": "text",
-                          "id": "l4y2n",
-                          "name": "Intel Note",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "Finish what you start. Half-cleared fights drain the whole dive.",
-                          "lineHeight": 1.55,
-                          "fontFamily": "$font-body",
-                          "fontSize": "$text-sm",
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -15340,6 +17161,38 @@
                           "name": "N1",
                           "width": "fill_container",
                           "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 1"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "zfUlZ",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "usrZL",
+                                  "type": "ref",
+                                  "ref": "vBOD7",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$success"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "Lg3un",
+                                  "name": "Difficulty level",
+                                  "fill": "$success",
+                                  "content": "Easy",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
                             "tPSFp": {
                               "enabled": false
                             }
@@ -15354,6 +17207,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 2"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "gvpVo",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "wB1tr",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "hgdOU",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "ndz4B",
@@ -15377,7 +17259,7 @@
                               "fill": "$info"
                             },
                             "x3Y2O": {
-                              "content": "Crystal Scan x2"
+                              "content": "Deep Scan x2"
                             },
                             "nxUS5": {
                               "enabled": false
@@ -15399,6 +17281,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 3"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "TUOht",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "enqZY",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "MyTZP",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "RKCrv",
@@ -17308,15 +19219,55 @@
                   "padding": 16,
                   "children": [
                     {
-                      "type": "text",
-                      "id": "aLQpR",
-                      "name": "Stage Index",
-                      "fill": "$text-primary",
-                      "content": "STAGE 1",
-                      "fontFamily": "$font-display",
-                      "fontSize": "$text-sm",
-                      "fontWeight": "700",
-                      "letterSpacing": 0.56
+                      "type": "frame",
+                      "id": "edhfp",
+                      "name": "Stage heading",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "aLQpR",
+                          "name": "Stage Index",
+                          "fill": "$text-primary",
+                          "content": "STAGE 1",
+                          "fontFamily": "$font-display",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "700",
+                          "letterSpacing": 0.56
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ttj8i",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "tqcU5",
+                              "type": "ref",
+                              "ref": "vBOD7",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$success"
+                            },
+                            {
+                              "type": "text",
+                              "id": "fLXGE",
+                              "name": "Difficulty level",
+                              "fill": "$success",
+                              "content": "Easy",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "type": "frame",
@@ -18086,12 +20037,61 @@
                       "gap": 4,
                       "children": [
                         {
-                          "id": "LrJbI",
-                          "type": "ref",
-                          "ref": "WNdRs",
-                          "name": "Kind",
-                          "content": "DEEP DIVE",
-                          "fill": "$primary"
+                          "type": "frame",
+                          "id": "e2c2j",
+                          "name": "Dive kind and difficulty",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "LrJbI",
+                              "type": "ref",
+                              "ref": "WNdRs",
+                              "name": "Kind",
+                              "content": "DEEP DIVE",
+                              "fill": "$primary"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "De6s4",
+                              "name": "Difficulty groups",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "f3WWBV",
+                                  "name": "Dive difficulty Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "wkXaJ",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "H56yw8",
+                                      "name": "Difficulty level",
+                                      "fill": "$text-secondary",
+                                      "content": "Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -18145,19 +20145,6 @@
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
-                        },
-                        {
-                          "type": "text",
-                          "id": "mX76Q",
-                          "name": "Intel Note",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "Finish what you start. Half-cleared fights drain the whole dive.",
-                          "lineHeight": 1.55,
-                          "fontFamily": "$font-body",
-                          "fontSize": "$text-sm",
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -18238,6 +20225,38 @@
                           "name": "N1",
                           "width": "fill_container",
                           "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 1"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "g0kzw",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "dFRsY",
+                                  "type": "ref",
+                                  "ref": "vBOD7",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$success"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "amcDr",
+                                  "name": "Difficulty level",
+                                  "fill": "$success",
+                                  "content": "Easy",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
                             "tPSFp": {
                               "enabled": false
                             }
@@ -18252,6 +20271,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 2"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "u0bpZ",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "msRf5",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "lPRtG",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "RxzHl",
@@ -18275,7 +20323,7 @@
                               "fill": "$info"
                             },
                             "x3Y2O": {
-                              "content": "Crystal Scan x2"
+                              "content": "Deep Scan x2"
                             },
                             "nxUS5": {
                               "enabled": false
@@ -18297,6 +20345,35 @@
                           "descendants": {
                             "aLQpR": {
                               "content": "STAGE 3"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "Nf9hy",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "I9WY2l",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "k0a4V",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
                             },
                             "M9AH0": {
                               "id": "wz5W7",
@@ -18401,12 +20478,90 @@
                       "gap": 4,
                       "children": [
                         {
-                          "id": "U7fBF",
-                          "type": "ref",
-                          "ref": "WNdRs",
-                          "name": "Kind",
-                          "content": "ELITE DEEP DIVE",
-                          "fill": "$danger"
+                          "type": "frame",
+                          "id": "W7pf0q",
+                          "name": "Dive kind and difficulty",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "U7fBF",
+                              "type": "ref",
+                              "ref": "WNdRs",
+                              "name": "Kind",
+                              "content": "ELITE DEEP DIVE",
+                              "fill": "$danger"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "I1oqa",
+                              "name": "Difficulty groups",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "mbEgJ",
+                                  "name": "Dive difficulty 1–2: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "m7BtaY",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "O9s0L5",
+                                      "name": "Difficulty level",
+                                      "fill": "$warning",
+                                      "content": "1–2: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "SJJfN",
+                                  "name": "Dive difficulty 3–4: Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "vpy6j",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "phYjP",
+                                      "name": "Difficulty level",
+                                      "fill": "$text-secondary",
+                                      "content": "3–4: Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "type": "text",
@@ -18460,19 +20615,6 @@
                           "fontFamily": "$font-body",
                           "fontSize": "$text-sm",
                           "fontWeight": "600"
-                        },
-                        {
-                          "type": "text",
-                          "id": "IKrh2",
-                          "name": "Intel Note",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "Keep moving between cover. Open ground has teeth today.",
-                          "lineHeight": 1.55,
-                          "fontFamily": "$font-body",
-                          "fontSize": "$text-sm",
-                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -18563,6 +20705,76 @@
                           "width": "fill_container",
                           "stroke": "$danger-border",
                           "descendants": {
+                            "aLQpR": {
+                              "content": "STAGE 1"
+                            },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "FyEah",
+                              "name": "Difficulty · split crews",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "R2bBx",
+                                  "name": "1–2: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "ySQWU",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "YcsG1",
+                                      "name": "Demanding label",
+                                      "fill": "$warning",
+                                      "content": "1–2: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "z1m82R",
+                                  "name": "3–4: Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "vhqyT",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "kniLN",
+                                      "name": "Manageable label",
+                                      "fill": "$text-secondary",
+                                      "content": "3–4: Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "roblz",
                               "type": "ref",
@@ -18615,6 +20827,35 @@
                             "aLQpR": {
                               "content": "STAGE 2"
                             },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "x5rl8Q",
+                              "name": "Difficulty · matching crew",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "JmCy7",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "PkUCe",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "A3s10",
                               "type": "ref",
@@ -18625,7 +20866,7 @@
                               "fill": "$primary"
                             },
                             "q4wn9": {
-                              "content": "Crystal Scan x5"
+                              "content": "Deep Scan x5"
                             },
                             "eKiZe": {
                               "id": "etjSR",
@@ -18661,6 +20902,73 @@
                             "aLQpR": {
                               "content": "STAGE 3"
                             },
+                            "ttj8i": {
+                              "type": "frame",
+                              "id": "AxuPy",
+                              "name": "Difficulty · split crews",
+                              "gap": 8,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "KtL4P",
+                                  "name": "1–2: Brutal",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "ibJpv",
+                                      "type": "ref",
+                                      "ref": "iwow5",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$danger"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "ybFqj",
+                                      "name": "Brutal label",
+                                      "fill": "$danger",
+                                      "content": "1–2: Brutal",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "LAYjU",
+                                  "name": "3–4: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "CY4C7",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "N5XQO",
+                                      "name": "Demanding label",
+                                      "fill": "$warning",
+                                      "content": "3–4: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
                             "M9AH0": {
                               "id": "aD3Ol",
                               "type": "ref",
@@ -18683,7 +20991,7 @@
                               "fill": "$info"
                             },
                             "x3Y2O": {
-                              "content": "Resistive Mass x3"
+                              "content": "Resinite Mass x1"
                             },
                             "y3aYtZ": {
                               "id": "Uz03Q",
@@ -18753,6 +21061,892 @@
       "stroke": "#00000000",
       "strokeLinejoin": "round",
       "strokeLinecap": "round"
+    },
+    {
+      "type": "frame",
+      "id": "i1I5e4",
+      "x": 8650,
+      "y": 7436,
+      "name": "Screen · Mobile 360 · Intel split crews",
+      "clip": true,
+      "width": 360,
+      "fill": "$bg",
+      "layout": "vertical",
+      "gap": 12,
+      "padding": [
+        8,
+        0,
+        32,
+        0
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "APRPo",
+          "name": "Rail Mobile",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            8,
+            12,
+            0,
+            12
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "vQqf7",
+              "name": "Brand Row",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "id": "qo3HG",
+                  "type": "ref",
+                  "ref": "HAhKs",
+                  "name": "Logo",
+                  "width": 32,
+                  "height": 39,
+                  "descendants": {
+                    "khamG": {
+                      "width": 32,
+                      "height": 39
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "id": "fOu18",
+                  "name": "Brand Title",
+                  "fill": "$text-primary",
+                  "content": "HOXXES BRIEFING",
+                  "fontFamily": "$font-display",
+                  "fontSize": "$text-xl",
+                  "fontWeight": "700",
+                  "letterSpacing": 0.8
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "aEX4s",
+              "name": "Slogan",
+              "fill": "$text-secondary",
+              "content": "If you Rock and Stone, you're never alone.",
+              "fontFamily": "$font-body",
+              "fontSize": "$text-sm",
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "w9t9E",
+              "name": "Meta Row",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "kh9SI",
+                  "name": "Timing",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "w33sR",
+                      "name": "Range",
+                      "fill": "$text-primary",
+                      "content": "Jun 1 – 8 · 14:00",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-sm",
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Cpg9a",
+                      "name": "Sep",
+                      "fill": "$text-muted",
+                      "content": "·",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-sm",
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "TZF6b",
+                      "name": "Countdown",
+                      "fill": "$primary-hover",
+                      "content": "5d 21h",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-sm",
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ne2bT",
+                  "name": "Refresh Panel",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "id": "ZYHkD",
+                      "type": "ref",
+                      "ref": "wZAiz",
+                      "name": "Status"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Svr7a",
+                      "name": "Refresh Btn",
+                      "width": 32,
+                      "height": 32,
+                      "cornerRadius": "$radius-md",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "b7JHN",
+                          "type": "ref",
+                          "ref": "OaFWz",
+                          "name": "Refresh Icon",
+                          "width": 16,
+                          "height": 16,
+                          "stroke": "$text-secondary",
+                          "fill": "$text-secondary"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Hova7",
+          "name": "Divider Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "FnEda",
+              "name": "Divider",
+              "fill": "$border-strong",
+              "width": "fill_container",
+              "height": 1
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "YMpZy",
+          "name": "Dive Switch",
+          "width": "fill_container",
+          "gap": 8,
+          "padding": [
+            0,
+            12
+          ],
+          "children": [
+            {
+              "id": "XUrrO",
+              "type": "ref",
+              "ref": "Pinwu",
+              "name": "Tab Normal",
+              "width": "fill_container",
+              "fill": "#00000000",
+              "stroke": "$border-subtle",
+              "descendants": {
+                "SOBSa": {
+                  "fill": "$text-secondary"
+                }
+              }
+            },
+            {
+              "id": "l2mufJ",
+              "type": "ref",
+              "ref": "Pinwu",
+              "name": "Tab Elite",
+              "width": "fill_container",
+              "fill": "$danger-surface",
+              "stroke": "$danger-border",
+              "descendants": {
+                "SOBSa": {
+                  "content": "ELITE DEEP DIVE",
+                  "fill": "$text-primary"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "j6sms",
+          "name": "Slab Wrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            12
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "LedVm",
+              "name": "Slab Elite",
+              "width": "fill_container",
+              "fill": [
+                "$surface-sunken",
+                {
+                  "type": "gradient",
+                  "gradientType": "radial",
+                  "enabled": true,
+                  "rotation": 0,
+                  "size": {
+                    "width": 4.4,
+                    "height": 4.2
+                  },
+                  "colors": [
+                    {
+                      "color": "$danger-surface",
+                      "position": 0
+                    },
+                    {
+                      "color": "#00000000",
+                      "position": 0.65
+                    }
+                  ],
+                  "center": {
+                    "x": 1,
+                    "y": 0
+                  }
+                }
+              ],
+              "cornerRadius": "$radius-lg",
+              "stroke": "$danger-border",
+              "strokeWidth": 1,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#0000003d",
+                "offset": {
+                  "x": 0,
+                  "y": 8
+                },
+                "blur": 24
+              },
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "rqaIf",
+                  "name": "Slab Header",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "UiWgg",
+                      "name": "Dive kind and difficulty",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "wMVjs",
+                          "type": "ref",
+                          "ref": "WNdRs",
+                          "name": "Kind",
+                          "content": "ELITE DEEP DIVE",
+                          "fill": "$danger",
+                          "enabled": false
+                        },
+                        {
+                          "type": "frame",
+                          "id": "s1ZXvZ",
+                          "name": "Difficulty groups",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "AAszT",
+                              "name": "Dive difficulty 1–2: Demanding",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "KYYug",
+                                  "type": "ref",
+                                  "ref": "F6ryhU",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$warning"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "ofRMK",
+                                  "name": "Difficulty level",
+                                  "fill": "$warning",
+                                  "content": "1–2: Demanding",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "QR9Hv",
+                              "name": "Dive difficulty 3–4: Manageable",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "XbidS",
+                                  "type": "ref",
+                                  "ref": "z1yut",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$text-secondary"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "uuk3J",
+                                  "name": "Difficulty level",
+                                  "fill": "$text-secondary",
+                                  "content": "3–4: Manageable",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "IqgoK",
+                      "name": "Dive Name",
+                      "fill": "$text-primary",
+                      "content": "NATURAL ROOF",
+                      "fontFamily": "$font-display",
+                      "fontSize": "$text-2xl",
+                      "fontWeight": "700",
+                      "letterSpacing": 0.96
+                    },
+                    {
+                      "type": "frame",
+                      "id": "SaGza",
+                      "name": "Biome",
+                      "gap": 6,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "xoNPN",
+                          "type": "ref",
+                          "ref": "cTTH1",
+                          "name": "Biome Icon",
+                          "width": 16,
+                          "height": 16,
+                          "fill": "$biome-azure-weald"
+                        },
+                        {
+                          "type": "text",
+                          "id": "j1vH0",
+                          "name": "Biome Name",
+                          "fill": "$text-muted",
+                          "content": "Azure Weald",
+                          "fontFamily": "$font-body",
+                          "fontSize": "$text-sm",
+                          "fontWeight": "500",
+                          "letterSpacing": 0.28
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "AI82o",
+                      "x": 0,
+                      "y": 0,
+                      "name": "Freshness",
+                      "enabled": false,
+                      "fill": "$danger",
+                      "content": "Last known briefing",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-sm",
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "l70qHb",
+                  "name": "Rundown",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "r86scw",
+                      "name": "Rundown Label",
+                      "fill": "$text-muted",
+                      "content": "Rundown",
+                      "fontFamily": "$font-body",
+                      "fontSize": "$text-sm",
+                      "fontWeight": "500",
+                      "letterSpacing": 0.28
+                    },
+                    {
+                      "type": "frame",
+                      "id": "m9EPl",
+                      "name": "Chips",
+                      "gap": 8,
+                      "children": [
+                        {
+                          "id": "V92lA",
+                          "type": "ref",
+                          "ref": "bMvJA",
+                          "name": "Chip Lethal Enemies",
+                          "stroke": "$danger-border",
+                          "descendants": {
+                            "COYnl": {
+                              "id": "J8DxP",
+                              "type": "ref",
+                              "ref": "Dw5rw",
+                              "name": "Chip Icon",
+                              "width": 16,
+                              "height": 16,
+                              "fill": "$danger"
+                            },
+                            "U4bQh": {
+                              "content": "Lethal Enemies"
+                            }
+                          }
+                        },
+                        {
+                          "id": "sUwbn",
+                          "type": "ref",
+                          "ref": "bMvJA",
+                          "name": "Chip Duck and Cover",
+                          "stroke": "$danger-border",
+                          "descendants": {
+                            "COYnl": {
+                              "id": "m6mvDm",
+                              "type": "ref",
+                              "ref": "GaEe4",
+                              "name": "Chip Icon",
+                              "width": 16,
+                              "height": 16,
+                              "fill": "$danger"
+                            },
+                            "U4bQh": {
+                              "content": "Duck and Cover"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "wUQS3",
+                  "name": "Stages",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "id": "HFZ2s",
+                      "type": "ref",
+                      "ref": "wIAoB",
+                      "name": "E1",
+                      "width": "fill_container",
+                      "stroke": "$danger-border",
+                      "padding": 12,
+                      "descendants": {
+                        "edhfp": {
+                          "type": "frame",
+                          "id": "M14TPq",
+                          "name": "Stage heading",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "P20QEj",
+                              "name": "Stage index",
+                              "fill": "$text-primary",
+                              "content": "STAGE 1",
+                              "fontFamily": "$font-display",
+                              "fontSize": "$text-sm",
+                              "fontWeight": "700",
+                              "letterSpacing": 0.56
+                            },
+                            {
+                              "type": "frame",
+                              "id": "nam1c",
+                              "name": "Difficulty groups",
+                              "layout": "vertical",
+                              "gap": 4,
+                              "alignItems": "end",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "uXei1",
+                                  "name": "1–2: Demanding",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "tSCgr",
+                                      "type": "ref",
+                                      "ref": "F6ryhU",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$warning"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "KLSW5",
+                                      "name": "Demanding label",
+                                      "fill": "$warning",
+                                      "content": "1–2: Demanding",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "sHIDk",
+                                  "name": "3–4: Manageable",
+                                  "gap": 4,
+                                  "alignItems": "center",
+                                  "children": [
+                                    {
+                                      "id": "k03Rsa",
+                                      "type": "ref",
+                                      "ref": "z1yut",
+                                      "name": "Difficulty chevrons",
+                                      "width": 16,
+                                      "height": 16,
+                                      "stroke": "$text-secondary"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "H8r0hJ",
+                                      "name": "Manageable label",
+                                      "fill": "$text-secondary",
+                                      "content": "3–4: Manageable",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$font-body",
+                                      "fontSize": "$text-xs",
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "M9AH0": {
+                          "id": "n1HMH",
+                          "type": "ref",
+                          "ref": "QwE6O",
+                          "name": "PO Icon",
+                          "width": 24,
+                          "height": 24,
+                          "fill": "$primary"
+                        },
+                        "q4wn9": {
+                          "content": "Escort Duty"
+                        },
+                        "eKiZe": {
+                          "id": "rjPtx",
+                          "type": "ref",
+                          "ref": "L4Ggp",
+                          "name": "SO Icon",
+                          "width": 20,
+                          "height": 20,
+                          "fill": "$info"
+                        },
+                        "x3Y2O": {
+                          "content": "Egg x2"
+                        },
+                        "y3aYtZ": {
+                          "id": "rTUcn",
+                          "type": "ref",
+                          "ref": "Dw5rw",
+                          "name": "Warn Icon",
+                          "width": 20,
+                          "height": 20,
+                          "fill": "$danger"
+                        },
+                        "ty4uf": {
+                          "content": "Lethal Enemies"
+                        },
+                        "tPSFp": {
+                          "enabled": false
+                        }
+                      }
+                    },
+                    {
+                      "id": "v0vMmR",
+                      "type": "ref",
+                      "ref": "wIAoB",
+                      "name": "E2",
+                      "width": "fill_container",
+                      "stroke": "$danger-border",
+                      "padding": 12,
+                      "descendants": {
+                        "aLQpR": {
+                          "content": "STAGE 2"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "q2fQO",
+                          "name": "Difficulty · matching crew",
+                          "gap": 4,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "id": "FaWil",
+                              "type": "ref",
+                              "ref": "z1yut",
+                              "name": "Difficulty chevrons",
+                              "width": 16,
+                              "height": 16,
+                              "stroke": "$text-secondary"
+                            },
+                            {
+                              "type": "text",
+                              "id": "qWVEo",
+                              "name": "Difficulty level",
+                              "fill": "$text-secondary",
+                              "content": "Manageable",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$font-body",
+                              "fontSize": "$text-xs",
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        "M9AH0": {
+                          "id": "psEIu",
+                          "type": "ref",
+                          "ref": "knGhm",
+                          "name": "PO Icon",
+                          "width": 24,
+                          "height": 24,
+                          "fill": "$primary"
+                        },
+                        "q4wn9": {
+                          "content": "Deep Scan x5"
+                        },
+                        "eKiZe": {
+                          "id": "cEABB",
+                          "type": "ref",
+                          "ref": "cX423",
+                          "name": "SO Icon",
+                          "width": 20,
+                          "height": 20,
+                          "fill": "$info"
+                        },
+                        "x3Y2O": {
+                          "content": "Black Box"
+                        },
+                        "nxUS5": {
+                          "enabled": false
+                        },
+                        "tPSFp": {
+                          "enabled": false
+                        },
+                        "ZTRRh": {
+                          "enabled": true
+                        }
+                      }
+                    },
+                    {
+                      "id": "gTJfI",
+                      "type": "ref",
+                      "ref": "wIAoB",
+                      "name": "E3",
+                      "width": "fill_container",
+                      "stroke": "$danger-border",
+                      "padding": 12,
+                      "descendants": {
+                        "aLQpR": {
+                          "content": "STAGE 3"
+                        },
+                        "ttj8i": {
+                          "type": "frame",
+                          "id": "x0L3V",
+                          "name": "Difficulty · split crews",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "ty1am",
+                              "name": "1–2: Brutal",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "o0XpQN",
+                                  "type": "ref",
+                                  "ref": "iwow5",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$danger"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "iX7aE",
+                                  "name": "Brutal label",
+                                  "fill": "$danger",
+                                  "content": "1–2: Brutal",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "C0cj3",
+                              "name": "3–4: Demanding",
+                              "gap": 4,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "id": "s6gDY",
+                                  "type": "ref",
+                                  "ref": "F6ryhU",
+                                  "name": "Difficulty chevrons",
+                                  "width": 16,
+                                  "height": 16,
+                                  "stroke": "$warning"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "CjsHI",
+                                  "name": "Demanding label",
+                                  "fill": "$warning",
+                                  "content": "3–4: Demanding",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$font-body",
+                                  "fontSize": "$text-xs",
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "M9AH0": {
+                          "id": "g0BG2k",
+                          "type": "ref",
+                          "ref": "uWYnF",
+                          "name": "PO Icon",
+                          "width": 24,
+                          "height": 24,
+                          "fill": "$primary"
+                        },
+                        "q4wn9": {
+                          "content": "Aquarq x10"
+                        },
+                        "eKiZe": {
+                          "id": "ZnCoJ",
+                          "type": "ref",
+                          "ref": "jZvus",
+                          "name": "SO Icon",
+                          "width": 20,
+                          "height": 20,
+                          "fill": "$info"
+                        },
+                        "x3Y2O": {
+                          "content": "Resinite Mass x1"
+                        },
+                        "y3aYtZ": {
+                          "id": "yc6JB",
+                          "type": "ref",
+                          "ref": "GaEe4",
+                          "name": "Warn Icon",
+                          "width": 20,
+                          "height": 20,
+                          "fill": "$danger"
+                        },
+                        "ty4uf": {
+                          "content": "Duck and Cover"
+                        },
+                        "tPSFp": {
+                          "enabled": false
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "QIkbK",
+          "name": "Footer Wrap",
+          "width": "fill_container",
+          "padding": [
+            12,
+            0,
+            0,
+            0
+          ],
+          "justifyContent": "center",
+          "children": [
+            {
+              "id": "lVwxH",
+              "type": "ref",
+              "ref": "Y1XJVH",
+              "name": "Footer",
+              "width": "fill_container",
+              "descendants": {
+                "p7JMLo": {
+                  "width": 336
+                },
+                "xkAXu": {
+                  "width": 336
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "variables": {

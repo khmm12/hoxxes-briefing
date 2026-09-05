@@ -1,189 +1,310 @@
-import type { DeepDive, DeepDiveAnomaly, DeepDiveMission, DeepDiveWarning } from '~/shared/api'
-import {
-  mutatorSeverity,
-  type ObjectiveContextTag,
-  primaryObjectiveCatalog,
-  secondaryObjectiveCatalog,
-} from './catalog'
+import type { DeepDive, DeepDiveDreadnought, DeepDiveDreadnoughts, DeepDiveMission } from '~/shared/api'
 
 export type DiveKind = 'elite' | 'normal'
-
-export type IntelNote =
-  | 'blood-sugar'
-  | 'cave-leech-cluster'
-  | 'clean-elite'
-  | 'clean-normal'
-  | 'duck-and-cover'
-  | 'duck-and-cover-fixed'
-  | 'ebonite-outbreak'
-  | 'elite-threat'
-  | 'exploder-infestation'
-  | 'favorable-critical-weakness'
-  | 'favorable-mobility'
-  | 'fixed-objective'
-  | 'haunted-cave'
-  | 'lethal-enemies'
-  | 'low-oxygen'
-  | 'low-oxygen-long-route'
-  | 'mactera-plague'
-  | 'parasites'
-  | 'pit-jaw-colony'
-  | 'regenerative-bugs'
-  | 'rival-presence'
-  | 'scrab-nesting-grounds'
-  | 'shield-disruption'
-  | 'swarmageddon'
-  | 'volatile-guts'
-
-type StageObjectiveContext = {
-  contextTags: readonly ObjectiveContextTag[]
-  primaryContextTags: readonly ObjectiveContextTag[]
+export type Difficulty = 'Easy' | 'Manageable' | 'Demanding' | 'Brutal'
+export type CrewProfile = 'small' | 'full'
+export type CrewGrades = Record<CrewProfile, Difficulty>
+export type Intel = {
+  overall: CrewGrades
+  stages: [CrewGrades, CrewGrades, CrewGrades]
 }
 
-type PriorityNote = {
-  note: IntelNote
-  priority: number
-  stageIndex: number
-}
-
-type AnomalyIntel = {
-  stance: 'pressure' | 'favorable'
-  note: IntelNote
-}
-
-const fixedPositionTags = ['escort-anchor', 'fixed-position'] as const
-const longRouteTags = ['long-travel', 'oxygen-risk', 'vertical-search'] as const
-
-const warningIntelNotes = {
-  HauntedCave: 'haunted-cave',
-  LowOxygen: 'low-oxygen',
-  DuckAndCover: 'duck-and-cover',
-  ShieldDisruption: 'shield-disruption',
-  EliteThreat: 'elite-threat',
-  LethalEnemies: 'lethal-enemies',
-  MacteraPlague: 'mactera-plague',
-  RivalPresence: 'rival-presence',
-  CaveLeechCluster: 'cave-leech-cluster',
-  ExploderInfestation: 'exploder-infestation',
-  RegenerativeBugs: 'regenerative-bugs',
-  EboniteOutbreak: 'ebonite-outbreak',
-  PitJawColony: 'pit-jaw-colony',
-  ScrabNestingGrounds: 'scrab-nesting-grounds',
-  Parasites: 'parasites',
-  Swarmageddon: 'swarmageddon',
-} satisfies Record<DeepDiveWarning, IntelNote>
-
-const anomalyIntel = {
-  BloodSugar: { stance: 'pressure', note: 'blood-sugar' },
-  VolatileGuts: { stance: 'pressure', note: 'volatile-guts' },
-  CriticalWeakness: { stance: 'favorable', note: 'favorable-critical-weakness' },
-  LowGravity: { stance: 'favorable', note: 'favorable-mobility' },
-  RichAtmosphere: { stance: 'favorable', note: 'favorable-mobility' },
-} satisfies Record<DeepDiveAnomaly, AnomalyIntel>
-
-export function buildIntel(dive: DeepDive, kind: DiveKind): IntelNote {
-  const priorityNote = collectPriorityNotes(dive).sort(comparePriorityNotes)[0]
-  if (priorityNote != null) return priorityNote.note
-
-  const favorableNote = selectFavorableAnomalyNote(dive)
-  if (favorableNote != null) return favorableNote
-
-  if (hasFixedObjective(dive)) return 'fixed-objective'
-
-  return kind === 'elite' ? 'clean-elite' : 'clean-normal'
-}
-
-function collectPriorityNotes(dive: DeepDive): PriorityNote[] {
-  return dive.missions.flatMap((mission, stageIndex): PriorityNote[] => {
-    const stageContext = buildStageObjectiveContext(mission)
-
-    return [
-      collectWarningPriorityNote(mission.warning, stageContext, stageIndex),
-      collectAnomalyPriorityNote(mission.anomaly, stageIndex),
-    ].filter((note): note is PriorityNote => note != null)
-  })
-}
-
-function collectWarningPriorityNote(
-  warning: DeepDiveWarning | null,
-  stageContext: StageObjectiveContext,
-  stageIndex: number,
-): PriorityNote | null {
-  if (warning == null) {
-    return null
+export function buildIntel(dive: DeepDive, _kind: DiveKind): Intel {
+  // Both kinds currently share relative rule grades; kind never adds a Hazard bonus.
+  let entry: Runway = 'Fresh'
+  const stages = dive.missions.map((mission) => {
+    const grade = strongest([
+      ...objectivePressure(mission, entry),
+      ...secondaryPressure(mission),
+      ...warningPressure(mission, entry),
+    ])
+    entry = exitRunway(mission)
+    return grade
+  }) as Intel['stages']
+  const overall = {
+    small: median(stages.map((grade) => grade.small)),
+    full: median(stages.map((grade) => grade.full)),
   }
+  return { overall, stages }
+}
 
+const profiles: CrewProfile[] = ['small', 'full']
+const rank: Record<Difficulty, number> = { Easy: 0, Manageable: 1, Demanding: 2, Brutal: 3 }
+type Runway = 'Fresh' | 'Banked' | 'Contested'
+
+function median(grades: Difficulty[]): Difficulty {
+  return [...grades].sort((a, b) => rank[a] - rank[b])[1]
+}
+
+function strongest(causes: CrewGrades[]): CrewGrades {
+  const grades: CrewGrades = { small: 'Easy', full: 'Easy' }
+  for (const cause of causes) {
+    for (const profile of profiles) {
+      if (rank[cause[profile]] > rank[grades[profile]]) grades[profile] = cause[profile]
+    }
+  }
+  return grades
+}
+
+function objectivePressure(mission: DeepDiveMission, entry: Runway): CrewGrades[] {
+  const objective = mission.primaryObjective
+  switch (objective.kind) {
+    case 'MiningExpedition':
+    case 'EggHunt':
+    case 'DeepScan':
+    case 'HeavyExtraction':
+    case 'OnSiteRefining':
+      return []
+    case 'PointExtraction':
+      return [extractionPressure(mission, entry)]
+    case 'SalvageOperation':
+      if (mission.anomaly === 'BloodSugar') return []
+      return [
+        {
+          small: 'Manageable',
+          full: 'Manageable',
+        },
+      ]
+    case 'EscortDuty':
+      if (mission.warning === 'DuckAndCover' || mission.warning === 'MacteraPlague') return []
+      return [
+        {
+          small: 'Demanding',
+          full: entry === 'Contested' ? 'Demanding' : 'Manageable',
+        },
+      ]
+    case 'IndustrialSabotage':
+      return [
+        {
+          small: 'Brutal',
+          full: 'Demanding',
+        },
+      ]
+    case 'Elimination':
+      return [bossPressure(hasHiveguard(objective.dreadnoughts))]
+  }
+}
+
+function bossPressure(hiveguard: boolean): CrewGrades {
+  return hiveguard
+    ? {
+        small: 'Demanding',
+        full: 'Manageable',
+      }
+    : {
+        small: 'Manageable',
+        full: 'Manageable',
+      }
+}
+
+function secondaryPressure(mission: DeepDiveMission): CrewGrades[] {
+  const objective = mission.secondaryObjective
+  switch (objective.kind) {
+    case 'MiningExpedition':
+    case 'EggHunt':
+    case 'DeepScan':
+    case 'HeavyExtraction':
+    case 'OnSiteRefining':
+    case 'SalvageOperation':
+      return []
+    case 'Blackbox':
+      if (mission.anomaly === 'BloodSugar' || mission.primaryObjective.kind === 'PointExtraction') return []
+      return [
+        {
+          small: 'Manageable',
+          full: 'Manageable',
+        },
+      ]
+    case 'Elimination':
+      // The extraction compound covers ordinary boss combat, but not Hiveguard phases.
+      if (mission.primaryObjective.kind === 'PointExtraction' && !hasHiveguard(objective.dreadnoughts)) return []
+      return [bossPressure(hasHiveguard(objective.dreadnoughts))]
+  }
+}
+
+function extractionPressure(mission: DeepDiveMission, entry: Runway): CrewGrades {
+  const secondary = mission.secondaryObjective.kind
+  if (secondary === 'Elimination') {
+    return {
+      small: entry === 'Banked' ? 'Demanding' : 'Brutal',
+      full: entry === 'Banked' ? 'Manageable' : entry === 'Contested' ? 'Brutal' : 'Demanding',
+    }
+  }
+  if (secondary === 'Blackbox') {
+    return {
+      small: entry === 'Contested' ? 'Brutal' : 'Demanding',
+      full: entry === 'Contested' ? 'Demanding' : 'Manageable',
+    }
+  }
   return {
-    note: selectWarningIntelNote(warning, stageContext),
-    priority: mutatorSeverity[warning],
-    stageIndex,
+    small:
+      entry === 'Banked' || (mission.anomaly === 'RichAtmosphere' && entry !== 'Contested')
+        ? 'Manageable'
+        : 'Demanding',
+    full: entry === 'Contested' ? 'Manageable' : 'Easy',
   }
 }
 
-function collectAnomalyPriorityNote(anomaly: DeepDiveAnomaly | null, stageIndex: number): PriorityNote | null {
-  if (anomaly == null) {
-    return null
-  }
-
-  const intel = anomalyIntel[anomaly]
-
-  if (intel.stance !== 'pressure') {
-    return null
-  }
-
-  return {
-    note: intel.note,
-    priority: mutatorSeverity[anomaly],
-    stageIndex,
-  }
-}
-
-// The most severe favorable anomaly wins; the severity ladder deliberately
-// decides this precedence too, not a hardcoded chain.
-function selectFavorableAnomalyNote(dive: DeepDive): IntelNote | null {
-  const favorable = dive.missions
-    .map((mission) => mission.anomaly)
-    .filter((anomaly): anomaly is DeepDiveAnomaly => anomaly != null && anomalyIntel[anomaly].stance === 'favorable')
-    .sort((left, right) => mutatorSeverity[left] - mutatorSeverity[right])[0]
-
-  return favorable != null ? anomalyIntel[favorable].note : null
-}
-
-function buildStageObjectiveContext(mission: DeepDiveMission): StageObjectiveContext {
-  const primary = primaryObjectiveCatalog[mission.primaryObjective.kind]
-  const secondary = secondaryObjectiveCatalog[mission.secondaryObjective.kind]
-
-  return {
-    contextTags: uniqueTags([...primary.contextTags, ...secondary.contextTags]),
-    primaryContextTags: primary.contextTags,
+function exitRunway(mission: DeepDiveMission): Runway {
+  if (mission.warning === 'DuckAndCover' || mission.warning === 'HauntedCave') return 'Contested'
+  switch (mission.primaryObjective.kind) {
+    case 'MiningExpedition':
+    case 'EggHunt':
+    case 'DeepScan':
+    case 'HeavyExtraction':
+    case 'OnSiteRefining':
+    case 'IndustrialSabotage':
+      return 'Banked'
+    case 'SalvageOperation':
+      return mission.anomaly === 'BloodSugar' ? 'Banked' : 'Contested'
+    case 'PointExtraction':
+    case 'Elimination':
+    case 'EscortDuty':
+      return 'Contested'
   }
 }
 
-function selectWarningIntelNote(warning: DeepDiveWarning, context: StageObjectiveContext): IntelNote {
+function warningPressure(mission: DeepDiveMission, entry: Runway): CrewGrades[] {
+  const warning = mission.warning
+  if (warning === null) return []
   switch (warning) {
+    case 'EboniteOutbreak':
+    case 'Parasites':
+    case 'RegenerativeBugs':
+      return []
+    case 'HauntedCave':
+      return [
+        {
+          small: 'Brutal',
+          full: 'Demanding',
+        },
+      ]
     case 'DuckAndCover':
-      return hasAnyTag(context.contextTags, fixedPositionTags) ? 'duck-and-cover-fixed' : 'duck-and-cover'
+    case 'MacteraPlague':
+      return rangedPressure(mission, entry, warning === 'DuckAndCover')
     case 'LowOxygen':
-      return hasAnyTag(context.primaryContextTags, longRouteTags) ? 'low-oxygen-long-route' : 'low-oxygen'
-    default:
-      return warningIntelNotes[warning]
+      return [oxygenPressure(mission, entry)]
+    case 'ShieldDisruption':
+      return [
+        {
+          small: 'Demanding',
+          full: 'Demanding',
+        },
+      ]
+    case 'CaveLeechCluster':
+      return [
+        {
+          small: 'Demanding',
+          full: 'Manageable',
+        },
+      ]
+    case 'EliteThreat':
+      return [
+        {
+          small: 'Manageable',
+          full: 'Manageable',
+        },
+      ]
+    case 'LethalEnemies':
+      return [
+        {
+          small: 'Manageable',
+          full: 'Manageable',
+        },
+      ]
+    case 'RivalPresence':
+      return [
+        {
+          small: 'Manageable',
+          full: 'Manageable',
+        },
+      ]
+    case 'ExploderInfestation':
+      return [
+        {
+          small: 'Manageable',
+          full: 'Manageable',
+        },
+      ]
+    case 'Swarmageddon':
+      return [
+        {
+          small: 'Manageable',
+          full: 'Manageable',
+        },
+      ]
+    case 'PitJawColony':
+      return [
+        {
+          small: 'Manageable',
+          full: 'Manageable',
+        },
+      ]
+    case 'ScrabNestingGrounds':
+      return [
+        {
+          small: 'Manageable',
+          full: 'Manageable',
+        },
+      ]
   }
 }
 
-function comparePriorityNotes(left: PriorityNote, right: PriorityNote): number {
-  const priorityDelta = left.priority - right.priority
-
-  return priorityDelta === 0 ? left.stageIndex - right.stageIndex : priorityDelta
+function rangedPressure(mission: DeepDiveMission, entry: Runway, duck: boolean): CrewGrades[] {
+  const primary = mission.primaryObjective.kind
+  const causes: CrewGrades[] = []
+  if (primary === 'DeepScan') {
+    causes.push({
+      small: 'Brutal',
+      full: 'Demanding',
+    })
+  }
+  if (primary === 'EscortDuty') {
+    causes.push({
+      small: duck ? 'Brutal' : 'Demanding',
+      full: duck || entry === 'Contested' ? 'Demanding' : 'Manageable',
+    })
+  }
+  if (primary === 'PointExtraction') {
+    causes.push({
+      small: duck ? 'Brutal' : 'Demanding',
+      full: entry === 'Contested' ? (duck ? 'Brutal' : 'Demanding') : duck ? 'Demanding' : 'Manageable',
+    })
+  }
+  if (primary === 'SalvageOperation' || mission.secondaryObjective.kind === 'Blackbox') {
+    causes.push({
+      small: 'Demanding',
+      full: duck ? 'Demanding' : 'Manageable',
+    })
+  }
+  if (!causes.length)
+    causes.push({
+      small: duck ? 'Demanding' : 'Manageable',
+      full: duck ? 'Demanding' : 'Manageable',
+    })
+  return causes
 }
 
-function hasFixedObjective(dive: DeepDive): boolean {
-  return dive.missions.some((mission) => hasAnyTag(buildStageObjectiveContext(mission).contextTags, fixedPositionTags))
+function oxygenPressure(mission: DeepDiveMission, entry: Runway): CrewGrades {
+  const primary = mission.primaryObjective.kind
+
+  if (primary === 'PointExtraction')
+    return {
+      small: entry === 'Banked' ? 'Demanding' : 'Brutal',
+      full: entry === 'Banked' ? 'Manageable' : entry === 'Contested' ? 'Brutal' : 'Demanding',
+    }
+  if (primary === 'OnSiteRefining')
+    return {
+      small: 'Demanding',
+      full: 'Demanding',
+    }
+  return {
+    small: 'Manageable',
+    full: 'Manageable',
+  }
 }
 
-function hasAnyTag(source: readonly ObjectiveContextTag[], tags: readonly ObjectiveContextTag[]): boolean {
-  return tags.some((tag) => source.includes(tag))
-}
-
-function uniqueTags(tags: readonly ObjectiveContextTag[]): ObjectiveContextTag[] {
-  return [...new Set(tags)]
+function hasHiveguard(dreadnoughts: DeepDiveDreadnoughts): boolean {
+  const phases: Record<DeepDiveDreadnought, boolean> = { Classic: false, Twins: false, Hiveguard: true }
+  return dreadnoughts.some((dreadnought) => phases[dreadnought])
 }

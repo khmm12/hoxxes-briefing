@@ -29,13 +29,25 @@ msgstr "{minutes}m"
 msgid "{seconds}s"
 msgstr "{seconds}s"
 
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:282
+#: src/pages/briefing/ui/dive/difficulty-copy.ts:24
+msgid "{small} for 1–2 miners. {full} for 3–4 miners."
+msgstr "{small} for 1–2 miners. {full} for 3–4 miners."
+
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:284
 msgid "+{overflowCount} more"
 msgstr "+{overflowCount} more"
+
+#: src/pages/briefing/ui/dive/DifficultyIndicator.tsx:22
+msgid "1–2: {small}"
+msgstr "1–2: {small}"
 
 #: src/pages/briefing/ui/board/slogan-copy.ts:42
 msgid "100% destructible environments, 0% job security."
 msgstr "100% destructible environments, 0% job security."
+
+#: src/pages/briefing/ui/dive/DifficultyIndicator.tsx:23
+msgid "3–4: {full}"
+msgstr "3–4: {full}"
 
 #: src/pages/briefing/ui/board/BriefingPageStates.tsx:98
 msgid "A new version is available"
@@ -49,10 +61,6 @@ msgstr "A slow, but invulnerable and deadly creature has been detected in this a
 msgid "A special mix of gasses in the air makes both Dwarves and aliens faster. As a side effect, everyone's voice is funnier than usual."
 msgstr "A special mix of gasses in the air makes both Dwarves and aliens faster. As a side effect, everyone's voice is funnier than usual."
 
-#: src/pages/briefing/ui/dive/intel-copy.ts:18
-msgid "Advance by cover, not courage. Call angles before holds."
-msgstr "Advance by cover, not courage. Call angles before holds."
-
 #: src/pages/briefing/ui/board/slogan-copy.ts:32
 msgid "Afraid of the dark? No need, you got me!"
 msgstr "Afraid of the dark? No need, you got me!"
@@ -65,7 +73,7 @@ msgstr "After a few seconds of not taking damage, the creatures will start recov
 msgid "already ended"
 msgstr "already ended"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:224
+#: src/pages/briefing/ui/dive/StageBlock.tsx:230
 msgid "Anomaly"
 msgstr "Anomaly"
 
@@ -110,13 +118,13 @@ msgstr "Bone-strewn Ossiran depths of sandy ground and wall-hugging rock platfor
 msgid "Briefing unavailable"
 msgstr "Briefing unavailable"
 
-#: src/pages/briefing/ui/dive/intel-copy.ts:48
-msgid "Bring armor-cracking focus. Machines do not care about swagger."
-msgstr "Bring armor-cracking focus. Machines do not care about swagger."
-
 #: src/pages/briefing/ui/board/slogan-copy.ts:37
 msgid "Brotherhood. Danger. Profit."
 msgstr "Brotherhood. Danger. Profit."
+
+#: src/pages/briefing/ui/dive/difficulty-copy.ts:15
+msgid "Brutal"
+msgstr "Brutal"
 
 #: src/pages/briefing/ui/board/BoardFooter.tsx:163
 msgid "Buy me a Blackout Stout"
@@ -125,14 +133,6 @@ msgstr "Buy me a Blackout Stout"
 #: src/pages/briefing/ui/board/slogan-copy.ts:18
 msgid "By the Beard!"
 msgstr "By the Beard!"
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:22
-msgid "Call big targets early. Hero trades make bad stories."
-msgstr "Call big targets early. Hero trades make bad stories."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:26
-msgid "Call weakpoints and burn big targets early."
-msgstr "Call weakpoints and burn big targets early."
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:209
 msgid "Cave Leech Cluster"
@@ -149,18 +149,6 @@ msgstr "Checking the briefing"
 #: src/pages/briefing/ui/dive/dive-copy.ts:394
 msgid "Classic"
 msgstr "Classic"
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:14
-msgid "Clean drop. Round at the Abyss Bar, then keep it tight."
-msgstr "Clean drop. Round at the Abyss Bar, then keep it tight."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:12
-msgid "Clean Elite drop. Buy the round, then bring everyone home."
-msgstr "Clean Elite drop. Buy the round, then bring everyone home."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:42
-msgid "Clear the cleanup. Small leftovers ruin brave revives."
-msgstr "Clear the cleanup. Small leftovers ruin brave revives."
 
 #: src/pages/briefing/ui/board/TimingStrip.tsx:94
 msgid "coming soon"
@@ -217,6 +205,10 @@ msgstr "Deep Dives copied to clipboard."
 msgid "Deep Scan x{0}"
 msgstr "Deep Scan x{0}"
 
+#: src/pages/briefing/ui/dive/difficulty-copy.ts:13
+msgid "Demanding"
+msgstr "Demanding"
+
 #: src/pages/briefing/ui/dive/dive-copy.ts:40
 msgid "Dense Biozone"
 msgstr "Dense Biozone"
@@ -241,12 +233,16 @@ msgstr "Dig the massive Resinite Masses free, attach Lift Rockets, and send them
 msgid "Digging's my middle name!"
 msgstr "Digging's my middle name!"
 
+#: src/pages/briefing/ui/dive/difficulty-copy.ts:35
+msgid "Dive difficulty: {summary}"
+msgstr "Dive difficulty: {summary}"
+
 #: src/pages/briefing/ui/dive/dive-copy.ts:381
 msgid "Dreadnought variant with Sentinel adds and phased vulnerability."
 msgstr "Dreadnought variant with Sentinel adds and phased vulnerability."
 
 #. placeholder {0}: props.dreadnoughts.length
-#: src/pages/briefing/ui/dive/StageBlock.tsx:314
+#: src/pages/briefing/ui/dive/StageBlock.tsx:320
 msgid "Dreadnought x{0}"
 msgstr "Dreadnought x{0}"
 
@@ -268,6 +264,10 @@ msgstr "Duck and Cover"
 #: src/pages/briefing/ui/board/slogan-copy.ts:41
 msgid "Dwarves are assets. Assets are expendable."
 msgstr "Dwarves are assets. Assets are expendable."
+
+#: src/pages/briefing/ui/dive/difficulty-copy.ts:9
+msgid "Easy"
+msgstr "Easy"
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:205
 msgid "Ebonite Outbreak"
@@ -299,10 +299,6 @@ msgstr "Escort Duty"
 msgid "Exploder Infestation"
 msgstr "Exploder Infestation"
 
-#: src/pages/briefing/ui/dive/intel-copy.ts:10
-msgid "Eyes up, miners. Greed before scanning gets expensive."
-msgstr "Eyes up, miners. Greed before scanning gets expensive."
-
 #: src/pages/briefing/ui/dive/dive-copy.ts:363
 msgid "Find the crashed Black Box on your scanner, repair it, and hold its radius until the download finishes."
 msgstr "Find the crashed Black Box on your scanner, repair it, and hold its radius until the download finishes."
@@ -310,10 +306,6 @@ msgstr "Find the crashed Black Box on your scanner, repair it, and hold its radi
 #: src/pages/briefing/ui/dive/dive-copy.ts:336
 msgid "Find the Liquid Morkite wells, run pipelines to the mobile refinery, and keep it patched while it pumps."
 msgstr "Find the Liquid Morkite wells, run pipelines to the mobile refinery, and keep it patched while it pumps."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:46
-msgid "Finish what you start. Half-cleared fights drain the whole dive."
-msgstr "Finish what you start. Half-cleared fights drain the whole dive."
 
 #: src/pages/briefing/ui/board/slogan-copy.ts:19
 msgid "For Karl!"
@@ -415,23 +407,7 @@ msgstr "Just show me where to shoot!"
 msgid "Karl Would Be Proud!"
 msgstr "Karl Would Be Proud!"
 
-#: src/pages/briefing/ui/dive/intel-copy.ts:40
-msgid "Keep eyes on the air. Open ground only helps teams that shoot first."
-msgstr "Keep eyes on the air. Open ground only helps teams that shoot first."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:24
-msgid "Keep holds loose and exits clear. Tight teams make loud mistakes."
-msgstr "Keep holds loose and exits clear. Tight teams make loud mistakes."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:16
-msgid "Keep moving between cover. Open ground has teeth today."
-msgstr "Keep moving between cover. Open ground has teeth today."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:50
-msgid "Keep the floor tidy. Little trouble grows fast under pressure."
-msgstr "Keep the floor tidy. Little trouble grows fast under pressure."
-
-#: src/pages/briefing/ui/dive/DiveSlab.tsx:218
+#: src/pages/briefing/ui/dive/DiveSlab.tsx:219
 msgid "Last known briefing"
 msgstr "Last known briefing"
 
@@ -446,10 +422,6 @@ msgstr "Last known briefing still shown. Refresh failed."
 #: src/pages/briefing/ui/board/RefreshPanel.tsx:146
 msgid "Last known briefing still shown. Refreshing now."
 msgstr "Last known briefing still shown. Refreshing now."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:20
-msgid "Leave brawling room. Cramped teams run out of options fast."
-msgstr "Leave brawling room. Cramped teams run out of options fast."
 
 #: src/pages/briefing/ui/board/slogan-copy.ts:36
 msgid "Leave no dwarf behind."
@@ -503,6 +475,10 @@ msgstr "Magma Core"
 msgid "Magnetic interference is causing all shields to malfunction."
 msgstr "Magnetic interference is causing all shields to malfunction."
 
+#: src/pages/briefing/ui/dive/difficulty-copy.ts:11
+msgid "Manageable"
+msgstr "Manageable"
+
 #: src/pages/briefing/ui/board/slogan-copy.ts:40
 msgid "Management will not be happy."
 msgstr "Management will not be happy."
@@ -510,14 +486,6 @@ msgstr "Management will not be happy."
 #: src/pages/briefing/ui/dive/dive-copy.ts:284
 msgid "Melee damage from all enemies hurts a lot more than usual."
 msgstr "Melee damage from all enemies hurts a lot more than usual."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:8
-msgid "Mind the sugar route. A dry stretch kills momentum."
-msgstr "Mind the sugar route. A dry stretch kills momentum."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:56
-msgid "Mind your spacing. Dead bugs can still ruin the formation."
-msgstr "Mind your spacing. Dead bugs can still ruin the formation."
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:321
 msgid "Mine the Morkite quota from the caves and deposit it into the M.U.L.E."
@@ -555,10 +523,6 @@ msgstr "Morkite x{0}"
 msgid "Most threats in this mission will come from the air, the caves are full of Mactera."
 msgstr "Most threats in this mission will come from the air, the caves are full of Mactera."
 
-#: src/pages/briefing/ui/dive/intel-copy.ts:32
-msgid "Move like rent is due. Mine fast, regroup faster."
-msgstr "Move like rent is due. Mine fast, regroup faster."
-
 #. placeholder {0}: objective.miniMules
 #: src/pages/briefing/ui/dive/dive-copy.ts:122
 #: src/pages/briefing/ui/dive/dive-copy.ts:149
@@ -577,7 +541,7 @@ msgstr "New version ready"
 msgid "No saved briefing"
 msgstr "No saved briefing"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:233
+#: src/pages/briefing/ui/dive/StageBlock.tsx:239
 msgid "No warning or anomaly on this stage."
 msgstr "No warning or anomaly on this stage."
 
@@ -634,23 +598,11 @@ msgstr "Petrified halls of dried grass and towering wood, webbed with red thorns
 msgid "Pit-Jaw Colony"
 msgstr "Pit-Jaw Colony"
 
-#: src/pages/briefing/ui/dive/intel-copy.ts:38
-msgid "Plan resupply hops early. Long caves punish greedy legs."
-msgstr "Plan resupply hops early. Long caves punish greedy legs."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:52
-msgid "Play close and clean. No shields means no lazy mistakes."
-msgstr "Play close and clean. No shields means no lazy mistakes."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:30
-msgid "Prep the hold first. Clear lanes before you lock in."
-msgstr "Prep the hold first. Clear lanes before you lock in."
-
 #: src/pages/briefing/ui/dive/dive-copy.ts:292
 msgid "Prepare yourself for a tsunami of Glyphid Swarmers!"
 msgstr "Prepare yourself for a tsunami of Glyphid Swarmers!"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:246
+#: src/pages/briefing/ui/dive/StageBlock.tsx:252
 msgid "Primary objective"
 msgstr "Primary objective"
 
@@ -711,10 +663,6 @@ msgstr "Repair the required Mini M.U.L.E.s scattered around the stage."
 #: src/pages/briefing/ui/dive/dive-copy.ts:151
 msgid "Resinite Mass x{0}"
 msgstr "Resinite Mass x{0}"
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:34
-msgid "Respect every bite. Clean revives beat brave trades."
-msgstr "Respect every bite. Clean revives beat brave trades."
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:182
 msgid "Rich Atmosphere"
@@ -786,7 +734,7 @@ msgstr "Scanners have detected several clusters of Ossiran Pit Jaws in the area.
 msgid "Scrab Nesting Grounds"
 msgstr "Scrab Nesting Grounds"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:267
+#: src/pages/briefing/ui/dive/StageBlock.tsx:273
 msgid "Secondary objective"
 msgstr "Secondary objective"
 
@@ -826,17 +774,21 @@ msgstr "Source on GitHub"
 msgid "Spacious volcanic caverns of multi-level plateaus and lava. Hot rock burns underfoot, geysers erupt, and quakes slow you to a crawl."
 msgstr "Spacious volcanic caverns of multi-level plateaus and lava. Hot rock burns underfoot, geysers erupt, and quakes slow you to a crawl."
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:199
+#: src/pages/briefing/ui/dive/StageBlock.tsx:203
 msgid "Stage"
 msgstr "Stage"
+
+#: src/pages/briefing/ui/dive/difficulty-copy.ts:41
+msgid "Stage {stage}: {small} for 1–2 miners and 3–4 miners."
+msgstr "Stage {stage}: {small} for 1–2 miners and 3–4 miners."
+
+#: src/pages/briefing/ui/dive/difficulty-copy.ts:42
+msgid "Stage {stage}: {small} for 1–2 miners. {full} for 3–4 miners."
+msgstr "Stage {stage}: {small} for 1–2 miners. {full} for 3–4 miners."
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:379
 msgid "Standard Glyphid Dreadnought with armor-shell timing and direct boss pressure."
 msgstr "Standard Glyphid Dreadnought with armor-shell timing and direct boss pressure."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:36
-msgid "Stay near the cans. Long flanks cost more than time."
-msgstr "Stay near the cans. Long flanks cost more than time."
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:261
 msgid "Stronger, faster, and deadlier enemy variants might appear in the caves. Make every bullet count!"
@@ -857,10 +809,6 @@ msgstr "Swarmageddon"
 #: src/pages/briefing/ui/dive/dive-copy.ts:298
 msgid "Swarms of Ossiran Scrabs have begun nesting throughout the cave."
 msgstr "Swarms of Ossiran Scrabs have begun nesting throughout the cave."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:54
-msgid "Sweep the ankles before the work. Tiny teeth stop big plans."
-msgstr "Sweep the ankles before the work. Tiny teeth stop big plans."
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:275
 msgid "The mission area has particularly low concentrations of breathable air. Dwarves must frequently replenish their O2 by standing near one of the tanks attached to the M.U.L.E. and other devices."
@@ -936,25 +884,17 @@ msgstr "Update app"
 msgid "Update required"
 msgstr "Update required"
 
-#: src/pages/briefing/ui/dive/intel-copy.ts:28
-msgid "Use the speed. Finish spread jobs before swarms stack."
-msgstr "Use the speed. Finish spread jobs before swarms stack."
-
 #: src/pages/briefing/ui/dive/dive-copy.ts:180
 msgid "Volatile Guts"
 msgstr "Volatile Guts"
 
-#: src/pages/briefing/ui/dive/StageBlock.tsx:212
+#: src/pages/briefing/ui/dive/StageBlock.tsx:218
 msgid "Warning"
 msgstr "Warning"
 
 #: src/pages/briefing/ui/dive/dive-copy.ts:272
 msgid "Watch out for the ceiling, there is an unusual density of Cave Leeches."
 msgstr "Watch out for the ceiling, there is an unusual density of Cave Leeches."
-
-#: src/pages/briefing/ui/dive/intel-copy.ts:44
-msgid "Watch the floor before you plant. Bad footing breaks good holds."
-msgstr "Watch the floor before you plant. Bad footing breaks good holds."
 
 #: src/pages/briefing/ui/board/slogan-copy.ts:16
 msgid "We are unbreakable!"

@@ -10,6 +10,8 @@ import type {
 } from '~/shared/api'
 import { useI18n } from '~/shared/i18n'
 import { Tooltip } from '~/shared/ui/tooltip'
+import type { CrewGrades } from '../../model/intel'
+import { DifficultyIndicator } from './DifficultyIndicator'
 import {
   formatAnomaly,
   formatAnomalyDescription,
@@ -28,6 +30,7 @@ type StageBlockProps = {
   index: number
   kind: 'elite' | 'normal'
   mission: DeepDiveMission
+  intel: CrewGrades
 }
 
 const stageBlockRecipe = cva({
@@ -195,9 +198,12 @@ export function StageBlock(props: StageBlockProps): JSX.Element {
 
   return (
     <li class={css(stageBlockRecipe.raw({ kind: props.kind }))}>
-      <span class={css(stageIndexStyles)}>
-        {i18n._(msg`Stage`)} {props.index + 1}
-      </span>
+      <div class={css({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2' })}>
+        <span aria-hidden="true" class={css(stageIndexStyles, { flexShrink: '0' })}>
+          {i18n._(msg`Stage`)} {props.index + 1}
+        </span>
+        <DifficultyIndicator small={props.intel.small} full={props.intel.full} stage={props.index + 1} />
+      </div>
 
       <div class={css(objectiveStackStyles)}>
         <PrimaryObjectiveRow objective={props.mission.primaryObjective} />

@@ -45,7 +45,19 @@ describe('DiveSlab', () => {
 
     expect(getByText('Awful Catacomb')).toBeInTheDocument()
     expect(getByText('Fungus Bogs')).toBeInTheDocument()
-    expect(getAllByText(/Stage \d/)).toHaveLength(3)
+    expect(getAllByText(/^Stage \d$/)).toHaveLength(3)
+  })
+
+  it('keeps difficulty above the dive name without generated commentary', () => {
+    const { getByRole, queryByRole, queryByText } = renderWithProviders(() => (
+      <DiveSlab dive={DIVE} expired={false} kind="normal" />
+    ))
+    const title = getByRole('heading', { name: DIVE.name })
+    const $heading = title.parentElement
+    if (!$heading) throw new Error('Missing dive heading')
+    expect(within($heading).getByText('Manageable')).toBeInTheDocument()
+    expect(queryByRole('region', { name: 'Intel' })).not.toBeInTheDocument()
+    expect(queryByText(/Stage \d is harder/)).not.toBeInTheDocument()
   })
 
   it('describes the biome on focus', () => {

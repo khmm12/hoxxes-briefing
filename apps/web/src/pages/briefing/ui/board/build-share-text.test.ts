@@ -12,7 +12,7 @@ import { canonicalUrl } from '~/shared/config'
 import { getDateTimeFormat } from '~/shared/i18n'
 import { createTestI18n } from '~test/render'
 import { buildIntel } from '../../model/intel'
-import { formatIntelNote } from '../dive/intel-copy'
+import { formatDifficulty } from '../dive/difficulty-copy'
 import { buildShareText } from './build-share-text'
 
 const i18n: I18n = createTestI18n()
@@ -105,7 +105,7 @@ describe('buildShareText', () => {
   })
 
   describe('intel', () => {
-    it('lands each dive Intel note behind the 💡 marker inside its own block', () => {
+    it('lands each dive Intel verdict behind the 💡 marker inside its own block', () => {
       // Distinct names let us pin the note to its block; identical clean dives
       // still resolve to different notes (clean-normal vs clean-elite), so a
       // normal/elite kind swap in the block builder would fail this.
@@ -119,11 +119,13 @@ describe('buildShareText', () => {
       const normalBlock = blocks.find((block) => block.includes('Standard Run'))
       const eliteBlock = blocks.find((block) => block.includes('Elite Run'))
 
-      expect(normalBlock).toContain(`💡 ${formatIntelNote(i18n, buildIntel(briefing.dives.normal, 'normal'))}`)
-      expect(eliteBlock).toContain(`💡 ${formatIntelNote(i18n, buildIntel(briefing.dives.elite, 'elite'))}`)
+      const normal = buildIntel(briefing.dives.normal, 'normal').overall
+      const elite = buildIntel(briefing.dives.elite, 'elite').overall
+      expect(normalBlock).toContain(`💡 ${formatDifficulty(i18n, normal.small, normal.full)}`)
+      expect(eliteBlock).toContain(`💡 ${formatDifficulty(i18n, elite.small, elite.full)}`)
     })
 
-    it('places the Intel note above the stage lines', () => {
+    it('places Intel above the stage lines', () => {
       const lines = buildShareText(i18n, createBriefing()).split('\n')
       const intelIndex = lines.findIndex((line) => line.startsWith('💡'))
       const firstStageIndex = lines.findIndex((line) => line.startsWith('1. '))
