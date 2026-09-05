@@ -14,13 +14,13 @@ describe('buildIntel', () => {
   it('keeps overall medians independent of stage traversal', () => {
     const shield = mission({ warning: 'ShieldDisruption' })
     const ranged = mission({ warning: 'DuckAndCover' })
-    const first = buildIntel(dive([shield, ranged, mission()]), 'normal')
-    const reordered = buildIntel(dive([ranged, shield, mission()]), 'normal')
+    const first = buildIntel(dive([shield, ranged, mission()]))
+    const reordered = buildIntel(dive([ranged, shield, mission()]))
     expect(first.overall).toEqual({ small: 'Demanding', full: 'Demanding' })
     expect(reordered.overall).toEqual(first.overall)
   })
   it('returns only grades for the Dive and its three Stages', () => {
-    const result = buildIntel(dive(), 'normal')
+    const result = buildIntel(dive())
     expect(result.overall).toEqual({ small: 'Easy', full: 'Easy' })
     expect(result).not.toHaveProperty('explanation')
     expect(result.stages[0]).not.toHaveProperty('explanation')
@@ -45,7 +45,7 @@ describe('buildIntel', () => {
     [{ kind: 'Elimination', dreadnoughts: ['Classic', 'Twins'] }, 'Manageable', 'Manageable'],
     [{ kind: 'Elimination', dreadnoughts: ['Hiveguard', 'Classic'] }, 'Demanding', 'Manageable'],
   ])('calibrates clean %j', (primaryObjective, small, full) => {
-    const result = buildIntel(dive([mission({ primaryObjective }), mission(), mission()]), 'normal')
+    const result = buildIntel(dive([mission({ primaryObjective }), mission(), mission()]))
     expect(result.stages[0]).toMatchObject({ small, full })
     expect(result.overall).toEqual({ small: 'Easy', full: 'Easy' })
   })
@@ -139,10 +139,7 @@ describe('buildIntel', () => {
     ['Contested', mission({ primaryObjective: { kind: 'SalvageOperation', miniMules: 2 } }), 'Demanding', 'Manageable'],
   ] as const)('carries %s resources into Point Extraction', (_, previous, small, full) => {
     const extraction = mission({ primaryObjective: { kind: 'PointExtraction', aquarqs: 7 } })
-    const result = buildIntel(
-      dive(previous ? [previous, extraction, mission()] : [extraction, mission(), mission()]),
-      'normal',
-    )
+    const result = buildIntel(dive(previous ? [previous, extraction, mission()] : [extraction, mission(), mission()]))
     expect(result.stages[previous ? 1 : 0]).toMatchObject({ small, full })
   })
 
@@ -153,7 +150,6 @@ describe('buildIntel', () => {
         mission({ secondaryObjective: { kind: 'DeepScan', resonanceCrystals: 2 } }),
         mission({ secondaryObjective: { kind: 'Blackbox', blackBoxes: 1 } }),
       ]),
-      'normal',
     )
     expect(result.stages.map(({ small, full }) => [small, full])).toEqual([
       ['Easy', 'Easy'],
@@ -173,7 +169,6 @@ describe('buildIntel', () => {
         mission(),
         mission(),
       ]),
-      'normal',
     )
     expect(result.stages[0]).toMatchObject({ small: 'Demanding', full: 'Manageable' })
   })
@@ -196,7 +191,7 @@ describe('buildIntel', () => {
     ['Parasites', 'Easy', 'Easy'],
     ['RegenerativeBugs', 'Easy', 'Easy'],
   ])('calibrates neutral %s', (warning, small, full) => {
-    expect(buildIntel(dive([mission({ warning }), mission(), mission()]), 'normal').stages[0]).toMatchObject({
+    expect(buildIntel(dive([mission({ warning }), mission(), mission()])).stages[0]).toMatchObject({
       small,
       full,
     })
@@ -210,9 +205,10 @@ describe('buildIntel', () => {
     [{ kind: 'PointExtraction', aquarqs: 10 }, 'LowOxygen', 'Brutal', 'Demanding'],
     [{ kind: 'OnSiteRefining', morkiteWells: 3 }, 'LowOxygen', 'Demanding', 'Demanding'],
   ])('applies named %j with %s interaction', (primaryObjective, warning, small, full) => {
-    expect(
-      buildIntel(dive([mission({ primaryObjective, warning }), mission(), mission()]), 'normal').stages[0],
-    ).toMatchObject({ small, full })
+    expect(buildIntel(dive([mission({ primaryObjective, warning }), mission(), mission()])).stages[0]).toMatchObject({
+      small,
+      full,
+    })
   })
 
   // Complete synthetic Dives below are wire-valid-only fixtures. Individual
@@ -326,7 +322,6 @@ describe('buildIntel', () => {
         mission({ primaryObjective: { kind: 'Elimination', dreadnoughts: ['Hiveguard'] } }),
         mission({ warning: 'ShieldDisruption' }),
       ]),
-      'normal',
     )
     expect(result.overall).toEqual({ small: 'Demanding', full: 'Manageable' })
   })
@@ -335,7 +330,6 @@ describe('buildIntel', () => {
     const extraction = mission({ primaryObjective: { kind: 'PointExtraction', aquarqs: 7 } })
     const result = buildIntel(
       dive([extraction, mission({ secondaryObjective: { kind: 'Blackbox', blackBoxes: 1 } }), extraction]),
-      'normal',
     )
     expect(result.overall).toEqual({ small: 'Manageable', full: 'Easy' })
     expect(result.stages.map(({ small, full }) => [small, full])).toEqual([
@@ -347,7 +341,7 @@ describe('buildIntel', () => {
 
   it('keeps a consistently demanding Dive at the same overall grade', () => {
     const target = mission({ warning: 'ShieldDisruption' })
-    const result = buildIntel(dive([target, target, target]), 'normal')
+    const result = buildIntel(dive([target, target, target]))
     expect(result.overall).toEqual({ small: 'Demanding', full: 'Demanding' })
   })
 
@@ -364,22 +358,20 @@ describe('buildIntel', () => {
   it('canonicalizes duplicate and permuted Dreadnoughts', () => {
     const target = (dreadnoughts: Extract<DeepDivePrimaryObjective, { kind: 'Elimination' }>['dreadnoughts']) =>
       dive([mission({ primaryObjective: { kind: 'Elimination', dreadnoughts } }), mission(), mission()])
-    expect(buildIntel(target(['Classic', 'Hiveguard']), 'normal')).toEqual(
-      buildIntel(target(['Hiveguard', 'Classic', 'Hiveguard']), 'normal'),
+    expect(buildIntel(target(['Classic', 'Hiveguard']))).toEqual(
+      buildIntel(target(['Hiveguard', 'Classic', 'Hiveguard'])),
     )
-    expect(buildIntel(target(['Classic']), 'normal')).toEqual(
-      buildIntel(target(['Twins', 'Classic', 'Twins']), 'normal'),
-    )
+    expect(buildIntel(target(['Classic']))).toEqual(buildIntel(target(['Twins', 'Classic', 'Twins'])))
   })
 
-  it('keeps grades independent of biome and blanket Elite promotion', () => {
+  it('keeps grades independent of biome', () => {
     const source = dive([mission({ warning: 'MacteraPlague' }), mission(), mission()])
-    expect(buildIntel(source, 'normal')).toEqual(buildIntel({ ...source, biome: 'MagmaCore' }, 'elite'))
+    expect(buildIntel(source)).toEqual(buildIntel({ ...source, biome: 'MagmaCore' }))
   })
 
   it('assesses the pinned facade oracle without reclassifying its inputs', () => {
-    const normal = buildIntel(generatedSeedZero.dives.normal, 'normal')
-    const elite = buildIntel(generatedSeedZero.dives.elite, 'elite')
+    const normal = buildIntel(generatedSeedZero.dives.normal)
+    const elite = buildIntel(generatedSeedZero.dives.elite)
     expect(normal.stages.map(({ small, full }) => [small, full])).toEqual([
       ['Manageable', 'Manageable'],
       ['Easy', 'Easy'],
@@ -449,7 +441,7 @@ describe('buildIntel', () => {
       ...Object.keys(anomalies).map((anomaly) => mission({ anomaly: anomaly as DeepDiveAnomaly })),
     ]
     for (const shape of shapes) {
-      const result = buildIntel(dive([shape, mission(), mission()]), 'normal')
+      const result = buildIntel(dive([shape, mission(), mission()]))
       expect(result.stages).toHaveLength(3)
       for (const stage of result.stages) {
         expect(['Easy', 'Manageable', 'Demanding', 'Brutal']).toContain(stage.small)
@@ -521,7 +513,6 @@ describe('buildIntel', () => {
         mission({ primaryObjective: { kind: 'PointExtraction', aquarqs: 7 }, warning: 'LowOxygen' }),
         mission(),
       ]),
-      'normal',
     )
     expect(result.stages[1]).toMatchObject({ small: 'Brutal', full: 'Brutal' })
     expect(result.stages[2]).toMatchObject({ small: 'Easy', full: 'Easy' })
@@ -569,7 +560,7 @@ function dive(missions: DeepDive['missions'] = [mission(), mission(), mission()]
 }
 
 function assess(target: DeepDiveMission, previous?: DeepDiveMission) {
-  return buildIntel(dive(previous ? [previous, target, mission()] : [target, mission(), mission()]), 'normal').stages[
+  return buildIntel(dive(previous ? [previous, target, mission()] : [target, mission(), mission()])).stages[
     previous ? 1 : 0
   ]
 }

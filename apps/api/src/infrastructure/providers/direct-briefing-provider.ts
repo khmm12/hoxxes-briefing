@@ -19,7 +19,6 @@ export function createDirectBriefingProvider(dependencies: DirectBriefingProvide
       try {
         event = await loadEvent()
       } catch (cause) {
-        console.error(cause)
         throw new BriefingProviderError(
           'UPSTREAM_UNAVAILABLE',
           'Failed to fetch current deep dive event',

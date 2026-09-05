@@ -9,6 +9,42 @@ afterEach(() => {
 })
 
 describe('streamCachedQuery', () => {
+  it('serves the network value before a slow cache write completes', async () => {
+    const write = createDeferred<void>()
+    const cache = { get: () => undefined, set: vi.fn(() => write.promise) }
+    const iterator = streamCachedQuery({
+      cache,
+      fetcher: async () => 'fresh',
+      key: [],
+      signal: new AbortController().signal,
+      timeoutMs: 0,
+    })
+
+    await expect(iterator.next()).resolves.toMatchObject({ value: { value: 'fresh', source: 'network' } })
+    await expect(iterator.next()).resolves.toMatchObject({ done: true })
+    expect(cache.set).toHaveBeenCalledOnce()
+    write.resolve()
+  })
+
+  it('does not persist a late response after the request was aborted', async () => {
+    const network = createDeferred<string>()
+    const abort = new AbortController()
+    const cache = { get: () => undefined, set: vi.fn() }
+    const iterator = streamCachedQuery({
+      cache,
+      fetcher: () => network.promise,
+      key: [],
+      signal: abort.signal,
+      timeoutMs: 0,
+    })
+
+    const first = iterator.next()
+    abort.abort()
+    network.resolve('superseded')
+    await first
+    expect(cache.set).not.toHaveBeenCalled()
+  })
+
   it('yields the network value directly when the request wins the grace period', async () => {
     const key = ['weekly'] as const
     const networkValue = {
@@ -502,6 +538,64 @@ describe('streamCachedQuery', () => {
 })
 
 describe('createCachedQuery', () => {
+  it('shows a newer refresh while serializing slow writes in the background', async () => {
+    const firstWrite = createDeferred<void>()
+    const cache = {
+      get: () => undefined,
+      set: vi
+        .fn()
+        .mockImplementationOnce(() => firstWrite.promise)
+        .mockResolvedValue(undefined),
+    }
+    const { result } = renderHook(() =>
+      createCachedQuery({
+        source: () => [] as const,
+        fetcher: vi.fn().mockResolvedValueOnce('first').mockResolvedValueOnce('second'),
+        cache,
+        timeoutMs: 0,
+      }),
+    )
+
+    await resolve(() => result.data)
+    flush()
+    expect(result.data).toBe('first')
+    result.refresh()
+    flush()
+    await resolve(() => result.data)
+    flush()
+    expect(result.data).toBe('second')
+    expect(result.pending).toBe(false)
+    expect(cache.set).toHaveBeenCalledExactlyOnceWith([], 'first')
+
+    firstWrite.resolve()
+    await vi.waitFor(() => expect(cache.set).toHaveBeenLastCalledWith([], 'second'))
+  })
+
+  it('continues persisting later refreshes after a write fails', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const cache = {
+      get: () => undefined,
+      set: vi.fn().mockRejectedValueOnce(new Error('quota')).mockResolvedValue(undefined),
+    }
+    const { result } = renderHook(() =>
+      createCachedQuery({
+        source: () => [] as const,
+        fetcher: vi.fn().mockResolvedValueOnce('first').mockResolvedValueOnce('second'),
+        cache,
+        timeoutMs: 0,
+      }),
+    )
+
+    await resolve(() => result.data)
+    flush()
+    result.refresh()
+    flush()
+    await resolve(() => result.data)
+    flush()
+    expect(result.data).toBe('second')
+    await vi.waitFor(() => expect(cache.set).toHaveBeenLastCalledWith([], 'second'))
+  })
+
   it('exposes the resolved value, its source, and a settled pending state', async () => {
     const key = ['weekly'] as const
     const networkValue = { weekId: '2026-W17' }

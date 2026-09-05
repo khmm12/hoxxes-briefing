@@ -92,6 +92,16 @@ Component tests use `renderWithProviders` from `~test/render`; there is no globa
 `screen`. `happy-dom` does not provide layout, so extract and test pure geometry
 instead of mocking browser layout.
 
+Browser regressions run with `pnpm --filter @hoxxes-briefing/web test:browser`
+after installing Chromium once with
+`pnpm --filter @hoxxes-briefing/web exec playwright install chromium`. CI runs
+them after `pnpm check`. The suite builds two production shells and serves them
+on a local test origin with a fixture API. It verifies update-wall recovery
+through a deliberately slow service-worker installation, offline reopening,
+and the mobile switch's real geometry across scroll restoration and reflow.
+Service-worker and layout APIs remain real; lifecycle-only unit tests may
+control frame scheduling and font events without inventing geometry.
+
 Use `/__playground/:scenario` under `pnpm dev:web` to inspect briefing UI states.
 
 When a change touches layout, state screens, offline behavior, or PWA update UI,

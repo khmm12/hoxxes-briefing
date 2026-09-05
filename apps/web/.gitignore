@@ -3,6 +3,8 @@
 .solid-start
 .vinxi
 coverage
+test-results
+playwright-report
 node_modules
 styled-system
 src/shared/i18n/locales/*/messages.mjs

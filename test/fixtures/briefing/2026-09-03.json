@@ -1,0 +1,89 @@
+{
+	"seed": 3322316356,
+	"dives": {
+		"normal": {
+			"name": "Bright Ravine",
+			"biome": "RadioactiveExclusionZone",
+			"missions": [
+				{
+					"primaryObjective": {
+						"kind": "EggHunt",
+						"eggs": 4
+					},
+					"secondaryObjective": {
+						"kind": "Elimination",
+						"dreadnoughts": ["Hiveguard"]
+					},
+					"anomaly": null,
+					"warning": null
+				},
+				{
+					"primaryObjective": {
+						"kind": "MiningExpedition",
+						"morkite": 225
+					},
+					"secondaryObjective": {
+						"kind": "DeepScan",
+						"resonanceCrystals": 2
+					},
+					"anomaly": null,
+					"warning": "EliteThreat"
+				},
+				{
+					"primaryObjective": {
+						"kind": "IndustrialSabotage",
+						"powerStations": 2
+					},
+					"secondaryObjective": {
+						"kind": "MiningExpedition",
+						"morkite": 150
+					},
+					"anomaly": "LowGravity",
+					"warning": "ShieldDisruption"
+				}
+			]
+		},
+		"elite": {
+			"name": "Pale Bottom",
+			"biome": "MagmaCore",
+			"missions": [
+				{
+					"primaryObjective": {
+						"kind": "Elimination",
+						"dreadnoughts": ["Twins", "Classic"]
+					},
+					"secondaryObjective": {
+						"kind": "OnSiteRefining",
+						"morkiteWells": 1
+					},
+					"anomaly": null,
+					"warning": "DuckAndCover"
+				},
+				{
+					"primaryObjective": {
+						"kind": "SalvageOperation",
+						"miniMules": 3
+					},
+					"secondaryObjective": {
+						"kind": "EggHunt",
+						"eggs": 2
+					},
+					"anomaly": "LowGravity",
+					"warning": "MacteraPlague"
+				},
+				{
+					"primaryObjective": {
+						"kind": "EggHunt",
+						"eggs": 6
+					},
+					"secondaryObjective": {
+						"kind": "Elimination",
+						"dreadnoughts": ["Twins"]
+					},
+					"anomaly": null,
+					"warning": null
+				}
+			]
+		}
+	}
+}

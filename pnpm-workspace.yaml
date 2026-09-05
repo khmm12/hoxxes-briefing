@@ -6,6 +6,10 @@ packages:
 allowBuilds:
   sharp: true
   esbuild: false
+minimumReleaseAgeExclude:
+  - '@playwright/test@1.63.0'
+  - playwright-core@1.63.0
+  - playwright@1.63.0
 overrides:
   '@feature-sliced/filesystem>typescript': 'npm:typescript@v6'
   '@pandacss/config>typescript': 'npm:typescript@v6'
